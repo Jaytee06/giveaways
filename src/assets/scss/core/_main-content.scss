@@ -1,0 +1,78 @@
+/*=========== Chk main content wrapper =============*/
+
+
+/*--- Chk block setting ---*/
+
+.chk-block {
+    background-color: $block-bg;
+    border: $border-width solid $block-border-color;
+    border-radius: $block-border-radius;
+    margin-bottom: $block-margin;
+    @extend .shadow-box;
+    position: relative;
+    .chk-block-content {
+        padding: $block-space-x $block-space-y;
+    }
+}
+
+.chk-full-block {
+    background-color: $block-full-bg;
+    border: $border-width solid $block-full-border-color;
+    border-radius: $block-full-border-radius;
+    margin-bottom: $block-full-margin;
+    position: relative;
+    .chk-block-content {
+        padding: $block-full-padding;
+    }
+}
+
+.chk-contextual-link {
+    ul {
+        margin-bottom: 0;
+        padding: 0;
+    }
+    a {
+        font-size: $block-contextual-link-size;
+        display: inline-block;
+        margin: 0 0.4rem;
+        color: $block-contextual-link-color;
+        &:hover{
+            color: $blue;
+        }
+    }
+    a:last-child {
+        margin-right: 0;
+    }
+}
+
+.chk-block-title {
+    border-bottom: $border-width solid $block-border-color;
+    padding: $block-title-space-x $block-title-space-y;
+    position: relative;
+    h3 {
+        margin-bottom: 0;
+        color: $block-title-font-color;
+        font-size: $block-title-font-size;
+        color: $block-title-font-color;
+        font-weight: 500;
+    }
+}
+
+.chk-ui-heading {
+    h3 {
+        color: $block-title-font-color;
+        font-size: $block-title-font-size;
+        margin-bottom: 30px;
+        color: $block-title-font-color;
+    }
+}
+@media(max-width:560px){
+    .chk-contextual-link {
+ 
+    a {
+        font-size: 0.8rem;
+        margin: 0 0.3rem;
+    }
+   
+}
+}

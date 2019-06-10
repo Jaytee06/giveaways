@@ -1,0 +1,186 @@
+/*=========== Tabs Css Style ============*/
+.tab-content-bordered {
+	.nav.nav-tabs {
+		margin: 0;
+	}
+	.tab-content {
+	    height: 100%; 
+        @include border(1px solid, $input-border-color, left right bottom);
+	    .tab-pane {
+	    	padding: 20px 10px;
+	    }
+	}
+}
+.tabs-below, .tabs-right, .tabs-left {
+	> .nav-tabs {
+		border-bottom: 0;
+	}
+}
+.tabs-below {
+	> .nav-tabs {
+		border-top: 1px solid $input-border-color;
+		> li {
+			margin-top: -1px;
+			margin-bottom: 0;
+			> a {
+				-webkit-border-radius: 0 0 $border-radius-base $border-radius-base;
+     			-moz-border-radius: 0 0 $border-radius-base $border-radius-base;
+          		border-radius: 0 0 $border-radius-base $border-radius-base;
+          		&:hover, &:focus {
+          			border-bottom-color: $input-border-color;
+          			border-top-color: $white;
+          		}
+			}
+		}
+		>li a.active {
+			border-color: transparent $input-border-color $input-border-color $input-border-color;
+		}
+	}
+	.tab-content {
+		.tab-pane {
+			padding: 20px 10px;
+		}
+	}
+}
+.tabs-right, .tabs-left {
+	.nav-tabs {
+		border-bottom: none;
+		> li {
+			float: none;
+			> a {
+				min-width: 80px;
+  				margin-right: 0;
+  				margin-bottom: 3px;
+			}
+		}
+	}
+}
+.tabs-left {
+	.nav-tabs {
+		border-right: 1px solid $input-border-color;
+		> li {
+			> a {
+				margin-right: -1px;
+				-webkit-border-radius: $border-radius-base 0 0 $border-radius-base;
+     			-moz-border-radius: $border-radius-base 0 0 $border-radius-base;
+          		border-radius: $border-radius-base 0 0 $border-radius-base;
+          		&:hover, &:focus {
+          			border-color: $input-border-color $input-border-color $input-border-color $input-border-color;
+          		}
+			}
+		}
+	}
+    .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+        border-color: $input-border-color transparent $input-border-color $input-border-color;
+        *border-right-color: $white;  
+    }
+}
+.tabs-right {
+	.nav-tabs {
+		text-align: right;
+		border-left: 1px solid $input-border-color;
+		> li {
+			> a {
+				margin-left: -1px;
+			  	-webkit-border-radius: 0 $border-radius-base $border-radius-base 0;
+			    -moz-border-radius: 0 $border-radius-base $border-radius-base 0;
+			    border-radius: 0 $border-radius-base $border-radius-base 0;
+			    &:hover, &:focus {
+			    	border-color: $input-border-color $input-border-color $input-border-color $input-border-color;
+			    }
+			}
+		} 
+	}
+    .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+        border-color: $input-border-color $input-border-color $input-border-color transparent;
+		*border-left-color: $white;
+    }
+}
+.nav-tabs, .nav-pills {
+    .nav-link {
+        border-radius: 0;
+    }
+}
+.nav.nav-lg > li > a {
+  padding: 11px 20px;
+}
+.nav.nav-sm > li > a {
+  padding: 7px 15px;
+}
+.nav.nav-xs > li > a {
+  padding: 5px 10px;
+}
+.nav-tabs.nav-tabs-highlight {
+	> li > a.active, > li > a:focus, li > a:hover {
+		border-top: 2px solid $blue;
+	}
+}
+.nav-tabs.nav-tabs-bottom-highlight {
+	> li > a.active, > li > a:focus, li > a:hover {
+		border-bottom: 2px solid $blue;
+	}
+}
+.nav-tabs.nav-tabs-bottom {
+	> li {
+		margin-bottom: 0;
+	}
+	> li > a.active, > li > a:hover, > li > a:focus {
+		border-color: transparent transparent $blue;
+	}
+}
+.nav-tabs.nav-tabs-top {
+	> li {
+		margin-bottom: 0;
+	}
+	> li > a.active, > li > a:hover, > li > a:focus {
+		border-color: $blue transparent transparent;
+	}
+}
+.nav-tabs-box, .nav-pills-box {
+	.nav-tabs, .nav-pills {
+		margin: 0;
+	}
+	.tab-content {
+		padding: 20px 10px;
+	}
+}
+.nav-tabs-box {
+	.tab-content {
+		@include border(1px solid, $input-border-color, bottom left right);
+	}
+}
+.nav-pills-box {
+	.tab-content {
+		@include border(1px solid, $input-border-color, top bottom left right);
+	}
+}
+.colored-nav-tabs {
+	.nav-pills {
+		border-radius: 5px;
+		li {
+			a {
+				color: $white;
+			}
+		}
+		> li > a.active, > li > a:hover, > li > a:focus {
+			background-color: rgba(0, 0, 0, 0.2);
+		}
+	}
+	.dropdown {
+		.dropdown-menu a {
+			color: $gray-600 !important;
+		}
+	}
+}
+/*===== Tabs Responsive Style =====*/
+@media (max-width: 550px) { 
+	.nav-tabs, .nav-pills {
+		display: block;
+		text-align: center;	
+		.nav-link {
+			&.active {
+				border: none;
+			}
+		}	
+	}
+}

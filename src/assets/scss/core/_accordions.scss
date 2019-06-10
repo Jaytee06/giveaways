@@ -1,0 +1,98 @@
+/*============ Accordions Css Style ============*/
+.accordion-wrapper {
+    .card {
+        margin-bottom: 10px;
+        border-radius: 0;
+        .card-header {
+            padding: 0;
+            position: relative;
+            &[class*="bg-"] {
+                color: $white;
+            }
+            &:first-child {
+                border-radius: 0;
+            }
+            a {
+                padding: 20px 15px;
+                display: block;
+                font-size: 16px;
+                color: inherit;
+            }
+        }
+    }
+    p {
+        font-size: 16px;
+    }
+}
+.accordion-toggle::after {
+    font-family: 'simple-line-icons';
+    font-size: 20px;
+    position: absolute;
+}
+.basic-icon-accordion {
+    .card-header {
+        .accordion-toggle.collapsed::after {
+            content: "\e095";
+            border-radius: 0;
+        }
+        .accordion-toggle {
+            &::after {
+                content: "\e615";
+                right: 20px;
+                top: 20px;
+            }
+        }
+    }
+}
+.accordion-with-arrow {
+    .card-header {
+        .accordion-toggle.collapsed::after {
+            content: "\e606";
+            border-radius: 0;
+        }
+        .accordion-toggle {
+            &::after {
+                content: "\e604";
+                right: 20px;
+                top: 20px;
+            }
+        }
+    }
+}
+
+
+
+/*============ Accordions Mega menu ============*/
+.right-icon-accordion {
+    .card {
+        border: none;
+        border-bottom: 1px solid $input-border-color;
+    }
+    .card-body{
+        padding: 0 0 1rem 2rem;
+    }
+    .card-header {
+        background: transparent;
+        border:none;
+
+        a.accordion-toggle {
+            padding: 3px 15px 16px 33px;
+            color: $blue;
+            font-weight: normal;
+        }
+        .accordion-toggle.collapsed::after {
+            content: "+";
+            border-radius: 0;
+            font-family: roboto;
+        }
+        .accordion-toggle {
+            &::after {
+                content: "-";
+                left: 0px;
+                top: -3%;
+                font-family: roboto;
+            }
+        }
+    }
+}
+

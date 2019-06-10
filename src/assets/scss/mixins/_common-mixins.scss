@@ -1,0 +1,76 @@
+//--- For used square box ---//
+@each $size in $square-box {
+    .square-#{$size} {
+        $size: $size * 1px;
+        $font-size: floor( $size * $square-font-size);
+        display: inline-block;
+        font-size: $font-size;
+        height: $size;
+        line-height: $size;
+        text-align: center;
+        width: $size;
+        @extend .p-0;
+        vertical-align: middle;
+    }
+}
+//--- background image varient ---//
+
+@mixin background($imgpath,$position:0 0,$repeat: no-repeat, $size:0 0) {
+    background: {
+        image: url($imgpath);
+        position: $position;
+        repeat: $repeat;
+        size: $size;
+    }
+}
+//--- Position mixin ---//
+@mixin position-all($top, $bottom, $left, $right) {
+    top: $top;
+    bottom: $bottom;
+    left: $left;
+    right: $right;
+}
+
+@mixin position-top($top) {
+    top: $top;
+}
+
+@mixin position-bottom($bottom) {
+    bottom: $bottom;
+}
+
+@mixin position-left($left) {
+    left: $left;
+}
+
+@mixin position-right($right) {
+    right: $right;
+}
+//--- For color opacity ---//
+@mixin background-opacity($color, $opacity) {
+    background: $color;
+    background: rgba($color, $opacity);
+}
+
+//--- Border mixins ---//
+
+@mixin border($style, $color, $sides) {
+    @if ($style != "") {
+
+        @if ($sides == "") {
+            border: $style $color;
+
+        } @else {
+            @each $side in $sides {
+               @if ($side == 'top' or
+                    $side == 'right' or
+                    $side == 'bottom' or
+                    $side == 'left') {
+
+                    border-#{$side}: $style $color;
+                }
+            }
+        }  
+
+    }
+}

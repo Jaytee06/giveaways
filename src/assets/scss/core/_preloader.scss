@@ -1,0 +1,124 @@
+/*=========== Preloader =============*/
+.block {
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+.loading {
+  bottom: 0;
+  display: inline-block;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  span {
+      display: inline-block;
+      padding: 15px;
+      border-radius: 50%;
+  }
+}
+.ball1 {
+  background: $preloader-bg-one;
+  -webkit-animation: move-left 800ms ease-in-out infinite alternate;
+  -moz-animation: move-left 800ms ease-in-out infinite alternate;
+  -ms-animation: move-left 800ms ease-in-out infinite alternate;
+  -animation: move-left 800ms ease-in-out infinite alternate;
+}
+.ball2 {
+  background: $preloader-bg-two;
+  -webkit-animation: move-right 800ms ease-in-out infinite alternate;
+  -moz-animation: move-right 800ms ease-in-out infinite alternate;
+  -ms-animation: move-right 800ms ease-in-out infinite alternate;
+  animation: move-right 800ms ease-in-out infinite alternate;
+}
+@-webkit-keyframes move-left {
+  to {
+    -webkit-transform: translate(50px, 0);
+    -ms-transform: translate(50px, 0);
+    -moz-transform: translate(50px, 0);
+    transform: translate(50px, 0);
+    background: $preloader-bg-two;
+  }
+}
+@-moz-keyframes move-left {
+  to {
+    -webkit-transform: translate(50px, 0);
+    -ms-transform: translate(50px, 0);
+    -moz-transform: translate(50px, 0);
+    transform: translate(50px, 0);
+    background: $preloader-bg-two;
+  }
+}
+@-ms-keyframes move-left {
+  to {
+    -webkit-transform: translate(20px, 0);
+    -ms-transform: translate(20px, 0);
+    -moz-transform: translate(20px, 0);
+    transform: translate(20px, 0);
+    background: $preloader-bg-two;
+  }
+}
+@-o-keyframes move-left {
+  to {
+    -webkit-transform: translate(50px, 0);
+    -ms-transform: translate(50px, 0);
+    -moz-transform: translate(50px, 0);
+    transform: translate(50px, 0);
+    background: $preloader-bg-two;
+  }
+}
+@keyframes move-left {
+  to {
+    -webkit-transform: translate(50px, 0);
+    -ms-transform: translate(50px, 0);
+    -moz-transform: translate(50px, 0);
+    transform: translate(50px, 0);
+    background: $preloader-bg-two;
+  }
+}
+@-webkit-keyframes move-right {
+  to {
+    -webkit-transform: translate(-50px, 0);
+    -ms-transform: translate(-50px, 0);
+    -moz-transform: translate(-50px, 0);
+    transform: translate(-50px, 0);
+    background: $preloader-bg-one;
+  }
+}
+@-moz-keyframes move-right {
+  to {
+    -webkit-transform: translate(-50px, 0);
+    -ms-transform: translate(-50px, 0);
+    -moz-transform: translate(-50px, 0);
+    transform: translate(-50px, 0);
+    background: $preloader-bg-one;
+  }
+}
+@-ms-keyframes move-right {
+  to {
+    -webkit-transform: translate(-50px, 0);
+    -ms-transform: translate(-50px, 0);
+    -moz-transform: translate(-50px, 0);
+    transform: translate(-50px, 0);
+    background: $preloader-bg-one;
+  }
+}
+@-o-keyframes move-right {
+  to {
+    -webkit-transform: translate(-50px, 0);
+    -ms-transform: translate(-50px, 0);
+    -moz-transform: translate(-50px, 0);
+    transform: translate(-50px, 0);
+    background: $preloader-bg-one;
+  }
+}
+@keyframes move-right {
+  to {
+    -webkit-transform: translate(-50px, 0);
+    -ms-transform: translate(-50px, 0);
+    -moz-transform: translate(-50px, 0);
+    transform: translate(-50px, 0);
+    background: $preloader-bg-one;
+  }
+}

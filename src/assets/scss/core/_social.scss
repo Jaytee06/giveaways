@@ -1,0 +1,61 @@
+/*=========== Social Button Css Style ==========*/
+.social-btn-wrapper {
+    .btn {
+        color: $white;
+        padding: 0.7rem 1.5rem;
+        font-size: 1rem;
+        .fa.left {
+            margin-right: 10px;
+        }
+    }
+    a {
+        @extend .square-60;
+        color: $white !important;
+        font-size: 20px;
+    }
+}
+.btn-circle {
+    border-radius: 100%;
+}
+.btn-fb {
+    background-color: #3b5998;
+}
+.btn-tw {
+    background-color: #55acee;
+}
+.btn-gplus {
+    background-color: #dd4b39;
+}
+.btn-li {
+    background-color: #0082ca;
+}
+.btn-ins {
+    background-color: #3f729b;
+}
+.btn-pin {
+    background-color: #c61118;
+}
+.btn-yt {
+    background-color: #cd201f;
+}
+.btn-dribbble {
+    background-color: #c32361;
+}
+.btn-vk {
+    background-color: #4c75a3;
+}
+.btn-so {
+    background-color: #f69c55;
+}
+.btn-slack {
+    background-color: #56b68b;
+}
+.btn-git {
+    background-color: #4183c4;
+}
+.btn-comm {
+    background-color: #30cfc0;
+}
+.btn-email {
+    background-color: #4b515d;
+}

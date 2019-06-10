@@ -1,0 +1,147 @@
+/*=========== Custom Variables integrated =============*/
+//--- html font ---//
+$html-font-size:                    16px;
+
+//--- block setting ---//
+$block-bg:							#fff;
+$block-border-color:                #DEE4E8;
+$block-border-radius:               0;
+$block-margin:                      30px;
+$block-space-x:                     20px;
+$block-space-y:                     20px;
+
+//--- Block Title ---//
+$block-title-font-color:            inherit; // #414658;
+$block-title-font-size:             1.25rem;
+$block-title-space-x:               1.25rem;
+$block-title-space-y:               1.25rem;
+
+//--- Block Contextual ---//
+$block-contextual-link-color:       #9E9E9E;
+$block-contextual-link-size:        1rem;
+
+//--- Block full setting ---//
+$block-full-bg:                     $block-bg;
+$block-full-border-color:           $block-border-color;
+$block-full-border-radius:          0;
+$block-full-margin:                 $block-margin;
+$block-full-padding:                null;
+
+//--- Button variables ----//
+$btn-font-size:                     0.875rem;
+$btn-transform:                     capitalize;
+
+$btn-rounded-padding-horizontal:    2rem;
+
+$btn-square:                        0px;
+$btn-rounded-border-radius:         10em;
+$btn-circle:                        100px;
+
+//--- Badges ---//
+$badge-font-size:                   0.875rem;
+
+$badge-padding-horizontal:          5px;
+$badge-padding-vertical:            3px;
+$badge-base-rounded:                5px;
+
+//--- Breadcrumb ---//
+
+$breadcrumb-font-size:				1re;
+$breadcrumb-font-color:				#414658;
+
+//--- Chat variables ---//
+$chat-block-even-bg:                $orange;
+$chat-block-odd-bg:                 $blue;
+$chat-block-font-color:             #fff;
+
+$chat-item-padding:                 1rem;
+$chat-item-border:                  1px solid $input-border-color;
+$chat-item-bg-color:                #fff;			 
+
+//--- Dropdown variables ---//
+$dropdown-min-width:                null;
+$dropdown-padding-y:                5px;
+$dropdown-margin-top:               5px;
+$dropdown-heading-bg:               $gray-500;
+
+//-----Dark theme---//
+$dark-bg:                           #424242;
+$dark-bg-color:                     #fff;
+$dark-bg-container:                 #303030;
+$dark-border-color:                 rgba(0, 0, 0, 0.1);
+
+//--- Form input variables ---//
+$inut-padding-x:                    0.625rem;
+$input-padding-y:                   0.625rem;
+$input-line-height:                 null;
+$from-label-color:                  #414658;
+$input-square:                      0px;
+$input-rounded:                     10rem;
+
+//--- Header ---//
+$header-bg:                         #fff;
+$header-height:                     4.5rem;
+$header-bottom-border:              1px solid $input-border-color;
+$header-pad-left-right:             1.3rem;
+
+//--- Ham icon ---//
+$ham-line-height:2px;
+$ham-icon-height-width:45px;
+$ham-icon-border-radius:100%;
+$ham-icon-line-color: #818698;
+$ham-icon-border:1px solid #DEE4E8;
+$ham-icon-background-color:#F5F9FB;
+
+//-- Header Menu --//
+$header-main-menu-color:#9e9e9e;
+$dropdown-header-title-color:#fff;
+//--- Progress Bar ---//
+$progress-rounded:                  1rem;
+$progress-square:                   0px;
+
+//--- Page title ---//
+$page-title-color:                  #414658;
+$page-title-font-size:              1.625rem;
+
+//--- Page info ---//
+$page-info-pad-space:               0.8rem 1.7rem;
+
+//--- Preloader variable ---//
+$perloader-bg-overlay:              rgba(20, 24, 40, 0.87);
+$preloader-bg-one:                  $blue;
+$preloader-bg-two:                  $orange;
+
+//--- SidebarWidths ---//
+$sidebar-width: 					18.75rem;
+$sidebar-menu-text:         	    #fff;
+$sidebar-bg: 				        url("/../../assets/img/sidebar-bg.jpg");
+$sidebar-overlay-bg:                rgba(20, 24, 40, 0.87);
+
+//--- Sidebar logo ---//
+$sidebar-logo-bg:                   $blue;
+$sidebar-icon-size:                 1.1rem; 
+
+//--- Square box ---//
+$square-font-size:                  0.5; // 50% relative to the container
+$square-box:                     	(10, 15, 20, 30, 40, 50, 60, 85, 100);
+
+//--- User section ---//
+$user-thumb-section-bg:             $blue;
+$user-name-color:                   #fff;
+$user-pad-y :                       1.5rem;
+$user-pad-x:                        1rem;
+
+$border-radius-base:                0;
+
+//--- Tour section ---//
+
+$tour-main-heading-color:#fff;
+$tour-main-heading-bg-color:$blue;
+$tour-main-heading-font-size:18px;
+$tour-step-font-size:16px;
+$popover-body-bg-color:$blue;
+$popover-body-font-color:#fff;
+
+
+
+

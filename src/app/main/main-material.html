@@ -1,0 +1,560 @@
+<div class="app" [dir]="layout" [ngClass]="themeSkinColor" [class.app-dark]="dark" [class.boxed]="boxed" [class.collapsed-sidebar]="collapseSidebar" [class.compact-sidebar]="compactSidebar" [class.customizer-in]="customizerIn" [class.chat-window--open]="chatWindowOpen" [class.sidebar-closed]="sidebarClosed" [class.chat-sidebar]="chatSidebar">
+<ng-sidebar-container>
+   <div ng-sidebar-content>
+      <ng-sidebar #sidenav [(opened)]="_opened" [(mode)]="_mode" [(closeOnClickOutside)]="_closeOnClickOutside" [(showBackdrop)]="_showBackdrop">
+      <div class="sidebar-panel chankya-sidenav">
+         <div class="sidebar-logo-wrap">
+            <div class="sidebar-logo d-flex">
+               <div class="logo-text mr-2 ml-2 align-self-center">
+                  <img src="assets/img/tcg-logo.png" alt="The Care Group Logo" width="178" height="40">
+               </div>
+            </div>
+         </div>
+         <div class="sidebar-container">
+            <div class="user-section text-center">
+               <div class="sidebar-user-wrap">
+                  <div class="sidebar-user-inner">
+                     <div class="d-flex">
+                        <div class="thumb-wrap mb-1"><img alt="Chankya Admin" class="img-fluid" src="assets/img/user-3.jpg" width="90" height="90"></div>
+                        <div class="user-action">
+                           <a href="javascript:void(0)" class="text-white"><i class="material-icons">more_horiz</i></a>
+                           <div class="sidebar-user-menu">
+                              <ul>
+                                 <li><a href="javascript:void(0)"><i class="icon-user icons"></i><span>My Profile</span></a></li>
+                                 <li><a href="javascript:void(0)"><i class="icon-calendar icons"></i><span>My Calendar</span></a></li>
+                                 <li><a href="javascript:void(0)"><i class="icon-envelope icons"></i><span>My Inbox</span></a></li>
+                                 <li><a href="javascript:void(0)"><i class="icon-check icons"></i><span>My Tasks</span></a></li>
+                                 <li><a routerLink="/session/loginone"><i class="icon-logout icons"></i><span>Logout</span></a></li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="sidebar-user-info-wrap">
+                        <div class="sidebar-user-name">David Williams</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="sidenav-scrollbar-container">
+               <perfect-scrollbar>
+                  <nav menuToggleDirective class="navigation">
+                     <ul class="chankya-nav">
+                        <li class="nav-item" menuToggleLink *ngFor="let menuitem of menuItems.getAll()">
+                           <a menuToggle [routerLink]="['/', menuitem.state]" routerLinkActive="active-link" *ngIf="menuitem.type === 'link'">
+                           <i class="{{ menuitem.icon }}"></i>
+                           <p class="text-nowrap mb-0">
+                              <span>{{ menuitem.name | translate }}</span>
+                           </p>
+                           </a>
+                           <a menuToggle href="javascript:void(0)" *ngIf="menuitem.type === 'sub'">
+                              <i class="{{ menuitem.icon }}"></i>
+                              <p class="text-nowrap mb-0">
+                                 <span>{{ menuitem.name | translate }}</span>
+                                 <i class="fa fa-caret-down" aria-hidden="true"></i>
+                              </p>
+                           </a>
+                           <ul class="sub-menu chankya-nav" *ngIf="menuitem.type === 'sub'">
+                              <li class="nav-item" *ngFor="let childitem of menuitem.children" routerLinkActive="open">
+                                 <a [routerLink]="['/', menuitem.state, childitem.state ]" routerLinkActive="active-link">
+                                    <i *ngIf="!childitem.icon" class="icon icon-arrows-right-double"></i>
+                                    <i *ngIf="childitem.icon" class="{{ childitem.icon }}"></i>
+                                    <p class="text-nowrap mb-0"><span>{{ childitem.name | translate }}</span></p>
+                                 </a>
+                              </li>
+                           </ul>
+                        </li>
+                     </ul>
+                     <!--<ul class="add-dynamic-menu list-style-none">-->
+                        <!--<li>-->
+                           <!--<a (click)="addMenuItem()">-->
+                           <!--<i class="fa fa-plus" aria-hidden="true"></i>-->
+                           <!--<span>Add</span>-->
+                           <!--</a>-->
+                        <!--</li>-->
+                     <!--</ul>-->
+                  </nav>
+               </perfect-scrollbar>
+            </div>
+         </div>
+      </div>
+      <!-- sidebar panel closed -->
+      </ng-sidebar>
+      <section class="main-contents">
+         <header class="main-header">
+            <div class="d-flex justify-content-between align-items-center chankya-header-toolbar w-100">
+               <div class="h-100 d-flex align-items-center col-sm-6 col-md-6 col-lg-6 pl-0 pr-0">
+                  <div class="h-100 d-flex justify-content-start align-items-center">
+                     <div class="h-100 chankya-ham-icon">
+                        <button class="c-hamburger c-hamburger--rot" (click)="sidebarClosedFunction()" (click)="_toggleOpened()">
+                        <span >toggle menu</span>
+                        </button>
+                     </div>
+                  </div>
+                  <div class="h-100 pl-4 search-bar w-100 h-100 d-none-sm search-w">
+                     <form class="h-100 search-form">
+                        <div class="h-100 search-i">
+                           <input class="form-control" type="text" placeholder="Search" data-toggle="modal" data-target="#search-modal" />
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class="align-items-end pr-0 col-sm-6 col-md-6 col-lg-6">
+                  <div class="d-flex secondary-menu justify-content-end align-items-center">
+                     <ul class="nav secondary-menu-list d-flex justify-content-end align-items-center" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <li class="d-none-sm fullscreen-toggle" (click)="toggleFullscreen()">
+                           <a href="javascript:void(0)" class="zoom-out">
+                           <i class="material-icons" *ngIf="!isFullscreen">tv</i>
+                           <i class="material-icons" *ngIf="isFullscreen">fullscreen_exit</i>
+                           </a>
+                        </li>
+                        <li class="d-none-sm dropdown fav-links">
+                           <a href="javascript:void(0)" class="rotate-90" id="navbarD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">apps</i></a>
+                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarD">
+                              <div class="dropdown-header bg-success d-flex justify-content-between"><span class="align-self-center">Quick Links</span></div>
+                              <a class="dropdown-item pt-3" >
+                                 <div class="icon-area ">
+                                    <i class="material-icons">dashboard</i>
+                                 </div>
+                                 <small>Dashborad 2</small>
+                              </a>
+                              <a class="dropdown-item pt-3">
+                                 <div class="icon-area ">
+                                    <i class="material-icons">chat_bubble_outline</i>
+                                 </div>
+                                 <small>   Chat</small>
+                              </a>
+                              <a class="dropdown-item pt-3">
+                                 <div class="icon-area ">
+                                    <i class="material-icons">email</i>
+                                 </div>
+                                 <small>Email</small>
+                              </a>
+                              <a class="dropdown-item pt-3">
+                                 <div class="icon-area ">
+                                    <i class="material-icons">grid_on</i>
+                                 </div>
+                                 <small>Blog Grid</small>
+                              </a>
+                              <a class="dropdown-item pt-3">
+                                 <div class="icon-area ">
+                                    <i class="material-icons">collections</i>
+                                 </div>
+                                 <small>Gallery</small>
+                              </a>
+                              <a class="dropdown-item pt-3">
+                                 <div class="icon-area ">
+                                    <i class="material-icons">shopping_cart</i>
+                                 </div>
+                                 <small>Shop</small>
+                              </a>
+                           </div>
+                        </li>
+                        <li class="d-none-sm dropdown">
+                           <a href="javascript:void(0)" id="navbarDropdownMenu" class="faa-parent animated-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="notifi-bell material-icons faa-slow faa-ring">notifications</i> <span class="fa fa-circle fa-notify text-success dot-note"></span></a>
+                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarDropdownMenu">
+                              <div class="dropdown-header bg-success d-flex justify-content-between"><span class="align-self-center">12 Pending notifications</span><a href="javascript:void(0)" class="align-self-center">View All</a></div>
+                              <a class="dropdown-item  d-flex pt-3" href="javascript:void(0)">
+                                 <div class="icon-area  align-self-start">
+                                    <i class="fa fa-envelope-o"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">You have 16 New messages</span>
+                                    <small>12 min ago</small>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex" href="javascript:void(0)">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Server reboot scheduled</span>
+                                    <small>12 min ago</small>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-3" href="javascript:void(0)">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Revenue raised by 67%</span>
+                                    <small>12 min ago</small>
+                                 </div>
+                              </a>
+                           </div>
+                        </li>
+                        <li class="d-none-sm dropdown">
+                           <a href="javascript:void(0)" class="open-box" id="navbarDropdownMen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons msg-close">mail_outline</i><i class="fa fa-envelope-open-o"></i><span class="fa fa-circle fa-notify dot-note text-danger"></span></a>
+                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarDropdownMen">
+                              <div class="dropdown-header bg-warning d-flex justify-content-between"><span class="align-self-center">15 total messages</span><a href="javascript:void(0)" class="align-self-center">View All</a></div>
+                              <a class="dropdown-item  d-flex pt-3" href="javascript:void(0)">
+                                 <div class="icon-area  align-self-start">
+                                    <i class="fa fa-envelope-o"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Inbox Box 1</span>
+                                    <small>15 new messages</small>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex" href="javascript:void(0)">
+                                 <div class="icon-area  align-self-start">
+                                    <i class="fa fa-gift" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Promotion messages</span>
+                                    <small>5 messages</small>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex" href="javascript:void(0)">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Spam message</span>
+                                    <small>12 min ago</small>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-3" href="javascript:void(0)">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Social Media</span>
+                                    <small>34 new messages</small>
+                                 </div>
+                              </a>
+                           </div>
+                        </li>
+                        <li class="dropdown">
+                           <a class="relative rounded-bg" href="javascript:void(0)" id="navbarDropdownMenuLin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <img class="rounded-circle" src="assets/img/user-3.jpg" alt="User-image" width="43" height="43">
+                              <div class="online-caret bg-success circle"><i class="fa fa-caret-down"></i></div>
+                           </a>
+                           <div class="dropdown-menu rounded-0 dropdown-menu-right p-0" aria-labelledby="navbarDropdownMenuLin">
+                              <a class="dropdown-item  d-flex pt-3">
+                                 <div class="icon-area  align-self-start">
+                                    <i class="fa fa-user"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Profile</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-money"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Contact</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-2">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-cog"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">User List</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-2">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-power-off"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Logout</span>
+                                 </div>
+                              </a>
+                           </div>
+                        </li>
+                        <li class="d-none-sm dropdown">
+                           <a (click)="chatSidebarFunction()" class="zoom-out"><i class="material-icons">more_horiz</i></a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </header>
+         <!-- main header closed -->
+         <div class="chankya-base-container" #scrollContainer>
+            <div class="d-flex justify-content-between align-items-center page-info w-100 d-none-sm">
+               <a class="navbar-brand" href="javascript:void(0)">{{header}}</a>
+               <!--<breadcrumb class="chankya-breadcrumbs"></breadcrumb>-->
+            </div>
+            <div class="inner-container">
+               <router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
+            </div>
+         </div>
+         <!-- chankya base container closed -->
+      </section>
+      <!-- main content closed -->
+   </div>
+   <!-- Sidebar Closed -->
+</ng-sidebar-container>
+<div class="chankya-customizer">
+   <a class="customizer-toggle bg-primary faa-parent animated-hover" (click)="customizerFunction()">
+   <i class="fa fa-wrench faa-slow faa-wrench" aria-hidden="true"></i>
+   </a>
+   <!-- Nav tabs -->
+   <div class="settings-panel">
+      <div class="theme-options">
+         <div class="theme-head">
+            <h4>Theme Settings</h4>
+         </div>
+         <div class="form-group lang-change">
+            <label for="exampleSelect1">Select Language</label>
+            <select class="layout-item custom-select mt-2 form-control mt-1 rounded-0" placeholder="Language" [(ngModel)]="currentLang" #langSelect="ngModel" (ngModelChange)="translate.use(currentLang)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang">{{ lang }}</option>
+            </select>
+         </div>
+         <div class="layout-item form-check more-theme-style mb-3">
+            <label class="mb-3">Choose Theme Color</label>
+            <a href="javascript:void(0)" class="theme default d-block mb-2" (click)="changeThemeColor('default')"><i class="fa fa-circle fa-lg text-primary" aria-hidden="true"></i> Default</a>
+            <a href="javascript:void(0)" class="theme orange d-block mb-2" (click)="changeThemeColor('orange')"><i class="fa fa-circle fa-lg text-warning" aria-hidden="true"></i> Orange</a>
+            <a href="javascript:void(0)" class="theme green d-block mb-2" (click)="changeThemeColor('green')"><i class="fa fa-circle fa-lg text-success" aria-hidden="true"></i> Green</a>
+            <a href="javascript:void(0)" class="theme red d-block mb-2" (click)="changeThemeColor('red')"><i class="fa fa-circle fa-lg text-danger" aria-hidden="true"></i> Red</a>
+         </div>
+         <div class="layout-item form-check">
+            <label class="form-check-label">
+            <input [(ngModel)]="collapseSidebar" (change)="compactSidebar = false" class="form-check-input" type="checkbox" value="">
+            Collapsed Sidebar <img class="mt-2" src="assets/img/collapsed-sidebar.png" alt="">
+            </label>
+         </div>
+         <div class="layout-item boxed-layout-md form-check">
+            <label class="form-check-label">
+            <input [(ngModel)]="boxed" class="form-check-input" type="checkbox" value=""> Boxed Layout <img class="mt-2" src="assets/img/boxed-layout.png" alt=""></label>
+         </div>
+         <div class="layout-item form-check">
+            <label class="form-check-label">
+            <input [(ngModel)]="dark" class="form-check-input" type="checkbox" value=""> Dark Mode <img class="mt-2" src="assets/img/nightmode.png" alt=""></label>
+         </div>
+         <div class="layout-item form-check">
+            <label class="form-check-label">
+            <input (change)="changeRTL($event.target.checked)" class="form-check-input" type="checkbox" value=""> RTL    <img class="mt-2" src="assets/img/RTL.png" alt=""></label>
+         </div>
+      </div>
+      <!-- theme option closed -->
+   </div>
+   <!-- setting panel Closed -->
+</div>
+<!-- Chankya customize closed -->
+<div class="chat-sidebar-pan">
+   <div class="settings-panel">
+      <ul class="nav nav-tabs" role="tablist">
+         <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#chat" role="tab">Chat</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#setting" role="tab">Settings</a>
+         </li>
+      </ul>
+      <div class="tab-content">
+         <div class="tab-pane active" id="chat" role="tabpanel">
+            <div class="chat-tabs">
+               <a href="javascript:void(0)" (click)="chatWindowFunction()">
+                  <div class="d-flex justify-content-start">
+                     <div class=""> <img class="img-responsive rounded-circle" alt="Chat session" src="assets/img/user-1.jpg" width="50" height="50"> </div>
+                     <div class="pl-2 pr-2">
+                        <span class="text-primary d-block">Connor Soto</span> <small class="d-block">See you later</small>
+                     </div>
+                  </div>
+               </a>
+               <a href="javascript:void(0)" (click)="chatWindowFunction()">
+                  <div class="d-flex justify-content-start">
+                     <div class="ng-tns-c16-7"> <img class="rounded-circle" alt="Chat session" src="assets/img/user-1.jpg" width="50" height="50"> </div>
+                     <div class="pl-2 pr-2">
+                        <span class="d-block">Miguel Romero</span> <small class="d-block">Hope for best!</small>
+                     </div>
+                  </div>
+               </a>
+               <a href="javascript:void(0)" (click)="chatWindowFunction()">
+                  <div class="d-flex justify-content-start">
+                     <div class="ng-tns-c16-7"> <img class="rounded-circle" alt="Chat session" src="assets/img/user-2.jpg" width="50" height="50"> </div>
+                     <div class="pl-2 pr-2">
+                        <span class="d-block">Marguerite Riley</span> <small class="d-block">Good bye and TC!</small>
+                     </div>
+                  </div>
+               </a>
+               <a href="javascript:void(0)" (click)="chatWindowFunction()">
+                  <div class="d-flex justify-content-start">
+                     <div class="ng-tns-c16-7"><img class="rounded-circle" alt="Chat session" src="assets/img/user-3.jpg" width="50" height="50"> </div>
+                     <div class="pl-2 pr-2">
+                        <span class="d-block">Marian Burke</span> <small class="d-block">Talk u later</small>
+                     </div>
+                  </div>
+               </a>
+               <a href="javascript:void(0)" (click)="chatWindowFunction()">
+                  <div class="d-flex justify-content-start">
+                     <div class="ng-tns-c16-7"><img class="rounded-circle" alt="Chat session" src="assets/img/user-4.jpg" width="50" height="50"> </div>
+                     <div class="pl-2 pr-2">
+                        <span class="d-block">Wayne Hoffman</span> <small class="d-block">Ready for sunday</small>
+                     </div>
+                  </div>
+               </a>
+               <a href="javascript:void(0)" (click)="chatWindowFunction()">
+                  <div class="d-flex justify-content-start">
+                     <div class="ng-tns-c16-7"> <img class="rounded-circle" alt="Chat session" src="assets/img/user-5.jpg" width="50" height="50"> </div>
+                     <div class="pl-2 pr-2 ">
+                        <span class="d-block">Chris Evans</span> <small class="d-block">am fine ,thanks</small>
+                     </div>
+                  </div>
+               </a>
+            </div>
+         </div>
+         <div class="tab-pane" id="setting" role="tabpanel">
+            <div class="system-setting">
+               <div class="setting-header text-muted"><i class="fa fa-cog"></i> System</div>
+               <ul class="list-style-none pl-0">
+                  <li class="d-flex justify-content-between">
+                     <div class="align-self-center">Nofications</div>
+                     <div class="onoffswitch align-self-center">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-nofications" checked>
+                        <label class="onoffswitch-label mb-0" for="switch-nofications">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                        </label>
+                     </div>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                     <div class="align-self-center">Quick Results</div>
+                     <div class="onoffswitch align-self-center">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-results" checked>
+                        <label class="onoffswitch-label mb-0" for="switch-results">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                        </label>
+                     </div>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                     <div class="align-self-center">Auto Updates</div>
+                     <div class="onoffswitch align-self-center">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-updates" checked>
+                        <label class="onoffswitch-label mb-0" for="switch-updates">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                        </label>
+                     </div>
+                  </li>
+               </ul>
+               <div class="setting-header mt-3 text-muted"> <i class="fa fa-user"></i> Account</div>
+               <ul class="list-style-none pl-0">
+                  <li class="d-flex justify-content-between">
+                     <div class="align-self-center">Offline Mode</div>
+                     <div class="onoffswitch align-self-center">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-offline" checked>
+                        <label class="onoffswitch-label mb-0" for="switch-offline">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                        </label>
+                     </div>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                     <div class="align-self-center">Location Share</div>
+                     <div class="onoffswitch align-self-center">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-location" checked>
+                        <label class="onoffswitch-label mb-0" for="switch-location">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                        </label>
+                     </div>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                     <div class="align-self-center">Show Offline User</div>
+                     <div class="onoffswitch align-self-center">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-offline-user" checked>
+                        <label class="onoffswitch-label mb-0" for="switch-offline-user">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                        </label>
+                     </div>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                     <div class="align-self-center">Save History</div>
+                     <div class="onoffswitch align-self-center">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-history" checked>
+                        <label class="onoffswitch-label mb-0" for="switch-history">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                        </label>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!--setting panel closed -->
+</div>
+<!-- chat sidebar Closed -->
+<!-- Modal -->
+<div class="modal fade search-modal" id="search-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+   <div class="modal-dialog" role="document">
+      <div class="container">
+         <div class="mb-5">
+            <input class="overlay-search" placeholder="Search...">
+         </div>
+         <div class="search-suggestion">
+            <span class="d-block mb-3"><strong>Sugguestions</strong></span>
+            <ul class="row search-list">
+               <li class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4">
+                  <a href="javascript:void(0)"><span class="d-inline-block square-50 circle bg-success">A</span><span class="search-filter mx-1">admin themes</span> in angular4</a>
+                  <span class="d-block">@themeforest</span>
+               </li>
+               <li class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4">
+                  <a href="javascript:void(0)"><span class="d-inline-block square-50 circle bg-success">H</span><span class="search-filter mx-1">5 Star Hotels</span> in hotal</a>
+                  <span class="d-block">@abcdehotels</span>
+               </li>
+               <li class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4">
+                  <a href="javascript:void(0)"><span class="d-inline-block square-50 circle bg-success">F</span><span class="search-filter mx-1">air ticket</span> in flights</a>
+                  <span class="d-block">@airindia</span>
+               </li>
+               <li class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4">
+                  <a href="javascript:void(0)"><span class="d-inline-block square-50 circle bg-success">D</span><span class="search-filter mx-1">css design</span> in designs</a>
+                  <span class="d-block">@csstricks</span>
+               </li>
+               <li class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4">
+                  <a href="javascript:void(0)"><span class="d-inline-block square-50 circle bg-success">C</span><span class="search-filter mx-1">programming</span> in code</a>
+                  <span class="d-block">@abcdproject</span>
+               </li>
+               <li class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4">
+                  <a href="javascript:void(0)"><span class="d-inline-block square-50 circle bg-success">M</span><span class="search-filter mx-1">dunkirk</span> in movies</a>
+                  <span class="d-block">@imdb</span>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="chat-window">
+   <div class="chat-window-i">
+      <div class="user-name-chat bg-grey d-flex justify-content-between">
+         <span class="align-self-center">Dekota James</span> <a href="javascript:void(0)" (click)="chatWindowFunction()"><i class="material-icons align-self-center">close</i></a>
+      </div>
+      <div class="chat-inner">
+         <ul>
+            <li class="user-msg mb-3">
+               <div class="d-flex">
+                  <img src="assets/img/user-4.jpg" class="circle chat-user-img" width="55" height="55" alt="user-image">
+                  <div class="msg-detail px-2">
+                     <span class="text-primary d-block mb-1">Dekota</span>
+                     <div class="box-shadow p-2 msg-box mb-1">
+                        <p>
+                           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat, magni?
+                        </p>
+                     </div>
+                     <div class="time text-muted"><small>3 min ago</small></div>
+                  </div>
+               </div>
+            </li>
+            <li class="my-msg mb-3">
+               <div class="d-flex">
+                  <img src="assets/img/user-2.jpg" class="circle chat-user-img" width="55" height="55" alt="user-image">
+                  <div class="msg-detail px-2">
+                     <span class="text-primary d-block mb-1">Admin</span>
+                     <div class="box-shadow p-2 msg-box mb-1">
+                        <p>
+                           Lorem ipsum dolor sit amet, consectetur adipisicing.
+                        </p>
+                     </div>
+                     <div class="time text-muted"><small>3 min ago</small></div>
+                  </div>
+               </div>
+            </li>
+         </ul>
+      </div>
+      <div class="send-msg-chat p-3">
+         <input class="form-control form-control-lg mb-3" placeholder="Type message" type="text">
+         <button class="btn btn-primary" type="submit">Send</button>
+      </div>
+   </div>
+</div>
+</div>
+<!-- app closed -->
+

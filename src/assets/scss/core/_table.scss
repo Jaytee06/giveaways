@@ -1,0 +1,71 @@
+/*============== Tables css ===================*/
+.table-middle {
+    thead,
+    tbody,
+    tfoot {
+        tr {
+            td,
+            th {
+                vertical-align: middle;
+            }
+        }
+    }
+}
+.table-borderless {
+    td,
+    th {
+        border: 0;
+    }
+}
+.table {
+    .radio,
+    .checkbox,
+    .checkbox label,
+    .radio label {
+        margin: 0;
+    }
+    thead {
+        >tr {
+            >th,
+            td {
+                border: none;
+            }
+        }
+    }
+}
+.footable-filtering {
+    .form-inline {
+        display: inline-block
+    }
+}
+.footable-filtering-search {
+    .input-group-btn {
+        display: inline-block;
+    }
+}
+/*=========== Table Pagination =============*/
+@media(max-width:767px) {
+    body {
+        .ngx-datatable.material .datatable-footer .datatable-pager a {
+            margin: 12px 1px;
+            min-width: 17px;
+            padding: 0 2px;
+            text-align: center;
+        }
+        .ngx-datatable .datatable-footer>div {
+            display: block;
+            width: 100%;
+        }
+        .ngx-datatable .datatable-footer .page-count {
+            display: none;
+        }
+        .ngx-datatable .datatable-footer .datatable-pager {
+            -moz-box-flex: 1;
+            display: inline-block;
+            -moz-box-flex: 0;
+            flex: 0 0 100%;
+            text-align: right;
+            width: 98%;
+        }
+    }
+}

@@ -1,0 +1,302 @@
+/*========= User list table ==========*/
+
+.action-icon {
+    margin: 0;
+    li {
+        font-size: 20px;
+        a {
+            color: $gray-700;
+            &:hover {
+                color: $blue;
+            }
+        }
+    }
+}
+
+
+/*========= User list ==========*/
+
+.list-title {
+    background: $gray-300;
+    color: $gray-600;
+    padding: 5px;
+}
+
+.simple-user-list {
+    li {
+        margin-bottom: 1rem;
+    }
+}
+
+.content-block {
+    padding-top: 1rem;
+}
+
+.primary-tp-layer {
+    @include background-opacity($blue, 0.7);
+    opacity: 0;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.overlay-wrap:hover .primary-tp-layer {
+    opacity: 1;
+}
+
+.pos-center {
+    &:before {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+}
+
+.center-holder {
+    display: inline-block;
+    height: auto;
+    padding: 20px;
+    vertical-align: middle;
+    width: 90%;
+}
+
+.content-block-list {
+    padding-top: 5px;
+}
+
+.user-list-wrapper {
+    address {
+        padding-left: 75px;
+        span {
+            margin-bottom: 10px;
+        }
+    }
+    .panel {
+        margin: 0;
+        .panel-heading .accordion-toggle::after {
+            top: 35px;
+        }
+    }
+    .filler-table {
+        background-color: $gray-300;
+        padding: 20px;
+        border-bottom: border-width solid $input-border-color;
+    }
+}
+
+.circle {
+    border-radius: 100%;
+    color: $white;
+}
+
+
+/*========= User Profile style css ==========*/
+
+.notification-list {
+    li {
+        margin-bottom: 15px;
+    }
+}
+
+.profile-icon-head {
+    width: 125px;
+    float: left;
+}
+
+.profile-icon-desp {
+    float: left;
+    width: calc(100% - 125px);
+    word-wrap: break-word;
+}
+
+.user-profile-wrapper {
+    margin-top: -10rem;
+    .top-block {
+        background: $green;
+        height: 10rem;
+    }
+    .bottom-block {
+        @include border(1px solid, $input-border-color, bottom left right);
+        margin-top: -5rem;
+        .profile-thumb {
+            img {
+                box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.5);
+            }
+        }
+        .thumb-content {
+            h2 {
+                font-size: 26px;
+            }
+            a {
+                color: $gray-800;
+            }
+        }
+        .user-account-list {
+            li {
+                @include border(1px solid, $input-border-color, top);
+                &:nth-child(2n+1) {
+                    background-color: $gray-300;
+                }
+            }
+            a {
+                color: $gray-800;
+                padding: 10px;
+                display: block;
+            }
+        }
+        .social-widget {
+            background: $gray-800;
+            padding: 20px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            li {
+                a {
+                    color: $white;
+                }
+            }
+        }
+    }
+    .timeline-meta {
+        a {
+            color: $gray-800;
+        }
+    }
+    .contact-list {
+        @include border(1px solid, $input-border-color, bottom right left top);
+        .contact-head {
+            background: $gray-300;
+            .badge {
+                line-height: 30px;
+            }
+        }
+        li {
+            @include border(1px solid, $input-border-color, bottom);
+            padding: 15px 10px;
+        }
+    }
+    .admin-setting {
+        position: absolute;
+        top: 10px;
+        right: 30px;
+    }
+    .account-setting {
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .notifi-heading {
+        background-color: $orange;
+        border-radius: 5px;
+        color: $white;
+        padding: 15px 10px;
+        h3 {
+            margin: 0;
+        }
+    }
+}
+
+
+/*======== User Contact Css Style =========*/
+
+.thumb-box {
+    img {
+        box-shadow: 0 0 0 20px hsl(214, 100%, 45%), 0 0 0 30px hsl(211, 80%, 72%), 0 0 0 45px hsl(212, 81%, 94%);
+        margin-bottom: 5rem;
+    }
+}
+
+#call-popup {
+    .modal-content {
+        padding: 60px 20px;
+    }
+}
+
+.card-wrap {
+    background-color: $block-bg;
+    border: $border-width solid $input-border-color;
+    padding: $block-space-x $block-space-y;
+    overflow: hidden;
+}
+
+.user-contact-wrapper {
+    address {
+        margin: 0;
+    }
+    .card-action-link {
+        background-color: $gray-300;
+        padding: 10px;
+        @include border(1px solid, $input-border-color, bottom right left);
+        ul {
+            margin: 0;
+        }
+    }
+    .card-wrapper {
+        transition: all 0.3s ease-in-out 0s;
+        &:hover {
+            border-color: $gray-400;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+.media-card {
+    @include border(1px solid, $input-border-color, bottom right left top);
+    .media-body {
+        padding: 20px 10px;
+    }
+}
+
+//-------- User Responsive Css ----------//
+@media (min-width: 320px) and (max-width: 1500px) {
+    .user-profile-wrapper {
+        margin-top: -70px;
+    }
+}
+
+@media (min-width:1200px) and (max-width: 1340px) {
+    .center-holder {
+        padding: 0;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 1765px) {
+    .user-contact-wrapper {
+        .simplifie-user-grid {
+            .card {
+                .d-flex.align-items-start {
+                    text-align: center;
+                    width: 100%;
+                    img {
+                        width: 100%;
+                    }
+                }
+                .d-flex {
+                    display: inline-block !important;
+                }
+            }
+        }
+    }
+
+}
+@media(max-width:560px){
+    .user-contact-wrp{
+        .d-flex.justify-content-start,.d-flex.align-items-start.flex-column,.card-action-link.text-right{
+            display: block !important;
+            margin: 0 !important;
+            text-align: center !important;
+        }
+}
+}
+
+@media (max-width: 500px) {
+    .user-profile-wrapper {
+        margin-top: -40px;
+    }
+}
+
+[dir="rtl"] {
+    .profile-icon-head {
+        float: right;
+    }
+    .profile-icon-desp {
+        float: right;
+    }
+}

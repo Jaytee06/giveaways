@@ -1,0 +1,5 @@
+/*=========== Button Related Mixin ===========*/
+//--- Button label modifier ---//
+@mixin btn-label-modifier($background) {
+  background-color: darken($background, 5%);
+}

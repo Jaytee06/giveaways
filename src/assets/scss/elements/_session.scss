@@ -1,0 +1,133 @@
+/*========== Session Scss Style =========*/
+
+.login-icon {
+    span {
+        box-shadow: 0 6px 12px 3px rgba(0, 0, 0, 0.17);
+        background-color: $blue;
+        color: #fff;
+        border-radius: 100%;
+    }
+}
+
+.login-block {
+    background: $block-bg;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.35);
+    padding: 6rem 3rem 3rem;
+    .checkbox {
+        margin: 0;
+    }
+    .login-icon {
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: -50px;
+    }
+}
+
+//.login-banner {
+//	@include background("/../../assets/img/login-banner2.png",left center,no-repeat,cover);
+//	height: 100vh;
+//	position: absolute;
+//	@include position-all(0, 0, 0, 0);
+//}
+//Main Login
+.bg-sc {
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    padding: 2rem;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.loginone-wrapper {
+    background-color: #fff;
+    background-image: url("/../../assets/img/login-banner2.png");
+    @extend .bg-sc;
+}
+
+.bg-container {
+    margin-bottom: 2rem;
+    padding-top: 6rem;
+}
+
+.login-content {
+    float: right;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    margin-right: 8rem;
+    width: 30rem;
+}
+
+.login-form-wrapper {
+    background-image: url("/../../assets/img/login-1-banner.jpg");
+    @extend .bg-sc;
+}
+
+//Main Login ends
+.login-inner-wrapper-2 {
+    background: $block-bg;
+    padding: 10px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px 2px rgba(0, 0, 0, 0.35);
+}
+
+.login-form-wrapper-3 {
+    color: $white;
+    @include background("/../../assets/img/login-banner-3.png",
+    left center,
+    no-repeat,
+    100% 100%);
+    padding: 10rem 0;
+    .checkbox {
+        margin: 0;
+    }
+}
+
+.login-block-2 {
+    background-color: rgba(0, 0, 0, 0.44);
+    padding: 30px 30px;
+    border-radius: 10px;
+}
+
+.authentication-block-content {
+    padding-left: 6em;
+    padding-top: 8rem;
+}
+
+.coming-wrapper {
+    @include background("/../../assets/img/coming-soon-banner.jpg",
+    center center,
+    no-repeat,
+    cover);
+    padding: 5rem 1rem;
+    color: $white;
+}
+
+//-------- Login Responsive Css ---------//
+@media (max-width: 767px) {
+    .login-content {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+    .font-5x {
+        font-size: 3em;
+    }
+    .font-4x {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-block {
+        padding: 5rem 2rem 3rem;
+    }
+}

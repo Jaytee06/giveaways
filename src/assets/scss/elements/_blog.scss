@@ -1,0 +1,119 @@
+/*================ Blog css style ================*/
+.add-new-blog {
+	background-color: $gray-300;
+}
+.blog-meta {
+	a {
+		color: $gray-800;
+	}
+}
+.blog-action-link {
+	margin-bottom: -1px;
+}
+/*============ Blog Grid List ================*/
+.blog-links {
+	li+li {
+		margin-left: 10px;
+	}
+	a {
+		color: $gray-800;
+		&:hover {
+			color: $blue;
+		}
+	}
+}
+/*============ Blog detail ================*/
+.blog-detail-wrapper {
+	.media {
+		margin-top: 30px;
+	}
+	.categories-list {
+		a {
+			&:hover {
+				color: $red;
+			}
+		}
+	}
+}
+.blog-banner {
+  background: $gray-800;
+  padding: 30px 30px 200px;
+  li {
+  	margin-bottom: 10px;
+  }
+}
+.socicons-listing {
+	a {
+		color: $white;
+	}
+}
+.post-detail, .search-block, .upload-file {
+	background-color: $block-bg;
+	box-shadow: 0 4px 6px 0 rgba(0,0,0,0.13);
+	padding: 30px;
+}
+.blog-detail-wrapper, .add-blog-wrapper {
+  margin-top: -150px;
+}
+.about-author {
+	background-color: $gray-300;
+	padding: 30px;
+}
+.add-comment {
+	background-color: $gray-300;
+	padding: 30px;
+	@include border(1px solid, $input-border-color, bottom left right);
+}
+.categories-list, .recent-comment {
+	li {
+		margin-bottom: 15px;
+	}
+}
+.tags-list {
+	li {
+		margin-bottom: 10px;
+	}
+}
+.editor-btn {
+	.btn {
+		margin-bottom: 10px;
+	}
+}
+.overlay-wrap {
+	&:hover .ih-fade-right {
+		opacity: 1;
+  		transform: translateX(0px);
+	}
+}
+.ih-fade-right {
+	display: block;
+	opacity: 0;
+	transform: translateX(-50px);
+	transition: all 0.5s ease-in-out 0s;
+}
+/*======== Blog Responsive Style ========*/
+@media (max-width: 400px) {
+	.btn-large {
+	  padding: 15px 70px;
+	}
+}
+@media (min-width: 320px) and (max-width: 767px) {
+	.about-author, .user-comment {
+		.media {
+			display: inline-block;
+			.media-left {
+				text-align: center;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+			.media-body {
+				text-align: center;
+				width: 100%;
+			}
+		}
+		
+	}
+	.blog-banner {
+		padding: 30px 30px 150px;
+	}
+}

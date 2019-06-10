@@ -1,0 +1,143 @@
+/*============ Progress Bar Scss Style ===========*/
+.progress {
+	border: 1px solid $block-border-color;
+	margin-bottom: 30px;
+}
+.progress-rounded {
+  border-radius: $progress-rounded;
+}
+.progress-square {
+  border-radius: $progress-square;
+}
+.progress {
+	.progress-bar.gradient-animate {
+		-webkit-background-size: 50% 100%;
+	    -webkit-animation-name: moving-gradient;
+	    -webkit-animation-duration: 1s;
+	    -webkit-animation-iteration-count: infinite;
+	    -webkit-animation-timing-function: linear;
+	}
+}
+@-webkit-keyframes moving-gradient {
+    0% { background-position: left bottom; }
+    100% { background-position: right bottom; }
+}
+.progress-gradient-success {
+	background: -webkit-linear-gradient(left, #00caac 30%, #31dac7 80%, #70e4d5 100%) repeat;
+}
+.progress-gradient-danger {
+	background: -webkit-linear-gradient(left, #F54B5E 30%, #ff8492 80%, #ffa6af 100%) repeat;
+}
+.progress-gradient-green {
+	background: -webkit-linear-gradient(left, #43ae3f 30%, #6ac277 80%, #9ad5a1 100%) repeat;
+}
+.progress {
+  	.customize-progress-bar {
+    	background-color: $blue;
+    	position: relative;
+	    span {
+	      background-color: $blue;
+	      position: absolute;
+	      bottom: -20px;
+	      font-size: 10px;
+	      line-height: 10px;
+	      padding: 2px 3px 2px 4px;
+	      right: -1.4em;
+	    }
+	    span:after {
+	      bottom: 100%;
+	      left: 50%;
+	      border: solid transparent;
+	      content: " ";
+	      height: 0;
+	      width: 0;
+	      position: absolute;
+	      pointer-events: none;
+	      border-color: rgba(255, 255, 255, 0);
+	      border-bottom-color: $blue;
+	      border-width: 5px;
+	      margin-left: -5px;
+	    }
+  	}
+  	&.over-visible {
+  		overflow: visible;
+  	}
+}
+.progress--circle {
+  position: relative;
+  display: inline-block;
+  margin: 16px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: $gray-400;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: $block-bg;
+  }
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; 
+    background-color: $blue;
+  }
+}
+.progress--bar {
+  height: 1.5rem;
+  margin: 16px;
+  background-color: $gray-500;
+  &:after {
+    content: '';
+    display: block;
+    height: 100%;
+    background-color: $blue;
+  }
+}
+.progress__number {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  line-height: 1;
+  margin-top: -0.75rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+.progress--pie {
+  &:before {
+    display: none; /* Get rid of white circle for "pie chart style" meter */
+  }
+  .progress__number {
+    color: $white;
+  }
+}
+/**
+* $step is set to 5 by default, meaning you can only use percentage classes in increments of five (e.g. 25, 30, 45, 50, and so on). This helps to reduce the size of the final CSS file. If you need a number that doesn't end in 0 or 5, you can change the text percentage while rounding the class up/down to the nearest 5.
+*/
+$step: 5;
+$loops: round(100 / $step);
+$increment: 360 / $loops;
+$half: round($loops / 2);
+@for $i from 0 through $loops {
+  .progress--bar.progress--#{$i * $step}:after {
+    width: $i * $step * 1%;
+  }
+  .progress--circle.progress--#{$i * $step}:after {
+    @if $i < $half {
+      $nextDeg: 90deg + ($increment * $i);
+      background-image: linear-gradient(90deg, $gray-500 50%, transparent 50%, transparent), linear-gradient($nextDeg, $blue 50%, $gray-500 50%, $gray-500);
+    }
+    @else {
+      $nextDeg: -90deg + ($increment * ($i - $half));
+      background-image: linear-gradient($nextDeg, $blue 50%, transparent 50%, transparent), linear-gradient(270deg, $blue 50%, $gray-500 50%, $gray-500);
+    }
+  }
+}

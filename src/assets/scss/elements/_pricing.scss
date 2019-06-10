@@ -1,0 +1,16 @@
+/*======= Pricing Section Css Style ========*/
+.pricing-wrapper {
+	.card {
+		border-radius: 5px;
+		margin-bottom: $block-margin;
+	}
+}
+.card-primary, .card-danger, .card-warning, .card-info, .card-success {
+	color: $white;
+}
+.card-feature {
+	li {
+		font-size: 18px;
+  		margin-bottom: 20px;
+	}
+}

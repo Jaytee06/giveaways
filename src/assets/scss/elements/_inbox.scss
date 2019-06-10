@@ -1,0 +1,109 @@
+/*========= Inbox style =========*/
+.inbox-wrapper {
+    .badge {
+        border-radius: 100%;
+    }
+}
+.top-right-badge {
+  position: absolute;
+  right: 3px;
+  top: 2px;
+}
+.search-list {
+    input {
+        border-top-left-radius: 35px;
+        border-bottom-left-radius: 35px;
+    }
+    .btn {
+        border-top-right-radius: 35px;
+        border-bottom-right-radius: 35px;
+    }
+}
+.inner-tab {
+    background-color: $gray-300;
+    border-left: 1px solid $gray-500;;
+    .list-group {
+        li {
+            border-right: none;
+            border-left: none;
+            background-color: $gray-300;
+            &.active {
+                background-color: $blue;
+            }
+            &:first-child {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+    }
+}
+.labels {
+    li {
+        padding: 10px;
+    }
+}
+.inbox-action {
+    li {
+        padding: 0 10px;
+        a {
+            display: inline-block;
+            transform: translateY(0);
+            transition: all 0.3s ease-in-out 0s;
+            &:hover {
+                color: $red !important;
+                transform: translateY(-10px);
+            }
+        }
+    }
+}
+.send-msg {
+  border-top: 1px solid $gray-400;
+}
+.chk-inbox-sidebar{
+    .nav-tabs{
+        display: block;
+        .nav-item{
+            border-bottom: 1px solid $gray-300;
+        }
+        .nav-link{
+            padding: 1rem 1rem;
+            border: none;
+            &:focus,&:hover,.active,&:active{
+                border-color: transparent;
+                outline: none;
+            }
+            &.active{
+                background-color: $blue;
+                color: $white;
+                a, p {
+                    color: $white;
+                }
+                p, h5, .text-muted{
+                    color: $white !important;
+                }
+            }
+        }
+    }
+    
+}
+
+@media(max-width:560px) {
+    .inbox-time {
+        display: none;
+    }
+    .inbox-action li{
+        padding: 0 1px!important;
+    }
+    .m-w-160{
+    max-width: 160px;
+}
+.text-over{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+}
+    
+}
+

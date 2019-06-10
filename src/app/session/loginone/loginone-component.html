@@ -1,0 +1,71 @@
+<div class="loginone-wrapper">
+    <div class="login-form-wrapper-2">
+        <div class="login-banner pos-relative"></div>
+        <div class="login-content text-center">
+            <div class="login-inner-wrapper-2">
+                <div class="mb-2">
+                    <span class="square-100"><i class="fa fa-unlock-alt text-warning"></i></span>
+                </div>
+                <div class="mb-3">
+                    <p class="text-primary">Welcome To The Care Group</p>
+                    <h2 class="text-muted">Sign into your pages account</h2>
+                </div>
+                <form class="login-form" action="javascript:void(0)" method="post">
+                    <!--<div class="form-group">-->
+                        <!--<input name="fname" class="form-control form-control-lg input-square" type="text" placeholder="First Name" required>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<input name="lname" class="form-control form-control-lg input-square" type="text" placeholder="Last Name" required>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <input type="email" name="emailA" [(ngModel)]="email" class="form-control form-control-lg input-square" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="passwordA" [(ngModel)]="password" class="form-control form-control-lg input-square" placeholder="Password" required>
+                    </div>
+                    <div class="login-meta mb-3">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0 d-flex">
+                                    <input class="custom-control-input" type="checkbox">
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-description">Remember Me</span>
+                                </label>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 text-right"> 
+                                <a routerLink="/session/forgot-password" class="text-muted">Forgot Password?</a> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" (click)="loginone()" class="btn btn-primary btn-block btn-lg btn-square">Sign In</button>
+                    </div>
+                    <div class="mb-3">
+                        <a routerLink="/session/register" class="text-muted">Still no account? Please go to Register</a>
+                    </div>
+                    <div class="login-social-icon">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-google-plus fa-lg text-warning"></i></a></li>
+                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-twitter fa-lg text-info"></i></a></li>
+                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-facebook-official fa-lg text-primary"></i></a></li>
+                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-instagram fa-lg text-danger"></i></a></li>
+                        </ul>
+                    </div>
+                </form>
+                <!-- login form closed -->
+            </div>
+            <!-- login inner wrapper closed -->
+        </div>
+        <!-- login content closed -->
+    </div>
+    <!-- login form wrapper closed -->
+</div>
+<!-- login-one- wrapper closed -->
+
+
+
+
+
+
+
+

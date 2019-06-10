@@ -1,0 +1,108 @@
+/*============ Typography Css Style =============*/
+.typography-heading {
+    h1,h2,h3,h4,h5,h6 {
+        margin-bottom: 30px;
+    }
+    small {
+        color: $gray-500;
+    }
+}
+.typography-wrapper {
+	.left-icon {
+		font-size: 26px;
+		margin-right: 15px;
+	}
+	.right-icon {
+		font-size: 20px;
+		margin-left: 15px;
+	}
+}
+.list-icons, .list-Collapsible-icon {
+	ol, ul, .list-unstyled {
+		padding-left: 25px;
+	}
+}
+.vertical-list , .horizontal-list {
+	dd {
+		color: $gray-700;
+	}
+	dt {
+		font-weight: normal;
+		margin-bottom: 5px;
+	}
+}
+dd + dt, .dl-horizontal dt + dd {
+  margin-top: 20px;
+}
+.dl-horizontal dt:first-child + dd {
+  margin-top: 0;
+}
+.list {
+	>li:first-child {
+		margin-top: 0;
+	}
+	> li, > li .list > li {
+		margin-top: 10px;
+	}
+}
+.list-icons {
+  padding-left: 0;
+  li {
+  	i {
+  		margin-right: 7px;
+  	}
+  }
+}
+.text-color {
+	ul {
+		li {
+			margin-bottom: 15px;
+		}
+	}
+}
+.firstchar {
+  float: left;
+  font-size: 75px;
+  line-height: 60px;
+  padding: 4px 5px 0;
+}
+.well {
+	border-radius: 5px;
+	&.well-white {
+		background-color: $white;
+	}
+	&.well-border-left {
+		@include border(5px solid, $orange, left);
+		background-color: $white;
+	}
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-width: 1px 0 0 1px;
+  margin: 0 0 1.75em;
+  table-layout: fixed;
+  width: 100%;
+     th, td {
+  border: 1px solid $input-border-color;
+         padding: 0.3rem;
+}
+}
+blockquote {
+	> [class^="square-"], [class*="square-"] {
+		line-height: 1;
+	}
+}
+button{
+    cursor: pointer;
+}
+ol{
+    padding-left: 1.1rem;
+}
+
+blockquote {
+    border-left: 5px solid $blue;
+    font-style: italic;
+    margin: 0 0 1rem;
+    padding: 1rem 2rem;
+}

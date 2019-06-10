@@ -1,0 +1,91 @@
+/*============ Badges and labels css ================*/
+.badge {
+  font-weight: 400;
+  display: inline-block;
+  padding: 5px 7px;
+}
+.heading {
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 30px;
+  }
+}
+.badge-top-right {
+  right: 0;
+  position: absolute;
+  top: -10px;
+  z-index: 99;
+  @extend .circle;
+}
+.badge-bottom-right {
+  bottom: 0px;
+  @extend .badge-top-right;
+} 
+.status-bottom-right {
+  @extend .badge-bottom-right;
+  right: 10px;
+  border: 2px solid #fff;
+}
+.status-top-right {
+  @extend .badge-top-right;
+  @extend .status-bottom-right;
+  top: 0;
+}
+.status-bottom-left {
+  @extend .status-bottom-right;
+  left: 10px;
+}
+.status-top-left {
+  @extend .status-bottom-right;
+  left: 10px;
+  top: 0px;
+}
+.badge-circle {
+	@extend .square-30;
+	border-radius: 100px;
+	line-height: 30px;
+}
+.badge-sm {
+  @extend .square-20;
+  font-size: 11px;
+  line-height: 20px;
+}
+.badge-lg {
+  padding: 8px 15px;
+}
+.badge-info {
+  color: $white;
+}
+.primary-border {
+    @include border(3px solid, $blue, left);
+}
+.primary-border {
+    @include border(3px solid, $green, left);
+}
+.warning-border {
+    @include border(3px solid, $orange, left);
+}
+.success-border {
+    @include border(3px solid, $green, left);
+}
+//---- Badge outline-variant ----//
+.badge-outline-inverse {
+  @include badge-outline-variant($gray-700,$gray-700);
+}
+.badge-outline-primary {
+  @include badge-outline-variant($blue,$blue);
+}
+.badge-outline-success {
+  @include badge-outline-variant($green,$green);
+}
+.badge-outline-info {
+  @include badge-outline-variant($teal,$teal);
+}
+.badge-outline-warning {
+  @include badge-outline-variant($orange,$orange);
+}
+.badge-outline-danger {
+  @include badge-outline-variant($red,$red);
+}
+.badge-outline-yellow {
+  @include badge-outline-variant($yellow,$yellow);
+}

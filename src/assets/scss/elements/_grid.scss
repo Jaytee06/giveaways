@@ -1,0 +1,9 @@
+/*======== Grid Css Style ========*/
+.grid-box {
+  background-color: $gray-500;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.025);
+  margin-bottom: 20px;
+  .grid-body {
+    padding: 20px;
+  }
+}

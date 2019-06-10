@@ -1,0 +1,61 @@
+/*============ Buttons Scss ============*/
+.btn {
+    font-size: $btn-font-size;
+    text-transform: $btn-transform;
+}
+.btn-circle {
+    border-radius: $btn-circle;
+}
+.btn-square {
+	border-radius: $btn-square;
+}
+.btn-pill {
+    border-radius: $btn-rounded-border-radius;
+}
+.btn-info {
+    color: $white;
+    &:hover {
+       color: $white; 
+    }
+}
+.ui-title {
+    font-size: 14px;
+    color: $gray-600;
+    line-height: 16px;
+    display: block;
+    margin: 0 0 20px 0;
+    text-transform: capitalize;
+}
+.btn-labeled {
+    padding-left: 50px;
+    position: relative;
+    > b {
+        @include btn-label-modifier(rgba(0, 0, 0, 0.15));
+        display: block;
+        left: -1px;
+        line-height: 1;
+        padding: 10px;
+        position: absolute;
+        top: 0px;
+    }
+}
+.btn-style {
+	i {
+	    margin: 0;
+	}
+}
+.btn-base-rounded.btn-labeled > b {
+  border-bottom-left-radius: $border-radius;
+  border-top-left-radius: $border-radius;
+}
+.btn-pill.btn-labeled > b {
+  border-bottom-left-radius: $btn-rounded-border-radius;
+  border-top-left-radius: $btn-rounded-border-radius;
+}
+.btn-outline-primary.btn-labeled > b {
+    background-color: transparent;
+    border-right: $border-width solid $blue;
+}
+.btn-large {
+  padding: 15px 100px;
+}

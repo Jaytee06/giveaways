@@ -1,0 +1,207 @@
+/*========== Dark Theme ==========*/
+
+.app-dark {
+    background-color: $dark-bg-container;
+    .page-info a {
+        color: $dark-bg-color;
+    }
+    .main-contents,
+    code {
+        background-color: $dark-bg-container;
+    }
+    .inbox-wrapper,
+    .chat-wrapper {
+        background-color: $dark-bg;
+    }
+    .chk-block,
+    .chk-full-block,
+    .card,
+    .rating-progress-list,
+    .inner-tab,
+    .chat-wrapper .chk-block-title,
+    .send-msg.bg-grey,
+    .progress--circle::before,
+    .main-header,
+    .list-group-item,
+    .datatable-header,
+    .datatable-body,
+    .datatable-footer,
+    .card-header,
+    .media-card,
+    .post-detail,
+    .about-author,
+    .grid-box .grid-body,
+    .search-block,
+    .add-comment,
+    .upload-file,
+    .grid .media-card,
+    .chankya-customizer,
+    .chat-sidebar-pan {
+        background-color: $dark-bg;
+        color: $dark-bg-color;
+        border-color: $dark-border-color;
+    }
+    .chk-block-title,
+    .list-item-border li,
+    .table th,
+    .table td,
+    .nav-tabs,
+    .nav-tabs-box .tab-content,
+    .tab-content-bordered .tab-content,
+    .tabs-left .nav-tabs,
+    .tabs-right .nav-tabs,
+    .tabs-left .nav-tabs .nav-link.active,
+    .tabs-right .nav-tabs .nav-link.active,
+    .tabs-below>.nav-tabs,
+    .table-bordered,
+    .user-profile-wrapper .bottom-block {
+        border-color: $dark-border-color;
+    }
+    .inner-tab .list-group li,
+    .settings-panel .nav-link {
+        background-color: $dark-bg;
+    }
+    .chk-inbox-sidebar {
+        .nav-tabs {
+            .nav-item {
+                border-color: $dark-border-color;
+                &:last-child {
+                    border-color: $dark-border-color;
+                }
+            }
+        }
+    }
+    .dropdown-divider,
+    .cal-month-view .cal-cell-row:hover,
+    .cal-month-view .cal-cell-row .cal-cell:hover,
+    .cal-month-view .cal-cell.cal-has-events.cal-open,
+    .ngx-datatable.material.cell-selection .datatable-body-cell:hover {
+        background-color: $dark-border-color;
+    }
+    .nav-tabs .nav-link.active,
+    .page-link,
+    .input-group-addon,
+    .card-wrap,
+    .timeline-card,
+    .settings-panel .chat-tabs>a,
+    .system-setting ul li,
+    .btn-light,
+    .popover-title,
+    .popover-content,
+    .popover {
+        background-color: $dark-bg-container;
+        color: $dark-bg-color;
+        border-color: $dark-border-color;
+    }
+    .chk-ui-heading h3,
+    .vertical-list dd,
+    .horizontal-list dd,
+    .main-contents,
+    .icon-box li,
+    .form-group label,
+    .blog-links a,
+    .blog-meta a,
+    pre,
+    .action-icon li a {
+        color: $dark-bg-color;
+    }
+    .chat-wrapper .chk-block-title,
+    .user-contact-wrapper .card-action-link,
+    {
+        background-color: $dark-bg !important;
+        color: $dark-bg-color;
+        border-color: $dark-border-color;
+    }
+    .timeline-card {
+        box-shadow: 0 3px 0 $dark-bg-container;
+    }
+    .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover,
+    .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group {
+        background-color: $dark-bg-container;
+    }
+    .table-striped tbody tr:nth-of-type(2n+1) {
+        background-color: #3d3d3d;
+    }
+    .form-control {
+        background-color: #3d3d3d;
+        border-color: $dark-border-color;
+        color: $dark-bg-color;
+    }
+    .ngx-datatable.material .datatable-body .datatable-row-left,
+    .ngx-datatable.material .datatable-body .datatable-row-right,
+    .ngx-datatable.material .datatable-header .datatable-row-left,
+    .ngx-datatable.material .datatable-header .datatable-row-right {
+        background-color: $dark-bg;
+    }
+    .horizontal-nav ul .link-item {
+        color: $dark-bg-color;
+    }
+    .horizontal-nav {
+        ul {
+            .link-item {
+                color: $dark-bg-color;
+            }
+        }
+        .horizontal-menu {
+            .child-menu,
+            .mega-menu {
+                background: $dark-bg;
+            }
+            >li>a {
+                i {
+                    color: $dark-bg-color;
+                }
+                &:hover {
+                    background-color: $dark-bg;
+                }
+            }
+            .mega-title h3 {
+                color: $dark-bg-color;
+            }
+            >li.has-child::after {
+                color: $dark-bg-color;
+            }
+        }
+        .horizontal-menu .child-menu li::after {
+            color: $dark-bg-color;
+        }
+    }
+    .search-form .form-control {
+        background: transparent;
+    }
+    .mega-menu h3 a {
+        color: $dark-bg-color;
+    }
+    .settings-panel .nav-link,
+    .settings-panel .chat-tabs>a small {
+        color: $dark-bg-color;
+    }
+    .settings-panel .chat-tabs>a:hover {
+        background: $dark-bg;
+    }
+    .inner-tab {
+        border-color: $dark-border-color;
+    }
+    .send-msg {
+  border-color: $dark-border-color;
+        background-color: $dark-bg !important;
+}
+    .node-value{
+        i,span{
+                color: $dark-bg-color;
+        }
+    }
+    .more-theme-style a{
+         color: $dark-bg-color;
+    }
+    .inbox-wrapper{
+        .bg-grey{
+        background-color: $dark-bg-container ;
+        }
+    }
+    .chat-wrapper{
+        .bg-grey{
+             background-color: $dark-bg-container !important;
+        }
+    }
+}

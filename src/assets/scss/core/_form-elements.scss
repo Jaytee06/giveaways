@@ -1,0 +1,32 @@
+/*========== Form Elements Css Style ============*/
+input,
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    font-size: 14px;
+}
+.form-group  label {
+  font-weight: 400;
+  margin: 0 0 10px;
+  color: $from-label-color;
+}
+.success-addon {
+	background: $green;
+}
+.primary-addon {
+	background: $blue;
+	color: $white;
+}
+.form-control.active {
+  border-color: $blue;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba($blue, 0.6);
+  outline: 0 none;
+}
+.input-square {
+	border-radius: $input-square;
+}
+.input-rounded {
+	border-radius: $input-rounded;
+}
+.steps-indicator{
+ margin-bottom: 2rem !important;   
+}

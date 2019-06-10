@@ -1,0 +1,293 @@
+/*======== Ribbon css style ===========*/
+.ribbon {
+	padding: 5px 15px;
+	position: relative;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	z-index: 9;
+	span {
+		display: block;
+		width: 100px;
+		max-width: 90%;
+		height: 20px;
+		line-height: 20px;
+		vertical-align: middle;
+	}
+	&.left {
+		margin-left: -30px;
+		text-align: left;
+		width: 90%;
+		&:before {
+			content: " ";
+			height: 15px;
+			width: 15px;
+			border-left: 0 solid transparent;
+			border-right: 15px solid transparent;
+			position: absolute;
+			top: 0;
+			right: -15px;
+		}
+		&:after {
+			content: " ";
+			height: 15px;
+			width: 15px;
+			border-left: 0 solid transparent;
+			border-right: 15px solid transparent;
+			position: absolute;
+			bottom: 0;
+			right: -15px;
+		}
+	}
+	&.right {
+		margin-right: -30px;
+		float: right;
+		text-align: right;
+		&:before {
+			content: " ";
+			height: 15px;
+			width: 15px;
+			border-left: 0 solid transparent;
+			border-left: 15px solid transparent;
+			position: absolute;
+			top: 0;
+			left: -15px;
+		}
+		&:after {
+			content: " ";
+			height: 15px;
+			width: 15px;
+			border-left: 0 solid transparent;
+			border-left: 15px solid transparent;
+			position: absolute;
+			bottom: 0;
+			left: -15px;
+		}
+	}
+	&.top-left {
+		text-align: center;
+		width: 40px;
+		margin-top: -25px;
+		padding: 0;
+		margin-bottom: 30px;
+		span {
+			width: 100%;
+			float: left;
+			height: 40px;
+			margin: 0;
+			line-height: 40px;
+			vertical-align: middle;
+			display: block;
+			max-width: none;
+		}
+		&:before {
+			content: " ";
+			height: 20px;
+			width: 20px;
+			border-bottom: 20px solid transparent;
+			border-right: 20px solid transparent;
+			position: absolute;
+			bottom: -20px;
+			left: 0;
+		}
+		&:after {
+			content: " ";
+			height: 20px;
+			width: 20px;
+			border-bottom: 20px solid transparent;
+			border-left: 20px solid transparent;
+			position: absolute;
+			bottom: -20px;
+			right: 0;
+		}
+	}
+	&.top-right {
+		text-align: center;
+		width: 40px;
+		margin-top: -25px;
+		padding: 0;
+		margin-bottom: 30px;
+		float: right;
+		span {
+			width: 100%;
+			float: left;
+			height: 40px;
+			margin: 0;
+			line-height: 40px;
+			vertical-align: middle;
+			display: block;
+			max-width: none;
+		}
+		&:before {
+			content: " ";
+			height: 20px;
+			width: 20px;
+			border-bottom: 20px solid transparent;
+			border-right: 20px solid transparent;
+			position: absolute;
+			bottom: -20px;
+			left: 0;
+		}
+		&:after {
+			content: " ";
+			height: 20px;
+			width: 20px;
+			border-bottom: 20px solid transparent;
+			border-left: 20px solid transparent;
+			position: absolute;
+			bottom: -20px;
+			right: 0;
+		}
+	}
+	&.ribbon-success {
+		background: $green;
+		color: $white;
+		&.right {
+			&:before {
+				border-top: 15px solid $green;
+			}
+			&:after {
+				border-bottom: 15px solid $green;
+			}
+		}
+		&.top-left {
+			background: $green;
+			position: absolute;
+			left: 10px;
+			&:before {
+				border-left: 25px solid $green;
+			}
+			&:after {
+				border-right: 25px solid $green;
+			}
+		}
+		&.top-right {
+			background: $green;
+			position: absolute;
+			right: 10px;
+			&:before {
+				border-left: 25px solid $green;
+			}
+			&:after {
+				border-right: 25px solid $green;
+			}
+		}
+		&.left:before {
+			border-top: 15px solid $green;
+			border-bottom: 15px solid $green;
+		}
+	}
+	&.ribbon-danger {
+		background: $red;
+		color: $white;
+		&.right {
+			&:before {
+				border-top: 15px solid $red;
+			}
+			&:after {
+				border-bottom: 15px solid $red;
+			}
+		}
+		&.top-left {
+			background: $red;
+			position: absolute;
+			left: 10px;
+			&:before {
+				border-left: 25px solid $red;
+			}
+			&:after {
+				border-right: 25px solid $red;
+			}
+		}
+		&.top-right {
+			background: $red;
+			position: absolute;
+			right: 10px;
+			&:before {
+				border-left: 25px solid $red;
+			}
+			&:after {
+				border-right: 25px solid $red;
+			}
+		}
+		&.left:before {
+			border-top: 15px solid $red;
+			border-bottom: 15px solid $red;
+		}
+	}
+	&.ribbon-warning {
+		background: $orange;
+		color: $white;
+		&.right {
+			&:before {
+				border-top: 15px solid $orange;
+			}
+			&:after {
+				border-bottom: 15px solid $orange;
+			}
+		}
+		&.top-left {
+			background: $orange;
+			position: absolute;
+			left: 10px;
+			&:before {
+				border-left: 25px solid $orange;
+			}
+			&:after {
+				border-right: 25px solid $orange;
+			}
+		}
+		&.top-right {
+			background: $orange;
+			position: absolute;
+			right: 10px;
+			&:before {
+				border-left: 25px solid $orange;
+			}
+			&:after {
+				border-right: 25px solid $orange;
+			}
+		}
+		&.left:before {
+			border-top: 15px solid $orange;
+			border-bottom: 15px solid $orange;
+		}
+	}
+	&.ribbon-primary {
+		background: $blue;
+		color: $white;
+		&.right {
+			&:before {
+				border-top: 15px solid $blue;
+			}
+			&:after {
+				border-bottom: 15px solid $blue;
+			}
+		}
+		&.top-left {
+			background: $blue;
+			position: absolute;
+			left: 10px;
+			&:before {
+				border-left: 25px solid $blue;
+			}
+			&:after {
+				border-right: 25px solid $blue;
+			}
+		}
+		&.top-right {
+			background: $blue;
+			position: absolute;
+			right: 10px;
+			&:before {
+				border-left: 25px solid $blue;
+			}
+			&:after {
+				border-right: 25px solid $blue;
+			}
+		}
+		&.left:before {
+			border-top: 15px solid $blue;
+			border-bottom: 15px solid $blue;
+		}
+	}
+}

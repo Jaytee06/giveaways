@@ -1,0 +1,12 @@
+/*============ Badge variants css ===========*/
+
+@mixin badge-outline-variant($background, $color) {
+    background-color: transparent;
+    border: 1px solid $background;
+    color: $background;
+    &[href]:hover,
+    &[href]:focus {
+        background-color: $background;
+        color: $color;
+    }
+}

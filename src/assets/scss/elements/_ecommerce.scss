@@ -1,0 +1,62 @@
+/*========== Ecommerce Product Detail ============*/
+.ecommerce-product-wrapper, .ecommerce-product-detail {
+	.media-card {
+		padding: 20px;
+		.thumbnail {
+			margin: 0;
+		}
+		.media-body {
+			padding: 0;
+		}
+	}
+}
+.gallery {
+    a {
+        @include border(1px solid, $input-border-color, top bottom left right);
+        &:hover {
+            border-color: $blue;
+        }
+    }
+}
+.ecommerce-product-wrapper {
+	.card {
+		display: inherit;
+		text-align: center;
+	}
+}
+/*========== Ecommerce order ============*/
+.ecomm-order-wrapper {
+	.count {
+		font-size: 30px;
+	}
+	.legend {
+		padding-top: 50px;
+	}
+}
+.review-block {
+  background-color: $blue;
+  color: $white;
+  padding: 30px;
+  h2 {
+  	font-size: 50px;
+  }
+  p {
+  	font-size: 18px;
+  	i {
+  		font-size: 24px;
+  	}
+  }
+}
+.rating-progress-list {
+	.progress {
+		margin: 0;
+		border: none;
+		background-color: $gray-300;
+	}
+	li {
+		margin-bottom: 20px;
+	}
+	.progress-listing {
+		padding: 0.5rem 0 0 3rem;
+	}
+}

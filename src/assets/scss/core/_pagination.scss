@@ -1,0 +1,205 @@
+/*============ Pagination Css Style ===========*/
+.pagination-rounded {
+	.pagination {
+		>li {
+			&:first-child {
+				> a, > span {
+					border-bottom-left-radius: 100px;
+					border-top-left-radius: 100px;
+				}
+			}
+			&:last-child {
+				> a, > span {
+					border-bottom-right-radius: 100px;
+					border-top-right-radius: 100px;
+				}
+			}
+		}
+	}
+}
+.no-border-square {
+   .pagination {
+      	> li {
+         	&.active a,
+         	&:hover a,
+         	&:focus a {
+            	background: $green;
+            	color: $white;
+            }
+        }
+        a {
+            border: none;
+        }
+   	}
+}
+.no-border-circle {
+	@extend .no-border-square;
+   	.pagination {
+      	li {
+         	&.active a,
+         	&:hover a,
+         	&:focus a {
+            	background: $orange;
+            	border-radius: 100px;
+        	}
+        }
+        a {
+            border-radius: 100px;
+            height: 40px;
+            width: 40px;
+            line-height: 40px;
+            padding: 0;
+            text-align: center;
+            margin-left: 0;
+        }
+   	}
+}
+.active-bottom-line {
+	.pagination {
+		li {
+         	&.active a,
+         	&:hover a,
+         	&:focus a {
+            	border-bottom: 2px solid $blue;
+            	background-color: transparent;
+            	color: $blue;
+        	}
+        }
+        a {
+            border: none;
+            background-color: transparent;
+            color: $blue;
+        }
+	}
+}
+.seprated-line-pagination {
+	.pagination {
+		li {
+         	&.active a,
+         	&:hover a,
+         	&:focus a {
+            	background-color: transparent;
+            	color: $blue;
+            	border-color: $blue;
+        	}
+        }
+		a {
+			border: none;
+			background-color: transparent;
+			color: $blue;
+			@include border(1px solid, $blue, left right);
+		}
+	}
+}
+.colored-pagination {
+	.pagination {
+		li {
+			&.active a,
+         	&:hover a,
+         	&:focus a {
+            	background: darken($blue, 10%);
+            	border-color: $blue;
+        	}
+		}
+		a {
+			@extend .bg-primary;
+			border-color: $blue;
+            color: $white;
+		}
+	}
+}
+.colored-pagination-primary {
+	@extend .pagination-rounded;
+	.pagination {
+		li {
+			&.active a,
+         	&:hover a,
+         	&:focus a {
+            	background: darken($green, 5%);
+            	border-color: $green;
+        	}
+		}
+		a {
+			@extend .bg-success;
+			border-color: $green;
+            color: $white;
+		}
+	}
+}
+.seprated-pagination-default {
+   .pagination {
+      li {
+        &.active a,
+        &:hover a,
+        &:focus a {
+            background: $blue;
+            @include border(1px solid, $gray-100, bottom left right top);
+            color: $white;
+        }
+        a {
+            margin: 2px;
+            @include border(1px solid, $pagination-border-color, bottom left right top);
+        }
+      }
+   }
+}
+.seprated-pagination-warning {
+	@extend .seprated-pagination-default;
+   .pagination {
+      	li {
+        	&.active a,
+        	&:hover a,
+        	&:focus a {
+            	background-color: darken($orange,10%);
+        	}
+        	a {
+            	background: $orange;
+            	color: $white;
+        	}
+      	}
+   	}
+}
+.seprated-pagination-rounded {
+	@extend .seprated-pagination-default;
+	@extend .pagination-rounded;
+}
+.seprated-color-pagination-rounded {
+	@extend .seprated-pagination-rounded;
+	.pagination {
+		li {
+        	&.active a,
+        	&:hover a,
+        	&:focus a {
+            	background-color: darken($green,10%);
+            }
+        }
+		a {
+	        background: $green;
+	        color: $white;
+	    }
+	}
+}
+//-------- Pagination Responsive css --------//
+@media (min-width: 320px) and (max-width: 385px) {
+    .pagination-wrapper {
+        .pagination-lg {
+            > li {
+                > a, > span {
+                    padding: 10px;
+                }
+            }
+        }
+        .pagination {
+            > li {
+                > a, > span {
+                    padding: 6px 7px;
+                }
+            }
+        }
+        .no-border-circle .pagination a {
+          line-height: 20px;
+		  height: 30px;
+		  width: 30px;
+        }
+    }
+}

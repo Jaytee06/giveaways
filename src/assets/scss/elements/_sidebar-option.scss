@@ -1,0 +1,253 @@
+/*=========== customizer ===========*/
+
+.chankya-customizer,
+.chat-sidebar-pan {
+    right: 0;
+    width: 300px;
+    backface-visibility: hidden;
+    background: $white;
+    bottom: 0;
+    position: fixed;
+    box-shadow: -6px 8px 11px 0 rgba(0, 0, 0, 0.33);
+    right: -300px;
+    transition: right 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99) 0s;
+    width: 300px;
+    z-index: 99;
+    top: 72px;
+}
+
+.theme-options {
+    .theme-head {
+        border-bottom: 2px solid $input-border-color;
+        margin-bottom: 1rem;
+        padding: 0 1.5rem;
+        h4 {
+            font-weight: normal;
+        }
+    }
+}
+
+.lang-change {
+    padding: 0 1.5rem 0.3rem;
+    border-bottom: 2px solid $input-border-color;
+    label {
+        margin-bottom: 0.1rem;
+    }
+}
+
+.chankya-customizier {
+    padding: 2rem 1.5rem;
+    top: 0px;
+}
+
+.customizer-toggle {
+    border: medium none;
+    color: $white !important;
+    cursor: pointer;
+    height: 45px;
+    left: -45px;
+    line-height: 45px;
+    position: absolute;
+    text-align: center;
+    top: 25%;
+    width: 45px;
+}
+
+.customizer-in .chankya-customizer,
+.chat-sidebar .chat-sidebar-pan {
+    right: 0;
+    .fa-wrench::before {
+        content: "\f013";
+    }
+}
+
+.theme-options {
+    padding-top: 2.5rem;
+}
+
+.settings-panel {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .nav-tabs {
+        border: none;
+    }
+    .chat-tabs {
+        >a {
+            padding: $chat-item-padding;
+            border-bottom: $chat-item-border;
+            background: $chat-item-bg-color;
+            display: block;
+            small {
+                color: $gray-800;
+            }
+            &:hover {
+                background: $gray-300;
+            }
+        }
+    }
+    .nav-item {
+        margin: 0;
+        width: 50%;
+    }
+    .nav-link {
+        background-color: $gray-300;
+        text-align: center;
+        border-top: none;
+        border-left: none;
+        border-bottom: none;
+        color: #414658;
+        border-right: 1px solid #DEE4E8;
+        &.active {
+            background: $gray-300;
+            border-bottom: 2px solid $blue;
+        }
+    }
+    .layout-item {
+        margin-bottom: 1.6rem;
+        padding: 0 1.5rem;
+    }
+}
+
+.system-setting {
+    padding-top: 1rem;
+    .setting-header {
+        padding: $chat-item-padding;
+        border-bottom: $chat-item-border;
+    }
+    ul {
+        li {
+            padding: $chat-item-padding;
+            border-bottom: $chat-item-border;
+            background: $chat-item-bg-color;
+        }
+    }
+}
+
+.form-check-label {
+    img {
+        margin: 0 -26px 0 -26px;
+        display: block;
+    }
+}
+
+
+/*========= Swicthes css ============*/
+
+.onoffswitch {
+    position: relative;
+    width: 75px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+    display: none;
+}
+
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: $white;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+    content: "\f00c";
+    font-family: 'FontAwesome';
+    padding-left: 10px;
+    background-color: $green;
+    color: $white;
+}
+
+.onoffswitch-inner:after {
+    content: "\f00d";
+    font-family: 'FontAwesome';
+    padding-right: 10px;
+    background-color: $gray-800;
+    color: $white;
+    text-align: right;
+}
+
+.onoffswitch-switch {
+    display: block;
+    width: 18px;
+    margin: 6px;
+    background: $white;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 43px;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
+
+
+/*======= boxed =========*/
+
+.boxed {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    width: 1170px;
+    .col-one-half-lg-down,
+    .col-half-lg-down {
+        flex: 1 1 50%;
+        max-width: 50%;
+    }
+    .mb-5-down {
+        margin-bottom: 4rem !important;
+    }
+    .col-full-lg-down {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    .main-header {
+        left: 39rem;
+        right: 24.5rem;
+    }
+    .main-contents {
+        overflow-x: hidden;
+    }
+    .number-social {
+        font-size: 1rem;
+    }
+    .name-social {
+        display: none;
+    }
+}
+
+@media(max-width:768px) {
+    .chankya-customizer {
+        display: none !important;
+    }
+}

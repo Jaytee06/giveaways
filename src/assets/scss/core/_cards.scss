@@ -1,0 +1,15 @@
+/*============== Panels Style css =============*/
+.card-wrapper {
+    .card {
+        margin-bottom: 30px;
+        border-radius: 0;
+        .card-header {
+            &:first-child {
+                border-radius: 0;
+            }
+        }
+        .card-title {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,76 @@
+/*================= Bootstrap Dropdowns style css ==============*/
+.Dropdown-wrapper {
+	.dropdown-item {
+		a {
+			color: inherit;
+		}
+	}
+	.dropdown-header {
+		text-transform: uppercase;
+		margin: 5px 0;
+		font-size: 12px;
+	}
+}
+.dropdown-heading-bg {
+	background-color: $dropdown-heading-bg;
+}
+.primary-dropdown, .success-dropdown, .warning-dropdown, .danger-dropdown, .info-dropdown {
+	.dropdown-menu > .dropdown-item {
+		&:hover a, &.active {
+			color: $white;
+		}
+	}
+}
+.primary-dropdown {
+	.dropdown-menu > .dropdown-item {
+		&:hover, &.active {
+			background-color: $blue;
+		}
+	}
+}
+.success-dropdown {
+	.dropdown-menu > .dropdown-item {
+		&:hover, &.active {
+			background-color: $green;
+		}
+	}
+}
+.warning-dropdown {
+	.dropdown-menu > .dropdown-item {
+		&:hover, &.active {
+			background-color: $orange;
+		}
+	}
+}
+.danger-dropdown {
+	.dropdown-menu > .dropdown-item {
+		&:hover, &.active {
+			background-color: $red;
+		}
+	}
+}
+.info-dropdown {
+	.dropdown-menu > .dropdown-item {
+		&:hover, &.active {
+			background-color: $teal;
+		}
+	}
+}
+.btn-label-primary, .btn-label-info, .btn-label-warning, .btn-label-success, .btn-label-danger {
+	border-color: transparent;
+}
+.btn-label-primary {
+	background-color: darken($blue, 10%);
+}
+.btn-label-info {
+	background-color: darken($teal, 10%);
+}
+.btn-label-success {
+	background-color: darken($green, 10%);
+}
+.btn-label-danger {
+	background-color: darken($red, 10%);
+}
+.btn-label-warning {
+	background-color: darken($orange, 10%);
+}

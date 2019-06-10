@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="chk-block">
+            <div class="chk-block-title">
+                <button class="btn btn-success Btn-Success pull-left" (click)="addUser()">Add User</button>
+            </div>
+            <div class="chk-block-content">
+                <tcg-table [tableSettings]="tableData" (rowClicked)="userSelected($event)" (selectionChange)="rowSelected($event)"></tcg-table>
+            </div>
+        </div>
+    </div>
+</div>

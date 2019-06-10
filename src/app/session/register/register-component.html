@@ -1,0 +1,59 @@
+<div class="login-wrapper">
+   <div class="login-form-wrapper">
+      <div class="bg-container">
+         <div class="row">
+            <div class="col-sm-10 col-md-8 col-lg-8 col-xl-5 mx-auto">
+               <div class="login-block text-center">
+                  <div class="login-icon mb-4">
+                     <span class="square-100 fa-notify"><i class="fa fa-unlock-alt"></i></span>
+                  </div>
+                  <div class="mb-3">
+                     <p class="text-primary">Welcome To The Care Group</p>
+                     <h2 class="text-muted">Register with Us</h2>
+                  </div>
+                  <form class="login-form" action="javascript:;" method="post">
+                     <div class="form-group">
+                        <input name="fname" [(ngModel)]="fname" class="form-control form-control-lg input-square" type="text" placeholder="First Name" required>
+                     </div>
+                     <div class="form-group">
+                        <input name="lname" [(ngModel)]="lname" class="form-control form-control-lg input-square" type="text" placeholder="Last Name" required>
+                     </div>
+                     <div class="form-group">
+                        <input type="email" [(ngModel)]="email" name="email" class="form-control form-control-lg input-square" placeholder="Email Address" required>
+                     </div>
+                     <div class="form-group">
+                        <input type="password" [(ngModel)]="password" name="password" class="form-control form-control-lg input-square" placeholder="Password" required>
+                     </div>
+                     <div class="form-group">
+                        <input type="password" [(ngModel)]="passwordConfirm" name="passwordConfirm" class="form-control form-control-lg input-square" placeholder="Confirm Password" required>
+                     </div>
+                     <div class="login-meta mb-3">
+                        <div class="row">
+                           <div class="col-xs-6 col-sm-6 col-md-6">
+                              <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0 d-flex">
+                                 <input class="custom-control-input" type="checkbox">
+                                 <span class="custom-control-indicator"></span>
+                                 <span class="custom-control-description">Remember Me</span>
+                              </label>
+                           </div>
+                           <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                              <a routerLink="/session/forgot-password" class="text-muted">Forgot Password?</a>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- login meta closed -->
+                     <div class="mb-3">
+                        <button type="submit" (click)="register()" class="btn btn-primary btn-block btn-lg btn-square">Sign In</button>
+                     </div>
+                     <span>Dont have account yet? <a routerLink="/session/loginone" class="text-muted">Sign in here!</a></span>
+                  </form>
+                  <!-- Login Form closed -->
+               </div>
+               <!-- login block closed -->
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Login form wrapper closed -->
+</div>
+<!-- login wrapper closed -->

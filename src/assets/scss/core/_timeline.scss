@@ -1,0 +1,130 @@
+/*=========== Timeline Css Style =========*/
+.timeline-widget::before {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+.timeline-widget::before {
+    bottom: 0;
+    content: "";
+    left: 0.6rem;
+    position: absolute;
+    top: 5px;
+    width: 1px;
+}
+.timeline-widget{
+    position: relative;
+    .timeline-point{
+     position: relative;
+     z-index: 9; 
+    }
+}
+.bg-white{
+    background: $white;
+}
+.bg-grey{
+    background-color: $gray-300;
+}
+/*=========== Timeline page css style =============*/
+.timeline-flow {
+    position: relative;
+    overflow: hidden;
+    &::before {
+        background: $gray-500;
+        content: "";
+        height: 100%;
+        left: 50%;
+        position: absolute;
+        top: 0;
+        width: 4px;
+    }
+    .timeline-block {
+        position: relative;
+        margin: 2rem 0;
+        &:nth-child(2n) {
+            left: auto;
+            //top: 24px;
+            .timeline-card {
+                float: right;
+            }
+        }
+        &::after {
+            clear: both;
+            content: "";
+            display: table;
+        }
+    } 
+    .timeline-badge {
+        backface-visibility: hidden;
+        height: 60px;
+        left: 50%;
+        margin-left: -30px;
+        transform: translateZ(0px);
+        width: 60px;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px #cecece, 0 2px 0 rgba(0, 0, 0, 0.08) inset, 0 3px 0 4px rgba(0, 0, 0, 0.05);
+        position: absolute;
+        top: 0;
+        .icon {
+            left: 17px;
+            top: 15px;
+            position: absolute;
+        }
+    } 
+    .timeline-card {
+        background-color: $gray-300;
+        width: 45%;
+        @include border(1px solid, $input-border-color, left right top bottom);
+        box-shadow: 0 3px 0 $gray-400;
+        border-radius: 5px;
+        position: relative;
+        .timeline-date {
+            left: 125%;
+            position: absolute;
+            top: 15px;
+            width: 100%;
+        }
+    }   
+}
+/*======= Time line Responsive Style =======*/
+@media (max-width: 1199px) and (min-width: 992px) {
+    .timeline-flow {
+        .timeline-badge {
+            left: auto;
+            margin-left: 30px;
+        }
+        &::before {
+            left: 58px;
+        }
+        .timeline-card {
+            float: right;
+            width: 85%;
+        }
+    }
+}
+@media (max-width: 991px) {
+    .timeline-flow {
+        .timeline-badge {
+            margin-left: 10px;
+            left: auto;
+        }
+        &::before {
+            left: 38px;
+        }
+        .timeline-card {
+            width: 75%;
+            float: right;
+        }
+    }
+}
+@media (max-width: 415px) {
+    .timeline-flow {
+        .timeline-badge {
+            display: none;
+        }
+        &::before {
+            display: none;
+        }
+        .timeline-card {
+            width: 100%;
+        }
+    }
+}
