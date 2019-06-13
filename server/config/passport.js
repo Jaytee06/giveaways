@@ -1,11 +1,41 @@
 const passport = require('passport');
+const TwitchStrategy = require('passport-twitch').Strategy;
 const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
 
+const userCtrl = require('../controllers/user.controller');
 const User = require('../models/user.model');
+const Role = require('../models/role.model');
 const config = require('./config');
+
+const twitchLogin = new TwitchStrategy({
+        clientID: config.twitchClientId,
+        clientSecret: config.twitchClientSecret,
+        callbackURL: config.serverURL+"/api/auth/twitch/callback",
+        scope:['user_read']
+    },
+    async function(accessToken, refreshToken, profile, done) {
+        const newUser = {accessToken, refreshToken, provider: profile.provider, providerId: profile.id, fullname: profile.username, email:profile.email, imageUrl:profile._json.logo};
+        const users = await userCtrl.get({providerId: profile.id});
+        let user = null;
+        if( users && users.length ) {
+            user = users[0];
+            user.accessToken = accessToken;
+            user.refreshToken = refreshToken;
+            user.imageUrl = newUser.imageUrl;
+            user = await userCtrl.update(user._id, user);
+        } else {
+            let role = await Role.findOne({slug: 'user'}); // default their role
+            if( role )
+                newUser.roles = [role._id];
+
+            user = await userCtrl.insert(newUser);
+        }
+        return done(null, user.toObject());
+    }
+);
 
 const localLogin = new LocalStrategy({
   usernameField: 'email'
@@ -32,6 +62,15 @@ const jwtLogin = new JwtStrategy({
     done(null, user);
 });
 
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.use(twitchLogin);
 passport.use(jwtLogin);
 passport.use(localLogin);
 

@@ -14,22 +14,33 @@ const UserSchema = new mongoose.Schema({
     },
     hashedPassword: {
         type: String,
-        required: true
-    },
-    partner: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Partner'
-    },
-    company: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Company',
-        required: true
+        //required: true
     },
     roles: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Role',
         required: true
     }],
+    provider: {
+        type: String,
+        trim: true
+    },
+    providerId: {
+        type: String,
+        trim: true,
+    },
+    accessToken: {
+        type: String,
+        trim: true
+    },
+    refreshToken: {
+        type: String,
+        trim: true
+    },
+    imageUrl: {
+        type: String,
+        trim: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

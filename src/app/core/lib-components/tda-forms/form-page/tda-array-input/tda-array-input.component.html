@@ -1,0 +1,13 @@
+<br>
+<h3 class="text-capitalize">Items</h3>
+<div [formGroup]="formGroup">
+	<div *ngFor="let option of formGroup.controls, index as i">
+		<ng-container *ngIf="option.value.active" class="input-group">
+			<mat-form-field>
+				<input type="text" matInput [value]="option.value.name" (change)="changeEvent(i, $event)" placeholder="Name">
+				<mat-icon class="delete-icon" matSuffix (click)="delete(i)">delete</mat-icon>
+			</mat-form-field>
+		</ng-container>
+	</div>
+	<button mat-stroked-button type="button" (click)="add()">Add Item</button>
+</div>

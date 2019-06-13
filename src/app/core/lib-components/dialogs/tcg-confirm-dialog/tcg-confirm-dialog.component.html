@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+	<p [innerHtml]="data.content"></p>
+	<!--<app-tda-form *ngIf="data.formStructure" [structure]="data.formStructure" [values]="data.formValues" [showButtons]="false"></app-tda-form>-->
+	<form fxLayout="column" #formData=ngForm *ngIf="data.formStructure">
+		<ng-container *ngFor="let field of data.formStructure" [ngSwitch]="field.type">
+			<div class="form-check" *ngSwitchCase="'checkbox'">
+				<label class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" name="{{field.name}}}" [(ngModel)]="data.formValues[field.name]" [checked]="data.formValues[field.name]" [disabled]="field.disabled" [required]="field.required">
+					<span class="custom-control-indicator"></span>
+					<span class="custom-control-description">{{field.placeholder}}</span>
+				</label>
+			</div>
+		</ng-container>
+	</form>
+</div>
+<div mat-dialog-actions>
+	<button mat-button (click)="cancel()">No</button>
+	<button mat-button class="btn btn-success Btn-success" [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+</div>

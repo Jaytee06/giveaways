@@ -1,0 +1,18 @@
+<div [formGroup]="formGroup">
+  {{placeholder}}
+  <span class="required" *ngIf="required"> *</span>
+</div>
+<div *ngFor="let option of options; let index = index;">
+  <mat-checkbox
+      (change)="onChange($event)"
+      [value]="option"
+      [checked]="getChecked(option)"
+  >
+    {{option.text}}
+  </mat-checkbox>
+</div>
+<mat-form-field *ngIf="allowOther">
+  <label>
+    <input matInput [formControl]="otherControl" type="text" placeholder="Other:">
+  </label>
+</mat-form-field>

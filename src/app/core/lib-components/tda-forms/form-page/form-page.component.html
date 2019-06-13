@@ -1,0 +1,303 @@
+<div *ngFor="let field of classFields" [formGroup]="formGroup">
+	<div [ngClass]="{'pl-4 pr-4':field.subField}" *ngIf="field.active !== false && ( !field.originallyHidden || field.shouldShow) && field.hasAccess !== false">
+		<div>
+			<span [innerHtml]="field.label"></span>
+			<span *ngIf="field.notes" class="notes">({{field.notes}})</span>
+		</div>
+		<ng-container [ngSwitch]="field.type">
+			<ng-container *ngSwitchCase="'Input'" [ngSwitch]="field.typeAttribute">
+				<mat-form-field *ngSwitchCase="'Phone'">
+					<span matPrefix>+1 &nbsp;</span>
+					<label>
+						<input
+								matInput
+								type="text"
+								autocomplete="off"
+								[placeholder]="field.name"
+								mask="(000) 000-0000"
+								(blur)="fieldValueChanged({field: field, value: formGroup.controls[field._id].value})"
+								[formControlName]="getFormControlName(field)"
+								[required]="field.required"
+						>
+					</label>
+				</mat-form-field>
+				<mat-form-field *ngSwitchCase="'URL'">
+					<span matPrefix>https:// &nbsp;</span>
+					<label>
+						<input
+								matInput
+								type="text"
+								autocomplete="off"
+								[placeholder]="field.name"
+								(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+								[formControlName]="getFormControlName(field)"
+								[required]="field.required"
+						>
+					</label>
+				</mat-form-field>
+				<mat-form-field *ngSwitchCase="'Date'">
+					<label>
+						<input
+							#picker
+							matInput
+							autocomplete="off"
+							[matDatepicker]="picker"
+							[placeholder]="field.name"
+							[formControlName]="getFormControlName(field)"
+							[required]="field.required"
+							(click)="picker.open()"
+							(dateChange)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+						>
+					</label>
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+				<mat-form-field *ngSwitchCase="'Currency'">
+					<label>
+						<input
+								matInput
+								currencyMask
+								autocomplete="off"
+								type="text"
+								[placeholder]="field.name+' (ex: $1,250.00)'"
+								[formControlName]="getFormControlName(field)"
+								(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+						/>
+					</label>
+				</mat-form-field>
+				<mat-form-field *ngSwitchCase="'InsuranceBIN'">
+					<label>
+						<input
+								matInput
+								type="text"
+								name="BIN"
+								autocomplete="on"
+								[placeholder]="field.name"
+								(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+								(ngModelChange)="checkBin($event)"
+								[formControlName]="getFormControlName(field)"
+								[required]="field.required"
+						>
+					</label>
+				</mat-form-field>
+				<mat-form-field *ngSwitchCase="'NameForSlug'">
+					<label>
+						<input
+								matInput
+								type="text"
+								name="BIN"
+								autocomplete="on"
+								[placeholder]="field.name"
+								(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+								(ngModelChange)="changeSlug($event, field.shouldChange)"
+								[formControlName]="getFormControlName(field)"
+								[required]="field.required"
+						>
+					</label>
+				</mat-form-field>
+				<mat-form-field *ngSwitchCase="'Email'">
+					<label>
+						<input
+								matInput
+								type="email"
+								autocomplete="off"
+								[placeholder]="field.name+' (ex: johndoe@gmail.com)'"
+								[formControlName]="getFormControlName(field)"
+								(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+						/>
+					</label>
+				</mat-form-field>
+				<mat-form-field *ngSwitchCase="'Password'">
+					<label>
+						<input
+								matInput
+								type="password"
+								autocomplete="off"
+								[placeholder]="field.name"
+								[formControlName]="getFormControlName(field)"
+								(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+						/>
+					</label>
+				</mat-form-field>
+				<mat-form-field *ngSwitchDefault>
+					<label>
+						<input
+								matInput
+								type="text"
+								autocomplete="off"
+								class="ml-1"
+								[formControlName]="getFormControlName(field)"
+								[placeholder]="field.name"
+								[required]="field.required"
+								(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+						/>
+					</label>
+				</mat-form-field>
+			</ng-container>
+			<mat-form-field *ngSwitchCase="'Textarea'">
+				<label>
+					<textarea
+							matInput
+							type="text"
+							[placeholder]="field.name"
+							[formControlName]="getFormControlName(field)"
+							[required]="field.required"
+							[matTextareaAutosize]=true
+							(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+					></textarea>
+				</label>
+			</mat-form-field>
+			<app-single-select
+					*ngSwitchCase="'Select'"
+					[required]="field.required"
+					[placeholder]="field.name"
+					[control]="formGroup.get(field._id)"
+					[options]="field.options"
+					(change)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+			>
+			</app-single-select>
+			<ng-select
+					*ngSwitchCase="'MultiSelect'"
+					placeholder="Select {{field.name}}"
+					[formControlName]="getFormControlName(field)"
+					[required]="field.required"
+					[items]="field.options"
+					[multiple]="true"
+					[closeOnSelect]="true"
+					[hideSelected]="true"
+					[bindLabel]="field.ngSelectBindLabel ? field.ngSelectBindLabel : 'fullname'"
+					bindValue="_id"
+			>
+			</ng-select>
+			<app-ng-select
+					*ngSwitchCase="'ngSelect'"
+					placeholder="Select {{field.name}}"
+					[formControlName]="field._id"
+					[required]="field.required"
+					[items]="field.options"
+					[multiple]="false"
+					[clearable]="field.clearable"
+					[closeOnSelect]="true"
+					[hideSelected]="true"
+					[bindLabel]="field.ngSelectBindLabel ? field.ngSelectBindLabel : 'fullname'"
+					[bindValue]="'_id'"
+					[editable]="field.ngEditable"
+					[ngPopUpComponent]="field.ngPopUpComponent"
+					[service]="field.ngPopUpService"
+					[structure]="field.ngPopUpStructure"
+					[defaultValue]="field.ngPopUpDefaultValue"
+			>
+			</app-ng-select>
+			<tcg-address-form2
+					*ngSwitchCase="'Address'"
+					[required]="field.required"
+					[formGroup]="formGroup.get(field._id)"
+					(change)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+			>
+			</tcg-address-form2>
+			<app-tda-check-boxes
+					*ngSwitchCase="'Checkbox'"
+					[required]="field.required"
+					[formGroup]="formGroup.get(field._id)"
+					[options]="field.options"
+					[placeholder]="field.name"
+					[minChecked]="field.minChecked"
+					[maxChecked]="field.maxChecked"
+					[allowOther]="field.allowOther"
+					(change)="checkBoxValueChanged({field: field, value: formGroup.get(field._id).value})"
+			>
+			</app-tda-check-boxes>
+			<app-tda-array-input
+					*ngSwitchCase="'ArrayInput'"
+					[formGroup]="formGroup.get(field._id)"
+					[placeholder]="field.name"
+					[required]="field.required"
+			>
+
+			</app-tda-array-input>
+			<ng-container *ngSwitchCase="'Radio'">
+				<mat-radio-group
+						[formControlName]="getFormControlName(field)"
+						[required]="field.required"
+						[name]="field.name"
+						(change)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+				>
+					<mat-radio-button
+							*ngFor="let opt of field.options"
+							[value]="opt.text.toLowerCase()"
+					>
+						{{opt.text}}
+					</mat-radio-button>
+				</mat-radio-group>
+			</ng-container>
+			<mat-form-field *ngSwitchCase="'Physician'">
+				<mat-select
+						[required]="field.required"
+						[placeholder]="field.name"
+						[formControlName]="getFormControlName(field)"
+						(selectionChange)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+				>
+					<mat-option>- Select One -</mat-option>
+					<mat-option
+							*ngFor="let physician of physicians"
+							[value]="physician._id"
+					>
+						{{physician.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field *ngSwitchCase="'User'">
+				<mat-select
+						[required]="field.required"
+						[placeholder]="field.name"
+						[formControlName]="getFormControlName(field)"
+						(selectionChange)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+				>
+					<mat-option>- Select One -</mat-option>
+					<mat-option
+							*ngFor="let user of filteredUsers(field)"
+							[value]="user._id"
+					>
+						{{user.fullname}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field *ngSwitchCase="'Clinic'">
+				<mat-select
+						[required]="field.required"
+						[placeholder]="field.name"
+						[formControlName]="getFormControlName(field)"
+						(selectionChange)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+				>
+					<mat-option>- Select One -</mat-option>
+					<mat-option
+							*ngFor="let clinic of clinics"
+							[value]="clinic._id"
+					>
+						{{clinic.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field *ngSwitchCase="'Lab'">
+				<mat-select
+						[required]="field.required"
+						[placeholder]="field.name"
+						[formControlName]="getFormControlName(field)"
+						(selectionChange)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+				>
+					<mat-option>- Select One -</mat-option>
+					<mat-option
+							*ngFor="let lab of labs"
+							[value]="lab._id"
+					>
+						{{lab.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-checkbox *ngSwitchCase="'SimpleCheckBox'" [formControlName]="getFormControlName(field)">{{field.name}}</mat-checkbox>
+			<br *ngIf="field.type == 'EmptyLine'">
+			<mat-divider *ngIf="field.type == 'Separator'"></mat-divider>
+		</ng-container>
+	</div>
+</div>
+<br>

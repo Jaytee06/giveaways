@@ -8,8 +8,10 @@ const envVarsSchema = Joi.object({
   NODE_ENV: Joi.string()
     .allow(['development', 'production', 'test', 'provision'])
     .default('development'),
+  SERVER_URL: Joi.string()
+      .default('http://localhost:4050'),
   SERVER_PORT: Joi.number()
-    .default(4040),
+    .default(4050),
   MONGOOSE_DEBUG: Joi.boolean()
     .when('NODE_ENV', {
       is: Joi.string().equal('development'),
@@ -21,7 +23,7 @@ const envVarsSchema = Joi.object({
   MONGO_HOST: Joi.string().required()
     .description('Mongo DB host url'),
   MONGO_PORT: Joi.number()
-    .default(27017)
+    .default(27019)
 }).unknown()
   .required();//
 
@@ -32,9 +34,12 @@ if (error) {
 
 const config = {
   env: envVars.NODE_ENV,
+  serverURL: envVars.SERVER_URL,
   port: envVars.SERVER_PORT,
   mongooseDebug: envVars.MONGOOSE_DEBUG,
   jwtSecret: envVars.JWT_SECRET,
+  twitchClientId: envVars.TWITCH_CLIENT_ID || '',
+  twitchClientSecret: envVars.TWITCH_CLIENT_SECRET || '',
   frontend: envVars.MEAN_FRONTEND || 'angular',
   mongo: {
     host: envVars.MONGO_HOST,

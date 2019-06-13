@@ -59,7 +59,7 @@ export class UserComponent implements OnInit {
             }
         );
 
-        this.roleService.getRoles().subscribe(
+        this.roleService.get$().subscribe(
             data => {
                 this.roles = <Array<any>>data;
                 this.populateRoles();

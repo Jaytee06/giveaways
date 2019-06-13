@@ -3,7 +3,7 @@ const config = require('./config/config');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 
-if(cluster.isMaster) {
+if(cluster.isMaster && config.env === 'production') {
     console.log(`Master ${process.pid} is running`);
 
     // form workers

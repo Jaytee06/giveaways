@@ -2,21 +2,30 @@ import {NgModule} from '@angular/core';
 
 import {LibComponentsModule} from '../core/lib-components/lib-components.module';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {NgSelectModule} from '@ng-select/ng-select';
+import {DirectivesModule} from "./directive/directives.module";
+import {DragulaModule} from "ng2-dragula";
+import {FileUploadModule} from "ng2-file-upload";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {MatExpansionModule} from "@angular/material";
 
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
+        DirectivesModule,
+        DragulaModule,
+        FileUploadModule,
+        FlexLayoutModule,
         LibComponentsModule,
-        NgSelectModule
+        MatExpansionModule,
     ],
     exports: [
         CommonModule,
-        FormsModule,
+        DirectivesModule,
+        DragulaModule,
+        FileUploadModule,
+        FlexLayoutModule,
         LibComponentsModule,
-        NgSelectModule
+        MatExpansionModule,
     ]
 })
 

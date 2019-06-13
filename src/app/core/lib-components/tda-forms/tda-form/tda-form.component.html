@@ -1,0 +1,19 @@
+<form>
+	<app-form-page
+			[classFields]="structure"
+			[formGroup]="form"
+	></app-form-page>
+
+	<div class="buttons-block" *ngIf="showButtons">
+		<button type="button" mat-raised-button (click)="cancel()">Back</button>
+		<button mat-raised-button class="create" *ngIf="!values._id" (click)="save()">
+			Create
+		</button>
+		<button mat-raised-button color="primary" *ngIf="values._id" (click)="save()">
+			Update
+		</button>
+		<button type="button" mat-raised-button color="warn" *ngIf="values._id && !deleteIsForbidden" (click)="delete()">
+			Delete
+		</button>
+	</div>
+</form>

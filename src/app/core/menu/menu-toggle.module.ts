@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { MenuToggleAnchorDirective, MenuToggleLinkDirective, MenuToggleDirective } from './menu-toggle';
+import {UserService} from "../../services/user.service";
 
 @NgModule({
   declarations: [
@@ -13,5 +14,6 @@ import { MenuToggleAnchorDirective, MenuToggleLinkDirective, MenuToggleDirective
     MenuToggleLinkDirective,
     MenuToggleDirective,
    ],
+  providers:[UserService]
 })
 export class MenuToggleModule { }

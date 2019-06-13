@@ -1,0 +1,16 @@
+<mat-form-field>
+  <mat-select
+      [required]="required"
+      [placeholder]="placeholder"
+      [formControl]="control"
+      (selectionChange)="somethingChanged()"
+  >
+    <mat-option>- Select One -</mat-option>
+    <mat-option
+        *ngFor="let opt of options"
+        [value]="opt.text.toLowerCase()"
+    >
+      {{opt.text}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

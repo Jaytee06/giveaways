@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="col col-md-1 p-0"></div>
+	<div class="col col-md-2 p-0">
+		<ng-select
+			id="type"
+			name="callCenters"
+			[(ngModel)]="advancedSearchType"
+			[items]="advancedSearch.types"
+			(clear)="clear()"
+			(change)="setData()"
+			bindLabel="type"
+			placeholder="Search type">
+		</ng-select>
+	</div>
+		<ng-select
+			class="typeahead-search"
+			[items]="items | async"
+			[multiple]="true"
+			[closeOnSelect]="true"
+			[hideSelected]="true"
+			[virtualScroll]="true"
+			[bindLabel]="bindLabel"
+			[(ngModel)]="searchText"
+			[loading]="itemsIsLoading"
+			[typeahead]="itemsInput"
+			[notFoundText]="notFoundText"
+			[disabled]="!advancedSearchType"
+			(change)="somethingChanged($event)"
+			placeholder="Search...">
+		</ng-select>
+</div>

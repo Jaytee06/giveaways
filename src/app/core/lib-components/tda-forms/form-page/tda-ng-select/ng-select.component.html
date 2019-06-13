@@ -1,0 +1,36 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="wrapper-ng-select">
+	<ng-select
+			fxFlex="1 1 100%"
+			[placeholder]="placeholder"
+			[formControl]="control"
+			[required]="required"
+			[items]="items$ | async"
+			[multiple]="multiple"
+			[clearable]="clearable"
+			[closeOnSelect]="closeOnSelect"
+			[hideSelected]="hideSelected"
+			[bindLabel]="bindLabel"
+			[bindValue]="bindValue"
+			appendTo="body"
+			(ngModelChange)="onChange($event)"
+	>
+	</ng-select>
+
+	<button
+			*ngIf="editable"
+			mat-mini-fab
+			style="background-color: #00caac"
+			(click)="openProductGroup(true)"
+	>
+		<mat-icon>add</mat-icon>
+	</button>
+	<button
+			*ngIf="editable"
+			mat-mini-fab
+			color="primary"
+			(click)="openProductGroup()"
+			[disabled]="!control.value"
+	>
+		<mat-icon>create</mat-icon>
+	</button>
+</div>

@@ -1,38 +1,40 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {TcgTableComponent} from './tcg-table/tcg-table.component';
-import {
-    MatCheckboxModule,
-    MatIconModule, MatInputModule,
-    MatListModule,
-    MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule,
-    MatSelectModule,
-    MatTableModule,
-    MatTooltipModule
-} from '@angular/material';
 import {FormsModule} from '@angular/forms';
+import {MaterialModule} from "./material.module";
+import {CustomTypeaheadSearchComponent} from "./tda-forms/form-page/custom-typeahead-search/custom-typeahead-search.component";
+import {TdaFormsModule} from "./tda-forms/tda-forms.module";
+import {TcgDeleteDialogComponent} from "./dialogs/tcg-delete-dialog/tcg-delete-dialog.component";
+import {TcgConfirmDialogComponent} from "./dialogs/tcg-confirm-dialog/tcg-confirm-dialog.component";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {LoaderComponent} from "./loader/loader.component";
 
 
 @NgModule({
     declarations: [
-        TcgTableComponent
+        TcgTableComponent,
+        TcgDeleteDialogComponent,
+        TcgConfirmDialogComponent,
+        CustomTypeaheadSearchComponent,
+        LoaderComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
-        MatTableModule,
-        MatMenuModule,
-        MatListModule,
-        MatSelectModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatCheckboxModule,
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
-        MatInputModule
+        MaterialModule,
+        TdaFormsModule,
+        NgSelectModule
     ],
     exports: [
-        TcgTableComponent
+        TcgTableComponent,
+        TcgDeleteDialogComponent,
+        TcgConfirmDialogComponent,
+        MaterialModule,
+        CustomTypeaheadSearchComponent,
+        TdaFormsModule,
+        NgSelectModule,
+        LoaderComponent
     ]
 })
 export class LibComponentsModule {}

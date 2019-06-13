@@ -2,6 +2,7 @@ const httpError = require('http-errors');
 
 const requireRole = function (req, res, next) {
 
+    console.log(req.user);
     // super admins have access to everything
     if (req.user && req.user.roles.find(x => x.slug === 'super_admin') !== undefined)
         return next();

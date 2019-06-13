@@ -1,7 +1,7 @@
 <div class="app" [dir]="layout" [ngClass]="themeSkinColor" [class.app-dark]="dark" [class.boxed]="boxed" [class.collapsed-sidebar]="collapseSidebar" [class.compact-sidebar]="compactSidebar" [class.customizer-in]="customizerIn" [class.chat-window--open]="chatWindowOpen" [class.sidebar-closed]="sidebarClosed" [class.chat-sidebar]="chatSidebar">
 <ng-sidebar-container>
    <div ng-sidebar-content>
-      <ng-sidebar #sidenav [(opened)]="_opened" [(mode)]="_mode" [(closeOnClickOutside)]="_closeOnClickOutside" [(showBackdrop)]="_showBackdrop">
+      <ng-sidebar #sidenav [(opened)]="_opened" [(mode)]="_mode" [(closeOnClickOutside)]="_closeOnClickOutside" [(showBackdrop)]="_showBackdrop" *ngIf="user && isAdmin">
       <div class="sidebar-panel chankya-sidenav">
          <div class="sidebar-logo-wrap">
             <div class="sidebar-logo d-flex">
@@ -14,23 +14,23 @@
             <div class="user-section text-center">
                <div class="sidebar-user-wrap">
                   <div class="sidebar-user-inner">
-                     <div class="d-flex">
-                        <div class="thumb-wrap mb-1"><img alt="Chankya Admin" class="img-fluid" src="assets/img/user-3.jpg" width="90" height="90"></div>
-                        <div class="user-action">
-                           <a href="javascript:void(0)" class="text-white"><i class="material-icons">more_horiz</i></a>
-                           <div class="sidebar-user-menu">
-                              <ul>
-                                 <li><a href="javascript:void(0)"><i class="icon-user icons"></i><span>My Profile</span></a></li>
-                                 <li><a href="javascript:void(0)"><i class="icon-calendar icons"></i><span>My Calendar</span></a></li>
-                                 <li><a href="javascript:void(0)"><i class="icon-envelope icons"></i><span>My Inbox</span></a></li>
-                                 <li><a href="javascript:void(0)"><i class="icon-check icons"></i><span>My Tasks</span></a></li>
-                                 <li><a routerLink="/session/loginone"><i class="icon-logout icons"></i><span>Logout</span></a></li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
+<!--                     <div class="d-flex">-->
+<!--                        <div class="thumb-wrap mb-1"><img alt="Chankya Admin" class="img-fluid" src="assets/img/user-3.jpg" width="90" height="90"></div>-->
+<!--                        <div class="user-action">-->
+<!--                           <a href="javascript:void(0)" class="text-white"><i class="material-icons">more_horiz</i></a>-->
+<!--                           <div class="sidebar-user-menu">-->
+<!--                              <ul>-->
+<!--                                 <li><a href="javascript:void(0)"><i class="icon-user icons"></i><span>My Profile</span></a></li>-->
+<!--                                 <li><a href="javascript:void(0)"><i class="icon-calendar icons"></i><span>My Calendar</span></a></li>-->
+<!--                                 <li><a href="javascript:void(0)"><i class="icon-envelope icons"></i><span>My Inbox</span></a></li>-->
+<!--                                 <li><a href="javascript:void(0)"><i class="icon-check icons"></i><span>My Tasks</span></a></li>-->
+<!--                                 <li><a routerLink="/session/loginone"><i class="icon-logout icons"></i><span>Logout</span></a></li>-->
+<!--                              </ul>-->
+<!--                           </div>-->
+<!--                        </div>-->
+<!--                     </div>-->
                      <div class="sidebar-user-info-wrap">
-                        <div class="sidebar-user-name">David Williams</div>
+                        <div class="sidebar-user-name">{{user.fullname}}</div>
                      </div>
                   </div>
                </div>
@@ -84,71 +84,71 @@
             <div class="d-flex justify-content-between align-items-center chankya-header-toolbar w-100">
                <div class="h-100 d-flex align-items-center col-sm-6 col-md-6 col-lg-6 pl-0 pr-0">
                   <div class="h-100 d-flex justify-content-start align-items-center">
-                     <div class="h-100 chankya-ham-icon">
+                     <div class="h-100 chankya-ham-icon" *ngIf="user && isAdmin">
                         <button class="c-hamburger c-hamburger--rot" (click)="sidebarClosedFunction()" (click)="_toggleOpened()">
                         <span >toggle menu</span>
                         </button>
                      </div>
                   </div>
                   <div class="h-100 pl-4 search-bar w-100 h-100 d-none-sm search-w">
-                     <form class="h-100 search-form">
-                        <div class="h-100 search-i">
-                           <input class="form-control" type="text" placeholder="Search" data-toggle="modal" data-target="#search-modal" />
-                        </div>
-                     </form>
+<!--                     <form class="h-100 search-form">-->
+<!--                        <div class="h-100 search-i">-->
+<!--                           <input class="form-control" type="text" placeholder="Search" data-toggle="modal" data-target="#search-modal" />-->
+<!--                        </div>-->
+<!--                     </form>-->
                   </div>
                </div>
                <div class="align-items-end pr-0 col-sm-6 col-md-6 col-lg-6">
                   <div class="d-flex secondary-menu justify-content-end align-items-center">
                      <ul class="nav secondary-menu-list d-flex justify-content-end align-items-center" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                        <li class="d-none-sm fullscreen-toggle" (click)="toggleFullscreen()">
-                           <a href="javascript:void(0)" class="zoom-out">
-                           <i class="material-icons" *ngIf="!isFullscreen">tv</i>
-                           <i class="material-icons" *ngIf="isFullscreen">fullscreen_exit</i>
-                           </a>
-                        </li>
-                        <li class="d-none-sm dropdown fav-links">
-                           <a href="javascript:void(0)" class="rotate-90" id="navbarD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">apps</i></a>
-                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarD">
-                              <div class="dropdown-header bg-success d-flex justify-content-between"><span class="align-self-center">Quick Links</span></div>
-                              <a class="dropdown-item pt-3" >
-                                 <div class="icon-area ">
-                                    <i class="material-icons">dashboard</i>
-                                 </div>
-                                 <small>Dashborad 2</small>
-                              </a>
-                              <a class="dropdown-item pt-3">
-                                 <div class="icon-area ">
-                                    <i class="material-icons">chat_bubble_outline</i>
-                                 </div>
-                                 <small>   Chat</small>
-                              </a>
-                              <a class="dropdown-item pt-3">
-                                 <div class="icon-area ">
-                                    <i class="material-icons">email</i>
-                                 </div>
-                                 <small>Email</small>
-                              </a>
-                              <a class="dropdown-item pt-3">
-                                 <div class="icon-area ">
-                                    <i class="material-icons">grid_on</i>
-                                 </div>
-                                 <small>Blog Grid</small>
-                              </a>
-                              <a class="dropdown-item pt-3">
-                                 <div class="icon-area ">
-                                    <i class="material-icons">collections</i>
-                                 </div>
-                                 <small>Gallery</small>
-                              </a>
-                              <a class="dropdown-item pt-3">
-                                 <div class="icon-area ">
-                                    <i class="material-icons">shopping_cart</i>
-                                 </div>
-                                 <small>Shop</small>
-                              </a>
-                           </div>
-                        </li>
+<!--                        <li class="d-none-sm fullscreen-toggle" (click)="toggleFullscreen()">-->
+<!--                           <a href="javascript:void(0)" class="zoom-out">-->
+<!--                           <i class="material-icons" *ngIf="!isFullscreen">tv</i>-->
+<!--                           <i class="material-icons" *ngIf="isFullscreen">fullscreen_exit</i>-->
+<!--                           </a>-->
+<!--                        </li>-->
+<!--                        <li class="d-none-sm dropdown fav-links">-->
+<!--                           <a href="javascript:void(0)" class="rotate-90" id="navbarD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="material-icons">apps</i></a>-->
+<!--                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarD">-->
+<!--                              <div class="dropdown-header bg-success d-flex justify-content-between"><span class="align-self-center">Quick Links</span></div>-->
+<!--                              <a class="dropdown-item pt-3" >-->
+<!--                                 <div class="icon-area ">-->
+<!--                                    <i class="material-icons">dashboard</i>-->
+<!--                                 </div>-->
+<!--                                 <small>Dashborad 2</small>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item pt-3">-->
+<!--                                 <div class="icon-area ">-->
+<!--                                    <i class="material-icons">chat_bubble_outline</i>-->
+<!--                                 </div>-->
+<!--                                 <small>   Chat</small>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item pt-3">-->
+<!--                                 <div class="icon-area ">-->
+<!--                                    <i class="material-icons">email</i>-->
+<!--                                 </div>-->
+<!--                                 <small>Email</small>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item pt-3">-->
+<!--                                 <div class="icon-area ">-->
+<!--                                    <i class="material-icons">grid_on</i>-->
+<!--                                 </div>-->
+<!--                                 <small>Blog Grid</small>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item pt-3">-->
+<!--                                 <div class="icon-area ">-->
+<!--                                    <i class="material-icons">collections</i>-->
+<!--                                 </div>-->
+<!--                                 <small>Gallery</small>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item pt-3">-->
+<!--                                 <div class="icon-area ">-->
+<!--                                    <i class="material-icons">shopping_cart</i>-->
+<!--                                 </div>-->
+<!--                                 <small>Shop</small>-->
+<!--                              </a>-->
+<!--                           </div>-->
+<!--                        </li>-->
                         <li class="d-none-sm dropdown">
                            <a href="javascript:void(0)" id="navbarDropdownMenu" class="faa-parent animated-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="notifi-bell material-icons faa-slow faa-ring">notifications</i> <span class="fa fa-circle fa-notify text-success dot-note"></span></a>
                            <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarDropdownMenu">
@@ -179,72 +179,73 @@
                               </a>
                            </div>
                         </li>
-                        <li class="d-none-sm dropdown">
-                           <a href="javascript:void(0)" class="open-box" id="navbarDropdownMen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons msg-close">mail_outline</i><i class="fa fa-envelope-open-o"></i><span class="fa fa-circle fa-notify dot-note text-danger"></span></a>
-                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarDropdownMen">
-                              <div class="dropdown-header bg-warning d-flex justify-content-between"><span class="align-self-center">15 total messages</span><a href="javascript:void(0)" class="align-self-center">View All</a></div>
-                              <a class="dropdown-item  d-flex pt-3" href="javascript:void(0)">
-                                 <div class="icon-area  align-self-start">
-                                    <i class="fa fa-envelope-o"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Inbox Box 1</span>
-                                    <small>15 new messages</small>
-                                 </div>
-                              </a>
-                              <a class="dropdown-item  d-flex" href="javascript:void(0)">
-                                 <div class="icon-area  align-self-start">
-                                    <i class="fa fa-gift" aria-hidden="true"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Promotion messages</span>
-                                    <small>5 messages</small>
-                                 </div>
-                              </a>
-                              <a class="dropdown-item  d-flex" href="javascript:void(0)">
-                                 <div class="icon-area align-self-start">
-                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Spam message</span>
-                                    <small>12 min ago</small>
-                                 </div>
-                              </a>
-                              <a class="dropdown-item  d-flex pb-3" href="javascript:void(0)">
-                                 <div class="icon-area align-self-start">
-                                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Social Media</span>
-                                    <small>34 new messages</small>
-                                 </div>
-                              </a>
-                           </div>
-                        </li>
-                        <li class="dropdown">
+<!--                        <li class="d-none-sm dropdown">-->
+<!--                           <a href="javascript:void(0)" class="open-box" id="navbarDropdownMen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons msg-close">mail_outline</i><i class="fa fa-envelope-open-o"></i><span class="fa fa-circle fa-notify dot-note text-danger"></span></a>-->
+<!--                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarDropdownMen">-->
+<!--                              <div class="dropdown-header bg-warning d-flex justify-content-between"><span class="align-self-center">15 total messages</span><a href="javascript:void(0)" class="align-self-center">View All</a></div>-->
+<!--                              <a class="dropdown-item  d-flex pt-3" href="javascript:void(0)">-->
+<!--                                 <div class="icon-area  align-self-start">-->
+<!--                                    <i class="fa fa-envelope-o"></i>-->
+<!--                                 </div>-->
+<!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Inbox Box 1</span>-->
+<!--                                    <small>15 new messages</small>-->
+<!--                                 </div>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item  d-flex" href="javascript:void(0)">-->
+<!--                                 <div class="icon-area  align-self-start">-->
+<!--                                    <i class="fa fa-gift" aria-hidden="true"></i>-->
+<!--                                 </div>-->
+<!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Promotion messages</span>-->
+<!--                                    <small>5 messages</small>-->
+<!--                                 </div>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item  d-flex" href="javascript:void(0)">-->
+<!--                                 <div class="icon-area align-self-start">-->
+<!--                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>-->
+<!--                                 </div>-->
+<!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Spam message</span>-->
+<!--                                    <small>12 min ago</small>-->
+<!--                                 </div>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item  d-flex pb-3" href="javascript:void(0)">-->
+<!--                                 <div class="icon-area align-self-start">-->
+<!--                                    <i class="fa fa-bullhorn" aria-hidden="true"></i>-->
+<!--                                 </div>-->
+<!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Social Media</span>-->
+<!--                                    <small>34 new messages</small>-->
+<!--                                 </div>-->
+<!--                              </a>-->
+<!--                           </div>-->
+<!--                        </li>-->
+                        <li class="dropdown" *ngIf="user">
                            <a class="relative rounded-bg" href="javascript:void(0)" id="navbarDropdownMenuLin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <img class="rounded-circle" src="assets/img/user-3.jpg" alt="User-image" width="43" height="43">
+                              {{user.fullname}}
+                              <img class="rounded-circle" src="{{user.imageUrl}}" alt="User-image" width="43" height="43">
                               <div class="online-caret bg-success circle"><i class="fa fa-caret-down"></i></div>
                            </a>
                            <div class="dropdown-menu rounded-0 dropdown-menu-right p-0" aria-labelledby="navbarDropdownMenuLin">
-                              <a class="dropdown-item  d-flex pt-3">
-                                 <div class="icon-area  align-self-start">
-                                    <i class="fa fa-user"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Profile</span>
-                                 </div>
-                              </a>
-                              <a class="dropdown-item  d-flex">
-                                 <div class="icon-area align-self-start">
-                                    <i class="fa fa-money"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Contact</span>
-                                 </div>
-                              </a>
-                              <a class="dropdown-item  d-flex pb-2">
-                                 <div class="icon-area align-self-start">
-                                    <i class="fa fa-cog"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">User List</span>
-                                 </div>
-                              </a>
-                              <a class="dropdown-item  d-flex pb-2">
+<!--                              <a class="dropdown-item  d-flex pt-3">-->
+<!--                                 <div class="icon-area  align-self-start">-->
+<!--                                    <i class="fa fa-user"></i>-->
+<!--                                 </div>-->
+<!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Profile</span>-->
+<!--                                 </div>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item  d-flex">-->
+<!--                                 <div class="icon-area align-self-start">-->
+<!--                                    <i class="fa fa-money"></i>-->
+<!--                                 </div>-->
+<!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Contact</span>-->
+<!--                                 </div>-->
+<!--                              </a>-->
+<!--                              <a class="dropdown-item  d-flex pb-2">-->
+<!--                                 <div class="icon-area align-self-start">-->
+<!--                                    <i class="fa fa-cog"></i>-->
+<!--                                 </div>-->
+<!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">User List</span>-->
+<!--                                 </div>-->
+<!--                              </a>-->
+                              <a class="dropdown-item  d-flex pb-2" (click)="logout()">
                                  <div class="icon-area align-self-start">
                                     <i class="fa fa-power-off"></i>
                                  </div>
@@ -253,9 +254,9 @@
                               </a>
                            </div>
                         </li>
-                        <li class="d-none-sm dropdown">
-                           <a (click)="chatSidebarFunction()" class="zoom-out"><i class="material-icons">more_horiz</i></a>
-                        </li>
+<!--                        <li class="d-none-sm dropdown">-->
+<!--                           <a (click)="chatSidebarFunction()" class="zoom-out"><i class="material-icons">more_horiz</i></a>-->
+<!--                        </li>-->
                      </ul>
                   </div>
                </div>

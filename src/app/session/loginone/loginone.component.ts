@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from '../../services/user.service';
-import * as moment from 'moment';
+import { environment } from '../../../environments/environment';
 
 @Component({
    selector: 'ms-loginone-session',
@@ -11,31 +11,35 @@ import * as moment from 'moment';
    encapsulation: ViewEncapsulation.None,
 })
 export class LoginoneComponent {
-	
-  email: string;
-  password: string;
 
-  constructor(
-      private service: UserService,
-    private router: Router
-  ) { }
+    email: string;
+    password: string;
 
-  loginone() {
+    constructor(
+        private service: UserService,
+        private router: Router
+    ) {
+    }
 
-      const user = {
-          email: this.email,
-          password: this.password
-      }
+    loginone() {
 
-      this.service.loginUser(user).subscribe((data: any) => {
-          localStorage.setItem('user', data.user);
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.
-          this.router.navigate(['/']);
-      }, error => {
-      });
-  }
-	
+        window.location.href = environment.apiBaseUrl + '/api/auth/twitch';
+
+        // const user = {
+        //     email: this.email,
+        //     password: this.password
+        // }
+        //
+        // this.service.loginUser(user).subscribe((data: any) => {
+        //     console.log(data);
+        //     localStorage.setItem('user', data.user);
+        //     localStorage.setItem('token', data.token);
+        //     localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.
+        //     this.router.navigate(['/']);
+        // }, error => {
+        // });
+    }
+
 }
 
 
