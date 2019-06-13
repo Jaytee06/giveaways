@@ -1,7 +1,40 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "bootstrap";
-/*==== Core Mixins ====*/
+///*==== Core Mixins ====*/
 @import "mixins";
 /*==== Core Styles =====*/
 @import "core";
 @import "elements";
 @import "utilities/utilities";
+
+label {
+	margin-bottom: 0;
+}
+
+
+.mat-datepicker-content table {
+	td, th {
+		border-width: 0;
+	}
+}
+
+.align-right {
+	text-align: right;
+}
+
+.create-button {
+	color: #fff;
+	background-color: #00caac;
+}
+
+.md-drppicker {
+	left: auto !important;
+	right: 0 !important;
+	min-width: 590px;
+}
+
+tcg-table.sales-grid {
+	.mat-cell, .mat-sort-header-container {
+		font-size: 14px !important;
+	}
+}
