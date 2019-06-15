@@ -28,6 +28,13 @@ export class FormPageComponent implements OnInit {
 
 	}
 
+	changeSlug(newName: string, needChange = false) {
+		if (needChange) {
+			this.formGroup.get('slug').setValue(newName.replace(/ +/g, '_').toLowerCase());
+		}
+
+	}
+
 	getFormControlName(field) {
 		return field._id + (field.referenceId ? '_'+field.referenceId : '' );
 	}

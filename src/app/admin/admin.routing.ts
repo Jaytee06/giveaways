@@ -7,6 +7,10 @@ import {AuthenticatedGuard} from "../router-guard/authenticated.guard";
 import {PermissionComponent} from "./permissions/permission/permission.component";
 import {RolesComponent} from "./roles/roles.component";
 import {RoleComponent} from "./roles/role/role.component";
+import {TicketsComponent} from "./tickets/tickets.component";
+import {TicketComponent} from "./tickets/ticket/ticket.component";
+import {TriviasComponent} from "./trivia/trivias.component";
+import {TriviaComponent} from "./trivia/trivia/trivia.component";
 
 export const AdminRoutes: Routes = [{
   path: '',
@@ -37,6 +41,30 @@ export const AdminRoutes: Routes = [{
     }, {
         path: 'roles/new',
         component: RoleComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'tickets',
+        component: TicketsComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'tickets/:id',
+        component: TicketComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'tickets/new',
+        component: TicketComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'trivias',
+        component: TriviasComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'trivias/:id',
+        component: TriviaComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'trivias/new',
+        component: TriviaComponent,
         canActivate: [AuthenticatedGuard],
     }, {
         path: 'users',

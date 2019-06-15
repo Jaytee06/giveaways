@@ -9,6 +9,10 @@ import {PermissionsComponent} from "./permissions/permissions.component";
 import {PermissionComponent} from "./permissions/permission/permission.component";
 import {RolesComponent} from "./roles/roles.component";
 import {RoleComponent} from "./roles/role/role.component";
+import {TicketsComponent} from "./tickets/tickets.component";
+import {TicketComponent} from "./tickets/ticket/ticket.component";
+import {TriviasComponent} from "./trivia/trivias.component";
+import {TriviaComponent} from "./trivia/trivia/trivia.component";
 
 @NgModule({
   imports: [
@@ -21,7 +25,11 @@ import {RoleComponent} from "./roles/role/role.component";
       PermissionsComponent,
       PermissionComponent,
       RolesComponent,
-      RoleComponent
+      RoleComponent,
+      TicketsComponent,
+      TicketComponent,
+      TriviasComponent,
+      TriviaComponent
   ]
 })
 

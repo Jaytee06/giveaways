@@ -5,6 +5,8 @@ const companyRoutes = require('./company.route');
 const partnerRoutes = require('./partner.route');
 const permissionRoutes = require('./permission.route');
 const roleRoutes = require('./role.route');
+const ticketRoutes = require('./ticket.route');
+const triviaRoutes = require('./trivia.route');
 const userRoutes = require('./user.route');
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -20,6 +22,8 @@ router.use('/company', companyRoutes);
 router.use('/partner', partnerRoutes);
 router.use('/permission', permissionRoutes);
 router.use('/role', roleRoutes);
+router.use('/ticket', ticketRoutes);
+router.use('/trivia', triviaRoutes);
 router.use('/user', userRoutes);
 
 module.exports = router;

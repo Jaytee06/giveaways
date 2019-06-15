@@ -23,7 +23,6 @@ async function insert(req, res) {
 }
 
 async function get(req, res) {
-    console.log(req, res.session);
     const users = await userCtrl.get(req.query);
     res.json(users);
 }

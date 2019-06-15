@@ -2,6 +2,8 @@ import {environment} from "../../environments/environment";
 import {Injectable, NgZone} from '@angular/core';
 import {Observable, ObservableInput, of, throwError} from 'rxjs';
 import {MatSnackBar} from "@angular/material";
+import * as moment from "moment";
+
 @Injectable()
 export class BaseService {
 
@@ -306,5 +308,12 @@ export class BaseService {
                 'abbreviation': 'WY',
             },
         ];
+    }
+
+    formatDate(date, addTime = false) {
+        if (addTime)
+            return moment(date).format('MM/DD/YYYY h:mm a');
+        else
+            return moment(date).format('MM/DD/YYYY');
     }
 }

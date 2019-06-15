@@ -33,6 +33,7 @@ export enum TypeAttributeEnum {
   InsuranceBIN = 'InsuranceBIN',
   Email = 'Email',
   Password = 'Password',
+  Number = 'Number',
   NameForSlug = 'NameForSlug',
 }
 
@@ -57,6 +58,7 @@ export interface IField {
   allowOther?: boolean;
   shouldChange?: boolean;
   active?: boolean;
+  pickerType?: string;
 
 	ngSelectBindLabel?: string;
 	ngEditable?: boolean;

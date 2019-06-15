@@ -50,7 +50,11 @@
 						>
 					</label>
 					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-					<mat-datepicker #picker></mat-datepicker>
+					<mat-datepicker
+						#picker
+						[type]="field.pickerType || 'date'"
+						[clockStep]="field.pickerType == 'datetime' ? 5 : 1"
+					></mat-datepicker>
 				</mat-form-field>
 				<mat-form-field *ngSwitchCase="'Currency'">
 					<label>
@@ -112,6 +116,18 @@
 						<input
 								matInput
 								type="password"
+								autocomplete="off"
+								[placeholder]="field.name"
+								[formControlName]="getFormControlName(field)"
+								(blur)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+						/>
+					</label>
+				</mat-form-field>
+				<mat-form-field *ngSwitchCase="'Number'">
+					<label>
+						<input
+								matInput
+								type="number"
 								autocomplete="off"
 								[placeholder]="field.name"
 								[formControlName]="getFormControlName(field)"

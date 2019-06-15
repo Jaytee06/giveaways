@@ -106,6 +106,16 @@ export class MenuItems {
       name: 'Roles',
       icon: 'fa fa-address-card',
     });
+    if (isSuperAdmin || hasPermissions.indexOf('ticket') > -1) adminMenus.push({
+      state: 'tickets',
+      name: 'Tickets',
+      icon: 'fa fa-ticket',
+    });
+    if (isSuperAdmin || hasPermissions.indexOf('trivia') > -1) adminMenus.push({
+      state: 'trivias',
+      name: 'Trivia Quizzes',
+      icon: 'fa fa-list',
+    });
     if (isSuperAdmin || hasPermissions.indexOf('user') > -1) adminMenus.push({
       state: 'users',
       name: 'Users',

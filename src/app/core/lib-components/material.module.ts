@@ -4,7 +4,6 @@ import {
 	MatButtonModule,
 	MatCardModule,
 	MatCheckboxModule,
-	MatDatepickerModule,
 	MatDialogModule,
 	MatDividerModule,
 	MatFormFieldModule,
@@ -27,6 +26,31 @@ import {
 	MatTabsModule,
 	MatTooltipModule, MatAutocompleteModule, MatBadgeModule,
 } from '@angular/material';
+import {
+	MatDatepickerModule, MatMomentDateModule, MAT_DATE_FORMATS,
+	MAT_DATE_LOCALE, MomentDateModule, MomentDateAdapter, DateAdapter,
+	MatDateFormats
+} from '@coachcare/datepicker';
+
+/* Format as you desire, based on moment.js format strings */
+export const MaterialDateFormats: MatDateFormats = {
+	parse: {
+		date: 'MM/DD/YYYY',
+		datetime: 'MM/DD/YYYY h:mm A',
+		time: 'h:mm A'
+	},
+	display: {
+		date: 'MM/DD/YYYY',
+		datetime: 'MM/DD/YYYY h:mm A',
+		time: 'h:mm A',
+		dateA11yLabel: 'LL',
+		monthDayLabel: 'MMMM DD, YYYY',
+		monthDayA11yLabel: 'MMMM D',
+		monthYearLabel: 'MMMM YYYY',
+		monthYearA11yLabel: 'MMMM YYYY',
+		timeLabel: 'HH:mm'
+	},
+};
 
 @NgModule({
 	imports: [
@@ -36,6 +60,7 @@ import {
 		MatCardModule,
 		MatCheckboxModule,
 		MatDatepickerModule,
+		MatMomentDateModule,
 		MatDialogModule,
 		MatDividerModule,
 		MatFormFieldModule,
@@ -66,6 +91,7 @@ import {
 		MatCardModule,
 		MatCheckboxModule,
 		MatDatepickerModule,
+		MatMomentDateModule,
 		MatDialogModule,
 		MatDividerModule,
 		MatFormFieldModule,
@@ -90,6 +116,21 @@ import {
 		MatBadgeModule,
 	],
 	declarations: [],
+	providers: [
+		{
+			provide: MAT_DATE_LOCALE,
+			useValue: 'en'
+		},
+		{
+			provide: DateAdapter,
+			useClass: MomentDateAdapter,
+			deps: [MAT_DATE_LOCALE]
+		},
+		{
+			provide: MAT_DATE_FORMATS,
+			useValue: MaterialDateFormats
+		},
+	]
 })
 export class MaterialModule {
 }
