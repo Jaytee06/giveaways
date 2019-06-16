@@ -13,6 +13,7 @@ import {TicketsComponent} from "./tickets/tickets.component";
 import {TicketComponent} from "./tickets/ticket/ticket.component";
 import {TriviasComponent} from "./trivia/trivias.component";
 import {TriviaComponent} from "./trivia/trivia/trivia.component";
+import {AdminDashboardComponent} from "./dashboard/admin-v1/admin-dashboard.component";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {TriviaComponent} from "./trivia/trivia/trivia.component";
   declarations: [
       UsersComponent,
       UserComponent,
+      AdminDashboardComponent,
       PermissionsComponent,
       PermissionComponent,
       RolesComponent,

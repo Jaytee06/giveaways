@@ -44,6 +44,12 @@ export class TicketService extends BaseService {
 		);
 	}
 
+	myTickets(userId) {
+		return this.http.get(`${this.getBaseUrl()}/ticket/my-tickets/${userId}`, { headers: this.headers }).pipe(
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
 	private _create$(ticket) {
 		return this.http.post(`${this.getBaseUrl()}/ticket`, ticket, { headers: this.headers }).pipe(
 			tap(() => this.success('Ticket Created!')),

@@ -40,7 +40,7 @@
                   <nav menuToggleDirective class="navigation">
                      <ul class="chankya-nav">
                         <li class="nav-item" menuToggleLink *ngFor="let menuitem of menuItems.getAll()">
-                           <a menuToggle [routerLink]="['/', menuitem.state]" routerLinkActive="active-link" *ngIf="menuitem.type === 'link'">
+                           <a menuToggle [routerLink]="['/', 'admin', menuitem.state]" routerLinkActive="active-link" *ngIf="menuitem.type === 'link'">
                            <i class="{{ menuitem.icon }}"></i>
                            <p class="text-nowrap mb-0">
                               <span>{{ menuitem.name | translate }}</span>
@@ -55,7 +55,7 @@
                            </a>
                            <ul class="sub-menu chankya-nav" *ngIf="menuitem.type === 'sub'">
                               <li class="nav-item" *ngFor="let childitem of menuitem.children" routerLinkActive="open">
-                                 <a [routerLink]="['/', menuitem.state, childitem.state ]" routerLinkActive="active-link">
+                                 <a [routerLink]="['/', 'admin', menuitem.state, childitem.state ]" routerLinkActive="active-link">
                                     <i *ngIf="!childitem.icon" class="icon icon-arrows-right-double"></i>
                                     <i *ngIf="childitem.icon" class="{{ childitem.icon }}"></i>
                                     <p class="text-nowrap mb-0"><span>{{ childitem.name | translate }}</span></p>
@@ -91,6 +91,7 @@
                      </div>
                   </div>
                   <div class="h-100 pl-4 search-bar w-100 h-100 d-none-sm search-w">
+                     <a [routerLink]="['/']">The Giveaway Channel</a>
 <!--                     <form class="h-100 search-form">-->
 <!--                        <div class="h-100 search-i">-->
 <!--                           <input class="form-control" type="text" placeholder="Search" data-toggle="modal" data-target="#search-modal" />-->
@@ -179,6 +180,13 @@
                               </a>
                            </div>
                         </li>
+                        <li class="d-none-sm dropdown">
+                           <a href="javascript:void(0)" id="navbarHelpMenu" class="faa-parent animated-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question material-icons faa-slow faa-ring"></i></a>
+                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarHelpMenu">
+                              <a class="dropdown-item  d-flex pt-3" [routerLink]="['/', 'how-it-works']" >How it Works</a>
+                              <a class="dropdown-item  d-flex pt-3" [routerLink]="['/', 'link-prime']" >Link to Prime</a>
+                           </div>
+                        </li>
 <!--                        <li class="d-none-sm dropdown">-->
 <!--                           <a href="javascript:void(0)" class="open-box" id="navbarDropdownMen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons msg-close">mail_outline</i><i class="fa fa-envelope-open-o"></i><span class="fa fa-circle fa-notify dot-note text-danger"></span></a>-->
 <!--                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarDropdownMen">-->
@@ -220,7 +228,7 @@
                         <li class="dropdown" *ngIf="user">
                            <a class="relative rounded-bg" href="javascript:void(0)" id="navbarDropdownMenuLin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               {{user.fullname}}
-                              <img class="rounded-circle" src="{{user.imageUrl}}" alt="User-image" width="43" height="43">
+                              <img class="rounded-circle" src="{{user.twitch.imageUrl}}" alt="User-image" width="43" height="43">
                               <div class="online-caret bg-success circle"><i class="fa fa-caret-down"></i></div>
                            </a>
                            <div class="dropdown-menu rounded-0 dropdown-menu-right p-0" aria-labelledby="navbarDropdownMenuLin">

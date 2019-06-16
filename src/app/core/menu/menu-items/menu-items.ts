@@ -62,14 +62,7 @@ export class MenuItems {
 
   setupMenu() {
 
-    MENUITEMS = [
-      {
-        state: 'dashboard',
-        name: 'DASHBOARD',
-        type: 'link',
-        icon: 'icon-speedometer icons',
-      },
-    ];
+    MENUITEMS = [];
 
     const userId = localStorage.getItem('user');
     if (userId && userId != '') {
@@ -96,41 +89,52 @@ export class MenuItems {
       });
     }
 
-    if (isSuperAdmin || hasPermissions.indexOf('permission') > -1) adminMenus.push({
+    if (isSuperAdmin || hasPermissions.indexOf('dashboard') > -1) this.add({
+      state: 'dashboard',
+      name: 'DASHBOARD',
+      icon: 'icon-speedometer icons',
+      type: 'link',
+    });
+    if (isSuperAdmin || hasPermissions.indexOf('permission') > -1) this.add({
       state: 'permissions',
       name: 'Permissions',
       icon: 'fa fa-lock',
+      type: 'link',
     });
-    if (isSuperAdmin || hasPermissions.indexOf('role') > -1) adminMenus.push({
+    if (isSuperAdmin || hasPermissions.indexOf('role') > -1) this.add({
       state: 'roles',
       name: 'Roles',
       icon: 'fa fa-address-card',
+      type: 'link',
     });
-    if (isSuperAdmin || hasPermissions.indexOf('ticket') > -1) adminMenus.push({
+    if (isSuperAdmin || hasPermissions.indexOf('ticket') > -1) this.add({
       state: 'tickets',
       name: 'Tickets',
       icon: 'fa fa-ticket',
+      type: 'link',
     });
-    if (isSuperAdmin || hasPermissions.indexOf('trivia') > -1) adminMenus.push({
+    if (isSuperAdmin || hasPermissions.indexOf('trivia') > -1) this.add({
       state: 'trivias',
       name: 'Trivia Quizzes',
       icon: 'fa fa-list',
+      type: 'link',
     });
-    if (isSuperAdmin || hasPermissions.indexOf('user') > -1) adminMenus.push({
+    if (isSuperAdmin || hasPermissions.indexOf('user') > -1) this.add({
       state: 'users',
       name: 'Users',
       icon: 'fa fa-user',
+      type: 'link',
     });
 
-    if (adminMenus.length > 0) {
-      this.add({
-        state: 'admin',
-        name: 'Admin',
-        type: 'sub',
-        icon: 'fa fa-desktop',
-        children: adminMenus,
-      });
-    }
+    // if (adminMenus.length > 0) {
+    //   this.add({
+    //     state: 'admin',
+    //     name: 'Admin',
+    //     type: 'sub',
+    //     icon: 'fa fa-desktop',
+    //     children: adminMenus,
+    //   });
+    // }
     //}
   }
 

@@ -25,6 +25,25 @@ class TicketController {
     async remove(id) {
         return await Model.findByIdAndRemove(id);
     }
+
+    async ticketCounts(query) {
+        const group = {
+            _id: { user: '$user' },
+            count: { $sum: '$amount' },
+        };
+        const project = {
+            user: '$_id.user',
+            count: '$count',
+        };
+
+        const agg = [
+            { $match: query },
+            { $group: group },
+            { $project: project },
+        ];
+
+        return await Model.aggregate(agg);
+    }
 }
 
 module.exports = TicketController;

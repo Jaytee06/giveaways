@@ -11,6 +11,7 @@ import {TicketsComponent} from "./tickets/tickets.component";
 import {TicketComponent} from "./tickets/ticket/ticket.component";
 import {TriviasComponent} from "./trivia/trivias.component";
 import {TriviaComponent} from "./trivia/trivia/trivia.component";
+import {AdminDashboardComponent} from "./dashboard/admin-v1/admin-dashboard.component";
 
 export const AdminRoutes: Routes = [{
   path: '',
@@ -19,6 +20,10 @@ export const AdminRoutes: Routes = [{
 }, {
     path: '',
     children: [{
+        path: 'dashboard',
+        component: AdminDashboardComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
         path: 'permissions',
         component: PermissionsComponent,
         canActivate: [AuthenticatedGuard],

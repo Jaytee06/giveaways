@@ -3,6 +3,7 @@ const passport = require('passport');
 const asyncHandler = require('express-async-handler');
 const Ctrl = require('../controllers/ticket.controller');
 const requireRole = require('../middleware/require-role');
+const mongoose = require('mongoose');
 
 const router = express.Router();
 module.exports = router;
@@ -15,6 +16,7 @@ router.route('/').post(asyncHandler(insert));
 router.route('/:id').get(asyncHandler(getById));
 router.route('/:id').put(asyncHandler(update));
 router.route('/:id').delete(asyncHandler(remove));
+router.route('/my-tickets/:userId').get(asyncHandler(myTickets));
 
 async function insert(req, res) {
     const ctrl = new Ctrl();
@@ -44,4 +46,11 @@ async function remove(req, res) {
     const ctrl = new Ctrl();
     await ctrl.remove(req.params.id);
     res.json();
+}
+
+async function myTickets(req, res) {
+    const crtl = new Ctrl();
+    const query = {user: mongoose.Types.ObjectId(req.params.userId)};
+    const tickets = await crtl.ticketCounts(query);
+    res.json(tickets);
 }

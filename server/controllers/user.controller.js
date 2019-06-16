@@ -13,6 +13,7 @@ const userSchema = Joi.object({
     accessToken: Joi.string(),
     refreshToken: Joi.string(),
     imageUrl: Joi.string(),
+    twitch: Joi.object(),
     //repeatPassword: Joi.string().required().valid(Joi.ref('password'))
 });
 

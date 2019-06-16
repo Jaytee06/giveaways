@@ -17,14 +17,14 @@ const twitchLogin = new TwitchStrategy({
         scope:['user_read']
     },
     async function(accessToken, refreshToken, profile, done) {
-        const newUser = {accessToken, refreshToken, provider: profile.provider, providerId: profile.id, fullname: profile.username, email:profile.email, imageUrl:profile._json.logo};
-        const users = await userCtrl.get({providerId: profile.id});
+        const newUser = {twitch:{accessToken, refreshToken, provider: profile.provider, providerId: profile.id, imageUrl:profile._json.logo, username: profile.username, email:profile.email}, fullname: profile.username, email:profile.email};
+        const users = await userCtrl.get({twitch:{providerId: profile.id}});
         let user = null;
         if( users && users.length ) {
             user = users[0];
-            user.accessToken = accessToken;
-            user.refreshToken = refreshToken;
-            user.imageUrl = newUser.imageUrl;
+            user.twitch.accessToken = accessToken;
+            user.twitch.refreshToken = refreshToken;
+            user.twitch.imageUrl = newUser.imageUrl;
             user = await userCtrl.update(user._id, user);
         } else {
             let role = await Role.findOne({slug: 'user'}); // default their role
