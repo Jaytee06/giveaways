@@ -1,0 +1,137 @@
+<mat-tab-group>
+	<mat-tab label="Overview">
+		<div class="row mt-2">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="chk-block">
+					<div class="chk-block-title">
+						<h3 class="text-capitalize">Details</h3>
+					</div>
+					<div class="chk-block-content">
+						<app-tda-form
+								*ngIf="!loading; else loader"
+								[structure]="structure"
+								[values]="trivia"
+								(save$)="save($event)"
+								(delete$)="delete()"
+						></app-tda-form>
+						<ng-template #loader>
+							<app-loader></app-loader>
+						</ng-template>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="chk-block" *ngIf="trivia._id">
+					<div class="chk-block-title">
+						<h3 class="text-capitalize">Questions</h3>
+					</div>
+					<div class="chk-block-content">
+						<button class="btn btn-info" *ngIf="!trivia.didStart" (click)="generateQuestions()">Re-Generate
+							Questions
+						</button>
+						<ol>
+							<li *ngFor="let question of trivia.questions">
+								<b><span [innerHTML]="question.question"></span></b>
+								<ol type="a">
+									<li *ngFor="let option of question.options"><span [innerHTML]="option"></span></li>
+								</ol>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</mat-tab>
+	<mat-tab label="Stats" *ngIf="trivia._id">
+		<div class="row mt-2">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="chk-block">
+					<div class="chk-block-title d-flex justify-content-between">
+						<div>
+							<h3 class="text-capitalize">Users</h3>
+						</div>
+						<div>
+							<span *ngIf="trivia.didStart && !trivia.didEnd" class="text-success mr-2"><b>In Progress</b></span>
+							<span *ngIf="trivia.didEnd" class="mr-2">Ended @ {{trivia.didEnd}}</span>
+							<span *ngIf="trivia.currentQuestion == 0">Starting in {{trivia.countDown}} seconds</span>
+							<button class="btn btn-success" *ngIf="!trivia.didStart" (click)="startQuiz()">Start Quiz
+							</button>
+							<button class="btn btn-primary" *ngIf="trivia.didStart && !trivia.didEnd"
+									(click)="startQuiz()">End Quiz
+							</button>
+						</div>
+					</div>
+					<div class="chk-block-content">
+						<b>
+							<mat-grid-list [cols]="5" rowHeight="20px" class="full-width mr-4">
+								<mat-grid-tile class="align-left">
+									<div>Questions</div>
+								</mat-grid-tile>
+								<mat-grid-tile class="align-right">
+									<div>Pending</div>
+								</mat-grid-tile>
+								<mat-grid-tile class="align-right">
+									<div>Correct</div>
+								</mat-grid-tile>
+								<mat-grid-tile class="align-right">
+									<div>Wrong</div>
+								</mat-grid-tile>
+								<mat-grid-tile class="align-right"></mat-grid-tile>
+							</mat-grid-list>
+						</b>
+						<mat-accordion>
+							<mat-expansion-panel *ngFor="let question of trivia.questions; let i = index"
+												 [expanded]="trivia.currentQuestion == (i+1)">
+								<mat-expansion-panel-header>
+									<mat-grid-list [cols]="5" rowHeight="20px" class="full-width mr-4">
+										<mat-grid-tile class="align-left">
+											<div>#{{i + 1}}</div>
+										</mat-grid-tile>
+										<mat-grid-tile class="align-right">
+											<div>{{questionResults[i].pendingUsers.length}}</div>
+										</mat-grid-tile>
+										<mat-grid-tile class="align-right">
+											<div>{{questionResults[i].correctUsers.length}}</div>
+										</mat-grid-tile>
+										<mat-grid-tile class="align-right">
+											<div>{{questionResults[i].wrongUsers.length}}</div>
+										</mat-grid-tile>
+										<mat-grid-tile class="align-right">
+											<div *ngIf="trivia.currentQuestion == (i+1)">
+												<span *ngIf="trivia.intermission">Next Question in </span>
+												<span [ngClass]="{'text-success': trivia.countDown > 5, 'text-danger': trivia.countDown <= 5}">{{trivia.countDown}}</span>(s)
+											</div>
+										</mat-grid-tile>
+									</mat-grid-list>
+								</mat-expansion-panel-header>
+								<mat-grid-list [cols]="5" rowHeight="200px" class="full-width mr-4">
+									<mat-grid-tile class="align-left">
+										<div></div>
+									</mat-grid-tile>
+									<mat-grid-tile class="align-right">
+										<mat-list role="list" class="scrollable condensed-list">
+											<mat-list-item role="listitem" *ngFor="let user of questionResults[i].pendingUsers">{{user.fullname}}</mat-list-item>
+										</mat-list>
+									</mat-grid-tile>
+									<mat-grid-tile class="align-right">
+										<mat-list role="list" class="scrollable condensed-list">
+											<mat-list-item role="listitem" *ngFor="let user of questionResults[i].correctUsers">{{user.fullname}}</mat-list-item>
+										</mat-list>
+									</mat-grid-tile>
+									<mat-grid-tile class="align-right">
+										<mat-list role="list" class="scrollable condensed-list">
+											<mat-list-item role="listitem" *ngFor="let user of questionResults[i].wrongUsers">{{user.fullname}}</mat-list-item>
+										</mat-list>
+									</mat-grid-tile>
+									<mat-grid-tile class="align-right">
+										<div></div>
+									</mat-grid-tile>
+								</mat-grid-list>
+							</mat-expansion-panel>
+						</mat-accordion>
+					</div>
+				</div>
+			</div>
+		</div>
+	</mat-tab>
+</mat-tab-group>

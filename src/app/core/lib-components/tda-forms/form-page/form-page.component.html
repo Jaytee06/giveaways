@@ -182,6 +182,7 @@
 					[closeOnSelect]="true"
 					[hideSelected]="true"
 					[bindLabel]="field.ngSelectBindLabel ? field.ngSelectBindLabel : 'fullname'"
+					(change)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
 					bindValue="_id"
 			>
 			</ng-select>
@@ -202,6 +203,7 @@
 					[service]="field.ngPopUpService"
 					[structure]="field.ngPopUpStructure"
 					[defaultValue]="field.ngPopUpDefaultValue"
+					(change)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
 			>
 			</app-ng-select>
 			<tcg-address-form2

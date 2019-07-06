@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const request = require('request');
 const Joi = require('joi');
 const User = require('../models/user.model');
 
@@ -23,6 +24,7 @@ module.exports = {
     get,
     getById,
     update,
+    checkSubscriptoin
 };
 
 async function insert(user) {
@@ -42,4 +44,31 @@ async function getById(id) {
 
 async function update(id, user) {
     return await User.findByIdAndUpdate(id, user, {new: true});
+}
+
+async function checkSubscriptoin(id) {
+    const user = await User.findById(id);
+
+    return new Promise((resolve, reject) => {
+
+        const url = `https://api.twitch.tv/helix/subscriptions?broadcaster_id=400341441&user_id=${user.twitch.providerId}`;
+        const headers = {
+            'Authorization': 'Bearer '+user.twitch.accessToken,
+        };
+        const req = request(url, { headers, json: true }, (err, res, body) => {
+            if (err) {
+                console.log(err);
+                return reject(new Error(err));
+            }
+
+            if( body && body.data && body.data.length )
+                resolve(true);
+            else
+                resolve(false);
+        });
+        req.on('error', function(err) {
+            reject(err);
+        });
+        req.end();
+    })
 }

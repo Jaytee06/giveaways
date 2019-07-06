@@ -24,7 +24,7 @@ import {
 	MatStepperModule,
 	MatTableModule,
 	MatTabsModule,
-	MatTooltipModule, MatAutocompleteModule, MatBadgeModule,
+	MatTooltipModule, MatAutocompleteModule, MatBadgeModule, MatChipsModule,
 } from '@angular/material';
 import {
 	MatDatepickerModule, MatMomentDateModule, MAT_DATE_FORMATS,
@@ -83,6 +83,7 @@ export const MaterialDateFormats: MatDateFormats = {
 		MatTooltipModule,
 		MatTabsModule,
 		MatBadgeModule,
+		MatChipsModule,
 	],
 
 	exports: [
@@ -114,6 +115,7 @@ export const MaterialDateFormats: MatDateFormats = {
 		MatTooltipModule,
 		MatTabsModule,
 		MatBadgeModule,
+		MatChipsModule,
 	],
 	declarations: [],
 	providers: [

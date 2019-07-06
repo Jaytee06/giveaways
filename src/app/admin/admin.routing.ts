@@ -9,9 +9,11 @@ import {RolesComponent} from "./roles/roles.component";
 import {RoleComponent} from "./roles/role/role.component";
 import {TicketsComponent} from "./tickets/tickets.component";
 import {TicketComponent} from "./tickets/ticket/ticket.component";
-import {TriviasComponent} from "./trivia/trivias.component";
-import {TriviaComponent} from "./trivia/trivia/trivia.component";
+import {TriviasComponent} from "./trivias/trivias.component";
+import {TriviaComponent} from "./trivias/trivia/trivia.component";
 import {AdminDashboardComponent} from "./dashboard/admin-v1/admin-dashboard.component";
+import {RafflesComponent} from "./raffels/raffles.component";
+import {RaffleComponent} from "./raffels/raffle/raffle.component";
 
 export const AdminRoutes: Routes = [{
   path: '',
@@ -34,6 +36,18 @@ export const AdminRoutes: Routes = [{
     }, {
         path: 'permissions/new',
         component: PermissionComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'raffles',
+        component: RafflesComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'raffles/:id',
+        component: RaffleComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'raffles/new',
+        component: RaffleComponent,
         canActivate: [AuthenticatedGuard],
     }, {
         path: 'roles',

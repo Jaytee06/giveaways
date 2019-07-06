@@ -9,6 +9,8 @@ import {TcgDeleteDialogComponent} from "./dialogs/tcg-delete-dialog/tcg-delete-d
 import {TcgConfirmDialogComponent} from "./dialogs/tcg-confirm-dialog/tcg-confirm-dialog.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {LoaderComponent} from "./loader/loader.component";
+import {CountDownTimerComponent} from "./count-down-timer/count-down-timer.component";
+import {NgCircleProgressModule} from "ng-circle-progress";
 
 
 @NgModule({
@@ -17,14 +19,24 @@ import {LoaderComponent} from "./loader/loader.component";
         TcgDeleteDialogComponent,
         TcgConfirmDialogComponent,
         CustomTypeaheadSearchComponent,
-        LoaderComponent
+        LoaderComponent,
+        CountDownTimerComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         MaterialModule,
         TdaFormsModule,
-        NgSelectModule
+        NgSelectModule,
+        NgCircleProgressModule.forRoot({
+            radius: 100,
+            outerStrokeWidth: 16,
+            innerStrokeWidth: 8,
+            outerStrokeColor: "#78C000",
+            innerStrokeColor: "#C7E596",
+            animationDuration: 0,
+            animation: false
+        })
     ],
     exports: [
         TcgTableComponent,
@@ -34,7 +46,8 @@ import {LoaderComponent} from "./loader/loader.component";
         CustomTypeaheadSearchComponent,
         TdaFormsModule,
         NgSelectModule,
-        LoaderComponent
+        LoaderComponent,
+        CountDownTimerComponent
     ]
 })
 export class LibComponentsModule {}

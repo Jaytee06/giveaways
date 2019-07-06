@@ -23,6 +23,8 @@ function getNewTime(d){
 })
 export class DashboardComponent implements OnInit {
 
+  firstRowHeight = window.innerWidth*.35;
+
   constructor( private pageTitleService: PageTitleService) {
 
   }

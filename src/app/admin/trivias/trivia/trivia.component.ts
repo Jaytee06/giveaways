@@ -7,6 +7,7 @@ import {UserService} from "../../../services/user.service";
 import {combineLatest, of} from "rxjs";
 
 import * as moment from 'moment';
+import {AngularFirestore} from "@angular/fire/firestore";
 
 @Component({
 	selector: 'app-trivia',
@@ -58,8 +59,8 @@ export class TriviaComponent implements OnInit {
 	];
 
 	payoutTypes = [
-		{ _id:"perQuestion", text:"Per Question"},
-		{ _id:"winners", text:"Split Between Winners"},
+		{ _id:"perQuestion", text:"Per Question", dependents:['ticketsPerQuestions']},
+		{ _id:"winners", text:"Split Between Winners", dependents:['tickets']},
 	];
 
 	trivia: any = {
@@ -71,6 +72,7 @@ export class TriviaComponent implements OnInit {
 	};
 	loading = false;
 	hasHappened = true;
+	questionResults = [];
 
 	structure: IField[] = [
 		{
@@ -99,7 +101,7 @@ export class TriviaComponent implements OnInit {
 			type: FieldTypeEnum.ngSelect,
 			ngSelectBindLabel: 'text',
 			options: this.questionTypes,
-			required: true,
+			required: true
 		}, {
 			name: 'Start Time',
 			_id: 'start',
@@ -110,6 +112,18 @@ export class TriviaComponent implements OnInit {
 		}, {
 			name: 'Question Time Limit (s)',
 			_id: 'questionDuration',
+			type: FieldTypeEnum.Input,
+			typeAttribute:TypeAttributeEnum.Number,
+			required: true,
+		}, {
+			name: 'Intermission Between Questions (s)',
+			_id: 'intermissionDuration',
+			type: FieldTypeEnum.Input,
+			typeAttribute:TypeAttributeEnum.Number,
+			required: true,
+		}, {
+			name: 'Beginning Intermission (s)',
+			_id: 'startingDuration',
 			type: FieldTypeEnum.Input,
 			typeAttribute:TypeAttributeEnum.Number,
 			required: true,
@@ -126,12 +140,14 @@ export class TriviaComponent implements OnInit {
 			type: FieldTypeEnum.Input,
 			typeAttribute:TypeAttributeEnum.Number,
 			required: true,
+			originallyHidden: true,
 		}, {
 			name: 'Tickets Per Question',
 			_id: 'ticketsPerQuestions',
 			type: FieldTypeEnum.Input,
 			typeAttribute:TypeAttributeEnum.Number,
 			required: true,
+			originallyHidden: true,
 		}, {
 			name: 'Created',
 			_id: 'createdAt',
@@ -147,6 +163,7 @@ export class TriviaComponent implements OnInit {
 		private pageTitleService: PageTitleService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
+		private fs: AngularFirestore
 	) {
 	}
 
@@ -157,12 +174,36 @@ export class TriviaComponent implements OnInit {
 		const trivia$ = id !== 'new' ? this.service.getById$(id) : of(this.trivia);
 		combineLatest(trivia$).subscribe((data) => {
 			[this.trivia] = data;
-			if( moment().isAfter(moment(this.trivia.start)) ) {
-				this.hasHappened = false;
+			if( this.trivia.didStart ) {
 				this.structure.forEach((field) => {
 					field.disabled = true;
 				});
 			}
+			if( this.trivia._id ) {
+				this.fs.collection('quizzes').doc(this.trivia._id).valueChanges().subscribe((d: any) => {
+					if (d) {
+						this.trivia = {...this.trivia, ...d};
+
+						if( !this.trivia.intermission && this.trivia.countDown == 0 ) {
+							const question = this.questionResults[this.trivia.currentQuestion-1];
+							this._calculateQuestionResults(question, this.trivia.currentQuestion-1);
+						} else if( this.trivia.didEnd ) {
+							this.questionResults.forEach((question, i) => {
+								this._calculateQuestionResults(question, i);
+							});
+						}
+					}
+				});
+
+				this.trivia.questions.forEach((q) => {
+					this.questionResults.push({
+						pendingUsers: [],
+						correctUsers: [],
+						wrongUsers: []
+					});
+				});
+			}
+
 			this.pageTitleService.setTitle(this.trivia._id ? 'Edit Trivia Quiz' : 'New Trivia Quiz');
 			this.loading = false;
 		});
@@ -184,6 +225,10 @@ export class TriviaComponent implements OnInit {
 		);
 	}
 
+	startQuiz() {
+		this.service.startQuiz(this.trivia);
+	}
+
 	delete() {
 		this.service.delete$(this.trivia._id).subscribe(() => {
 			this.router.navigate(['../'], { relativeTo: this.activatedRoute }).then();
@@ -192,5 +237,18 @@ export class TriviaComponent implements OnInit {
 
 	cancel() {
 		this.router.navigate(['../'], { relativeTo: this.activatedRoute }).then();
+	}
+
+	private _calculateQuestionResults(question, questionNum) {
+		Object.keys(this.trivia.users).forEach((key) => {
+			const user = this.trivia.users[key];
+			if( !user.questions[questionNum].complete ) {
+				if( question.pendingUsers.find(x => x._id === user._id) === undefined ) question.pendingUsers.push(user);
+			} else if( user.questions[questionNum].correct ) {
+				if( question.correctUsers.find(x => x._id === user._id) === undefined ) question.correctUsers.push(user);
+			} else {
+				if( question.wrongUsers.find(x => x._id === user._id) === undefined ) question.wrongUsers.push(user);
+			}
+		});
 	}
 }

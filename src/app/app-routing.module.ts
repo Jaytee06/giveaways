@@ -21,6 +21,22 @@ export const AppRoutes: Routes = [{
             loadChildren: './blank/blank.module#BlankModule'
         }],
         canActivate: [AuthenticatedGuard],
+    },{
+        path: '',
+        component: MainComponent,
+        children: [{
+            path: 'raffle',
+            loadChildren: './raffle/raffle.module#RaffleModule'
+        }],
+        canActivate: [AuthenticatedGuard]
+    },{
+        path: '',
+        component: MainComponent,
+        children: [{
+            path: 'trivia-quiz',
+            loadChildren: './trivia/trivia.module#TriviaModule'
+        }],
+        canActivate: [AuthenticatedGuard]
     },
     {
         path: '',

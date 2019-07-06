@@ -30,6 +30,9 @@ import { PageTitleService } from './core/page-title/page-title.service';
 import {BaseService} from './services/base.service';
 import {AuthenticatedGuard} from './router-guard/authenticated.guard';
 import {SharedModule} from './core/shared.module';
+import {AngularFireModule} from "@angular/fire";
+import { environment } from '../environments/environment';
+import {AngularFireStorageModule} from "@angular/fire/storage";
 
 /********** Custom option for ngx-translate ******/
 export function createTranslateLoader(http: HttpClient) {
@@ -61,11 +64,13 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 	            deps: [HttpClient]
 	         }
 	      }),
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireStorageModule,
 	],
 	declarations: [
 		ChankyaAppComponent, 
 		MainComponent,
-		AuthComponent
+		AuthComponent,
 	],
 	entryComponents: [
 	],

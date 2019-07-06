@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {FormGroup, Validators} from '@angular/forms';
 import * as _ from 'lodash';
 import { IField } from '../../../interfaces';
 
@@ -17,12 +17,34 @@ export class FormPageComponent implements OnInit {
 	@Output() fieldChanged: EventEmitter<any> = new EventEmitter();
 
 	ngOnInit() {
+		console.log(this.formGroup, this.classFields);
 	}
 
-	fieldValueChanged(e) {
-
+	fieldValueChanged(e: any) {
+		console.log(e);
+		if( e.field && e.field.options && e.field.options.length && e.value ) {
+			const dependents = e.field.options.reduce((arr, cur) => {
+				arr = arr.concat(cur.dependents);
+				return arr;
+			}, []);
+			dependents.forEach((dep) => {
+				const f = this.classFields.find(x => x._id === dep);
+				if( f ) f.shouldShow = false;
+				console.log(f);
+			});
+			const selectedOption = e.field.options.find(x => x._id === e.value);
+			if( selectedOption && selectedOption.dependents && selectedOption.dependents.length ) {
+				selectedOption.dependents.forEach((dep) => {
+					const showField = this.classFields.find(x => x._id === dep);
+					if( showField ) {
+						showField.shouldShow = true;
+						if( showField.required) this.formGroup.controls[dep].setValidators(Validators.required);
+					}
+					console.log(showField);
+				});
+			}
+		}
 	}
-
 
 	generateAndEmitFormEvent({type, field, action, payload}) {
 

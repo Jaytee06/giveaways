@@ -21,7 +21,6 @@ export class MyWidgetComponent implements OnInit {
 			this.user = user;
 			this.service.myTickets(this.user._id).subscribe((data) => {
 				this.ticketCount = data[0].count;
-				console.log(this.ticketCount);
 			});
 		});
 	}

@@ -1,0 +1,25 @@
+<div class="pad-wrap">
+	<div class="chk-block">
+		<div class="chk-block-title">
+			<h4>Raffles</h4>
+		</div>
+		<div class="chk-block-content">
+			<table class="table table-borderless table-middle mb-0">
+				<tbody>
+					<tr *ngFor="let raffle of raffles" [ngClass]="{'text-muted': raffle.status == 'Ended'}" (click)="raffleClicked(raffle)" class="hand">
+						<td>
+							{{raffle.giveAwayName}}
+						</td>
+						<td>
+
+						</td>
+						<td>
+							<span [ngClass]="{'text-success': raffle.status == 'In Progress', 'text-info': raffle.status == 'Starting'}">{{raffle.status}} </span>
+							<span *ngIf="raffle.status != 'In Progress'">{{raffle.displayTime}}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

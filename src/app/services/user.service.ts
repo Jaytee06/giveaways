@@ -65,4 +65,10 @@ export class UserService extends BaseService{
             return of(false);
         }
     }
+
+    checkSubscription(userId) {
+        return this.http.get(`${this.baseService.getBaseUrl()}/user/${userId}/check-subscription`, {headers: this.headers}).pipe(
+            catchError(this.handleError.bind(this)),
+        );
+    }
 }

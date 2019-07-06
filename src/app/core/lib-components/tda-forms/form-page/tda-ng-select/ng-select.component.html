@@ -13,6 +13,7 @@
 			[bindValue]="bindValue"
 			appendTo="body"
 			(ngModelChange)="onChange($event)"
+			(change)="fieldChanged($event)"
 	>
 	</ng-select>
 

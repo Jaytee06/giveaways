@@ -7,6 +7,7 @@ import {DragulaModule} from "ng2-dragula";
 import {FileUploadModule} from "ng2-file-upload";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatExpansionModule} from "@angular/material";
+import {AngularFirestore} from "@angular/fire/firestore";
 
 @NgModule({
     imports: [
@@ -26,6 +27,9 @@ import {MatExpansionModule} from "@angular/material";
         FlexLayoutModule,
         LibComponentsModule,
         MatExpansionModule,
+    ],
+    providers:[
+        AngularFirestore
     ]
 })
 

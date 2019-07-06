@@ -8,10 +8,10 @@ const config = require('./config');
 const mongoUri = config.mongo.host;
 mongoose.connect(mongoUri, { keepAlive: 1 });
 mongoose.connection.on('error', () => {
-  throw new Error(`unable to connect to database: ${mongoUri}`);
+  throw new Error(`unable to connect to database!`);
 });
 mongoose.connection.once('open', function() {
-    console.log("Mongoose Connection Successful at "+mongoUri+"!");
+    console.log("Mongoose Connection Successful!");
 });
 
 // print mongoose logs in dev env

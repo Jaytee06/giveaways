@@ -1,0 +1,27 @@
+<div class="pad-wrap">
+	<div class="chk-block">
+		<div class="chk-block-title">
+			<h4>Trivia Quizzes</h4>
+		</div>
+		<div class="chk-block-content">
+			<table class="table table-borderless table-middle mb-0">
+				<tbody>
+					<tr *ngFor="let quiz of quizzes" [ngClass]="{'text-muted': quiz.status == 'Ended'}" (click)="quizClicked(quiz)" class="hand">
+						<td>
+
+							<span *ngIf="quiz.payoutType == 'perQuestion'; else elseType">{{quiz.ticketsPerQuestions}}<span class="fa fa-ticket text-success"></span> / Question</span>
+							<ng-template #elseType>{{quiz.tickets}}<span class="fa fa-ticket text-success"></span> Split Winners</ng-template>
+						</td>
+						<td>
+
+						</td>
+						<td>
+							<span [ngClass]="{'text-success': quiz.status == 'In Progress', 'text-info': quiz.status == 'Starting'}">{{quiz.status}} </span>
+							<span *ngIf="quiz.status != 'In Progress'">{{quiz.displayTime}}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

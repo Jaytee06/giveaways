@@ -9,6 +9,11 @@ import { DashboardRoutes } from './dashboard.routing';
 import {MyWidgetComponent} from "./widgets/my-tickets/my-widget.component";
 import {LibComponentsModule} from "../core/lib-components/lib-components.module";
 import {TicketService} from "../services/ticket.service";
+import {TwitchChannelComponent} from "./widgets/twitch-channel/twitch-channel.component";
+import {TriviaQuizzesComponent} from "./widgets/trivia-quizzes/trivia-quizzes.component";
+import {TriviaService} from "../services/trivia.service";
+import {RafflesComponent} from "./widgets/raffles/raffles.component";
+import {RaffleService} from "../services/raffle.service";
 
 @NgModule({
   imports: [
@@ -20,10 +25,15 @@ import {TicketService} from "../services/ticket.service";
   ],
   declarations: [ 
     DashboardComponent,
-    MyWidgetComponent
+    MyWidgetComponent,
+    TwitchChannelComponent,
+    TriviaQuizzesComponent,
+    RafflesComponent
   ],
   providers: [
-      TicketService
+      TicketService,
+      TriviaService,
+      RaffleService
   ]
 })
 

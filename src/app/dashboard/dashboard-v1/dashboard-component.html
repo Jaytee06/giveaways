@@ -1,8 +1,14 @@
 <div class="pad-wrap">
- <mat-grid-list cols="6" rowHeight="4em">
-  <mat-grid-tile colspan="5"></mat-grid-tile>
-  <mat-grid-tile>
-   <my-tickets-widget></my-tickets-widget>
-  </mat-grid-tile>
- </mat-grid-list>
+	<mat-grid-list cols="4" [rowHeight]="firstRowHeight">
+		<mat-grid-tile colspan="3" class="pb-md-1">
+   			<twitch-channel-widget></twitch-channel-widget>
+		</mat-grid-tile>
+		<mat-grid-tile class="pb-md-1">
+			<div class="d-flex align-items-end flex-column">
+				<my-tickets-widget class="pb-md-1"></my-tickets-widget>
+				<raffles-widget></raffles-widget>
+				<trivia-quizzes-widget></trivia-quizzes-widget>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>
 </div>

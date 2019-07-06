@@ -1,5 +1,6 @@
 'use strict';
 const Model = require('../models/trivia.model');
+const UserTrivia = require('../models/user-trivia.model');
 const request = require('request');
 const _ = require('lodash');
 const mongoose = require('mongoose');
@@ -18,12 +19,12 @@ class TriviaController {
         return await new Model(trivia).save();
     }
 
-    async get(query) {
-        return await Model.find().populate('user');
+    async get(query, paginationQuery = {}, sort="-createdAt") {
+        return await Model.find(query, {}, paginationQuery).sort(sort).populate('user').lean();
     }
 
     async getById(id) {
-        return await Model.findById(id);
+        return await Model.findById(id).lean();
     }
 
     async update(id, trivia) {
@@ -32,6 +33,31 @@ class TriviaController {
 
     async remove(id) {
         return await Model.findByIdAndRemove(id);
+    }
+
+    async insertUserTrivia(id, userId) {
+        const trivia = await Model.findById(id);
+
+        const obj = {user:userId, trivia:id, questions:[]};
+        obj.questions = trivia.questions.map(x => {return {question:x._id}});
+
+        return await new UserTrivia(obj).save();
+    }
+
+    async getUserTriviaById(userTriviaId) {
+        return await UserTrivia.findById(userTriviaId);
+    }
+
+    async getUserTrivia(query) {
+        return await UserTrivia.find(query);
+    }
+
+    async updateUserTrivia(userTriviaId, userTrivia) {
+        return await UserTrivia.findByIdAndUpdate(userTriviaId, userTrivia, {new: true});
+    }
+
+    async findUserTrivia(query) {
+        return await UserTrivia.find(query);
     }
 
     async generateQuestions(id=false, quiz=false) {

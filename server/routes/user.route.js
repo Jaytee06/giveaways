@@ -11,6 +11,7 @@ router.use(passport.authenticate('jwt', { session: false }))
 router.route('/').get(asyncHandler(get));
 router.route('/').post(asyncHandler(insert));
 router.route('/:id').get(asyncHandler(getById));
+router.route('/:id/check-subscription').get(asyncHandler(checkSubscription));
 
 
 async function insert(req, res) {
@@ -30,4 +31,9 @@ async function get(req, res) {
 async function getById(req, res) {
     const user = await  userCtrl.getById(req.params.id);
     res.json(user);
+}
+
+async function checkSubscription(req, res) {
+    const subscribed = await userCtrl.checkSubscriptoin(req.params.id);
+    res.json(subscribed);
 }

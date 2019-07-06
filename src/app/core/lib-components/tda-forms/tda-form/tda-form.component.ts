@@ -140,18 +140,19 @@ export class TdaFormComponent implements OnInit {
 			validators.push(Validators.email);
 		}
 
-		// if (fieldId.indexOf('.') > -1) {
-		// 	const [group, name] = fieldId.split('.');
-		//
-		// 	let existingGroup = target.get(group);
-		// 	if (!existingGroup) {
-		// 		existingGroup = new FormGroup({});
-		// 		target.addControl(group, existingGroup);
-		// 	}
-		//
-		// 	target = existingGroup as FormGroup;
-		// 	fieldId = name;
-		// }
+		// check if it should show on first render
+		if( field.originallyHidden ) {
+			const master = this.structure.find((f) => {
+				if( f.options && f.options.length ) {
+					const option = f.options.find((op) => {
+						if( op.dependents && op.dependents.length && op.dependents.indexOf(field._id) > -1 ) return op;
+					});
+					if( option && option._id === this._getFieldValue(f._id) ) return true;
+				}
+				return false;
+			});
+			if( master ) field.shouldShow = true;
+		}
 
 		const control = this._formBuilder.control({ value: defaultValue, disabled: field.disabled }, validators);
 		target.addControl(fieldId, control);

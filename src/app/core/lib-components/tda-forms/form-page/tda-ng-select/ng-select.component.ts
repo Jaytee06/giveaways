@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
@@ -30,6 +30,7 @@ export class NgSelectComponent implements OnInit, ControlValueAccessor {
 	@Input() service: IService<IproductGroup>;
 	@Input() structure;
 	@Input() defaultValue;
+	@Output() change: EventEmitter<any> = new EventEmitter();
 
 	control: FormControl = new FormControl();
 	items$: BehaviorSubject<IproductGroup[]> = new BehaviorSubject(this.items);
@@ -46,6 +47,10 @@ export class NgSelectComponent implements OnInit, ControlValueAccessor {
 	writeValue = (delta: any) => this.control.setValue(delta);
 	registerOnChange = (fn) => this.onChange = fn;
 	registerOnTouched = (fn) => this.onTouched = fn;
+
+	fieldChanged(e) {
+		this.change.emit(e);
+	}
 
 	setDisabledState?(isDisabled: boolean): void {
 		console.log('setDisabledState');

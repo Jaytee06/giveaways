@@ -54,7 +54,7 @@
               "node_modules/jqvmap/dist/jquery.vmap.js",
               "node_modules/jqvmap/dist/maps/jquery.vmap.world.js",
               "src/assets/summernote/summernote.js",
-              "src/assets/foo-table/js/footable.js"
+              "src/assets/foo-table/js/footable.js",
             ]
           },
           "configurations": {

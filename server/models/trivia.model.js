@@ -64,7 +64,21 @@ const TriviaSchema = new mongoose.Schema({
         type:Date,
         required: true
     },
+    didStart: {
+        type:Date
+    },
+    didEnd: {
+        type:Date
+    },
     questionDuration: {
+        type: Number,
+        required: true,
+    },
+    startingDuration: {
+        type: Number,
+        required: true,
+    },
+    intermissionDuration: {
         type: Number,
         required: true,
     },
@@ -85,6 +99,5 @@ const TriviaSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-
 
 module.exports = mongoose.model('Trivia', TriviaSchema);

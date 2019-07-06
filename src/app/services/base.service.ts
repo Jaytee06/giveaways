@@ -7,6 +7,7 @@ import * as moment from "moment";
 @Injectable()
 export class BaseService {
 
+    filters: any = {};
     customErrorMessage = '';
 
     constructor(public snackBar: MatSnackBar, private zone: NgZone) {}
@@ -22,6 +23,10 @@ export class BaseService {
 
     public getBaseUrl() {
         return ( environment.apiBaseUrl && environment.apiBaseUrl != '' ? environment.apiBaseUrl+'/api' : 'localhost:4300/api' );
+    }
+
+    getParams() {
+        return $.param(this.filters);
     }
 
     success(message) {
@@ -310,9 +315,11 @@ export class BaseService {
         ];
     }
 
-    formatDate(date, addTime = false) {
+    formatDate(date, addTime = false, timeAgo = false) {
         if (addTime)
             return moment(date).format('MM/DD/YYYY h:mm a');
+        else if( timeAgo )
+            return moment(date).fromNow();
         else
             return moment(date).format('MM/DD/YYYY');
     }

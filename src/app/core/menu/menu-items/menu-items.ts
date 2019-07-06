@@ -107,6 +107,12 @@ export class MenuItems {
       icon: 'fa fa-address-card',
       type: 'link',
     });
+    if (isSuperAdmin || hasPermissions.indexOf('role') > -1) this.add({
+      state: 'raffles',
+      name: 'Raffles',
+      icon: 'fa fa-gift',
+      type: 'link',
+    });
     if (isSuperAdmin || hasPermissions.indexOf('ticket') > -1) this.add({
       state: 'tickets',
       name: 'Tickets',
