@@ -6,6 +6,7 @@
 		<div class="chk-block-content">
 			<h5>Rules:</h5>
 			<p>We are giving away a <a href="{{raffle.giveAwayLink}}" target="_blank">{{raffle.giveAwayName}}</a></p>
+			<img [src]="raffle.giveAwayImage" *ngIf="raffle.giveAwayImage"/>
 			<p>You can enter any number of tickets. The more tickets you enter the better chance you have of winning.</p>
 		</div>
 	</div>
@@ -13,13 +14,47 @@
 <div class="pad-wrap">
 	<div class="chk-block">
 		<div class="chk-block-title text-center">
-			<span *ngIf="!raffle.winner; else winner">The raffle will happen at {{raffle.start}}</span>
-			<ng-template #winner>
-				... has won!
-			</ng-template>
+			<ng-container [ngSwitch]="raffle.status">
+				<ng-container *ngSwitchCase="'Waiting'">
+					<h4>Waiting for admin to start the raffle</h4>
+				</ng-container>
+				<ng-container *ngSwitchCase="'In Progress'">
+					<div class="d-flex">
+						<h4>Raffle happening now!</h4>
+					</div>
+				</ng-container>
+				<ng-container *ngSwitchCase="'Ended'">
+					<div class="d-flex">
+						<h4 class="flex-grow-1">Raffle has Ended</h4>
+					</div>
+				</ng-container>
+				<ng-container *ngSwitchDefault>
+					<h4>The raffle will happen at {{raffle.start}}</h4>
+				</ng-container>
+			</ng-container>
 		</div>
-		<div class="chk-block-content">
-			You have 0 tickets in this raffle. <button class="btn-info" (click)="changeTickets()">Click Here</button> to adjust your tickets.
+		<div class="chk-block-content" *ngIf="raffleEntry">
+			<ng-container [ngSwitch]="raffle.status">
+				<ng-container *ngSwitchCase="'Ended'">
+					<div class="d-flex">
+						<p>You had {{raffleEntry.tickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle.</p>
+					</div>
+					<div class="text-center" *ngIf="raffle.winner">
+						<img class="rounded-circle mr-2" src="{{raffle.winner.twitch.imageUrl}}" alt="User-image" width="25" height="25">
+						<span *ngIf="raffle.winner._id === user._id; else otherWinner">YOU ARE THE WINNER!</span>
+						<ng-template #otherWinner>{{raffle.winner.fullname}} has won!</ng-template>
+					</div>
+				</ng-container>
+				<ng-container *ngSwitchDefault>
+					<div class="d-flex flex-fill">
+						<div class="flex-grow-1"><p>You have {{raffleEntry.tickets}} <span class="fa fa-ticket text-success"></span> in this raffle. <button class="btn btn-outline-primary ml-2 p-1" (click)="changeTickets()" *ngIf="!raffle.didStart">Adjust <span class="fa fa-ticket text-success"></span></button></p></div>
+						<div><p>There are {{raffle.enteredTickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle. You have a {{user.winPercent}}% chance of winning.</p></div>
+					</div>
+					<div *ngIf="raffle.status === 'In Progress'">
+						<twitch-channel-widget></twitch-channel-widget>
+					</div>
+				</ng-container>
+			</ng-container>
 		</div>
 	</div>
 </div>

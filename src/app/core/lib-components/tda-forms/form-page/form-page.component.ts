@@ -16,9 +16,7 @@ export class FormPageComponent implements OnInit {
 	@Input() users: any[];
 	@Output() fieldChanged: EventEmitter<any> = new EventEmitter();
 
-	ngOnInit() {
-		console.log(this.formGroup, this.classFields);
-	}
+	ngOnInit() {}
 
 	fieldValueChanged(e: any) {
 		console.log(e);

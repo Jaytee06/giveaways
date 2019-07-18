@@ -11,6 +11,11 @@ const UserTriviaSchema = new mongoose.Schema({
         ref: 'Trivia',
         required: true
     },
+    receiveNotifications: {
+        type: Boolean,
+        default: true,
+        required: true
+    },
     questions:[{
         question: {
             type: mongoose.Schema.ObjectId,

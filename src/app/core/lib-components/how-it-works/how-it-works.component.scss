@@ -1,0 +1,53 @@
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.mat-cell, .mat-header-cell {
+  font-size: medium;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.advance-search-logic {
+  float: right;
+  margin-top: -4.0em;
+  margin-right: 1.2em;
+  font-size: xx-small;
+  font-weight: bolder;
+  color: white;
+  background-color: #999;
+  padding: .3em;
+  border-bottom-color: #999;
+  border-radius: .5em;
+}
+
+.mat-paginator-page-size {
+  max-width: 5em !important;
+}
+
+.mat-paginator-page-size-select {
+  max-width: 5em !important;
+}
+
+.table-loading {
+  padding: .75em;
+}
+
+.table-loading > mat-spinner {
+  margin: auto;
+}
+
+.chk-block-title {
+  padding: 0.25rem 1.25rem;
+}
+
+td .mat-select {
+  min-width: 120px;
+}
+
+.edit-link {
+  color: #3b5998 !important;
+  &:hover {
+    text-decoration: underline !important;
+  }
+}

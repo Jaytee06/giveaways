@@ -12,12 +12,14 @@ import { SubscribesComponent } from './subscribes/subscribes.component';
 import { UnderMaintanceComponent } from './under-maintance/under-maintance.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SessionRoutes } from './session.routing';
+import {LibComponentsModule} from "../core/lib-components/lib-components.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(SessionRoutes)
+    RouterModule.forChild(SessionRoutes),
+      LibComponentsModule
   ],
   declarations: [ 
     LoginoneComponent,

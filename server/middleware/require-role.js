@@ -11,6 +11,7 @@ const requireRole = function (req, res, next) {
         let found = false;
 
         const url = req.baseUrl.replace('/api/', '');
+        console.log(url);
         req.user.roles.forEach(role => {
             if( role.permissions && role.permissions.length > 0 ) {
                 const permission = role.permissions.find(x => {

@@ -2,10 +2,22 @@
 		<div class="row mt-2">
 			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 				<div class="chk-block">
-					<div class="chk-block-title">
-						<h3 class="text-capitalize">Details</h3>
-					</div>
+						<div class="chk-block-title d-flex justify-content-between">
+							<div>
+								<h3 class="text-capitalize">Details</h3>
+							</div>
+							<div>
+								<span *ngIf="raffle.didStart && !raffle.didEnd" class="text-success mr-2"><b>In Progress</b></span>
+								<span *ngIf="raffle.didEnd" class="mr-2">Ended @ {{raffle.didEnd}}</span>
+								<button class="btn btn-success" *ngIf="!raffle.didStart" (click)="startRaffle()">Start Raffle
+								</button>
+								<button class="btn btn-primary" *ngIf="raffle.didStart && !raffle.didEnd"
+										(click)="startRaffle()">End Quiz
+								</button>
+							</div>
+						</div>
 					<div class="chk-block-content">
+						<img [src]="raffle.giveAwayImage" *ngIf="raffle.giveAwayImage"/>
 						<app-tda-form
 								*ngIf="!loading; else loader"
 								[structure]="structure"
@@ -16,6 +28,56 @@
 						<ng-template #loader>
 							<app-loader></app-loader>
 						</ng-template>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="chk-block">
+					<div class="chk-block-title">Raffle Entries</div>
+					<div class="chk-block-content">
+						<div class="d-flex flex-fill ticket-item ticket-item-header" *ngIf="raffleCounts">
+							<div class="flex-grow-1">{{raffleCounts.userCounts}} Users</div>
+							<div>{{raffleCounts.ticketCounts}} <span class="fa fa-ticket text-success"></span></div>
+						</div>
+						<div class="d-flex flex-fill ticket-item ticket-item-winner" *ngIf="raffle.winner">
+							<div><img class="rounded-circle mr-2" src="{{raffle.winner.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+							<div class="flex-grow-1">{{raffle.winner.fullname}}</div>
+							<div>{{raffle.winner.tickets}} <span class="fa fa-ticket text-white"></span></div>
+						</div>
+						<div *ngFor="let entry of raffleEntries" class="d-flex flex-fill ticket-item">
+							<div><img class="rounded-circle mr-2" src="{{entry.user.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+							<div class="flex-grow-1">{{entry.user.fullname}}</div>
+							<div>{{entry.tickets}} <span class="fa fa-ticket text-success"></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row mt-2" *ngIf="raffle.didStart && !raffle.didEnd">
+			<div class="col col-lg-6">
+				<div class="chk-block">
+					<div class="chk-block-title">
+						<h4>Determine Winner</h4>
+					</div>
+					<div class="chk-block-content">
+						<button class="btn btn-success" (click)="determinWinner()">Find Winner!</button>
+						<div class="row">
+							<div class="col"></div>
+							<div class="col col-xs-10 col-md-8 col-lg-8">
+								<div class="d-flex flex-fill ticket-item ticket-item-winner" *ngIf="raffle.winner">
+									<div><img class="rounded-circle mr-2" src="{{raffle.winner.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+									<div class="flex-grow-1">{{raffle.winner.fullname}}</div>
+									<div>{{raffle.winner.tickets}} <span class="fa fa-ticket text-white"></span></div>
+								</div>
+								<div class="d-flex flex-fill ticket-item" *ngIf="tempWinner && !raffle.winner">
+									<div><img class="rounded-circle mr-2" src="{{tempWinner.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+									<div class="flex-grow-1">{{tempWinner.fullname}}</div>
+									<div>{{tempWinner.tickets}} <span class="fa fa-ticket text-success"></span></div>
+								</div>
+							</div>
+							<div class="col"></div>
+						</div>
 					</div>
 				</div>
 			</div>

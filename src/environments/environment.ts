@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-    apiBaseUrl: 'http://localhost:4050',
+  apiBaseUrl: 'http://localhost:4050',
   firebase: {
     apiKey: 'AIzaSyD1ZXXWToAvtsw9u-n0zH7gO-xJNgUTPB8',
     authDomain: 'giveaways-76aca.firebaseapp.com',

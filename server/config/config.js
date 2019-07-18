@@ -40,11 +40,26 @@ const config = {
   jwtSecret: envVars.JWT_SECRET,
   twitchClientId: envVars.TWITCH_CLIENT_ID || '',
   twitchClientSecret: envVars.TWITCH_CLIENT_SECRET || '',
+  twitchBroadcasterId: envVars.BROADCASTER_ID || '',
   frontend: envVars.MEAN_FRONTEND || 'angular',
   mongo: {
     host: envVars.MONGO_HOST,
     port: envVars.MONGO_PORT
-  }
+  },
+  firebaseCert:envVars.FIREBASE_CERT_PART_A + envVars.FIREBASE_CERT_PART_B + envVars.FIREBASE_CERT_PART_C
+  // firebase: {
+  //   type: envVars.FIREBASE_TYPE,
+  //   project_id: envVars.FIREBASE_PROJECT_ID,
+  //   private_key_id: envVars.FIREBASE_PRIVATE_KEY_ID,
+  //   private_key: envVars.FIREBASE_PRIVATE_KEY,
+  //   client_email: envVars.FIREBASE_CLIENT_EMAIL,
+  //   client_id: envVars.FIREBASE_CLIENT_ID,
+  //   auth_uri: envVars.FIREBASE_AUTH_URI,
+  //   token_uri: envVars.FIREBASE_TOKEN_URI,
+  //   auth_provider_x509_cert_url: envVars.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+  //   client_x509_cert_url: envVars.FIREBASE_CLIENT_X509_CERT_URL
+  //
+  // }
 };
 
 module.exports = config;

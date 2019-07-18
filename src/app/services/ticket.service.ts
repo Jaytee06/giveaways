@@ -16,7 +16,7 @@ export class TicketService extends BaseService {
 	}
 
 	get$() {
-		return this.http.get(`${this.getBaseUrl()}/ticket`, { headers: this.headers }).pipe(
+		return this.http.get(`${this.getBaseUrl()}/ticket?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}
@@ -46,6 +46,12 @@ export class TicketService extends BaseService {
 
 	myTickets(userId) {
 		return this.http.get(`${this.getBaseUrl()}/ticket/my-tickets/${userId}`, { headers: this.headers }).pipe(
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
+	getCounts$() {
+		return this.http.get(`${this.getBaseUrl()}/ticket/counts?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}

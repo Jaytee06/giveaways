@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Raffle Tickets</h1>
+<div mat-dialog-content>
+		<p>Enter the number of tickets you would like to enter into this raffle. <br>Remember the more tickets entered, the higher chance you have of winning.</p>
+		<mat-form-field>
+			<label>
+				<input
+						matInput
+						type="number"
+						min="0"
+						max="100"
+						autocomplete="off"
+						class="ml-1"
+						[(ngModel)]="data.raffleEntry.tickets"
+						name="tickets"
+						placeholder="Tickets"
+				/>
+			</label>
+		</mat-form-field>
+		<button class="btn btn-info" (click)="maxTickets()">Max</button>
+</div>
+<div mat-dialog-actions>
+	<button mat-button (click)="cancel()">Cancel</button>
+	<button mat-button class="btn btn-success Btn-success" (click)="enter()" cdkFocusInitial>Enter</button>
+</div>

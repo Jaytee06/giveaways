@@ -16,6 +16,7 @@ import {TriviaComponent} from "./trivias/trivia/trivia.component";
 import {AdminDashboardComponent} from "./dashboard/admin-v1/admin-dashboard.component";
 import {RafflesComponent} from "./raffels/raffles.component";
 import {RaffleComponent} from "./raffels/raffle/raffle.component";
+import {TicketLeaderboardComponent} from "./dashboard/widgets/ticket-leaderboard/ticket-leaderboard.component";
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {RaffleComponent} from "./raffels/raffle/raffle.component";
       TriviasComponent,
       TriviaComponent,
       RafflesComponent,
-      RaffleComponent
+      RaffleComponent,
+      TicketLeaderboardComponent
   ]
 })
 

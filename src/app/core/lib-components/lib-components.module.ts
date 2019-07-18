@@ -11,6 +11,9 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {LoaderComponent} from "./loader/loader.component";
 import {CountDownTimerComponent} from "./count-down-timer/count-down-timer.component";
 import {NgCircleProgressModule} from "ng-circle-progress";
+import {HowItWorksComponent} from "./how-it-works/how-it-works.component";
+import {NotificationsComponent} from "./notifications/notifications.component";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -20,9 +23,12 @@ import {NgCircleProgressModule} from "ng-circle-progress";
         TcgConfirmDialogComponent,
         CustomTypeaheadSearchComponent,
         LoaderComponent,
-        CountDownTimerComponent
+        CountDownTimerComponent,
+        HowItWorksComponent,
+        NotificationsComponent
     ],
     imports: [
+        RouterModule,
         CommonModule,
         FormsModule,
         MaterialModule,
@@ -47,7 +53,9 @@ import {NgCircleProgressModule} from "ng-circle-progress";
         TdaFormsModule,
         NgSelectModule,
         LoaderComponent,
-        CountDownTimerComponent
+        CountDownTimerComponent,
+        HowItWorksComponent,
+        NotificationsComponent
     ]
 })
 export class LibComponentsModule {}

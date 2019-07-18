@@ -10,6 +10,9 @@ import {RaffleComponent} from "./raffle.component";
 import {RaffleRoutes} from "./raffle.routing";
 import {NgPipesModule} from "angular-pipes";
 import {RaffleService} from "../services/raffle.service";
+import {RaffleTicketsDialogComponent} from "./dialog/raffle-tickets-dialog/raffle-tickets-dialog.component";
+import {TicketService} from "../services/ticket.service";
+import {DashboardModule} from "../dashboard/dashboard.module";
 
 @NgModule({
     imports: [
@@ -18,14 +21,20 @@ import {RaffleService} from "../services/raffle.service";
         DirectivesModule,
         RouterModule.forChild(RaffleRoutes),
         LibComponentsModule,
-        NgPipesModule
+        NgPipesModule,
+        DashboardModule
     ],
     declarations: [
-        RaffleComponent
+        RaffleComponent,
+        RaffleTicketsDialogComponent
+    ],
+    entryComponents:[
+        RaffleTicketsDialogComponent
     ],
     providers: [
         RaffleService,
-        UserService
+        UserService,
+        TicketService
     ]
 })
 

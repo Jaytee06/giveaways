@@ -8,6 +8,7 @@
 				<tbody>
 					<tr *ngFor="let raffle of raffles" [ngClass]="{'text-muted': raffle.status == 'Ended'}" (click)="raffleClicked(raffle)" class="hand">
 						<td>
+							<img [src]="raffle.giveAwayImage" *ngIf="raffle.giveAwayImage" height="20px"/>
 							{{raffle.giveAwayName}}
 						</td>
 						<td>

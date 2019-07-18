@@ -21,19 +21,23 @@ import {RaffleService} from "../services/raffle.service";
     FormsModule,
     DirectivesModule,
     RouterModule.forChild(DashboardRoutes),
-      LibComponentsModule
+    LibComponentsModule
   ],
-  declarations: [ 
+  declarations: [
     DashboardComponent,
     MyWidgetComponent,
     TwitchChannelComponent,
     TriviaQuizzesComponent,
     RafflesComponent
   ],
+	exports: [
+		TwitchChannelComponent,
+		MyWidgetComponent
+	],
   providers: [
-      TicketService,
-      TriviaService,
-      RaffleService
+    TicketService,
+    TriviaService,
+    RaffleService
   ]
 })
 

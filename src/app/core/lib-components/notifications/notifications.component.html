@@ -1,0 +1,19 @@
+<a href="javascript:void(0)" id="navbarDropdownMenu" class="faa-parent animated-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openedNotifications()">
+	<i class="notifi-bell material-icons faa-slow faa-ring text-muted">notifications</i>
+	<span class="fa fa-circle fa-notify text-success dot-note" *ngIf="pendingIds.length > 0"></span>
+</a>
+<div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarDropdownMenu">
+	<div class="dropdown-header bg-success d-flex justify-content-between"><span class="align-self-center" *ngIf="pendingIds.length > 0">{{pendingIds.length}} Pending notifications</span></div>
+			<a class="dropdown-item  d-flex pt-3" *ngFor="let noti of notifications" (click)="notiClicked(noti)" [ngClass]="{'not-seen': notSeenIds.indexOf(noti._id) > -1}">
+				<div class="icon-area  align-self-start">
+					<i class="fa fa-ticket text-success" *ngIf="noti.type === 'tickets'"></i>
+				</div>
+				<div class="icon-msg ml-2 mr-2">
+					<div class="align-self-start d-block faa-parent">
+						{{noti.message}}
+						<span class="fa fa-circle fa-notify text-success dot-note-message" *ngIf="pendingIds.indexOf(noti._id) > -1"></span>
+					</div>
+					<small>{{noti.createdDisplay}}</small>
+				</div>
+			</a>
+</div>

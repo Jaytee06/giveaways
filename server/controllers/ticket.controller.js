@@ -10,7 +10,7 @@ class TicketController {
     }
 
     async get(query) {
-        return await Model.find().populate('user');
+        return await Model.find(query.query).populate('user').sort(query.sort).skip(query.skip).limit(query.limit);
     }
 
     async getById(id) {
@@ -37,9 +37,19 @@ class TicketController {
         };
 
         const agg = [
-            { $match: query },
+            { $match: query.query },
             { $group: group },
             { $project: project },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'user',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            { $unwind: "$user" },
+            { $sort: {count: -1} }
         ];
 
         return await Model.aggregate(agg);

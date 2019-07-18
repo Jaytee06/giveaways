@@ -39,5 +39,5 @@ export const SessionRoutes: Routes = [{
   }, {
     path: 'undermaintance',
     component: UnderMaintanceComponent
-  },]
+  }]
 }];

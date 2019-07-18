@@ -84,7 +84,6 @@ const TriviaSchema = new mongoose.Schema({
     },
     tickets: {
         type: Number,
-        required: true
     },
     payoutType: {
         type: String,

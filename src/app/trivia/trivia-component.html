@@ -6,16 +6,17 @@
 		<div class="chk-block-content">
 			<h5>Rules:</h5>
 			<p>
-				<span *ngIf="trivia.questionType == 'perQuestion'; else questionType">For this trivia game you will earn {{trivia.ticketsPerQuestions}}<span class="fa fa-ticket text-success"></span> per question you answer correctly. There are {{trivia.numOfQuestions}} questions so you have a total of {{trivia.ticketsPerQuestions*trivia.numOfQuestions}}<span class="fa fa-ticket text-success"></span>!</span>
-				<ng-template #questionType>For this trivia game there are {{trivia.tickets}}<span class="fa fa-ticket text-success"></span> being awarded to the winners. You are a winner if you answer all questions correctly. If you get 1 question wrong you are disqualified. The {{trivia.tickets}}<span class="fa fa-ticket text-success"></span> are divided among the winners, so if there are 10 winners they will each win {{trivia.tickets/10}}<span class="fa fa-ticket text-success"></span>!</ng-template>
+				<span *ngIf="trivia.payoutType == 'perQuestion'; else payoutType">For this trivia game you will earn {{trivia.ticketsPerQuestions}}<span class="fa fa-ticket text-success"></span> per question you answer correctly. There are {{trivia.numOfQuestions}} questions so you have a possibility of earning {{trivia.ticketsPerQuestions*trivia.numOfQuestions}}<span class="fa fa-ticket text-success"></span>!</span>
+				<ng-template #payoutType>For this trivia game there are {{trivia.tickets}}<span class="fa fa-ticket text-success"></span> being awarded to the winners. You are a winner if you answer all questions correctly. If you get 1 question wrong you are disqualified. The {{trivia.tickets}}<span class="fa fa-ticket text-success"></span> are divided among the winners, so if there are 10 winners they will each win {{trivia.tickets/10}}<span class="fa fa-ticket text-success"></span>!</ng-template>
 			</p>
 			<p>
-				You will have {{trivia.questionDuration}} seconds to answer each qustion. All questions will either be multiple choice or true / false answers.
+				You will have {{trivia.questionDuration}} seconds to answer each question.
+				<span *ngIf="trivia.questionType === 'any'">All questions will either be multiple choice or true / false.</span>
+				<span *ngIf="trivia.questionType === 'multiple'">All questions will be multiple choice.</span>
+				<span *ngIf="trivia.questionType === 'boolean'">All questions will be true / false.</span>
 			</p>
 			<p>
 				You will have to be subscribed to [Wahoo Giveaways] on twitch to be able to enter this trivia quiz.
-				<span *ngIf="user.isSubscribed; else notSub">You are subscribed!</span>
-				<ng-template #notSub>You are not subscribed. <a target="_blank" href="https://www.twitch.tv/products/toyexperts">Subscribe here</a> </ng-template>
 			</p>
 			<p>
 				There are {{trivia.numOfQuestions}} questions in this quiz.
@@ -23,14 +24,12 @@
 		</div>
 	</div>
 </div>
-<button class="btn-success" (click)="saveAnswers(trivia.currentQuestion-1)">Save</button>
+<!--<button class="btn-success" (click)="saveAnswers(trivia.currentQuestion-1)">Save</button>-->
 <div class="pad-wrap">
 	<div class="chk-block">
 		<div class="chk-block-title text-center">
 			<ng-container [ngSwitch]="trivia.status">
-				<ng-container *ngSwitchCase="'Waiting'">
-					<h4>Waiting for admin to start Quiz</h4>
-				</ng-container><ng-container *ngSwitchCase="'In Progress'">
+				<ng-container *ngSwitchCase="'In Progress'">
 					<div class="d-flex">
 						<h4>Quiz In Progress</h4>
 						<div class="flex-grow-1 text-right">
@@ -53,16 +52,25 @@
 					</div>
 				</ng-container>
 				<ng-container *ngSwitchDefault>
-					<h4>Quiz starts {{trivia.displayTime}} ({{trivia.startDate}})</h4>
+					<div class="d-flex flex-fill">
+						<div class="flex-grow-1 text-center">
+							<h4 *ngIf="trivia.status === 'Waiting'; else notWaiting">Waiting for admin to start Quiz</h4>
+							<ng-template #notWaiting><h4>Quiz starts {{trivia.displayTime}} ({{trivia.startDate}})</h4></ng-template>
+						</div>
+						<div *ngIf="userTrivia">
+							<span *ngIf="userTrivia.receiveNotifications; else notiOff" class="float-right">
+								<i matTooltip="Turn off notifications for this quiz" class="notifi-bell material-icons faa-slow faa-ring text-success" (click)="notify(false)">notifications</i>
+							</span>
+							<ng-template #notiOff>
+								<i matTooltip="Turn on notifications for this quiz" class="notifi-bell material-icons faa-slow faa-ring text-danger" (click)="notify(true)">notifications</i>
+							</ng-template>
+						</div>
+					</div>
 				</ng-container>
 			</ng-container>
 		</div>
 		<div class="chk-block-content">
 			<ng-container [ngSwitch]="trivia.status">
-				<ng-container *ngSwitchCase="'Waiting'">
-					Get ready the quiz is about to start!
-					<button *ngIf="!userTrivia" class="btn btn-success" (click)="joinQuiz()">Join Quiz</button>
-				</ng-container>
 				<ng-container *ngSwitchCase="'In Progress'">
 					<div *ngIf="!userTrivia && trivia.currentQuestion > 0; else questionsTemplate">You missed this quiz.</div>
 					<div *ngIf="trivia.currentQuestion == 0">First Question: <count-down-timer [structure]="timerStructure"></count-down-timer></div>
@@ -131,7 +139,20 @@
 					</ng-template>
 				</ng-container>
 				<ng-container *ngSwitchDefault>
-					Joining this quiz is not available at this time. Check back at the time above to join this quiz.
+					<p>
+						<span *ngIf="user.isSubscribed; else notSub">You are subscribed!</span>
+						<ng-template #notSub>You are not subscribed. <a target="_blank" href="https://www.twitch.tv/products/toyexperts">Subscribe here</a> </ng-template>
+					</p>
+					<span *ngIf="trivia.status === 'Waiting'; else notStarted">
+						Get ready the quiz is about to start!
+					</span>
+					<ng-template #notStarted>This quiz has not started yet.</ng-template>
+					<span *ngIf="!userTrivia">
+						<p>
+							<button class="btn btn-success" (click)="joinQuiz()">Join Quiz</button>
+							and get notified when this quiz is about to start.
+						</p>
+					</span>
 				</ng-container>
 			</ng-container>
 		</div>

@@ -6,10 +6,10 @@ export const RaffleRoutes: Routes = [{
   path: '',
   redirectTo: ':id',
   pathMatch: 'full',
-},{
+}, {
   path: '',
   children: [{
     path: ':id',
     component: RaffleComponent
-  },]
+  }]
 }];

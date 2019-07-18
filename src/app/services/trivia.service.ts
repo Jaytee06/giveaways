@@ -24,6 +24,12 @@ export class TriviaService extends BaseService {
 		);
 	}
 
+	test$() {
+		return this.http.get(`${this.getBaseUrl()}/trivia/test`, { headers: this.headers }).pipe(
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
 	getById$(triviaId) {
 		return this.http.get(`${this.getBaseUrl()}/trivia/${triviaId}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),

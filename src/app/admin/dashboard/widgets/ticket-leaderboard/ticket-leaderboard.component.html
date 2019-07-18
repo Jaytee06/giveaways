@@ -1,0 +1,31 @@
+<div class="chk-block">
+	<div class="chk-block-title">
+		<h4>Ticket Leaderboard</h4>
+	</div>
+	<div class="chk-block-content">
+		<div class="d-flex flex-fill">
+			<div class="d-flex flex-fill btn-grid">
+				<div (click)="changeRange('day')">Today</div>
+				<div (click)="changeRange('week')">This Week</div>
+				<div (click)="changeRange('month')">This Month</div>
+				<div (click)="changeRange('year')">This Year</div>
+				<div (click)="changeRange('all')">All Time</div>
+			</div>
+			<div class="flex-grow-1 text-right">
+				<mat-slide-toggle
+						class="example-margin"
+						[color]="'primary'"
+						[checked]="getSpent"
+						(change)="setValue($event)"
+				>
+					Show Spent
+				</mat-slide-toggle>
+			</div>
+		</div>
+		<div *ngFor="let entry of leaders" class="d-flex flex-fill ticket-item">
+			<div><img class="rounded-circle mr-2" src="{{entry.user.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+			<div class="flex-grow-1">{{entry.user.fullname}}</div>
+			<div>{{entry.count}} <span class="fa fa-ticket text-success"></span></div>
+		</div>
+	</div>
+</div>

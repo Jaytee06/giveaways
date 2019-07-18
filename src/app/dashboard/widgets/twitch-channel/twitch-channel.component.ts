@@ -15,8 +15,6 @@ export class TwitchChannelComponent implements OnInit {
 
 	ngOnInit() {
 
-		console.log(window.innerWidth);
-
 		const embed = new Twitch.Embed("twitch-player", {
 			width: Math.round(window.innerWidth*.5),
 			height: Math.round(window.innerWidth*.25),

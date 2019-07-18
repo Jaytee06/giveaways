@@ -3,6 +3,7 @@ const passport = require('passport');
 const asyncHandler = require('express-async-handler');
 const Ctrl = require('../controllers/trivia.controller');
 const TicketCtrl = require('../controllers/ticket.controller');
+const FireStoreCtrl = require('../controllers/fire-store.controller');
 const requireRole = require('../middleware/require-role');
 
 const router = express.Router();
@@ -14,6 +15,7 @@ router.use(requireRole);
 router.route('/').get(asyncHandler(get));
 router.route('/').post(asyncHandler(insert));
 router.route('/current').get(asyncHandler(current));
+router.route('/test').get(asyncHandler(test));
 router.route('/:id').get(asyncHandler(getById));
 router.route('/:id').put(asyncHandler(update));
 router.route('/:id').delete(asyncHandler(remove));
@@ -101,31 +103,47 @@ async function current(req, res) {
 async function calculateTickets(req, res) {
     const ctrl = new Ctrl();
     const ticketCtrl = new TicketCtrl();
+    const fsCtrl = new FireStoreCtrl();
 
     const trivia = await ctrl.getById(req.params.id);
     const userResults = await ctrl.getUserTrivia({trivia:req.params.id});
-    console.log(userResults.length, trivia.payoutType);
+
     if( trivia.payoutType === 'perQuestion' ) {
         userResults.forEach((userResult) => {
             const rightQustions = userResult.questions.filter(x => x.correct);
-            ticketCtrl.insert({
+            const obj = {
                 amount:trivia.ticketsPerQuestions*rightQustions.length,
                 user: userResult.user,
                 reason: 'Trivia Game Correct Answers',
                 ref: trivia._id,
                 refType: 'triviaQuiz'
+            };
+            ticketCtrl.insert(obj);
+
+            fsCtrl.instertNotification( obj.user,{
+               message:'You received '+obj.amount+' for a Trivia Quiz!',
+               ref: obj.ref,
+               refType: obj.refType,
+                type: 'tickets',
             });
         });
     } else {
         const winners = userResults.filter(x => x.questions[trivia.numOfQuestions-1].correct);
-        console.log(winners.length);
+
         winners.forEach((winner) => {
-            ticketCtrl.insert({
+            const obj = {
                 amount:Math.floor(trivia.tickets/winners.length),
                 user: winner.user,
                 reason: 'Winning Trivia Game',
                 ref: trivia._id,
                 refType: 'triviaQuiz'
+            };
+            ticketCtrl.insert(obj);
+            fsCtrl.instertNotification(obj.user,{
+                message:'You received '+obj.amount+' for a Trivia Quiz!',
+                ref: obj.ref,
+                refType: obj.refType,
+                type: 'tickets',
             });
         });
     }
@@ -168,4 +186,15 @@ async function findUserTrivia(req, res) {
 
     const userTrivia = await ctrl.findUserTrivia(req.query);
     res.json(userTrivia);
+}
+
+async function test(req, res) {
+    const fsCtrl = new FireStoreCtrl();
+    fsCtrl.instertNotification(req.user._id,{
+        message:'You received 5 for a Trivia Quiz!',
+        ref: '5d2912841566312f16fea23f',
+        refType: 'triviaQuiz',
+        type: 'tickets'
+    });
+    res.json();
 }

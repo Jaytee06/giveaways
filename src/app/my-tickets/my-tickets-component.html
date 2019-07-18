@@ -1,0 +1,41 @@
+<div class="pad-wrap">
+	<div class="chk-block">
+		<div class="chk-block-title">
+			<h4>Ticket History</h4>
+		</div>
+		<div class="chk-block-content">
+			<div class="d-flex flex-fill">
+				<div class="flex-grow-1"></div>
+				<div><my-tickets-widget></my-tickets-widget></div>
+			</div>
+			<div *ngFor="let ticket of tickets" class="d-flex flex-fill ticket-item">
+				<div class="mr-2">{{ticket.reason}}</div>
+				<div class="flex-grow-1">
+					<ng-container [ngSwitch]="ticket.refType">
+						<ng-container *ngSwitchCase="'triviaQuiz'">
+							<a [routerLink]="'/trivia-quiz/'+ticket.ref">Trivia Quiz Results</a>
+						</ng-container>
+						<ng-container *ngSwitchCase="'raffle'">
+							<a [routerLink]="'/raffle/'+ticket.ref">Raffle Reults</a>
+						</ng-container>
+						<ng-container *ngSwitchCase="'facebook'">
+							<a [routerLink]="'https://www.facebook.com'" target="_blank">Facebook</a>
+						</ng-container>
+						<ng-container *ngSwitchCase="'twitter'">
+							<a [routerLink]="'https://www.twitter.com'" target="_blank">Twitter</a>
+						</ng-container>
+						<ng-container *ngSwitchCase="'twitch'">
+							<a [routerLink]="'https://www.twitch.com'" target="_blank">Twitch</a>
+						</ng-container>
+					</ng-container>
+				</div>
+				<div class="mr-3">{{ticket.createdAt}}</div>
+				<div><span [ngClass]="{'text-danger': ticket.amount < 0}">{{ticket.amount}}</span> <span class="fa fa-ticket text-success ml-1"></span></div>
+			</div>
+
+			<div *ngIf="tickets.length === querySkip + queryLimit" class="d-flex flex-fill ticket-item text-center" (click)="getMoreTickets()">
+				Load More
+			</div>
+		</div>
+	</div>
+</div>

@@ -251,4 +251,8 @@ export class TriviaComponent implements OnInit {
 			}
 		});
 	}
+
+	test() {
+		this.service.test$().subscribe(() => {});
+	}
 }

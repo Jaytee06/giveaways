@@ -36,6 +36,12 @@ const RaffleSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     },
+    didStart: {
+        type: Date,
+    },
+    didEnd: {
+        type: Date,
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -28,12 +28,18 @@ export class RafflesComponent implements OnInit {
 
 	updateTimes(raffles) {
 		this.raffles = raffles.map((q) => {
+			let showTime = q.start;
 			q.status = "Starting";
 			if( q.didStart ) {
 				q.status = "In Progress";
-				if( q.didEnd ) q.status = "Ended";
+				showTime = q.didStart
+				if( q.didEnd ) {
+					q.status = "Ended";
+					showTime = q.didEnd;
+				}
 			}
-			q.displayTime = this.service.formatDate(q.start, false, true); return q;
+			q.displayTime = this.service.formatDate(showTime, false, true);
+			return q;
 		});
 		setTimeout(() => {
 			this.updateTimes(this.raffles);

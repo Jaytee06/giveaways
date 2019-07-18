@@ -80,3 +80,27 @@ body {
 .flex-grow-1 {
 	flex-grow: 1 !important;
 }
+
+.ticket-item {
+	padding: 8px;
+	margin: 5px 5px 5px 0px;
+	border: 1px solid #dfdfdf;
+	border-radius: 5px;
+	-webkit-box-shadow: 9px 10px 7px -6px rgba(212,212,212,0.73);
+	-moz-box-shadow: 9px 10px 7px -6px rgba(212,212,212,0.73);
+	box-shadow: 9px 10px 7px -6px rgba(212,212,212,0.73);
+}
+
+.ticket-item-header {
+	background-color: rgba(223, 223, 223, 0.5);
+}
+
+.ticket-item-winner {
+	background-color: #00caac;
+	color: white;
+	font-weight: bolder;
+}
+
+text-white {
+	color: white !important;
+}

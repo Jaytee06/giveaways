@@ -34,6 +34,6 @@ async function getById(req, res) {
 }
 
 async function checkSubscription(req, res) {
-    const subscribed = await userCtrl.checkSubscriptoin(req.params.id);
+    const subscribed = await userCtrl.checkSubscription(req.params.id);
     res.json(subscribed);
 }

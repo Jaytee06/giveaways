@@ -6,7 +6,8 @@
          <div class="sidebar-logo-wrap">
             <div class="sidebar-logo d-flex">
                <div class="logo-text mr-2 ml-2 align-self-center">
-                  <img src="assets/img/tcg-logo.png" alt="The Care Group Logo" width="178" height="40">
+<!--                  <img src="assets/img/tcg-logo.png" alt="The Care Group Logo" width="178" height="40">-->
+                  Vintley
                </div>
             </div>
          </div>
@@ -151,40 +152,13 @@
 <!--                           </div>-->
 <!--                        </li>-->
                         <li class="d-none-sm dropdown">
-                           <a href="javascript:void(0)" id="navbarDropdownMenu" class="faa-parent animated-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="notifi-bell material-icons faa-slow faa-ring">notifications</i> <span class="fa fa-circle fa-notify text-success dot-note"></span></a>
-                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarDropdownMenu">
-                              <div class="dropdown-header bg-success d-flex justify-content-between"><span class="align-self-center">12 Pending notifications</span><a href="javascript:void(0)" class="align-self-center">View All</a></div>
-                              <a class="dropdown-item  d-flex pt-3" href="javascript:void(0)">
-                                 <div class="icon-area  align-self-start">
-                                    <i class="fa fa-envelope-o"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">You have 16 New messages</span>
-                                    <small>12 min ago</small>
-                                 </div>
-                              </a>
-                              <a class="dropdown-item  d-flex" href="javascript:void(0)">
-                                 <div class="icon-area align-self-start">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Server reboot scheduled</span>
-                                    <small>12 min ago</small>
-                                 </div>
-                              </a>
-                              <a class="dropdown-item  d-flex pb-3" href="javascript:void(0)">
-                                 <div class="icon-area align-self-start">
-                                    <i class="fa fa-long-arrow-up" aria-hidden="true"></i>
-                                 </div>
-                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Revenue raised by 67%</span>
-                                    <small>12 min ago</small>
-                                 </div>
-                              </a>
-                           </div>
+                           <notifications></notifications>
                         </li>
                         <li class="d-none-sm dropdown">
                            <a href="javascript:void(0)" id="navbarHelpMenu" class="faa-parent animated-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question material-icons faa-slow faa-ring"></i></a>
                            <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarHelpMenu">
-                              <a class="dropdown-item  d-flex pt-3" [routerLink]="['/', 'how-it-works']" >How it Works</a>
-                              <a class="dropdown-item  d-flex pt-3" [routerLink]="['/', 'link-prime']" >Link to Prime</a>
+                              <a class="dropdown-item  d-flex pt-3" [routerLink]="['/','help', 'how-it-works']" >How it Works</a>
+                              <a class="dropdown-item  d-flex pt-3" href="https://help.twitch.tv/s/article/twitch-prime-guide?language=en_US#HowtoSubscribetoTwitchPrime" target="_blank" >Link to Prime</a>
                            </div>
                         </li>
 <!--                        <li class="d-none-sm dropdown">-->
@@ -228,7 +202,7 @@
                         <li class="dropdown" *ngIf="user">
                            <a class="relative rounded-bg" href="javascript:void(0)" id="navbarDropdownMenuLin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               {{user.fullname}}
-                              <img class="rounded-circle" src="{{user.twitch.imageUrl}}" alt="User-image" width="43" height="43">
+                              <img class="rounded-circle ml-2" src="{{user.twitch.imageUrl}}" alt="User-image" width="43" height="43">
                               <div class="online-caret bg-success circle"><i class="fa fa-caret-down"></i></div>
                            </a>
                            <div class="dropdown-menu rounded-0 dropdown-menu-right p-0" aria-labelledby="navbarDropdownMenuLin">
@@ -253,6 +227,14 @@
 <!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">User List</span>-->
 <!--                                 </div>-->
 <!--                              </a>-->
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-tickets/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-ticket text-success"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Tickets</span>
+                                 </div>
+                              </a>
+
                               <a class="dropdown-item  d-flex pb-2" (click)="logout()">
                                  <div class="icon-area align-self-start">
                                     <i class="fa fa-power-off"></i>
