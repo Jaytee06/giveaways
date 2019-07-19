@@ -4,8 +4,9 @@ const moment = require('moment');
 const config = require('../config/config');
 //const admin = require('firebase-admin').initializeApp(config.firebase);
 const admin = require('firebase-admin');
+console.log(config.firebase);
 admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(config.firebaseCert))
+    credential: admin.credential.cert(config.firebase)
 });
 
 class FireStoreController {
