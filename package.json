@@ -137,7 +137,7 @@
   },
   "devDependencies": {
     "@angular/cli": "^6.0.7",
-    "@angular/compiler-cli": "6.1.9",
+    "@angular/compiler-cli": "^6.1.9",
     "@angular/language-service": "6.1.9",
     "@types/d3": "^5.0.0",
     "@types/jasmine": "~2.8.3",
