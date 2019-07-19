@@ -17,6 +17,7 @@
   "dependencies": {
     "@agm/core": "1.0.0-beta.3",
     "@angular-devkit/build-angular": "^0.801.2",
+    "@angular/compiler-cli": "^6.1.9",
     "@angular/animations": "6.1.9",
     "@angular/cdk": "^6.0.0",
     "@angular/common": "6.1.9",
@@ -137,7 +138,6 @@
   },
   "devDependencies": {
     "@angular/cli": "^6.0.7",
-    "@angular/compiler-cli": "^6.1.9",
     "@angular/language-service": "6.1.9",
     "@types/d3": "^5.0.0",
     "@types/jasmine": "~2.8.3",
