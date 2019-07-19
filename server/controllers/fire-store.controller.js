@@ -19,7 +19,7 @@ class FireStoreController {
 
         noti._id = mongoose.Types.ObjectId()+'';
         noti.created = moment().format('YYYY-MM-DDTHH:mm:ss.SSSZ');
-        console.log(noti);
+
         document.update({
             pending:admin.firestore.FieldValue.arrayUnion(noti._id),
             notSeen:admin.firestore.FieldValue.arrayUnion(noti._id),
