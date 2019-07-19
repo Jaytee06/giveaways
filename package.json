@@ -5,11 +5,13 @@
   "scripts": {
     "ng": "ng",
     "serve": "node server",
-    "start": "concurrently -c 'yellow.bold,green.bold' -n 'SERVER,BUILD' 'nodemon server' 'ng serve --watch --port 4300'",
+    "start": "concurrently -c 'yellow.bold,green.bold' -n 'SERVER,BUILD' 'nodemon server' 'ng serve --watch'",
     "build": "ng build --prod",
+    "start-prod": "ng build --prod && node server/",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start-front": "ng serve"
   },
   "private": true,
   "dependencies": {
@@ -130,7 +132,8 @@
     "twitch-js": "^2.0.0-beta.30",
     "web-animations-js": "^2.3.1",
     "widgster": "1.0.0",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "typescript": "2.9.2"
   },
   "devDependencies": {
     "@angular/cli": "^6.0.7",
@@ -154,7 +157,6 @@
     "karma-jasmine-html-reporter": "1.1.0",
     "protractor": "~5.3.2",
     "ts-node": "~6.1.0",
-    "tslint": "~5.10.0",
-    "typescript": "2.9.2"
+    "tslint": "~5.10.0"
   }
 }
