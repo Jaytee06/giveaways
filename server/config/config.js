@@ -51,7 +51,7 @@ const config = {
     type: envVars.FIREBASE_TYPE,
     project_id: envVars.FIREBASE_PROJECT_ID,
     private_key_id: envVars.FIREBASE_PRIVATE_KEY_ID,
-    private_key: envVars.FIREBASE_PRIVATE_KEY,
+    private_key: envVars.FIREBASE_PRIVATE_KEY.split('\\n').concat().join('\n'),
     client_email: envVars.FIREBASE_CLIENT_EMAIL,
     client_id: envVars.FIREBASE_CLIENT_ID,
     auth_uri: envVars.FIREBASE_AUTH_URI,
