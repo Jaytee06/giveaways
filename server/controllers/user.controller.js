@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const request = require('request');
 const Joi = require('joi');
 const User = require('../models/user.model');
+const TicketCtlr = require('../controllers/ticket.controller');
 const config = require('../config/config');
 
 const userSchema = Joi.object({
@@ -29,10 +30,23 @@ module.exports = {
 };
 
 async function insert(user) {
+    const ticketCtrl = new TicketCtlr();
+
   user = await Joi.validate(user, userSchema, { abortEarly: false });
   //user.hashedPassword = bcrypt.hashSync(user.password, 10);
   delete user.password;
-  return await new User(user).save();
+  const newUser = await new User(user).save();
+
+  // give the user a signup bonus of tickets
+    await ticketCtrl.insert({
+        amount:trivia.ticketsPerQuestions*rightQustions.length,
+        user: userResult.user,
+        reason: 'Trivia Game Correct Answers',
+        ref: trivia._id,
+        refType: 'triviaQuiz'
+    });
+
+  return newUser;
 }
 
 async function get(query) {
