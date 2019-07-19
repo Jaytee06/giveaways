@@ -22,9 +22,9 @@ const screenfull = require('screenfull');
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-    private _router: Subscription;
-    private user: any;
-    private isAdmin: boolean = false;
+    _router: Subscription;
+    user: any;
+    isAdmin: boolean = false;
 
     header: string;
     currentLang = 'en';
