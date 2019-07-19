@@ -46,3 +46,8 @@ Thumbs.db
 # Env file
 *.env
 src/environments/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
