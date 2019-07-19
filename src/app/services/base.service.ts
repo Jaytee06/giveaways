@@ -4,6 +4,9 @@ import {Observable, ObservableInput, of, throwError} from 'rxjs';
 import {MatSnackBar} from "@angular/material";
 import * as moment from "moment";
 
+import * as _$ from 'jquery';
+const $ = _$;
+
 @Injectable()
 export class BaseService {
 
