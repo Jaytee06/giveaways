@@ -46,7 +46,7 @@ const config = {
     host: envVars.MONGO_HOST,
     port: envVars.MONGO_PORT
   },
-  firebaseCert:envVars.FIREBASE_CERT_PART_A + envVars.FIREBASE_CERT_PART_B + envVars.FIREBASE_CERT_PART_C
+  firebaseCert:envVars.FIREBASE_CERT_PART_A + envVars.FIREBASE_CERT_PART_B + envVars.FIREBASE_CERT_PART_C + envVars.FIREBASE_CERT_PART_D + envVars.FIREBASE_CERT_PART_E + envVars.FIREBASE_CERT_PART_F
   // firebase: {
   //   type: envVars.FIREBASE_TYPE,
   //   project_id: envVars.FIREBASE_PROJECT_ID,
