@@ -33,9 +33,8 @@ function login(req, res) {
 
 function twitchLogin(req, res) {
 
-	console.log('XXXXX', config.NODE_ENV);
 	let baseUrl = 'http://localhost:4300';
-	if( config.NODE_ENV === 'production' )
+	if( config.env === 'production' )
 		baseUrl = config.serverURL;
 
     res.redirect(baseUrl+'?user='+req.user._id+'&token='+authCtrl.generateToken(req.user));
