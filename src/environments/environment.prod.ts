@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-    apiBaseUrl: 'http://localhost:4050',
+    apiBaseUrl: 'https://www.vintley.com',
   firebase: {
     apiKey: 'AIzaSyD1ZXXWToAvtsw9u-n0zH7gO-xJNgUTPB8',
     authDomain: 'giveaways-76aca.firebaseapp.com',
