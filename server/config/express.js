@@ -14,7 +14,7 @@ const routes = require('../routes/index.route');
 const config = require('./config');
 const passport = require('./passport');
 
-const app = express();
+const app = express(); //
 
 if (config.env === 'development') {
   app.use(logger('dev'));
