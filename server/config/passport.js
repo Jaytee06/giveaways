@@ -17,6 +17,7 @@ const twitchLogin = new TwitchStrategy({
         scope:['user_read', 'channel:read:subscriptions']
     },
     async function(accessToken, refreshToken, profile, done) {
+        console.log('XXXXX', config.serverURL);
         const newUser = {twitch:{accessToken, refreshToken, provider: profile.provider, providerId: profile.id, imageUrl:profile._json.logo, username: profile.username, email:profile.email}, fullname: profile.username, email:profile.email};
         const users = await userCtrl.get({"twitch.providerId": profile.id});
         let user = null;

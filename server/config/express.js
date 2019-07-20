@@ -14,7 +14,7 @@ const routes = require('../routes/index.route');
 const config = require('./config');
 const passport = require('./passport');
 
-const app = express(); //
+const app = express();
 
 if (config.env === 'development') {
   app.use(logger('dev'));
@@ -29,13 +29,13 @@ if (config.frontend == 'react'){
  }
 
 //
-app.use(express.static(path.join(__dirname, distDir)))
+app.use(express.static(path.join(__dirname, distDir)));
 app.use(/^((?!(api)).)*/, (req, res) => {
   res.sendFile(path.join(__dirname, distDir + '/index.html'));
 });
 
  //React server
-app.use(express.static(path.join(__dirname, '../../node_modules/material-dashboard-react/dist')))
+app.use(express.static(path.join(__dirname, '../../node_modules/material-dashboard-react/dist')));
 app.use(/^((?!(api)).)*/, (req, res) => {
 res.sendFile(path.join(__dirname, '../../dist/index.html'));
 });
@@ -69,7 +69,7 @@ app.use('/api/', routes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new httpError(404)
+  const err = new httpError(404);
   return next(err);
 });
 
