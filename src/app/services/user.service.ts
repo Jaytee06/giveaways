@@ -37,6 +37,12 @@ export class UserService extends BaseService{
         );
     }
 
+    createUserLead(userData) {
+        return this.http.post(`${this.baseService.getBaseUrl()}/auth/user-lead`, userData, {headers: this.headers}).pipe(
+            catchError(this.handleError.bind(this)),
+        );
+    }
+
     getUsers() {
         return this.http.get<Array<any>>(`${this.baseService.getBaseUrl()}/user`, {headers: this.headers}).pipe(
             catchError(this.handleError.bind(this)),
@@ -45,6 +51,12 @@ export class UserService extends BaseService{
 
     getUser(userId) {
         return this.http.get(`${this.baseService.getBaseUrl()}/user/${userId}`, {headers: this.headers}).pipe(
+            catchError(this.handleError.bind(this)),
+        );
+    }
+
+    getUsersCounts() {
+        return this.http.get(`${this.baseService.getBaseUrl()}/auth/user-counts`, {headers: this.headers}).pipe(
             catchError(this.handleError.bind(this)),
         );
     }

@@ -10,11 +10,14 @@
                 <div class="mb-2">
                     <span class="square-100"><i class="fa fa-unlock-alt text-warning"></i></span>
                 </div>
-                <div class="mb-3">
-                    <p class="text-primary">Welcome To The Givewaway Experts</p>
-                    <h2 class="text-muted">Sign in using your twitch account</h2>
+                <div class="mb-2 font-lg text-danger">
+                    <p>We are currently in beta phase.</p><p  *ngIf="userCount < maxUserCount"> We are looking for {{maxUserCount - userCount}} more users to test Vintley.</p>
                 </div>
-                <form class="login-form" action="javascript:void(0)" method="post">
+                <div class="mb-3">
+                    <p class="text-primary">Welcome To Vintley!</p>
+                    <h2 class="text-muted" *ngIf="userCount < maxUserCount">Sign in using your twitch account</h2>
+                </div>
+                <form #loginForm="ngForm" class="login-form" action="javascript:void(0)" method="post" *ngIf="userCount < maxUserCount; else saveEmailT">
                     <!--<div class="form-group">-->
                         <!--<input name="fname" class="form-control form-control-lg input-square" type="text" placeholder="First Name" required>-->
                     <!--</div>-->
@@ -56,6 +59,21 @@
 <!--                        </ul>-->
 <!--                    </div>-->
                 </form>
+                <ng-template #saveEmailT>
+                    <form #emailForm="ngForm" class="email-form" action="javascript:void(0)" method="post" *ngIf="!lead._id; else gotLead" >
+                        <h2 class="text-muted">We are not accepting more users at this time.</h2>
+                        <p>Enter your email to be notified for when we are.</p>
+                        <div class="form-group">
+                            <input type="email" name="email" [(ngModel)]="email" class="form-control form-control-lg input-square" placeholder="Email Address" required [email]="true">
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" (click)="saveEmail()" class="btn btn-primary btn-block btn-lg btn-square" [disabled]="emailForm.form.invalid">Notify Me</button>
+                        </div>
+                    </form>
+                    <ng-template #gotLead >
+                        <p class="font-lg text-success">We saved your email and you will be notified!</p>
+                    </ng-template>
+                </ng-template>
                 <!-- login form closed -->
             </div>
             <!-- login inner wrapper closed -->

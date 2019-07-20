@@ -122,3 +122,19 @@
     background: $preloader-bg-one;
   }
 }
+
+.beta-banner {
+  z-index: 999 !important;
+  position: relative;
+}
+
+.template-has-beta-banner {
+  float: left;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+.push-for-beta-banner {
+  margin-right: 110px;
+}

@@ -1,23 +1,21 @@
 const express = require('express');
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
 const passport = require('passport');
 const userCtrl = require('../controllers/user.controller');
 const authCtrl = require('../controllers/auth.controller');
+const LeadCtrl = require('../controllers/lead.controller');
 const config = require('../config/config');
 
 const router = express.Router();
 module.exports = router;
 
-router.get('/twitch', test, passport.authenticate("twitch"));
-router.get('/twitch/callback', test, passport.authenticate("twitch", {failureRedirect:"/"}), twitchLogin);
+router.get('/twitch', passport.authenticate("twitch"));
+router.get('/twitch/callback', passport.authenticate("twitch", {failureRedirect:"/"}), twitchLogin);
 //router.post('/register', asyncHandler(register), login);
 //router.post('/login', passport.authenticate('local', { session: false }), login);
 //router.get('/me', passport.authenticate('jwt', { session: false }), login);
-
-async function test(req, res, next) {
-    console.log('Here', req.headers.origin, config.serverURL+"/api/auth/twitch/callback");
-    next();
-}
+router.get('/user-counts', asyncHandler(getUserCounts));
+router.post('/user-lead', asyncHandler(insertUserLead));
 
 async function register(req, res, next) {
     let user = await userCtrl.insert(req.body);
@@ -34,5 +32,21 @@ function login(req, res) {
 }
 
 function twitchLogin(req, res) {
-    res.redirect(config.serverURL+'?user='+req.user._id+'&token='+authCtrl.generateToken(req.user));
+
+	let baseUrl = 'http://localhost:4300';
+	if( config.NODE_ENV == 'production' )
+		baseUrl = config.serverURL;
+
+    res.redirect(baseUrl+'?user='+req.user._id+'&token='+authCtrl.generateToken(req.user));
+}
+
+async function getUserCounts(req, res) {
+	const counts = await userCtrl.getCounts();
+	res.json(counts);
+}
+
+async function insertUserLead(req, res) {
+	const leadCtrl = new LeadCtrl();
+	const lead = await leadCtrl.insert(req.body);
+	res.json(lead);
 }
