@@ -76,7 +76,9 @@ export class RaffleComponent implements OnInit {
 		combineLatest(raffle$, raffleEntries$, raffleCounts$).subscribe((data:any) => {
 			[this.raffle, this.raffleEntries, this.raffleCounts] = data;
 			this.pageTitleService.setTitle(this.raffle._id ? 'Edit Raffle' : 'New Raffle');
-			this.raffleCounts = this.raffleCounts[0];
+
+			if( this.raffleCounts && this.raffleCounts.length )
+				this.raffleCounts = this.raffleCounts[0];
 
 			if( this.raffle.winner )
 				this._updateEntries();

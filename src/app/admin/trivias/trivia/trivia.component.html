@@ -89,13 +89,13 @@
 											<div>#{{i + 1}}</div>
 										</mat-grid-tile>
 										<mat-grid-tile class="align-right">
-											<div>{{questionResults[i].pendingUsers.length}}</div>
+											<div *ngIf="questionResults && questionResults[i]">{{questionResults[i].pendingUsers.length}}</div>
 										</mat-grid-tile>
 										<mat-grid-tile class="align-right">
-											<div>{{questionResults[i].correctUsers.length}}</div>
+											<div *ngIf="questionResults && questionResults[i]">{{questionResults[i].correctUsers.length}}</div>
 										</mat-grid-tile>
 										<mat-grid-tile class="align-right">
-											<div>{{questionResults[i].wrongUsers.length}}</div>
+											<div *ngIf="questionResults && questionResults[i]">{{questionResults[i].wrongUsers.length}}</div>
 										</mat-grid-tile>
 										<mat-grid-tile class="align-right">
 											<div *ngIf="trivia.currentQuestion == (i+1)">
@@ -105,7 +105,7 @@
 										</mat-grid-tile>
 									</mat-grid-list>
 								</mat-expansion-panel-header>
-								<mat-grid-list [cols]="5" rowHeight="200px" class="full-width mr-4">
+								<mat-grid-list [cols]="5" rowHeight="200px" class="full-width mr-4" *ngIf="questionResults && questionResults[i]">
 									<mat-grid-tile class="align-left">
 										<div></div>
 									</mat-grid-tile>

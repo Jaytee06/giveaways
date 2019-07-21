@@ -56,6 +56,9 @@ import {RouterModule} from "@angular/router";
         CountDownTimerComponent,
         HowItWorksComponent,
         NotificationsComponent
+    ],
+    entryComponents: [
+        TcgDeleteDialogComponent
     ]
 })
 export class LibComponentsModule {}
