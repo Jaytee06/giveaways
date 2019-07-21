@@ -4,7 +4,6 @@ const moment = require('moment');
 const config = require('../config/config');
 //const admin = require('firebase-admin').initializeApp(config.firebase);
 const admin = require('firebase-admin');
-console.log('AAAA', config.firebase);
 admin.initializeApp({
     credential: admin.credential.cert(config.firebase)
 });
