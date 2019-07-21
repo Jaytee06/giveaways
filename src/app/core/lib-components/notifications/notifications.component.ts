@@ -3,7 +3,9 @@ import {UserService} from "../../../services/user.service";
 import {AngularFirestore} from "@angular/fire/firestore";
 
 import * as moment from 'moment';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
