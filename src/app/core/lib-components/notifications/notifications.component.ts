@@ -30,7 +30,6 @@ export class NotificationsComponent implements OnInit {
     this.userService.getCurrentUser().subscribe((d) => {
       this.user = d;
 
-      console.log('ZZZZ', this.fs);
       this.fs.collection('notifications').doc(this.user._id).valueChanges().subscribe((userNotis: any) => {
 
         if (userNotis) {
