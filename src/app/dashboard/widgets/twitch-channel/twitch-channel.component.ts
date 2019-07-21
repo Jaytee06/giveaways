@@ -18,7 +18,7 @@ export class TwitchChannelComponent implements OnInit {
 		const embed = new Twitch.Embed("twitch-player", {
 			width: Math.round(window.innerWidth*.5),
 			height: Math.round(window.innerWidth*.25),
-			channel: "toyexperts",
+			channel: "vintleytv",
 			layout: "video-with-chat",
 			autoplay: true
 		});
