@@ -8,6 +8,8 @@ const requireRole = require('../middleware/require-role');
 const smtpTransport = require('nodemailer-smtp-transport');
 const nodemailer = require('nodemailer');
 
+const config = require('../config/config');
+
 const router = express.Router();
 module.exports = router;
 
@@ -199,23 +201,8 @@ async function test(req, res) {
     //     type: 'tickets'
     // });
 
-	const settings = {
-		host: 'smtp.dreamhost.com',
-		port: 587,
-		secure: false, // true for 465, false for other ports
-		requireTLS: true, //Force TLS
-		tls: {
-			rejectUnauthorized: false
-		},
-		auth: {
-			user: 'contact@vintley.com',
-			pass: 'jaytee06'
-		}
-	};
 
-	//dconst test = 'smtps://contact%40vintley.com:jaytee06@smtp.dreamhost.com';
-	//const emailer = nodemailer.createTransport(smtpTransport(test));
-	const emailer = nodemailer.createTransport(settings);
+	const emailer = nodemailer.createTransport(smtpTransport(config.contactEmail));
 	const mailOptions = {
 		to: 'timpsonjared@yahoo.com',
 		from: 'contact@vintley.com',

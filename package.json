@@ -110,6 +110,8 @@
 		"ngx-toastr": "^8.8.0",
 		"ngx-tour-core": "^3.0.0",
 		"ngx-tour-ng-bootstrap": "^3.0.0",
+		"nodemailer": "^6.3.0",
+		"nodemailer-smtp-transport": "^2.7.4",
 		"nodemon": "^1.17.5",
 		"normalize.css": "^8.0.0",
 		"nvd3": "^1.8.6",
