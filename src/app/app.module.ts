@@ -33,7 +33,6 @@ import {AngularFireModule} from "@angular/fire";
 import { environment } from '../environments/environment';
 import {AngularFireStorageModule} from "@angular/fire/storage";
 
-console.log('AAAA', environment.firebase);
 /********** Custom option for ngx-translate ******/
 export function createTranslateLoader(http: HttpClient) {
    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
