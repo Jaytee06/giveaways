@@ -5,6 +5,8 @@ const Ctrl = require('../controllers/trivia.controller');
 const TicketCtrl = require('../controllers/ticket.controller');
 const FireStoreCtrl = require('../controllers/fire-store.controller');
 const requireRole = require('../middleware/require-role');
+const smtpTransport = require('nodemailer-smtp-transport');
+const nodemailer = require('nodemailer');
 
 const router = express.Router();
 module.exports = router;
@@ -189,12 +191,43 @@ async function findUserTrivia(req, res) {
 }
 
 async function test(req, res) {
-    const fsCtrl = new FireStoreCtrl();
-    fsCtrl.instertNotification(req.user._id,{
-        message:'You received 5 for a Trivia Quiz!',
-        ref: '5d2912841566312f16fea23f',
-        refType: 'triviaQuiz',
-        type: 'tickets'
-    });
+    // const fsCtrl = new FireStoreCtrl();
+    // fsCtrl.instertNotification(req.user._id,{
+    //     message:'You received 5 for a Trivia Quiz!',
+    //     ref: '5d2912841566312f16fea23f',
+    //     refType: 'triviaQuiz',
+    //     type: 'tickets'
+    // });
+
+	const settings = {
+		host: 'smtp.dreamhost.com',
+		port: 587,
+		secure: false, // true for 465, false for other ports
+		requireTLS: true, //Force TLS
+		tls: {
+			rejectUnauthorized: false
+		},
+		auth: {
+			user: 'contact@vintley.com',
+			pass: 'jaytee06'
+		}
+	};
+
+	//dconst test = 'smtps://contact%40vintley.com:jaytee06@smtp.dreamhost.com';
+	//const emailer = nodemailer.createTransport(smtpTransport(test));
+	const emailer = nodemailer.createTransport(settings);
+	const mailOptions = {
+		to: 'timpsonjared@yahoo.com',
+		from: 'contact@vintley.com',
+		subject: 'Test email',
+		html: 'Testing email. smtp.dreamhost.com',
+		attachments: [],
+	};
+
+	console.log(mailOptions);
+	emailer.sendMail(mailOptions, async (err) => {
+		console.log('Email sent', err);
+	});
+
     res.json();
 }

@@ -48,7 +48,7 @@ async function insert(user) {
 		ref: newUser._id,
 		refType: 'signUp'
 	};
-	console.log(obj, ticketCtrl);
+	console.log(obj, ticketCtrl, fsCtrl);
 	await ticketCtrl.insert(obj);
 
 	await fsCtrl.instertNotification( obj.user,{
