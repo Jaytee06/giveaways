@@ -19,7 +19,6 @@ export class TriviaQuizzesComponent implements OnInit {
 
 	ngOnInit() {
 		this.service.currentTrivia().subscribe((data) => {
-			console.log(data);
 			this.updateTimes(data);
 		});
 	}

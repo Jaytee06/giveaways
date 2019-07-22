@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const wheel = {
+    wonTickets: {
+        type: Number,
+        required: true
+    },
+    createAt: {
+        type: Date,
+        default: Date.now()
+    }
+};
+
 const userProvider = new mongoose.Schema({
     username: {
         type: String,
@@ -55,7 +66,12 @@ const UserSchema = new mongoose.Schema({
         ref: 'Role',
         required: true
     }],
+    loginLogs: [{
+        type: Date,
+        default: Date.now,
+    }],
     twitch: userProvider,
+    spinWheel: [wheel],
     createdAt: {
         type: Date,
         default: Date.now

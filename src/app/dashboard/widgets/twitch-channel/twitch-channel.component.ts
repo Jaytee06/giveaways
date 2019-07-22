@@ -16,8 +16,10 @@ export class TwitchChannelComponent implements OnInit {
 	ngOnInit() {
 
 		const embed = new Twitch.Embed("twitch-player", {
-			width: Math.round(window.innerWidth*.5),
-			height: Math.round(window.innerWidth*.25),
+			width: '100%',
+			height: '100%',
+			//width: Math.round(window.innerWidth*.5),
+			//height: Math.round(window.innerWidth*.25),
 			channel: "vintleytv",
 			layout: "video-with-chat",
 			autoplay: true

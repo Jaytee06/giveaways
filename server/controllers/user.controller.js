@@ -70,7 +70,7 @@ async function getById(id) {
 }
 
 async function update(id, user) {
-	return await User.findByIdAndUpdate(id, user, {new: true});
+	return await User.findByIdAndUpdate(id, user, {new: true}).populate('roles');
 }
 
 async function checkSubscription(id) {

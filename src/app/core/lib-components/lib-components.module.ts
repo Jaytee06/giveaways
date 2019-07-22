@@ -14,6 +14,7 @@ import {NgCircleProgressModule} from "ng-circle-progress";
 import {HowItWorksComponent} from "./how-it-works/how-it-works.component";
 import {NotificationsComponent} from "./notifications/notifications.component";
 import {RouterModule} from "@angular/router";
+import {NgxWheelModule} from "ngx-wheel";
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import {RouterModule} from "@angular/router";
             innerStrokeColor: "#C7E596",
             animationDuration: 0,
             animation: false
-        })
+        }),
+        NgxWheelModule
     ],
     exports: [
         TcgTableComponent,
@@ -55,7 +57,8 @@ import {RouterModule} from "@angular/router";
         LoaderComponent,
         CountDownTimerComponent,
         HowItWorksComponent,
-        NotificationsComponent
+        NotificationsComponent,
+        NgxWheelModule
     ],
     entryComponents: [
         TcgDeleteDialogComponent

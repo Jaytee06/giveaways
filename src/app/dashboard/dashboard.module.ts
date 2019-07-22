@@ -14,6 +14,7 @@ import {TriviaQuizzesComponent} from "./widgets/trivia-quizzes/trivia-quizzes.co
 import {TriviaService} from "../services/trivia.service";
 import {RafflesComponent} from "./widgets/raffles/raffles.component";
 import {RaffleService} from "../services/raffle.service";
+import {SpinWheelComponent} from "./widgets/spin-wheel/spin-wheel.component";
 
 @NgModule({
   imports: [
@@ -28,11 +29,13 @@ import {RaffleService} from "../services/raffle.service";
     MyWidgetComponent,
     TwitchChannelComponent,
     TriviaQuizzesComponent,
-    RafflesComponent
+    RafflesComponent,
+    SpinWheelComponent
   ],
 	exports: [
 		TwitchChannelComponent,
-		MyWidgetComponent
+		MyWidgetComponent,
+      SpinWheelComponent
 	],
   providers: [
     TicketService,

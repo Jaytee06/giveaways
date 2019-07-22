@@ -23,9 +23,11 @@ function getNewTime(d){
 })
 export class DashboardComponent implements OnInit {
 
-  firstRowHeight = window.innerWidth*.35;
+  signalToUpdateData: any;
 
-  constructor( private pageTitleService: PageTitleService) {
+  firstRowHeight = window.innerWidth * .35;
+
+  constructor(private pageTitleService: PageTitleService) {
 
   }
 
@@ -33,6 +35,10 @@ export class DashboardComponent implements OnInit {
     this.pageTitleService.setTitle("Home");
   }
 
+  shouldUpdateData(ev) {
+    console.log('shouldUpdateData', ev);
+    this.signalToUpdateData = ev;
+  }
 }
 
 

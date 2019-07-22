@@ -5,6 +5,10 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
 
+const TicketCtrl = require('../controllers/ticket.controller');
+const FireStoreCtrl = require('../controllers/fire-store.controller');
+const moment = require('moment');
+
 const userCtrl = require('../controllers/user.controller');
 const User = require('../models/user.model');
 const Role = require('../models/role.model');
@@ -25,6 +29,31 @@ const twitchLogin = new TwitchStrategy({
             user.twitch.accessToken = accessToken;
             user.twitch.refreshToken = refreshToken;
             user.twitch.imageUrl = newUser.twitch.imageUrl;
+
+            if( !user.loginLogs ) user.loginLogs = [];
+            // check for daily bonus
+            if( user.loginLogs.find(x => moment().startOf('day').isBefore(moment(x)) && moment().add(1, 'day').startOf('day').isAfter(moment(x))) === undefined ) { // first time login in today
+                const ticketCtrl = new TicketCtrl();
+                const fsCtrl = new FireStoreCtrl();
+
+                const obj = {
+                    amount:5,
+                    user: user._id,
+                    reason: 'Daily login bonus for '+moment().format('MM/DD/YYYY'),
+                    ref: user._id,
+                    refType: 'loginBonus'
+                };
+                ticketCtrl.insert(obj);
+
+                fsCtrl.instertNotification( obj.user,{
+                    message:'You received '+obj.amount+' for daily login!',
+                    ref: obj.ref+'',
+                    refType: obj.refType,
+                    type: 'tickets',
+                });
+            }
+            user.loginLogs.push(new Date);
+
             user = await userCtrl.update(user._id, user);
         } else {
             let role = await Role.findOne({slug: 'user'}); // default their role

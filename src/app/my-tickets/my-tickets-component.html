@@ -16,7 +16,7 @@
 							<a [routerLink]="'/trivia-quiz/'+ticket.ref">Trivia Quiz Results</a>
 						</ng-container>
 						<ng-container *ngSwitchCase="'raffle'">
-							<a [routerLink]="'/raffle/'+ticket.ref">Raffle Reults</a>
+							<a [routerLink]="'/raffle/'+ticket.ref">Raffle Results</a>
 						</ng-container>
 						<ng-container *ngSwitchCase="'facebook'">
 							<a [routerLink]="'https://www.facebook.com'" target="_blank">Facebook</a>
@@ -26,6 +26,9 @@
 						</ng-container>
 						<ng-container *ngSwitchCase="'twitch'">
 							<a [routerLink]="'https://www.twitch.com'" target="_blank">Twitch</a>
+						</ng-container>
+						<ng-container *ngSwitchCase="'spinWheel'">
+							<a [routerLink]="['/']" target="_blank">Spin Wheel</a>
 						</ng-container>
 					</ng-container>
 				</div>

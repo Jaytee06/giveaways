@@ -1,14 +1,32 @@
 <div class="pad-wrap">
-	<mat-grid-list cols="4" [rowHeight]="firstRowHeight">
+	<mat-grid-list class="mb-5" cols="4" [rowHeight]="firstRowHeight">
 		<mat-grid-tile colspan="3" class="pb-md-1">
-   			<twitch-channel-widget></twitch-channel-widget>
+   			<twitch-channel-widget class="full-width"></twitch-channel-widget>
 		</mat-grid-tile>
 		<mat-grid-tile class="pb-md-1">
 			<div class="d-flex align-items-end flex-column">
-				<my-tickets-widget class="pb-md-1"></my-tickets-widget>
+				<my-tickets-widget class="pb-md-1" [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></my-tickets-widget>
 				<raffles-widget></raffles-widget>
 				<trivia-quizzes-widget></trivia-quizzes-widget>
 			</div>
 		</mat-grid-tile>
 	</mat-grid-list>
+	<div>
+		<h4>How to Earn More Tickets</h4>
+		<div class="row">
+			<div class="col col-xs-12 col-md-6">
+				<div class="chk-block">
+					<div class="chk-block-title">
+						<h4>Daily Bonus</h4>
+					</div>
+					<div class="chk-block-content">
+						<div class="ticket-item">Login daily to receive 5 <i class="fa fa-ticket text-success"></i>!</div>
+					</div>
+				</div>
+			</div>
+			<div class="col col-xs-12 col-md-6">
+				<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange} from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {TicketService} from "../../../services/ticket.service";
 
@@ -7,8 +7,10 @@ import {TicketService} from "../../../services/ticket.service";
 	templateUrl: './my-tickets-component.html',
 	styleUrls: ['./my-tickets-component.scss'],
 })
-export class MyWidgetComponent implements OnInit {
+export class MyWidgetComponent implements OnInit, OnChanges {
 
+	@Input() signalUpdate:any;
+	@Output() didUpdateData:EventEmitter<any> = new EventEmitter<any>();
 	user;
 	ticketCount = 0;
 
@@ -19,12 +21,21 @@ export class MyWidgetComponent implements OnInit {
 	ngOnInit() {
 		this.userService.getCurrentUser().subscribe((user) => {
 			this.user = user;
-			this.service.myTickets(this.user._id).subscribe((data) => {
-				this.ticketCount = data[0].count;
-			});
+			this.setUp();
 		});
 	}
 
+	setUp() {
+		this.service.myTickets(this.user._id).subscribe((data) => {
+			this.ticketCount = data[0].count;
+		});
+	}
+
+	ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+		if( changes.signalUpdate && changes.signalUpdate.currentValue && changes.signalUpdate.currentValue['my-tickets-widget'] === true ) {
+			this.setUp();
+		}
+	}
 }
 
 
