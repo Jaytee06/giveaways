@@ -65,7 +65,6 @@ export class TriviaComponent implements OnInit {
 			});
 
 			this.userService.checkSubscription(this.user._id).subscribe((d) => {
-				console.log(d);
 				this.user.isSubscribed = d;
 			});
 		});
