@@ -18,7 +18,7 @@ const twitchLogin = new TwitchStrategy({
         clientID: config.twitchClientId,
         clientSecret: config.twitchClientSecret,
         callbackURL: config.serverURL+"/api/auth/twitch/callback",
-        scope:['user_read']
+        scope:['user_read', 'channel:read:subscriptions']
     },
     async function(accessToken, refreshToken, profile, done) {
         const newUser = {twitch:{accessToken, refreshToken, provider: profile.provider, providerId: profile.id, imageUrl:profile._json.logo, username: profile.username, email:profile.email}, fullname: profile.username, email:profile.email};

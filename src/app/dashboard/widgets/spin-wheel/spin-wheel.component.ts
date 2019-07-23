@@ -86,7 +86,7 @@ export class SpinWheelComponent implements OnInit {
 		this.service.updateUser(this.user).subscribe((user) => {
 			this.user = user;
 			this.didUpdateData.emit({'my-tickets-widget': true});
-			this.ticketService.save$({amount: tickets, user: this.user._id, refType: 'spinWheel', reason:'You spun the wheel to test your luck.'}).subscribe((d) => {
+			this.ticketService.save$({amount: tickets, user: this.user._id, refType: 'wheelSpin', reason:'You spun the wheel to test your luck.'}).subscribe((d) => {
 				this.setUp();
 			});
 		});
