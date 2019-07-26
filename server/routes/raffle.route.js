@@ -34,7 +34,7 @@ async function preSaveRaffleEntry(req, res, next) {
         if( req.body.tickets ) {
 
             const ticketCtlr = new TicketCtlr();
-            const maxTicketCounts = await ticketCtlr.ticketCounts({user: req.user._id});
+            const maxTicketCounts = await ticketCtlr.ticketCounts({query:{user: req.user._id}});
             if( !maxTicketCounts || maxTicketCounts.length == 0 || req.body.tickets > maxTicketCounts[0].count ) {
                 res.status(401).send("You do not have enough tickets for this.");
                 return;

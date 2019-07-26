@@ -27,6 +27,15 @@ class FireStoreController {
             document.set({pending:[noti._id], notSeen:[noti._id], notis:[noti]});
         });
     }
+
+    async updateTriviaQuiz(trivia, obj) {
+        let db = admin.firestore();
+        let document = db.collection('quizzes').doc(trivia._id+'');
+
+        document.update(obj).catch(async(err) => {
+            document.set(obj);
+        });
+    }
 }
 
 module.exports = FireStoreController;

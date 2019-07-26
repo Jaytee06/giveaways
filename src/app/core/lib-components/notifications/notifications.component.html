@@ -7,6 +7,7 @@
 			<a class="dropdown-item  d-flex pt-3" *ngFor="let noti of notifications" (click)="notiClicked(noti)" [ngClass]="{'not-seen': notSeenIds.indexOf(noti._id) > -1}">
 				<div class="icon-area  align-self-start">
 					<i class="fa fa-ticket text-success" *ngIf="noti.type === 'tickets'"></i>
+					<i class="fa fa-list-ul" *ngIf="noti.type === 'trivia'"></i>
 				</div>
 				<div class="icon-msg ml-2 mr-2">
 					<div class="align-self-start d-block faa-parent">

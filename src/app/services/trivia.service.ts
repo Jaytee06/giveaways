@@ -102,36 +102,14 @@ export class TriviaService extends BaseService {
 	startQuiz(trivia) {
 
 		const time = moment().utc().format();
-		let obj:any = {didStart: time, countDown:trivia.startingDuration, currentQuestion:0, intermission:true};
 		// ending it if it was already started
 		if( trivia.didStart ) {
-			obj = {didEnd: time};
 			trivia.didEnd = new Date(time);
 			this._calculateTickets(trivia).subscribe(() => {});
 		} else {
 			trivia.didStart = new Date(time);
 		}
-		this._updateFireStore(trivia, obj);
 		this.save$(trivia).subscribe(() => {});
-	}
-
-	private _triviaQuestionCountdown(trivia, countDownObj) {
-		countDownObj.countDown--;
-		if( countDownObj.countDown < 0 ) {
-			if( countDownObj.intermission ) {
-				countDownObj.currentQuestion++;
-				countDownObj.countDown = trivia.questionDuration;
-			} else {
-				countDownObj.countDown = trivia.intermissionDuration;
-			}
-			countDownObj.intermission = !countDownObj.intermission;
-		}
-		if( countDownObj.currentQuestion <= trivia.numOfQuestions ) {
-			this.fs.collection('quizzes').doc(trivia._id).update(countDownObj);
-			setTimeout(() => {
-				this._triviaQuestionCountdown(trivia, countDownObj);
-			}, 1000);
-		}
 	}
 
 	private _calculateTickets(trivia) {
@@ -155,12 +133,8 @@ export class TriviaService extends BaseService {
 	}
 
 	private _updateFireStore(trivia, obj) {
-		this.fs.collection('quizzes').doc(trivia._id).update(obj).then(() => {
-			if( obj.didStart ) this._triviaQuestionCountdown(trivia, obj);
-		}).catch((error) => {
-			this.fs.collection('quizzes').doc(trivia._id).set(obj).then(() => {
-				if( obj.didStart ) this._triviaQuestionCountdown(trivia, obj);
-			});
+		this.fs.collection('quizzes').doc(trivia._id).update(obj).catch((error) => {
+			this.fs.collection('quizzes').doc(trivia._id).set(obj);
 		});
 	}
 }

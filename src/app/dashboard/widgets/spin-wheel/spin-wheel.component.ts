@@ -37,7 +37,9 @@ export class SpinWheelComponent implements OnInit {
 
 	setUp() {
 		if( this.user.spinWheel && this.user.spinWheel.length ) {
+			console.log(this.user.spinWheel);
 			const todaysSpins = this.user.spinWheel.filter(x => moment(x.createdAt).isAfter(moment().startOf('day')) && moment(x.createdAt).isBefore(moment().add(1, 'day').startOf('day')) );
+			console.log(todaysSpins);
 			this.spinCount = 5 - todaysSpins.length;
 		} else {
 			this.user.spinWheel = [];

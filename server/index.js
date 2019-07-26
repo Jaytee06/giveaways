@@ -1,9 +1,9 @@
 // config should be imported before importing any other file
 const config = require('./config/config');
 const cluster = require('cluster');
-const numCPUs = require('os').cpus().length;
+const numCPUs = process.env.NODE_ENV === 'development' ? 1 : require('os').cpus().length;
 
-if(cluster.isMaster && config.env === 'production') {
+if(cluster.isMaster ) {
     console.log(`Master ${process.pid} is running`);
 
     // form workers
@@ -11,6 +11,9 @@ if(cluster.isMaster && config.env === 'production') {
         cluster.fork();
     }
 
+    /* require cron jobs */
+    /* put cron jobs here so they run only once and they are not clustered */
+    require('./jobs');
 
     // exit worker
     cluster.on('exit', (worker, code, signal) => {

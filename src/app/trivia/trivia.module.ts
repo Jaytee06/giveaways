@@ -11,16 +11,18 @@ import {UserService} from "../services/user.service";
 import {TriviaComponent} from "./trivia.component";
 import {TriviaRoutes} from "./trivia.routing";
 import {NgPipesModule} from "angular-pipes";
+import {DashboardModule} from "../dashboard/dashboard.module";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        DirectivesModule,
-        RouterModule.forChild(TriviaRoutes),
-        LibComponentsModule,
-        NgPipesModule
-    ],
+	imports: [
+		CommonModule,
+		FormsModule,
+		DirectivesModule,
+		RouterModule.forChild(TriviaRoutes),
+		LibComponentsModule,
+		NgPipesModule,
+		DashboardModule
+	],
     declarations: [
         TriviaComponent
     ],

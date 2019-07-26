@@ -1,5 +1,6 @@
 'use strict';
 const Model = require('../models/trivia.model');
+const User = require('../models/user.model'); // required for populate in crons
 const UserTrivia = require('../models/user-trivia.model');
 const request = require('request');
 const _ = require('lodash');
@@ -49,7 +50,7 @@ class TriviaController {
     }
 
     async getUserTrivia(query) {
-        return await UserTrivia.find(query);
+        return await UserTrivia.find(query).populate('user');
     }
 
     async updateUserTrivia(userTriviaId, userTrivia) {

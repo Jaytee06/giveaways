@@ -8,6 +8,7 @@ import { LockScreenComponent } from './lockscreen/lockscreen.component';
 import { SubscribesComponent } from './subscribes/subscribes.component';
 import { UnderMaintanceComponent } from './under-maintance/under-maintance.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import {UnsubscribeComponent} from "./unsubscribe/unsubscribe.component";
 
 export const SessionRoutes: Routes = [{
   path: '',
@@ -39,5 +40,8 @@ export const SessionRoutes: Routes = [{
   }, {
     path: 'undermaintance',
     component: UnderMaintanceComponent
+  }, {
+    path: 'unsubscribe/:token',
+    component: UnsubscribeComponent
   }]
 }];

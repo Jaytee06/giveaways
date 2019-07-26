@@ -5,7 +5,7 @@ const wheel = {
         type: Number,
         required: true
     },
-    createAt: {
+    createdAt: {
         type: Date,
         default: Date.now()
     }
@@ -72,6 +72,14 @@ const UserSchema = new mongoose.Schema({
     }],
     twitch: userProvider,
     spinWheel: [wheel],
+    receiveEmails: {
+        type: Boolean,
+        default: true
+    },
+    emailToken: {
+        type: String,
+        trim: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now

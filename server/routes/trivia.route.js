@@ -30,6 +30,8 @@ router.route('/:id/user-trivia/:userId').get(asyncHandler(findUserTrivia));
 router.route('/user-trivia/:id').get(asyncHandler(getUserTriviaById));
 router.route('/user-trivia/:id').put(asyncHandler(updateUserTrivia));
 
+const fsCtrl = new FireStoreCtrl();
+
 async function insert(req, res) {
     const ctrl = new Ctrl();
     const nTrivia = req.body;
@@ -73,6 +75,23 @@ async function update(req, res) {
 
     let trivia = await ctrl.update(req.params.id, uTrivia);
 
+    // start countdown
+    if( trivia.didStart && !trivia.didEnd ) {
+        let obj = {didStart: trivia.didStart, countDown:trivia.startingDuration, currentQuestion:0, intermission:true};
+        triviaQuestionCountdown(trivia, obj);
+
+        // notify all users the trivia start
+        const users = await ctrl.getUserTrivia({trivia:trivia._id});
+        users.map(async(userTrivia) => {
+            fsCtrl.instertNotification(userTrivia.user._id,{
+                message:'Trivia Quiz has started!',
+                ref: trivia._id+'',
+                refType: 'triviaQuiz',
+                type: 'trivia',
+            });
+        });
+    }
+
     // don't allow answers to go to the front end
     delete trivia.questionAnswers;
 
@@ -107,7 +126,6 @@ async function current(req, res) {
 async function calculateTickets(req, res) {
     const ctrl = new Ctrl();
     const ticketCtrl = new TicketCtrl();
-    const fsCtrl = new FireStoreCtrl();
 
     const trivia = await ctrl.getById(req.params.id);
     const userResults = await ctrl.getUserTrivia({trivia:req.params.id});
@@ -143,6 +161,7 @@ async function calculateTickets(req, res) {
                 refType: 'triviaQuiz'
             };
             ticketCtrl.insert(obj);
+
             fsCtrl.instertNotification(obj.user,{
                 message:'You received '+obj.amount+' for a Trivia Quiz!',
                 ref: obj.ref,
@@ -190,6 +209,28 @@ async function findUserTrivia(req, res) {
 
     const userTrivia = await ctrl.findUserTrivia(req.query);
     res.json(userTrivia);
+}
+
+async function triviaQuestionCountdown(trivia, countDownObj) {
+    countDownObj.countDown--;
+    if( countDownObj.countDown < 0 ) {
+        if( countDownObj.currentQuestion == trivia.numOfQuestions )
+            return;
+
+        if( countDownObj.intermission ) {
+            countDownObj.currentQuestion++;
+            countDownObj.countDown = trivia.questionDuration;
+        } else {
+            countDownObj.countDown = trivia.intermissionDuration;
+        }
+        countDownObj.intermission = !countDownObj.intermission;
+    }
+    if( countDownObj.currentQuestion <= trivia.numOfQuestions ) {
+        fsCtrl.updateTriviaQuiz(trivia, countDownObj);
+        setTimeout(() => {
+            triviaQuestionCountdown(trivia, countDownObj);
+        }, 1000);
+    }
 }
 
 async function test(req, res) {

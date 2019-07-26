@@ -44,7 +44,7 @@ export class UserService extends BaseService{
     }
 
     getUsers() {
-        return this.http.get<Array<any>>(`${this.baseService.getBaseUrl()}/user`, {headers: this.headers}).pipe(
+        return this.http.get<Array<any>>(`${this.baseService.getBaseUrl()}/user?${this.getParams()}`, {headers: this.headers}).pipe(
             catchError(this.handleError.bind(this)),
         );
     }

@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const request = require('request');
 const Joi = require('joi');
+const Role = require('../models/role.model'); // needed for populate in crons
 const User = require('../models/user.model');
 const TicketCtlr = require('../controllers/ticket.controller');
 const FireStoreCtrl = require('../controllers/fire-store.controller');

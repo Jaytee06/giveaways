@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 const TicketCtrl = require('../controllers/ticket.controller');
 const FireStoreCtrl = require('../controllers/fire-store.controller');
@@ -54,11 +55,18 @@ const twitchLogin = new TwitchStrategy({
             }
             user.loginLogs.push(new Date);
 
+            if(  typeof user.emailToken === 'undefined' )
+                user.emailToken = crypto.randomBytes(24).toString('hex');
+            if( typeof user.receiveEmails === 'undefined' )
+                user.receiveEmails = true;
+
             user = await userCtrl.update(user._id, user);
         } else {
             let role = await Role.findOne({slug: 'user'}); // default their role
             if( role )
                 newUser.roles = [role._id];
+
+            newUser.emailToken = crypto.randomBytes(24).toString('hex');
 
             user = await userCtrl.insert(newUser);
         }

@@ -17,6 +17,7 @@ export class TriviaComponent implements OnInit {
 	user:any = {};
 	userTrivia;
 	correctCount = 0;
+	twitchChannelHeight = Math.max(window.innerWidth * .25, 400);
 
 	timerStructure:any = {radius:20, backgroundPadding:1, backgroundColor:'#FF6347', outerStrokeColor:'#FFF', innerStrokeColor:'#FFF', outerStrokeWidth:3, titleColor:'#FFF', unitsColor:'#FFF', showInnerStroke:false};
 
@@ -46,6 +47,9 @@ export class TriviaComponent implements OnInit {
 					} else {
 						this.timerStructure.backgroundColor = '#78C000';
 					}
+
+					if( !this.trivia.intermission )
+						this.timerStructure = {...this.timerStructure, ...{}}; // signal the ngOnChange for the components
 
 					if( !this.trivia.intermission && this.trivia.countDown == 0 && this.userTrivia )
 						this.saveAnswers(this.trivia.currentQuestion - 1);
@@ -94,7 +98,7 @@ export class TriviaComponent implements OnInit {
 		if( this.trivia.didStart ) {
 			this.trivia.status = "In Progress";
 			this.trivia.displayTime = this.service.formatDate(this.trivia.didStart, false, true);
-			if( this.trivia.didEnd ) {
+			if( this.trivia.didEnd || (!this.trivia.intermission && this.trivia.countDown === 0 && this.trivia.currentQuestion === this.trivia.numOfQuestions) ) {
 				this.trivia.status = "Ended";
 				this.trivia.displayTime = this.service.formatDate(this.trivia.didEnd, false, true);
 			}

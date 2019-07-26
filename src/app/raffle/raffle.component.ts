@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material";
 import {TicketService} from "../services/ticket.service";
 import {AngularFirestore} from "@angular/fire/firestore";
 import * as moment from "moment";
+import {PageTitleService} from "../core/page-title/page-title.service";
 
 @Component({
 	selector: 'raffle',
@@ -25,6 +26,7 @@ export class RaffleComponent implements OnInit {
 		private service: RaffleService,
 		private userService: UserService,
 		private ticketService: TicketService,
+		private pageTitleService: PageTitleService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private dialog: MatDialog,
@@ -33,6 +35,7 @@ export class RaffleComponent implements OnInit {
 
 	ngOnInit() {
 
+		this.pageTitleService.setTitle('');
 		const { activatedRoute: { snapshot: { params: { id } } } } = this;
 		const raffle$ = this.service.getById$(id);
 		const user$ = this.userService.getCurrentUser();

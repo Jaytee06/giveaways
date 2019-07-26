@@ -13,6 +13,7 @@ import { UnderMaintanceComponent } from './under-maintance/under-maintance.compo
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SessionRoutes } from './session.routing';
 import {LibComponentsModule} from "../core/lib-components/lib-components.module";
+import {UnsubscribeComponent} from "./unsubscribe/unsubscribe.component";
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import {LibComponentsModule} from "../core/lib-components/lib-components.module"
     SubscribesComponent,
     UnderMaintanceComponent,
     NotFoundComponent,
+    UnsubscribeComponent
   ]
 })
 

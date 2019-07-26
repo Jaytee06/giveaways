@@ -1,0 +1,33 @@
+<div class="coming-wrapper">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-lg-9 col-xl-5 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4 class="text-uppercase">Unsubscribe</h4>
+                    </div>
+                    <div class="card-body text-muted">
+                        <div class="row">
+                            <div class="col-lg-9 mx-auto">
+                                {{loading| json}}
+                       <span *ngIf="!loading; else loader">
+                           <span *ngIf="found; else notFound">
+                                <p><span class="text-success"><b>Success!</b></span> You have been unsubscribed from all emails.</p>
+                            </span>
+                           <ng-template #notFound>
+                               <p><span class="text-danger"><b>Error!</b></span> Something went wrong while unsubscribing.</p>
+                               <p>Please <a href="mailto:contact@vintley.com?subject=Error Unsubscribing from Emails">contact us</a> if you continue to have issues.</p>
+                           </ng-template>
+                       </span>
+                        <ng-template #loader>
+                            <app-loader></app-loader>
+                        </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card body closed -->
+                </div>
+                <!-- Card closed -->
+        </div>
+    </div>
+</div>
+<!-- Coming wrapper closed -->
