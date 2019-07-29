@@ -22,6 +22,7 @@ const userSchema = Joi.object({
 	imageUrl: Joi.string(),
 	twitch: Joi.object(),
 	address: Joi.object(),
+	emailToken: Joi.string(),
 	//repeatPassword: Joi.string().required().valid(Joi.ref('password'))
 });
 
