@@ -41,10 +41,23 @@ export class RaffleComponent implements OnInit {
 			type: FieldTypeEnum.Input,
 			typeAttribute: TypeAttributeEnum.URL,
 			required: true,
-		},  {
+		}, {
 			name: 'Give Away Image',
 			_id: 'giveAwayImage',
 			type: FieldTypeEnum.Input,
+		}, {
+			name: 'Monetary Value',
+			_id: 'monetaryValue',
+			type: FieldTypeEnum.Input,
+			typeAttribute: TypeAttributeEnum.Currency
+		}, {
+			name: 'Can Deliver Digitally',
+			_id: 'canDigitalDeliver',
+			type: FieldTypeEnum.SimpleCheckBox,
+		}, {
+			name: 'Can Ship',
+			_id: 'canShip',
+			type: FieldTypeEnum.SimpleCheckBox,
 		}, {
 			name: 'Created',
 			_id: 'createdAt',
@@ -126,6 +139,7 @@ export class RaffleComponent implements OnInit {
 		const userProbability = this.raffleEntries.map(x => x.tickets/this.raffleCounts.ticketCounts);
 		const winningEntry = this.raffleEntries[this._getRandomIndexByProbability(userProbability)];
 		this.raffle.winner = winningEntry.user;
+		this.raffle.ffStatus = "5d3df5acb71bc344fda79c11"; //unclaimed
 		this._updateEntries();
 	}
 

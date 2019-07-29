@@ -14,6 +14,8 @@ import {TriviaComponent} from "./trivias/trivia/trivia.component";
 import {AdminDashboardComponent} from "./dashboard/admin-v1/admin-dashboard.component";
 import {RafflesComponent} from "./raffels/raffles.component";
 import {RaffleComponent} from "./raffels/raffle/raffle.component";
+import {StatusesComponent} from "./statuses/statuses.component";
+import {StatusComponent} from "./statuses/status/status.component";
 
 export const AdminRoutes: Routes = [{
   path: '',
@@ -60,6 +62,18 @@ export const AdminRoutes: Routes = [{
     }, {
         path: 'roles/new',
         component: RoleComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'statuses',
+        component: StatusesComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'statuses/:id',
+        component: StatusComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'statuses/new',
+        component: StatusComponent,
         canActivate: [AuthenticatedGuard],
     }, {
         path: 'tickets',

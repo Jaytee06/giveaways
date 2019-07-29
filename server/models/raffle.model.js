@@ -42,6 +42,21 @@ const RaffleSchema = new mongoose.Schema({
     didEnd: {
         type: Date,
     },
+    monetaryValue: {
+        type: Number,
+    },
+    ffStatus: { // full fillment
+        type: mongoose.Schema.ObjectId,
+        ref: 'Status',
+        required: true
+    },
+    canDigitalDeliver: {type: Boolean, default: false},
+    canShip: {type: Boolean, default: false},
+    chosenDeliveryMethod: {
+        type: String,
+        enum: ['Digital', 'Shipped'],
+        default: 'Digital'
+    },
     createdAt: {
         type: Date,
         default: Date.now

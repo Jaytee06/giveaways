@@ -80,6 +80,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    address: {
+        shipping: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Address'
+        }
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -36,8 +36,8 @@
 					<div class="chk-block-title">Raffle Entries</div>
 					<div class="chk-block-content">
 						<div class="d-flex flex-fill ticket-item ticket-item-header" *ngIf="raffleCounts">
-							<div class="flex-grow-1">{{raffleCounts.userCounts}} Users</div>
-							<div>{{raffleCounts.ticketCounts}} <span class="fa fa-ticket text-success"></span></div>
+							<div class="flex-grow-1">{{raffleCounts.userCounts ? raffleCounts.userCounts : 0}} Users</div>
+							<div>{{raffleCounts.ticketCounts ? raffleCounts.ticketCounts : 0}} <span class="fa fa-ticket text-success"></span></div>
 						</div>
 						<div class="d-flex flex-fill ticket-item ticket-item-winner" *ngIf="raffle.winner">
 							<div><img class="rounded-circle mr-2" src="{{raffle.winner.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>

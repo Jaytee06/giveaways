@@ -22,7 +22,7 @@ import {DashboardModule} from "../dashboard/dashboard.module";
         RouterModule.forChild(RaffleRoutes),
         LibComponentsModule,
         NgPipesModule,
-        DashboardModule
+        DashboardModule,
     ],
     declarations: [
         RaffleComponent,

@@ -9,6 +9,7 @@ import {TicketService} from "../services/ticket.service";
 import {AngularFirestore} from "@angular/fire/firestore";
 import * as moment from "moment";
 import {PageTitleService} from "../core/page-title/page-title.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
 	selector: 'raffle',
@@ -22,6 +23,12 @@ export class RaffleComponent implements OnInit {
 	raffleEntry;
 	maxTickets = 0;
 
+	states = [];
+
+	claiming=false;
+	firstFormGroup: FormGroup;
+	secondFormGroup: FormGroup;
+
 	constructor(
 		private service: RaffleService,
 		private userService: UserService,
@@ -30,7 +37,8 @@ export class RaffleComponent implements OnInit {
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private dialog: MatDialog,
-		private fs: AngularFirestore
+		private fs: AngularFirestore,
+		private _formBuilder: FormBuilder
 	) {}
 
 	ngOnInit() {
@@ -71,7 +79,23 @@ export class RaffleComponent implements OnInit {
 					}
 				}
 			});
+
+			this.firstFormGroup = this._formBuilder.group({
+				chosenDeliveryMethod: ['', Validators.required]
+			});
+			this.secondFormGroup = this._formBuilder.group({
+				email: ['', [Validators.required, Validators.email]],
+				address: ['', Validators.required],
+				address2: [''],
+				city: ['', Validators.required],
+				state: ['', Validators.required],
+				zip: ['', Validators.required],
+			});
+
+			if( !this.user.address ) this.user.address = {shipping:{}};
 		});
+
+		this.states = this.service.getStates();
 	}
 
 	changeTickets() {
@@ -113,6 +137,12 @@ export class RaffleComponent implements OnInit {
 		} else {
 			this.raffle.displayTime = this.service.formatDate(this.raffle.start, false, true);
 		}
+	}
+
+	claimPrize() {
+		this.raffle.ffStatus = "5d3df5b6b71bc344fda79c16"; //claimed
+		this.service.save$(this.raffle).subscribe(() => {});
+		this.userService.updateUser(this.user).subscribe(() => {});
 	}
 }
 

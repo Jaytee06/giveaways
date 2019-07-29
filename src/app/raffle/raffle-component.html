@@ -43,6 +43,71 @@
 						<img class="rounded-circle mr-2" src="{{raffle.winner.twitch.imageUrl}}" alt="User-image" width="25" height="25">
 						<span *ngIf="raffle.winner._id === user._id; else otherWinner">YOU ARE THE WINNER!</span>
 						<ng-template #otherWinner>{{raffle.winner.fullname}} has won!</ng-template>
+						<div *ngIf="raffle.winner._id === user._id && raffle.ffStatus === '5d3df5acb71bc344fda79c11'">
+							<button class="btn btn-accent mt-5" *ngIf="!claiming; else isClaiming" (click)="claiming = true;">Claim Prize!</button>
+							<ng-template #isClaiming>
+								<mat-horizontal-stepper #stepper>
+									<mat-step [stepControl]="firstFormGroup">
+										<form [formGroup]="firstFormGroup">
+											<ng-template matStepLabel>Fill out your name</ng-template>
+												<div><label>Choose your delivery method:</label></div>
+												<div>
+													<mat-radio-group aria-label="Select delivery method" [(ngModel)]="raffle.chosenDeliveryMethod" [formControlName]="'chosenDeliveryMethod'" required>
+														<mat-radio-button value="Digital" *ngIf="raffle.canDigitalDeliver">Digital delivery</mat-radio-button><br>
+														<mat-radio-button value="Shipped" *ngIf="raffle.canShip">Ship to address</mat-radio-button>
+													</mat-radio-group>
+												</div>
+											<div>
+												<button mat-button matStepperNext>Next</button>
+											</div>
+										</form>
+									</mat-step>
+									<mat-step [stepControl]="secondFormGroup">
+										<form [formGroup]="secondFormGroup">
+											<span *ngIf="raffle.chosenDeliveryMethod === 'Digital'; else address">
+												<ng-template matStepLabel>Fill out your email address</ng-template>
+												<mat-form-field>
+													<input matInput placeholder="Eamil" formControlName="email" [(ngModel)]="user.email" required>
+												</mat-form-field>
+												<div>
+													<button mat-button matStepperPrevious>Back</button>
+													<button mat-button matStepperNext>Next</button>
+												</div>
+											</span>
+											<ng-template #address>
+												<ng-template matStepLabel>Fill out your address</ng-template>
+												<div><mat-form-field><input matInput placeholder="Address" name="user.address.shipping.address" formControlName="address" [(ngModel)]="user.address.shipping.address" required></mat-form-field></div>
+												<div><mat-form-field><input matInput placeholder="Address" name="user.address.shipping.address2" formControlName="address2" [(ngModel)]="user.address.shipping.address2"></mat-form-field></div>
+												<div><mat-form-field><input matInput placeholder="City" formControlName="city" name="user.address.shipping.city" [(ngModel)]="user.address.shipping.city" required></mat-form-field></div>
+												<div>
+													<mat-form-field>
+														<mat-select matInput placeholder="State" formControlName="state" name="user.address.shipping.state" [(ngModel)]="user.address.shipping.state" required>
+															<mat-option>Select State</mat-option>
+															<mat-option *ngFor="let state of states" [value]="state.abbreviation">{{state.name}}</mat-option>
+														</mat-select>
+													</mat-form-field>
+												</div>
+												<div><mat-form-field><input matInput placeholder="Zip" formControlName="zip" [(ngModel)]="user.address.shipping.zip"  name="user.address.shipping.zip" required></mat-form-field></div>
+												<div>
+													<button mat-button matStepperPrevious>Back</button>
+													<button mat-button matStepperNext>Next</button>
+												</div>
+											</ng-template>
+										</form>
+									</mat-step>
+									<mat-step>
+										<ng-template matStepLabel>Done</ng-template>
+										<p>Thank you for your information. We are excited to send this out to you.</p>
+										<p>Please confirm your data is correct!</p>
+										<div>
+											<button mat-button matStepperPrevious>Back</button>
+											<button mat-button (click)="stepper.reset()">Reset</button>
+											<button mat-button color="primary" (click)="claimPrize()">It's Correct!</button>
+										</div>
+									</mat-step>
+								</mat-horizontal-stepper>
+							</ng-template>
+						</div>
 					</div>
 				</ng-container>
 				<ng-container *ngSwitchDefault>

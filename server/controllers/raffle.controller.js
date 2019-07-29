@@ -1,5 +1,6 @@
 'use strict';
 const Model = require('../models/raffle.model');
+const StatusModel = require('../models/status.model');
 const RaffleEntryModel = require('../models/raffle-entry.model');
 
 class RaffleController {
@@ -7,11 +8,18 @@ class RaffleController {
     constructor() {}
 
     async insert(raffle) {
+
+        if( !raffle.ffStatus ) {
+            const status = await StatusModel.findOne({type:'Raffle'}).sort({sort:1});
+            if( status )
+                raffle.ffStatus = status._id;
+        }
+
         return await new Model(raffle).save();
     }
 
     async get(query) {
-        return await Model.find(query).populate('user');
+        return await Model.find(query).populate('user').populate('ffStatus');
     }
 
     async getById(id) {

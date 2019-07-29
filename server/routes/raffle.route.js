@@ -96,6 +96,10 @@ async function current(req, res) {
 async function getRaffleCounts(req, res) {
     const ctrl = new Ctrl();
 
+    // fix object ids
+    if( req.query.raffle )
+        req.query.raffle = mongoose.Types.ObjectId(req.query.raffle);
+
     const counts = await ctrl.getRaffleCounts({query: req.query});
     res.json(counts);
 }
@@ -111,7 +115,7 @@ async function insertRaffleEntry(req, res) {
 
 async function getRaffleEntries(req, res) {
     const ctrl = new Ctrl();
-    const raffleEntries = await ctrl.getRaffleEntry(req.query);
+    const raffleEntries = await ctrl.getRaffleEntry({raffle:req.params.id});
     res.json(raffleEntries);
 }
 

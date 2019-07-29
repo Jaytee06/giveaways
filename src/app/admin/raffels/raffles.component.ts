@@ -27,10 +27,11 @@ export class RafflesComponent implements OnInit {
 		this.tableData.columns = [
 			{key: 'user.fullname', name: 'Creator'},
 			{key: 'giveAwayName', name: 'Name'},
+			{key: 'ffStatus.name', name: 'Status'},
 			{key: 'start', name: 'Start'},
 			{key: 'createdAt', name: 'Created'}
 		];
-		this.tableData.displayedColumns = ['user.fullname', 'giveAwayName', 'start', 'createdAt'];
+		this.tableData.displayedColumns = ['user.fullname', 'giveAwayName', 'ffStatus.name', 'start', 'createdAt'];
 
 		this.tableData.isLoading = true;
 		this.tableData.dataSource = new EventEmitter();
@@ -41,7 +42,7 @@ export class RafflesComponent implements OnInit {
 					x.createdAt = this.service.formatDate(x.createdAt, true);
 					return x;
 				});
-				console.log(data);
+
 				this.tableData.dataSource.emit(data);
 			}
 		);

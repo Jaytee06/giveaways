@@ -144,7 +144,7 @@ async function calculateTickets(req, res) {
 
             fsCtrl.instertNotification( obj.user,{
                message:'You received '+obj.amount+' for a Trivia Quiz!',
-               ref: obj.ref,
+               ref: obj.ref+'',
                refType: obj.refType,
                 type: 'tickets',
             });
@@ -164,7 +164,7 @@ async function calculateTickets(req, res) {
 
             fsCtrl.instertNotification(obj.user,{
                 message:'You received '+obj.amount+' for a Trivia Quiz!',
-                ref: obj.ref,
+                ref: obj.ref+'',
                 refType: obj.refType,
                 type: 'tickets',
             });

@@ -2,9 +2,11 @@ const bcrypt = require('bcrypt');
 const request = require('request');
 const Joi = require('joi');
 const Role = require('../models/role.model'); // needed for populate in crons
+const Address = require('../models/address.model'); // needed for populate in crons
 const User = require('../models/user.model');
 const TicketCtlr = require('../controllers/ticket.controller');
 const FireStoreCtrl = require('../controllers/fire-store.controller');
+const BaseCtrl = require('../controllers/base.controller');
 const config = require('../config/config');
 
 const userSchema = Joi.object({
@@ -19,6 +21,7 @@ const userSchema = Joi.object({
 	refreshToken: Joi.string(),
 	imageUrl: Joi.string(),
 	twitch: Joi.object(),
+	address: Joi.object(),
 	//repeatPassword: Joi.string().required().valid(Joi.ref('password'))
 });
 
@@ -35,8 +38,20 @@ module.exports = {
 async function insert(user) {
 	const ticketCtrl = new TicketCtlr();
 	const fsCtrl = new FireStoreCtrl();
+	const baseCtrl = new BaseCtrl();
 
 	user = await Joi.validate(user, userSchema, {abortEarly: false});
+
+	// if address attribute is an object
+	if (user.address) {
+		if (user.address.billing && user.address.billing.address) {
+			user.address.billing = await baseCtrl.castAddress(user.address.billing, false);
+		}
+		if (user.address.shipping && user.address.shipping.address) {
+			user.address.shipping = await baseCtrl.castAddress(user.address.shipping, false);
+		}
+	}
+
 	//user.hashedPassword = bcrypt.hashSync(user.password, 10);
 	delete user.password;
 	const newUser = await new User(user).save();
@@ -49,7 +64,6 @@ async function insert(user) {
 		ref: newUser._id,
 		refType: 'signUp'
 	};
-	console.log(obj, ticketCtrl, fsCtrl);
 	await ticketCtrl.insert(obj);
 
 	await fsCtrl.instertNotification( obj.user,{
@@ -63,15 +77,27 @@ async function insert(user) {
 }
 
 async function get(query) {
-	return await User.find(query).populate('roles');
+	return await User.find(query).populate('roles address.shipping');
 }
 
 async function getById(id) {
-	return await User.findById(id).populate('roles');
+	return await User.findById(id).populate('roles address.shipping');
 }
 
 async function update(id, user) {
-	return await User.findByIdAndUpdate(id, user, {new: true}).populate('roles');
+	const baseCtrl = new BaseCtrl();
+
+	// if address attribute is an object
+	if (user.address) {
+		if (user.address.billing && user.address.billing.address) {
+			user.address.billing = await baseCtrl.castAddress(user.address.billing, false);
+		}
+		if (user.address.shipping && user.address.shipping.address) {
+			user.address.shipping = await baseCtrl.castAddress(user.address.shipping, false);
+		}
+	}
+
+	return await User.findByIdAndUpdate(id, user, {new: true}).populate('roles address.shipping');
 }
 
 async function checkSubscription(id) {

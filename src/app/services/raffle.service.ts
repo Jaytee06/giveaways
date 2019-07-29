@@ -84,7 +84,7 @@ export class RaffleService extends BaseService {
 	}
 
 	getRaffleCounts() {
-		return this.http.get(`${this.getBaseUrl()}/raffle/counts`, { headers: this.headers }).pipe(
+		return this.http.get(`${this.getBaseUrl()}/raffle/counts?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}

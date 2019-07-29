@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../../../services/user.service';
-import {catchError} from "rxjs/operators";
 
 export interface ChildrenItems {
   state: string;
@@ -111,6 +110,12 @@ export class MenuItems {
       state: 'raffles',
       name: 'Raffles',
       icon: 'fa fa-gift',
+      type: 'link',
+    });
+    if (isSuperAdmin || hasPermissions.indexOf('status') > -1) this.add({
+      state: 'statuses',
+      name: 'Statuses',
+      icon: 'fa fa-list-ul',
       type: 'link',
     });
     if (isSuperAdmin || hasPermissions.indexOf('ticket') > -1) this.add({
