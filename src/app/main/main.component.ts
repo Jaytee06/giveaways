@@ -76,6 +76,7 @@ export class MainComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        console.log('Main Component');
         this.userService.getCurrentUser().subscribe((user) => {
             this.user = user;
             if( this.user.roles.find(x => x.slug === 'super_admin') !== undefined )

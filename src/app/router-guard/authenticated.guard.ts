@@ -8,6 +8,7 @@ export class AuthenticatedGuard implements CanActivate {
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
+        console.log('canActivate');
         if( route.queryParams.user && route.queryParams.token ) {
             console.log('Set Tokens');
             localStorage.setItem('user', route.queryParams.user);

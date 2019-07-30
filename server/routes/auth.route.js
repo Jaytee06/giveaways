@@ -39,6 +39,7 @@ function twitchLogin(req, res) {
 
 	console.log(baseUrl, 'should redirect');
     res.redirect(baseUrl+'?user='+req.user._id+'&token='+authCtrl.generateToken(req.user));
+    console.log('done redirect');
 }
 
 async function getUserCounts(req, res) {
