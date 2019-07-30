@@ -4,7 +4,7 @@ const config = require('../config/config');
 
 module.exports = {
   generateToken
-}
+};
 
 
 function generateToken(user) {
