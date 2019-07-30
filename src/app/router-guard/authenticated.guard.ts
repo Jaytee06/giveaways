@@ -9,6 +9,7 @@ export class AuthenticatedGuard implements CanActivate {
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
         if( route.queryParams.user && route.queryParams.token ) {
+            console.log('Set Tokens');
             localStorage.setItem('user', route.queryParams.user);
             localStorage.setItem('token', route.queryParams.token);
             localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.

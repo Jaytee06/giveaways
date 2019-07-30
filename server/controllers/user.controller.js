@@ -69,7 +69,7 @@ async function insert(user) {
 
 	await fsCtrl.instertNotification( obj.user,{
 		message:'You received '+obj.amount+' for a signing up. With a 10X bonus!',
-		ref: obj.ref,
+		ref: obj.ref+'',
 		refType: obj.refType,
 		type: 'tickets',
 	});

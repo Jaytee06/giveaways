@@ -70,6 +70,7 @@ const twitchLogin = new TwitchStrategy({
 
             user = await userCtrl.insert(newUser);
         }
+        console.log('Done with passport');
         return done(null, user.toObject());
     }
 );
