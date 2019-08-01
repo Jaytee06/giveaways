@@ -19,6 +19,8 @@ import {RaffleComponent} from "./raffels/raffle/raffle.component";
 import {TicketLeaderboardComponent} from "./dashboard/widgets/ticket-leaderboard/ticket-leaderboard.component";
 import {StatusComponent} from "./statuses/status/status.component";
 import {StatusesComponent} from './statuses/statuses.component';
+import {TicketOpportunityComponent} from "./ticket-opportunities/ticket-opportunity/ticket-opportunity.component";
+import {TicketOpportunitiesComponent} from "./ticket-opportunities/ticket-opportunities.component";
 
 @NgModule({
   imports: [
@@ -41,7 +43,9 @@ import {StatusesComponent} from './statuses/statuses.component';
       RaffleComponent,
       TicketLeaderboardComponent,
       StatusesComponent,
-      StatusComponent
+      StatusComponent,
+      TicketOpportunityComponent,
+      TicketOpportunitiesComponent
   ]
 })
 

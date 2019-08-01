@@ -16,6 +16,8 @@ import {RafflesComponent} from "./raffels/raffles.component";
 import {RaffleComponent} from "./raffels/raffle/raffle.component";
 import {StatusesComponent} from "./statuses/statuses.component";
 import {StatusComponent} from "./statuses/status/status.component";
+import {TicketOpportunitiesComponent} from "./ticket-opportunities/ticket-opportunities.component";
+import {TicketOpportunityComponent} from "./ticket-opportunities/ticket-opportunity/ticket-opportunity.component";
 
 export const AdminRoutes: Routes = [{
   path: '',
@@ -86,6 +88,18 @@ export const AdminRoutes: Routes = [{
     }, {
         path: 'tickets/new',
         component: TicketComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'ticket-opportunities',
+        component: TicketOpportunitiesComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'ticket-opportunities/:id',
+        component: TicketOpportunityComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'ticket-opportunities/new',
+        component: TicketOpportunityComponent,
         canActivate: [AuthenticatedGuard],
     }, {
         path: 'trivias',

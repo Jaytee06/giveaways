@@ -18,6 +18,7 @@ export class TicketComponent implements OnInit {
 	ticket: any = {};
 	loading = false;
 	users = [];
+	ticketOpps = [];
 
 	structure: IField[] = [
 		{
@@ -34,6 +35,28 @@ export class TicketComponent implements OnInit {
 			type: FieldTypeEnum.Input,
 			typeAttribute:TypeAttributeEnum.Number,
 			required: true,
+		},
+		{
+			name: 'Reference Type',
+			_id: 'refType',
+			type: FieldTypeEnum.ngSelect,
+			ngSelectBindLabel: 'name',
+			options: [
+				{_id:'triviaQuiz', name:'Trivia Quiz Results'},
+				{_id:'ticketOpp', name:'Ticket Opportunity', dependents:['ref']},
+				{_id:'raffle', name:'Raffle'},
+				{_id:'signUp', name:'Sign Up'},
+				{_id:'loginBonus', name:'Login'},
+				{_id:'wheelSpin', name:'Wheel Spin'}
+			],
+		},
+		{
+			name: 'Reference Type',
+			_id: 'ref',
+			type: FieldTypeEnum.ngSelect,
+			ngSelectBindLabel: '_id',
+			options: [],
+			originallyHidden: true,
 		},
 		{
 			name: 'Reason',
@@ -57,10 +80,12 @@ export class TicketComponent implements OnInit {
 		const { activatedRoute: { snapshot: { params: { id } } } } = this;
 		const ticket$ = id !== 'new' ? this.service.getById$(id) : of(this.ticket);
 		const users$ = this.userService.getUsers();
-		combineLatest(ticket$, users$).subscribe((data) => {
-			[this.ticket, this.users] = data;
+		const ticketOpps$ = this.service.getOpportunities$();
+		combineLatest(ticket$, users$, ticketOpps$).subscribe((data) => {
+			[this.ticket, this.users, this.ticketOpps] = data;
 			this.pageTitleService.setTitle(this.ticket._id ? 'Edit Ticket' : 'New Ticket');
 			this.structure.find(i => i.name === 'User').options = this.users;
+			this.structure.find(i => i._id === 'ref').options = this.ticketOpps;
 			this.loading = false;
 		});
 	}

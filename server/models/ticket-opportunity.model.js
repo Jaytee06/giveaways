@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TicketSchema = new mongoose.Schema({
+const TicketOpportunitySchema = new mongoose.Schema({
     amount: {
         type: Number,
         required: true
@@ -10,24 +10,30 @@ const TicketSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    reason: {
+    requiredAction: {
         type: String,
         trim: true,
     },
-    ref: {
+    refLink: {
         type: String,
         trim: true,
     },
     refType: {
-        enum: ['triviaQuiz', 'ticketOpp', 'raffle', 'signUp', 'loginBonus', 'wheelSpin'],
+        enum: ['login', 'facebook', 'twitter', 'twitch'],
         type: String,
         trim: true,
     },
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    startsAt: {
+        type: Date,
+    },
+    expiresAt: {
+        type: Date,
     }
 });
 
 
-module.exports = mongoose.model('Ticket', TicketSchema);
+module.exports = mongoose.model('TicketOpportunity', TicketOpportunitySchema);

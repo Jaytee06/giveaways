@@ -1,5 +1,6 @@
 'use strict';
 const Model = require('../models/ticket.model');
+const OppModel = require('../models/ticket-opportunity.model');
 
 class TicketController {
 
@@ -20,7 +21,6 @@ class TicketController {
     async update(id, ticket) {
         return await Model.findByIdAndUpdate(id, ticket, {new: true});
     }
-
 
     async remove(id) {
         return await Model.findByIdAndRemove(id);
@@ -53,6 +53,26 @@ class TicketController {
         ];
 
         return await Model.aggregate(agg);
+    }
+
+    async insertOpportunity(ticketOpportunity) {
+        return await new OppModel(ticketOpportunity).save();
+    }
+
+    async getOpportunities(query) {
+        return await OppModel.find(query.query).populate('user').sort(query.sort).skip(query.skip).limit(query.limit);
+    }
+
+    async getOpportunityById(id) {
+        return await OppModel.findById(id);
+    }
+
+    async updateOpportunity(id, ticketOpportunity) {
+        return await OppModel.findByIdAndUpdate(id, ticketOpportunity, {new: true});
+    }
+
+    async removeOpportunity(id) {
+        return await OppModel.findByIdAndRemove(id);
     }
 }
 

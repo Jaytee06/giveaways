@@ -16,7 +16,7 @@ export class TicketService extends BaseService {
 	}
 
 	get$() {
-		return this.http.get(`${this.getBaseUrl()}/ticket?${this.getParams()}`, { headers: this.headers }).pipe(
+		return this.http.get<Array<any>>(`${this.getBaseUrl()}/ticket?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}
@@ -66,6 +66,49 @@ export class TicketService extends BaseService {
 	private _update$(ticket) {
 		return this.http.put(`${this.getBaseUrl()}/ticket/${ticket._id}`, ticket, { headers: this.headers }).pipe(
 			tap(() => this.success('Ticket Updated!')),
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
+	getOpportunities$() {
+		return this.http.get<Array<any>>(`${this.getBaseUrl()}/ticket-opportunity?${this.getParams()}`, { headers: this.headers }).pipe(
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
+	getOpportunityById$(ticketOppId) {
+		return this.http.get(`${this.getBaseUrl()}/ticket-opportunity/${ticketOppId}`, { headers: this.headers }).pipe(
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
+	saveOpportunity$(ticketOpp) {
+		if (ticketOpp) {
+			if (ticketOpp._id) {
+				return this._updateOpportunity$(ticketOpp);
+			}
+			return this._createOpportunity$(ticketOpp);
+		}
+		return of(null);
+	}
+
+	deleteOpportunity$(ticketOppId) {
+		return this.http.delete<null>(`${this.getBaseUrl()}/ticket-opportunity/${ticketOppId}`, { headers: this.headers }).pipe(
+			tap(() => this.success('Ticket Opportunity Removed.')),
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
+	private _createOpportunity$(ticketOpp) {
+		return this.http.post(`${this.getBaseUrl()}/ticket-opportunity`, ticketOpp, { headers: this.headers }).pipe(
+			tap(() => this.success('Ticket Opportunity Created!')),
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
+	private _updateOpportunity$(ticketOpp) {
+		return this.http.put(`${this.getBaseUrl()}/ticket-opportunity/${ticketOpp._id}`, ticketOpp, { headers: this.headers }).pipe(
+			tap(() => this.success('Ticket Opportunity Updated!')),
 			catchError(this.handleError.bind(this)),
 		);
 	}

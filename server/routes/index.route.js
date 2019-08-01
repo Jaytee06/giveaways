@@ -8,6 +8,7 @@ const raffleRoutes = require('./raffle.route');
 const roleRoutes = require('./role.route');
 const statusRoutes = require('./status.route');
 const ticketRoutes = require('./ticket.route');
+const ticketOppRoutes = require('./ticket-opportunity.route');
 const triviaRoutes = require('./trivia.route');
 const userRoutes = require('./user.route');
 
@@ -27,6 +28,7 @@ router.use('/raffle', raffleRoutes);
 router.use('/role', roleRoutes);
 router.use('/status', statusRoutes);
 router.use('/ticket', ticketRoutes);
+router.use('/ticket-opportunity', ticketOppRoutes);
 router.use('/trivia', triviaRoutes);
 router.use('/user', userRoutes);
 

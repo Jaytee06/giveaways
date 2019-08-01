@@ -15,15 +15,7 @@
 		<h4>How to Earn More Tickets</h4>
 		<div class="row">
 			<div class="col col-xs-12 col-md-6">
-				<div class="chk-block">
-					<div class="chk-block-title">
-						<h4>Daily Bonus</h4>
-					</div>
-					<div class="chk-block-content">
-						<div class="ticket-item">Login daily to receive 5 <i class="fa fa-ticket text-success"></i>!</div>
-						<div class="ticket-item">Keep an eye on the twitch chat.</div>
-					</div>
-				</div>
+				<ticket-opps-widget></ticket-opps-widget>
 			</div>
 			<div class="col col-xs-12 col-md-6">
 				<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>

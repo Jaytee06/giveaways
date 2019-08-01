@@ -124,6 +124,12 @@ export class MenuItems {
       icon: 'fa fa-ticket',
       type: 'link',
     });
+    if (isSuperAdmin || hasPermissions.indexOf('ticket-opportunity') > -1) this.add({
+      state: 'ticket-opportunities',
+      name: 'Ticket Opps',
+      icon: 'fa fa-chevron-circle-right',
+      type: 'link',
+    });
     if (isSuperAdmin || hasPermissions.indexOf('trivia') > -1) this.add({
       state: 'trivias',
       name: 'Trivia Quizzes',
