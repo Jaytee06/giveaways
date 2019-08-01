@@ -22,9 +22,9 @@ router.route('/:id').delete(asyncHandler(remove));
 router.route('/:id/charge-tickets').get(asyncHandler(chargeTickets));
 router.route('/:id/raffle-entry').get(asyncHandler(getRaffleEntries));
 router.route('/:id/raffle-entry').post(asyncHandler(preSaveRaffleEntry), asyncHandler(insertRaffleEntry));
-router.route('/:id/raffle-entry/:id').get(asyncHandler(getRaffleEntryById));
-router.route('/:id/raffle-entry/:id').put(asyncHandler(preSaveRaffleEntry), asyncHandler(updateRaffleEntry));
-router.route('/:id/raffle-entry/:id').delete(asyncHandler(removeRaffleEntry));
+router.route('/:id/raffle-entry/:entryId').get(asyncHandler(getRaffleEntryById));
+router.route('/:id/raffle-entry/:entryId').put(asyncHandler(preSaveRaffleEntry), asyncHandler(updateRaffleEntry));
+router.route('/:id/raffle-entry/:entryId').delete(asyncHandler(removeRaffleEntry));
 
 async function preSaveRaffleEntry(req, res, next) {
 
@@ -115,13 +115,18 @@ async function insertRaffleEntry(req, res) {
 
 async function getRaffleEntries(req, res) {
     const ctrl = new Ctrl();
-    const raffleEntries = await ctrl.getRaffleEntry({raffle:req.params.id});
+
+    req.query.raffle = req.params.id;
+
+    console.log(req.query);
+    const raffleEntries = await ctrl.getRaffleEntry(req.query);
     res.json(raffleEntries);
 }
 
 async function getRaffleEntryById(req, res) {
     const ctrl = new Ctrl();
-    const raffleEntry = await ctrl.getRaffleEntryById(req.params.id);
+
+    const raffleEntry = await ctrl.getRaffleEntryById(req.params.entryId);
     res.json(raffleEntry);
 }
 
@@ -131,7 +136,7 @@ async function updateRaffleEntry(req, res) {
     // don't allow this to be updated
     delete req.body.user;
 
-    let raffleEntry = await ctrl.updateRaffleEntry(req.params.id, req.body);
+    let raffleEntry = await ctrl.updateRaffleEntry(req.params.entryId, req.body);
     res.json(raffleEntry);
 }
 

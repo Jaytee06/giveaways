@@ -58,6 +58,7 @@ export class RaffleComponent implements OnInit {
 				else
 					this.raffleEntry = {user: this.user._id, raffle: this.raffle._id, tickets:0};
 
+				delete this.service.filters.user;
 				this.getCounts();
 			});
 
@@ -114,7 +115,7 @@ export class RaffleComponent implements OnInit {
 		this.raffle.enteredTickets = 0;
 		this.user.winPercent = 0;
 
-			this.service.filters.raffle = this.raffle._id;
+		this.service.filters.raffle = this.raffle._id;
 		this.service.getRaffleCounts().subscribe((d:any[]) => {
 			if( d && d.length ) {
 				this.raffle.enteredTickets = d[0].ticketCounts;

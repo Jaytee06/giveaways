@@ -90,7 +90,8 @@ export class RaffleService extends BaseService {
 	}
 
 	getRaffleEntries$(raffleId) {
-		return this.http.get(`${this.getBaseUrl()}/raffle/${raffleId}/raffle-entry`, { headers: this.headers }).pipe(
+		console.log(this.getParams());
+		return this.http.get(`${this.getBaseUrl()}/raffle/${raffleId}/raffle-entry?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}
