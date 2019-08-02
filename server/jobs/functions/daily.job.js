@@ -6,12 +6,13 @@ const EmailCtrl= require('../../controllers/email.controller');
 let rule = new Schedule.RecurrenceRule();
 
 rule.hour = 10;
+rule.minute = 1;
 
 module.exports = {
     config: rule,
     execute: async function() {
 
-    	//if( config.env !== 'production' ) return; // this should only run on production servers
+    	if( config.env !== 'production' ) return; // this should only run on production servers
 
 		const emailCtlr = new EmailCtrl();
 		emailCtlr.emailLoginBonus();

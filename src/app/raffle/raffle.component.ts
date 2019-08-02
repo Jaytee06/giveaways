@@ -24,6 +24,7 @@ export class RaffleComponent implements OnInit {
 	maxTickets = 0;
 
 	states = [];
+	firstRowHeight = window.innerWidth * .35;
 
 	claiming=false;
 	firstFormGroup: FormGroup;

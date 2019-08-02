@@ -115,11 +115,15 @@
 						<div class="flex-grow-1"><p>You have {{raffleEntry.tickets}} <span class="fa fa-ticket text-success"></span> in this raffle. <button class="btn btn-outline-primary ml-2 p-1" (click)="changeTickets()" *ngIf="!raffle.didStart">Adjust <span class="fa fa-ticket text-success"></span></button></p></div>
 						<div><p>There are {{raffle.enteredTickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle. You have a {{user.winPercent}}% chance of winning.</p></div>
 					</div>
-					<div *ngIf="raffle.status === 'In Progress'">
-						<twitch-channel-widget></twitch-channel-widget>
-					</div>
 				</ng-container>
 			</ng-container>
+			<div class="full-height" *ngIf="raffle.status === 'In Progress' || raffle.status === 'Ended'">
+				<mat-grid-list cols="1" [rowHeight]="firstRowHeight">
+					<mat-grid-tile>
+						<twitch-channel-widget class="full-width full-height"></twitch-channel-widget>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</div>
 		</div>
 	</div>
 </div>

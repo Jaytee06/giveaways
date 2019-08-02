@@ -11,7 +11,7 @@ module.exports = {
     config: rule,
     execute: async function() {
 
-    	//if( config.env !== 'production' ) return; // this should only run on production servers
+    	if( config.env !== 'production' ) return; // this should only run on production servers
 
 		const emailCtlr = new EmailCtrl();
 		emailCtlr.emailQuizStarting();
