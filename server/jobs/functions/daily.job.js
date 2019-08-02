@@ -1,5 +1,6 @@
 const Schedule = require('node-schedule');
 const mongoose = require('../../config/mongoose'); // setup database connections
+const config = require('../../config/config');
 
 const EmailCtrl= require('../../controllers/email.controller');
 
