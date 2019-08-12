@@ -8,7 +8,7 @@
 				<div class="flex-grow-1"></div>
 				<div><my-tickets-widget></my-tickets-widget></div>
 			</div>
-			<div *ngFor="let ticket of tickets" class="d-flex flex-fill ticket-item">
+			<div *ngFor="let ticket of tickets" class="d-flex flex-fill ticket-item" [ngClass]="{'flex-column': windowWidth < 450}">
 				<div class="mr-2">{{ticket.reason}}</div>
 				<div class="flex-grow-1">
 					<ng-container [ngSwitch]="ticket.refType">
@@ -33,11 +33,11 @@
 					</ng-container>
 				</div>
 				<div class="mr-3">{{ticket.createdAt}}</div>
-				<div><span [ngClass]="{'text-danger': ticket.amount < 0}">{{ticket.amount}}</span> <span class="fa fa-ticket text-success ml-1"></span></div>
+				<div><span [ngClass]="{'text-danger': ticket.amount < 0, 'text-success': ticket.amount > 0}">{{ticket.amount}}</span> <span class="fa fa-ticket text-success ml-1"></span></div>
 			</div>
 
-			<div *ngIf="tickets.length === querySkip + queryLimit" class="d-flex flex-fill ticket-item text-center" (click)="getMoreTickets()">
-				Load More
+			<div *ngIf="tickets.length === querySkip + queryLimit" class="d-flex flex-fill ticket-item" (click)="getMoreTickets()">
+				<div class="flex-grow-1 text-center load-more">Load More</div>
 			</div>
 		</div>
 	</div>

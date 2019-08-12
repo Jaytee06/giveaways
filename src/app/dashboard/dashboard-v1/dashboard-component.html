@@ -1,23 +1,40 @@
 <div class="pad-wrap">
-	<mat-grid-list class="mb-5" cols="4" [rowHeight]="firstRowHeight">
-		<mat-grid-tile colspan="3" class="pb-md-1">
-   			<twitch-channel-widget class="full-width"></twitch-channel-widget>
-		</mat-grid-tile>
-		<mat-grid-tile class="pb-md-1">
-			<div class="d-flex align-items-end flex-column">
-				<my-tickets-widget class="pb-md-1" [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></my-tickets-widget>
-				<raffles-widget></raffles-widget>
-				<trivia-quizzes-widget></trivia-quizzes-widget>
-			</div>
-		</mat-grid-tile>
-	</mat-grid-list>
+	<div class="d-flex flex-fill d-lg-none">
+		<div class="flex-grow-1"><my-tickets-widget class="pb-md-1" [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></my-tickets-widget></div>
+	</div>
+	<div class="d-flex flex-fill d-lg-none">
+		<div class="flex-grow-1 mr-1">
+			<raffles-widget></raffles-widget>
+		</div>
+		<div class="flex-grow-1 d-none d-sm-block ml-1">
+			<trivia-quizzes-widget></trivia-quizzes-widget>
+		</div>
+	</div>
+	<div class="d-flex flex-fill d-block d-sm-none">
+		<trivia-quizzes-widget></trivia-quizzes-widget>
+	</div>
+	<div class="d-flex flex-fill mb-2">
+		<div class="flex-grow-1 player-div mr-1">
+			<twitch-channel-widget class="full-width"></twitch-channel-widget>
+		</div>
+		<div class="d-none d-lg-block ml-1">
+			<my-tickets-widget class="pb-md-1" [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></my-tickets-widget>
+			<raffles-widget></raffles-widget>
+			<trivia-quizzes-widget></trivia-quizzes-widget>
+		</div>
+	</div>
 	<div>
 		<h4>How to Earn More Tickets</h4>
-		<div class="row">
-			<div class="col col-xs-12 col-md-6">
+		<div class="d-flex flex-fill">
+			<div class="flex-grow-1 mr-1">
 				<ticket-opps-widget></ticket-opps-widget>
 			</div>
-			<div class="col col-xs-12 col-md-6">
+			<div class="flex-grow-1 ml-1 d-none d-lg-block">
+				<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>
+			</div>
+		</div>
+		<div class="d-flex flex-fill">
+			<div class="flex-grow-1 ml-1 d-lg-none">
 				<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>
 			</div>
 		</div>

@@ -6,7 +6,7 @@
 		<div class="chk-block-content">
 			<h5>Rules:</h5>
 			<p>We are giving away a <a href="{{raffle.giveAwayLink}}" target="_blank">{{raffle.giveAwayName}}</a></p>
-			<img [src]="raffle.giveAwayImage" *ngIf="raffle.giveAwayImage"/>
+			<img class="image-el" [src]="raffle.giveAwayImage" *ngIf="raffle.giveAwayImage"/>
 			<p>You can enter any number of tickets. The more tickets you enter the better chance you have of winning.</p>
 		</div>
 	</div>
@@ -46,7 +46,7 @@
 						<div *ngIf="raffle.winner._id === user._id && raffle.ffStatus === '5d3df5acb71bc344fda79c11'">
 							<button class="btn btn-accent mt-5" *ngIf="!claiming; else isClaiming" (click)="claiming = true;">Claim Prize!</button>
 							<ng-template #isClaiming>
-								<mat-horizontal-stepper #stepper>
+								<mat-horizontal-stepper #hStepper *ngIf="!smallScreen; else verticalStepper">
 									<mat-step [stepControl]="firstFormGroup">
 										<form [formGroup]="firstFormGroup">
 											<ng-template matStepLabel>Fill out your name</ng-template>
@@ -101,11 +101,74 @@
 										<p>Please confirm your data is correct!</p>
 										<div>
 											<button mat-button matStepperPrevious>Back</button>
-											<button mat-button (click)="stepper.reset()">Reset</button>
+											<button mat-button (click)="hStepper.reset()">Reset</button>
 											<button mat-button color="primary" (click)="claimPrize()">It's Correct!</button>
 										</div>
 									</mat-step>
 								</mat-horizontal-stepper>
+<!--								DUPLICATE STEPPER! IF YOU CHANG ONE THEN CHANGE THE OTHER-->
+								<ng-template #verticalStepper>
+									<mat-vertical-stepper #vStepper>
+										<mat-step [stepControl]="firstFormGroup">
+											<form [formGroup]="firstFormGroup">
+												<ng-template matStepLabel>Fill out your name</ng-template>
+													<div><label>Choose your delivery method:</label></div>
+													<div>
+														<mat-radio-group aria-label="Select delivery method" [(ngModel)]="raffle.chosenDeliveryMethod" [formControlName]="'chosenDeliveryMethod'" required>
+															<mat-radio-button value="Digital" *ngIf="raffle.canDigitalDeliver">Digital delivery</mat-radio-button><br>
+															<mat-radio-button value="Shipped" *ngIf="raffle.canShip">Ship to address</mat-radio-button>
+														</mat-radio-group>
+													</div>
+												<div>
+													<button mat-button matStepperNext>Next</button>
+												</div>
+											</form>
+										</mat-step>
+										<mat-step [stepControl]="secondFormGroup">
+											<form [formGroup]="secondFormGroup">
+												<span *ngIf="raffle.chosenDeliveryMethod === 'Digital'; else address">
+													<ng-template matStepLabel>Fill out your email address</ng-template>
+													<mat-form-field>
+														<input matInput placeholder="Eamil" formControlName="email" [(ngModel)]="user.email" required>
+													</mat-form-field>
+													<div>
+														<button mat-button matStepperPrevious>Back</button>
+														<button mat-button matStepperNext>Next</button>
+													</div>
+												</span>
+												<ng-template #address>
+													<ng-template matStepLabel>Fill out your address</ng-template>
+													<div><mat-form-field><input matInput placeholder="Address" name="user.address.shipping.address" formControlName="address" [(ngModel)]="user.address.shipping.address" required></mat-form-field></div>
+													<div><mat-form-field><input matInput placeholder="Address" name="user.address.shipping.address2" formControlName="address2" [(ngModel)]="user.address.shipping.address2"></mat-form-field></div>
+													<div><mat-form-field><input matInput placeholder="City" formControlName="city" name="user.address.shipping.city" [(ngModel)]="user.address.shipping.city" required></mat-form-field></div>
+													<div>
+														<mat-form-field>
+															<mat-select matInput placeholder="State" formControlName="state" name="user.address.shipping.state" [(ngModel)]="user.address.shipping.state" required>
+																<mat-option>Select State</mat-option>
+																<mat-option *ngFor="let state of states" [value]="state.abbreviation">{{state.name}}</mat-option>
+															</mat-select>
+														</mat-form-field>
+													</div>
+													<div><mat-form-field><input matInput placeholder="Zip" formControlName="zip" [(ngModel)]="user.address.shipping.zip"  name="user.address.shipping.zip" required></mat-form-field></div>
+													<div>
+														<button mat-button matStepperPrevious>Back</button>
+														<button mat-button matStepperNext>Next</button>
+													</div>
+												</ng-template>
+											</form>
+										</mat-step>
+										<mat-step>
+											<ng-template matStepLabel>Done</ng-template>
+											<p>Thank you for your information. We are excited to send this out to you.</p>
+											<p>Please confirm your data is correct!</p>
+											<div>
+												<button mat-button matStepperPrevious>Back</button>
+												<button mat-button (click)="vStepper.reset()">Reset</button>
+												<button mat-button color="primary" (click)="claimPrize()">It's Correct!</button>
+											</div>
+										</mat-step>
+									</mat-vertical-stepper>
+								</ng-template>
 							</ng-template>
 						</div>
 					</div>
@@ -113,13 +176,14 @@
 				<ng-container *ngSwitchDefault>
 					<div class="d-flex flex-fill">
 						<div class="flex-grow-1"><p>You have {{raffleEntry.tickets}} <span class="fa fa-ticket text-success"></span> in this raffle. <button class="btn btn-outline-primary ml-2 p-1" (click)="changeTickets()" *ngIf="!raffle.didStart">Adjust <span class="fa fa-ticket text-success"></span></button></p></div>
-						<div><p>There are {{raffle.enteredTickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle. You have a {{user.winPercent}}% chance of winning.</p></div>
+						<div class="d-none d-lg-block"><p>There are {{raffle.enteredTickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle. You have a {{user.winPercent}}% chance of winning.</p></div>
 					</div>
+					<div class="d-sm-none d-md-block d-lg-none"><p>There are {{raffle.enteredTickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle. You have a {{user.winPercent}}% chance of winning.</p></div>
 				</ng-container>
 			</ng-container>
 			<div class="full-height" *ngIf="raffle.status === 'In Progress' || raffle.status === 'Ended'">
 				<mat-grid-list cols="1" [rowHeight]="firstRowHeight">
-					<mat-grid-tile>
+					<mat-grid-tile class="player-div">
 						<twitch-channel-widget class="full-width full-height"></twitch-channel-widget>
 					</mat-grid-tile>
 				</mat-grid-list>

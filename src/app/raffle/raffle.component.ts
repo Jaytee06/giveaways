@@ -24,9 +24,10 @@ export class RaffleComponent implements OnInit {
 	maxTickets = 0;
 
 	states = [];
-	firstRowHeight = window.innerWidth * .35;
+	firstRowHeight = Math.max(window.innerWidth * .35, 500);
 
 	claiming=false;
+	smallScreen = window.innerWidth < 500;
 	firstFormGroup: FormGroup;
 	secondFormGroup: FormGroup;
 
@@ -77,6 +78,7 @@ export class RaffleComponent implements OnInit {
 						});
 					} else {
 						this.raffle = {...this.raffle, ...d};
+						this.updateTotalTickets(d.totalTicketCount);
 						this.updateTimes();
 					}
 				}
@@ -106,7 +108,7 @@ export class RaffleComponent implements OnInit {
 			if( result !== false ) {
 				this.service.saveRaffleEntry$(this.raffleEntry).subscribe((d) => {
 					this.raffleEntry = d;
-					this.getCounts();
+					//this.getCounts();
 				});
 			}
 		});
@@ -119,10 +121,16 @@ export class RaffleComponent implements OnInit {
 		this.service.filters.raffle = this.raffle._id;
 		this.service.getRaffleCounts().subscribe((d:any[]) => {
 			if( d && d.length ) {
-				this.raffle.enteredTickets = d[0].ticketCounts;
-				this.user.winPercent = Math.round((this.raffleEntry.tickets/this.raffle.enteredTickets)*100);
+				this.updateTotalTickets(d[0].ticketCounts);
 			}
 		});
+	}
+
+	updateTotalTickets(ticketCount) {
+		this.raffle.enteredTickets = ticketCount;
+
+		if ( this.raffleEntry )
+			this.user.winPercent = Math.round((this.raffleEntry.tickets/this.raffle.enteredTickets)*100);
 	}
 
 	updateTimes() {

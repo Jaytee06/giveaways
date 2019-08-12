@@ -1,8 +1,9 @@
 const express = require('express');
 const passport = require('passport');
 const asyncHandler = require('express-async-handler');
-const Ctrl = require('../controllers/raffle.controller');
+const Ctlr = require('../controllers/raffle.controller');
 const TicketCtlr = require('../controllers/ticket.controller');
+const FSCtlr = require('../controllers/fire-store.controller');
 const requireRole = require('../middleware/require-role');
 const mongoose = require('mongoose');
 
@@ -48,109 +49,124 @@ async function preSaveRaffleEntry(req, res, next) {
 }
 
 async function insert(req, res) {
-    const ctrl = new Ctrl();
+    const ctlr = new Ctlr();
 
     req.body.user = req.user._id;
 
-    let raffle = await ctrl.insert(req.body);
+    let raffle = await ctlr.insert(req.body);
     res.json(raffle);
 }
 
 async function get(req, res) {
-    const ctrl = new Ctrl();
-    const raffles = await ctrl.get(req.query);
+    const ctlr = new Ctlr();
+    const raffles = await ctlr.get(req.query);
     res.json(raffles);
 }
 
 async function getById(req, res) {
-    const ctrl = new Ctrl();
-    const raffle = await ctrl.getById(req.params.id);
+    const ctlr = new Ctlr();
+    const raffle = await ctlr.getById(req.params.id);
     res.json(raffle);
 }
 
 async function update(req, res) {
-    const ctrl = new Ctrl();
+    const ctlr = new Ctlr();
 
     // don't allow this to be updated
     delete req.body.user;
 
-    let raffle = await ctrl.update(req.params.id, req.body);
+    let raffle = await ctlr.update(req.params.id, req.body);
     res.json(raffle);
 }
 
 async function remove(req, res) {
-    const ctrl = new Ctrl();
-    await ctrl.remove(req.params.id);
+    const ctlr = new Ctlr();
+    await ctlr.remove(req.params.id);
     res.json();
 }
 
 async function current(req, res) {
-    const ctrl = new Ctrl();
-    const pastRaffles = await ctrl.get({start:{$lt:new Date()}}, {limit:2}, "-start");
+    const ctlr = new Ctlr();
+    const pastRaffles = await ctlr.get({start:{$lt:new Date()}}, {limit:2}, "-start");
     pastRaffles.sort((a, b) => new Date(a.start) - new Date(b.start));
-    const upcommingRaffles = await ctrl.get({start:{$gt:new Date()}}, {limit:5}, "start");
+    const upcommingRaffles = await ctlr.get({start:{$gt:new Date()}}, {limit:5}, "start");
 
     res.json(pastRaffles.concat(upcommingRaffles));
 }
 
 async function getRaffleCounts(req, res) {
-    const ctrl = new Ctrl();
+    const ctlr = new Ctlr();
 
     // fix object ids
     if( req.query.raffle )
         req.query.raffle = mongoose.Types.ObjectId(req.query.raffle);
 
-    const counts = await ctrl.getRaffleCounts({query: req.query});
+    const counts = await ctlr.getRaffleCounts({query: req.query});
     res.json(counts);
 }
 
 async function insertRaffleEntry(req, res) {
-    const ctrl = new Ctrl();
+    const ctlr = new Ctlr();
+    const fsCtlr = new FSCtlr();
 
     req.body.user = req.user._id;
 
-    let raffleEntry = await ctrl.insertRaffleEntry(req.body);
+    let raffleEntry = await ctlr.insertRaffleEntry(req.body);
+    
+    let raffleCounts = await ctlr.getRaffleCounts({query:{raffle:raffleEntry.raffle}});
+
+    if( raffleCounts && raffleCounts.length )
+        await fsCtlr.updateRaffle({_id:raffleEntry.raffle}, {totalTicketCount:raffleCounts[0].ticketCounts});
+
     res.json(raffleEntry);
 }
 
 async function getRaffleEntries(req, res) {
-    const ctrl = new Ctrl();
+    const ctlr = new Ctlr();
 
     req.query.raffle = req.params.id;
 
-    console.log(req.query);
-    const raffleEntries = await ctrl.getRaffleEntry(req.query);
+    const raffleEntries = await ctlr.getRaffleEntry(req.query);
     res.json(raffleEntries);
 }
 
 async function getRaffleEntryById(req, res) {
-    const ctrl = new Ctrl();
+    const ctlr = new Ctlr();
 
-    const raffleEntry = await ctrl.getRaffleEntryById(req.params.entryId);
+    const raffleEntry = await ctlr.getRaffleEntryById(req.params.entryId);
     res.json(raffleEntry);
 }
 
 async function updateRaffleEntry(req, res) {
-    const ctrl = new Ctrl();
+    const ctlr = new Ctlr();
+    const fsCtlr = new FSCtlr();
 
     // don't allow this to be updated
     delete req.body.user;
 
-    let raffleEntry = await ctrl.updateRaffleEntry(req.params.entryId, req.body);
+    let raffleEntry = await ctlr.updateRaffleEntry(req.params.entryId, req.body);
+
+    let raffleCounts = await ctlr.getRaffleCounts({query:{raffle:raffleEntry.raffle}});
+
+    if( raffleCounts && raffleCounts.length )
+        await fsCtlr.updateRaffle({_id:raffleEntry.raffle}, {totalTicketCount:raffleCounts[0].ticketCounts});
+
     res.json(raffleEntry);
 }
 
 async function removeRaffleEntry(req, res) {
-    const ctrl = new Ctrl();
-    await ctrl.removeRaffleEntry(req.params.id);
+    const ctlr = new Ctlr();
+    await ctlr.removeRaffleEntry(req.params.id);
     res.json();
 }
 
 async function chargeTickets(req, res) {
-    const ctrl = new Ctrl();
-    const ticketCtrl = new TicketCtlr();
+    const ctlr = new Ctlr();
+    const ticketCtlr = new TicketCtlr();
+    const fsCtlr = new FSCtlr();
 
-    const raffleEntries = await ctrl.getRaffleEntry({raffle:req.params.id});
+    const raffle = await ctlr.getById(req.params.id);
+    const raffleEntries = await ctlr.getRaffleEntry({raffle:req.params.id});
     const promises = raffleEntries.map(async (entry) => {
 
         const chargeTicket = {
@@ -160,7 +176,16 @@ async function chargeTickets(req, res) {
             ref: entry._id,
             refType: 'raffle',
         };
-        await ticketCtrl.insert(chargeTicket);
+        await ticketCtlr.insert(chargeTicket);
+
+        if( entry.user._id.toString() === raffle.winner._id.toString() ) {
+            await fsCtlr.instertNotification(raffle.winner._id, {
+                message:'You have won the raffle: '+raffle.giveAwayName+'!',
+                ref: raffle._id+'',
+                refType: 'raffle',
+                type: 'raffle',
+            });
+        }
     });
     await Promise.all(promises);
 

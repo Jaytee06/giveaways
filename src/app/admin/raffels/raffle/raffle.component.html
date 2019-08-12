@@ -61,7 +61,8 @@
 						<h4>Determine Winner</h4>
 					</div>
 					<div class="chk-block-content">
-						<button class="btn btn-success" (click)="determinWinner()">Find Winner!</button>
+						<button class="btn btn-success" (click)="determinWinner()" *ngIf="!raffle.winner">Find Winner!</button>
+						<button class="btn btn-success" (click)="redraw();"  *ngIf="raffle.winner">Redraw!</button>
 						<div class="row">
 							<div class="col"></div>
 							<div class="col col-xs-10 col-md-8 col-lg-8">

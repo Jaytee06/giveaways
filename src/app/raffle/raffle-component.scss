@@ -7,3 +7,13 @@
 .radio-button {
 	margin: 5px;
 }
+
+.image-el {
+	width: 25rem;
+}
+
+@media (max-width: 767px) {
+	.image-el {
+		width: 15rem;
+	}
+}

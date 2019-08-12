@@ -7,20 +7,23 @@ import {combineLatest, of} from "rxjs";
 
 import {AngularFirestore} from "@angular/fire/firestore";
 import {RaffleService} from "../../../services/raffle.service";
+import {StatusService} from "../../../services/status.service";
 
 @Component({
 	selector: 'app-raffle',
 	templateUrl: './raffle.component.html',
 	styleUrls: ['./raffle.component.scss'],
-	providers: [RaffleService],
+	providers: [RaffleService, StatusService],
 })
 export class RaffleComponent implements OnInit {
 
 	raffle: any = {	};
 	loading = false;
 	raffleEntries:any[] = [];
+	allRaffleEntries:any[] = [];
 	raffleCounts:any;
 	tempWinner:any;
+	statuses:any[] = [];
 
 	structure: IField[] = [
 		{
@@ -51,6 +54,12 @@ export class RaffleComponent implements OnInit {
 			type: FieldTypeEnum.Input,
 			typeAttribute: TypeAttributeEnum.Currency
 		}, {
+			name: 'Fullfillment Status',
+			_id: 'ffStatus',
+			type: FieldTypeEnum.ngSelect,
+			ngSelectBindLabel:'name',
+			options: this.statuses
+		}, {
 			name: 'Can Deliver Digitally',
 			_id: 'canDigitalDeliver',
 			type: FieldTypeEnum.SimpleCheckBox,
@@ -70,6 +79,7 @@ export class RaffleComponent implements OnInit {
 	constructor(
 		private service: RaffleService,
 		private userService: UserService,
+		private statusService: StatusService,
 		private pageTitleService: PageTitleService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
@@ -82,20 +92,38 @@ export class RaffleComponent implements OnInit {
 		this.loading = true;
 		const { activatedRoute: { snapshot: { params: { id } } } } = this;
 		const raffle$ = id !== 'new' ? this.service.getById$(id) : of(this.raffle);
-		const raffleEntries$ = id !== 'new' ? this.service.getRaffleEntries$(id) : of(this.raffleEntries);
+		const raffleEntries$ = id !== 'new' ? this.service.getRaffleEntries$(id) : of(this.allRaffleEntries);
+
+		this.statusService.filters.type = 'Raffle';
+		const statuses$ = this.statusService.get$();
 
 		if( id ) this.service.filters.raffle = id;
 		const raffleCounts$ = id !== 'new' ? this.service.getRaffleCounts() : of(this.raffleCounts);
-		combineLatest(raffle$, raffleEntries$, raffleCounts$).subscribe((data:any) => {
-			[this.raffle, this.raffleEntries, this.raffleCounts] = data;
+		combineLatest(raffle$, raffleEntries$, raffleCounts$, statuses$).subscribe((data:any) => {
+			[this.raffle, this.allRaffleEntries, this.raffleCounts, this.statuses] = data;
 			this.pageTitleService.setTitle(this.raffle._id ? 'Edit Raffle' : 'New Raffle');
+
+			this.structure.find(x => x._id === 'ffStatus').options = this.statuses;
+
+			if( !this.raffle._id ) {
+				this.raffle.ffStatus = this.statuses[0]._id;
+			}
 
 			if( this.raffleCounts && this.raffleCounts.length )
 				this.raffleCounts = this.raffleCounts[0];
 
-			if( this.raffle.winner )
-				this._updateEntries();
+			this.fs.collection('raffles').doc(this.raffle._id).valueChanges().subscribe((d:any) => {
+				if( d ) {
+					combineLatest(raffleEntries$, raffleCounts$).subscribe((updateData:any) => {
+						[this.allRaffleEntries, this.raffleCounts] = updateData;
 
+						if( this.raffleCounts && this.raffleCounts.length )
+							this.raffleCounts = this.raffleCounts[0];
+					});
+				}
+			});
+
+			this._updateEntries();
 			this.loading = false;
 		});
 	}
@@ -124,11 +152,17 @@ export class RaffleComponent implements OnInit {
 		this.service.startRaffle(this.raffle);
 	}
 
+	redraw() {
+		this.raffle.winner = null;
+		this._updateEntries();
+		this.determinWinner();
+	}
+
 	determinWinner(loop=50) {
 		if( loop == 0 ) {
 			this._selectWinner();
 		} else {
-			this.tempWinner = this.raffleEntries[Math.floor(Math.random()*this.raffleEntries.length)].user;
+			this.tempWinner = this.allRaffleEntries[Math.floor(Math.random()*this.allRaffleEntries.length)].user;
 			setTimeout(() => {
 				this.determinWinner(--loop);
 			}, (51-loop)*5);
@@ -136,17 +170,17 @@ export class RaffleComponent implements OnInit {
 	}
 
 	private _selectWinner() {
-		const userProbability = this.raffleEntries.map(x => x.tickets/this.raffleCounts.ticketCounts);
-		const winningEntry = this.raffleEntries[this._getRandomIndexByProbability(userProbability)];
+		const userProbability = this.allRaffleEntries.map(x => x.tickets/this.raffleCounts.ticketCounts);
+		const winningEntry = this.allRaffleEntries[this._getRandomIndexByProbability(userProbability)];
 		this.raffle.winner = winningEntry.user;
 		this.raffle.ffStatus = "5d3df5acb71bc344fda79c11"; //unclaimed
 		this._updateEntries();
 	}
 
 	private _updateEntries() {
-		this.raffleEntries = this.raffleEntries.filter((x) => {
+		this.raffleEntries = this.allRaffleEntries.filter((x) => {
 			x.user.tickets = x.tickets;
-			if( x.user._id === this.raffle.winner._id )
+			if( this.raffle.winner && x.user._id === this.raffle.winner._id )
 				this.raffle.winner.tickets = x.tickets;
 			else
 				return x;

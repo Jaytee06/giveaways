@@ -49,6 +49,14 @@ export const AppRoutes: Routes = [{
         path: '',
         component: MainComponent,
         children: [{
+            path: 'my-giveaways',
+            loadChildren: './my-raffles/my-raffles.module#MyRafflesModule'
+        }],
+        canActivate: [AuthenticatedGuard]
+    },{
+        path: '',
+        component: MainComponent,
+        children: [{
             path: 'help',
             loadChildren: './help/help.module#HelpModule'
         }],

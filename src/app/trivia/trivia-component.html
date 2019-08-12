@@ -78,7 +78,7 @@
 			<ng-container [ngSwitch]="trivia.status">
 				<ng-container *ngSwitchCase="'In Progress'">
 					<div *ngIf="!userTrivia && trivia.currentQuestion > 0; else questionsTemplate">You missed this quiz.</div>
-					<div *ngIf="trivia.currentQuestion == 0" class="pull-right">First Question: <count-down-timer [structure]="timerStructure"></count-down-timer></div>
+					<div *ngIf="trivia.currentQuestion == 0" class="pull-right">First Question: <count-down-timer [structure]="timerStructure"></count-down-timer><div class="clearfix"></div></div>
 					<ng-template #questionsTemplate>
 						<div *ngIf="trivia.currentQuestion == trivia.numOfQuestions && trivia.countDown == 0 && trivia.intermission == false; else triviaQuestions">
 							Your Results
@@ -146,7 +146,7 @@
 				<ng-container *ngSwitchDefault>
 					<p>
 						<span *ngIf="user.isSubscribed; else notSub">You are subscribed!</span>
-						<ng-template #notSub>You are not subscribed. <a target="_blank" href="https://www.twitch.tv/products/toyexperts">Subscribe here</a> </ng-template>
+						<ng-template #notSub>You are not subscribed. <a target="_blank" href="https://www.twitch.tv/vintleytv">Subscribe here</a> </ng-template>
 					</p>
 					<span *ngIf="trivia.status === 'Waiting'; else notStarted">
 						Get ready the quiz is about to start!

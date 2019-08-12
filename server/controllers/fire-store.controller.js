@@ -36,6 +36,15 @@ class FireStoreController {
             document.set(obj);
         });
     }
+
+    async updateRaffle(raffle, obj) {
+        let db = admin.firestore();
+        let document = db.collection('raffles').doc(raffle._id+'');
+
+        document.update(obj).catch(async(err) => {
+            document.set(obj);
+        });
+    }
 }
 
 module.exports = FireStoreController;

@@ -67,6 +67,8 @@ export class NotificationsComponent implements OnInit {
     let nav = [];
     if( noti.refType === 'triviaQuiz' )
       nav = ['/trivia-quiz', noti.ref];
+    else
+      nav = ['/'+noti.refType, noti.ref];
 
     this.fs.collection('notifications').doc(this.user._id).update({
       notSeen: firebase.firestore.FieldValue.arrayRemove(noti._id)

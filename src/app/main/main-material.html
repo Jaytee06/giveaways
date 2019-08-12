@@ -91,7 +91,7 @@
                         </button>
                      </div>
                   </div>
-                  <div class="h-100 pl-4 search-bar w-100 h-100 d-none-sm search-w">
+                  <div class="h-100 pl-2 search-bar w-100 h-100 search-w">
                      <a [routerLink]="['/']">Vintley</a>
 <!--                     <form class="h-100 search-form">-->
 <!--                        <div class="h-100 search-i">-->
@@ -102,7 +102,7 @@
                </div>
                <div class="align-items-end pr-0 col-sm-6 col-md-6 col-lg-6">
                   <div class="d-flex secondary-menu justify-content-end align-items-center push-for-beta-banner">
-                     <ul class="nav secondary-menu-list d-flex justify-content-end align-items-center" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                     <ul class="nav secondary-menu-list d-flex justify-content-end align-items-center mw-175" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
 <!--                        <li class="d-none-sm fullscreen-toggle" (click)="toggleFullscreen()">-->
 <!--                           <a href="javascript:void(0)" class="zoom-out">-->
 <!--                           <i class="material-icons" *ngIf="!isFullscreen">tv</i>-->
@@ -151,10 +151,10 @@
 <!--                              </a>-->
 <!--                           </div>-->
 <!--                        </li>-->
-                        <li class="d-none-sm dropdown">
+                        <li class="dropdown">
                            <notifications></notifications>
                         </li>
-                        <li class="d-none-sm dropdown">
+                        <li class="dropdown">
                            <a href="javascript:void(0)" id="navbarHelpMenu" class="faa-parent animated-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question material-icons faa-slow faa-ring"></i></a>
                            <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarHelpMenu">
                               <a class="dropdown-item  d-flex pt-3" [routerLink]="['/','help', 'how-it-works']" >How it Works</a>
@@ -201,7 +201,7 @@
 <!--                        </li>-->
                         <li class="dropdown" *ngIf="user">
                            <a class="relative rounded-bg" href="javascript:void(0)" id="navbarDropdownMenuLin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {{user.fullname}}
+                              <span class="d-none-sm">{{user.fullname}}</span>
                               <img class="rounded-circle ml-2" src="{{user.twitch.imageUrl}}" alt="User-image" width="43" height="43">
                               <div class="online-caret bg-success circle"><i class="fa fa-caret-down"></i></div>
                            </a>
@@ -232,6 +232,13 @@
                                     <i class="fa fa-ticket text-success"></i>
                                  </div>
                                  <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Tickets</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-giveaways/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-trophy"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Won Giveaways</span>
                                  </div>
                               </a>
 

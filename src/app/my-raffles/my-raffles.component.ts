@@ -1,24 +1,27 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {combineLatest, of} from "rxjs";
-import {TicketService} from "../services/ticket.service";
+import {RaffleService} from "../services/raffle.service";
+import { Router} from "@angular/router";
 
 @Component({
-	selector: 'my-tickets',
-	templateUrl: './my-tickets-component.html',
-	styleUrls: ['./my-tickets-component.scss'],
+	selector: 'my-giveaways',
+	templateUrl: './my-raffles-component.html',
+	styleUrls: ['./my-raffles-component.scss'],
 })
-export class MyTicketsComponent implements OnInit {
+export class MyRafflesComponent implements OnInit {
 
-	tickets:any[] = [];
+	raffles:any[] = [];
 	user:any = {};
 	querySkip = 0;
 	queryLimit = 10;
-	windowWidth = window.innerWidth;
+
+	smallScreen = window.innerWidth < 450;
 
 	constructor(
-		private service: TicketService,
+		private service: RaffleService,
 		private userService: UserService,
+		private router: Router,
 	) {}
 
 	ngOnInit() {
@@ -26,27 +29,30 @@ export class MyTicketsComponent implements OnInit {
 		const user$ = this.userService.getCurrentUser();
 		combineLatest(user$).subscribe((data) => {
 			[this.user] = data;
-			this.getTickets();
+			this.getRaffles();
 		});
 	}
 
 	getMoreTickets() {
 		this.querySkip += this.queryLimit;
-		this.getTickets();
+		this.getRaffles();
 	}
 
-	getTickets() {
-		this.service.filters.user = this.user._id;
+	getRaffles() {
+		this.service.filters.winner = this.user._id;
 		this.service.filters.skip = this.querySkip;
 		this.service.filters.limit = this.queryLimit;
-		this.service.filters.getSpent = true;
 		this.service.get$().subscribe((d:any[]) => {
 			d = d.map((t) => {
-				t.createdAt = this.service.formatDate(t.createdAt, true);
+				t.didStart = this.service.formatDate(t.didStart, true);
 				return t;
 			});
-			this.tickets = this.tickets.concat(d);
+			this.raffles = this.raffles.concat(d);
 		});
+	}
+
+	raffleClicked(raffle) {
+		this.router.navigate(['/', 'raffle', raffle._id]);
 	}
 }
 

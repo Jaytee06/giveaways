@@ -1,0 +1,23 @@
+<div class="pad-wrap">
+	<div class="chk-block">
+		<div class="chk-block-title">
+			<h4>Your Giveaways</h4>
+		</div>
+		<div class="chk-block-content">
+			<div *ngFor="let raffle of raffles" class="d-flex flex-fill ticket-item clickable" [ngClass]="{'flex-column': smallScreen}" (click)="raffleClicked(raffle)">
+				<div class="mr-2" *ngIf="raffle.giveAwayImage">
+					<img [src]="raffle.giveAwayImage" height="20px" />
+				</div>
+				<div class="flex-grow-1">
+					{{raffle.giveAwayName}}
+				</div>
+				<div class="mr-3">{{raffle.ffStatus.name}}</div>
+				<div class="mr-3">{{raffle.didStart}}</div>
+			</div>
+
+			<div *ngIf="raffles.length === querySkip + queryLimit" class="d-flex flex-fill ticket-item clickable" (click)="getMoreTickets()">
+				<div class="flex-grow-1 text-center load-more">Load More</div>
+			</div>
+		</div>
+	</div>
+</div>

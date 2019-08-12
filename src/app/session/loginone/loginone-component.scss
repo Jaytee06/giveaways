@@ -1,0 +1,14 @@
+.left-div {
+	width: 60rem;
+}
+
+@media (max-width: 767px) {
+	.left-div {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 5rem;
+		width: 100%;
+		clear: both;
+	}
+}
