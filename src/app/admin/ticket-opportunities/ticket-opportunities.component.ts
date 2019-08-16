@@ -40,8 +40,8 @@ export class TicketOpportunitiesComponent implements OnInit {
 		this.service.getOpportunities$().subscribe(
 			(data: any[]) => {
 				data = data.map((x) => {
-					if( x.startsAt ) x.startsAt = this.service.formatDate(x.createdAt, true);
-					if( x.expiresAt ) x.expiresAt = this.service.formatDate(x.createdAt, true);
+					if( x.startsAt ) x.startsAt = this.service.formatDate(x.startsAt, true);
+					if( x.expiresAt ) x.expiresAt = this.service.formatDate(x.expiresAt, true);
 					x.createdAt = this.service.formatDate(x.createdAt, true);
 					return x;
 				});

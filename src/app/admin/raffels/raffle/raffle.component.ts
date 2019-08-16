@@ -112,16 +112,18 @@ export class RaffleComponent implements OnInit {
 			if( this.raffleCounts && this.raffleCounts.length )
 				this.raffleCounts = this.raffleCounts[0];
 
-			this.fs.collection('raffles').doc(this.raffle._id).valueChanges().subscribe((d:any) => {
-				if( d ) {
-					combineLatest(raffleEntries$, raffleCounts$).subscribe((updateData:any) => {
-						[this.allRaffleEntries, this.raffleCounts] = updateData;
+			if( this.raffle._id ) {
+				this.fs.collection('raffles').doc(this.raffle._id).valueChanges().subscribe((d: any) => {
+					if (d) {
+						combineLatest(raffleEntries$, raffleCounts$).subscribe((updateData: any) => {
+							[this.allRaffleEntries, this.raffleCounts] = updateData;
 
-						if( this.raffleCounts && this.raffleCounts.length )
-							this.raffleCounts = this.raffleCounts[0];
-					});
-				}
-			});
+							if (this.raffleCounts && this.raffleCounts.length)
+								this.raffleCounts = this.raffleCounts[0];
+						});
+					}
+				});
+			}
 
 			this._updateEntries();
 			this.loading = false;

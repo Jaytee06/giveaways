@@ -29,12 +29,12 @@
 			<div class="flex-grow-1 mr-1">
 				<ticket-opps-widget></ticket-opps-widget>
 			</div>
-			<div class="flex-grow-1 ml-1 d-none d-lg-block">
+			<div class="flex-grow-1 ml-1 d-none d-lg-block" *ngIf="!isSmallScreen">
 				<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>
 			</div>
 		</div>
 		<div class="d-flex flex-fill">
-			<div class="flex-grow-1 ml-1 d-lg-none">
+			<div class="flex-grow-1 ml-1 d-lg-none" *ngIf="isSmallScreen">
 				<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>
 			</div>
 		</div>

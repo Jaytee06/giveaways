@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
 
   signalToUpdateData: any;
 
+  isSmallScreen = window.innerWidth < 750;
   firstRowHeight = window.innerWidth * .35;
 
   constructor(private pageTitleService: PageTitleService) {
@@ -36,7 +37,6 @@ export class DashboardComponent implements OnInit {
   }
 
   shouldUpdateData(ev) {
-    console.log('shouldUpdateData', ev);
     this.signalToUpdateData = ev;
   }
 }

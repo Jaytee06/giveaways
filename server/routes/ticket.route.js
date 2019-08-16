@@ -64,6 +64,7 @@ async function preQuery(req, res, next) {
 
 async function insert(req, res) {
     const ctrl = new Ctrl();
+    console.log(req.body);
     let ticket = await ctrl.insert(req.body);
     res.json(ticket);
 }
