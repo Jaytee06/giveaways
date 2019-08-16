@@ -9,6 +9,8 @@ import {RaffleRoutes} from "./help.routing";
 import {NgPipesModule} from "angular-pipes";
 import {HiwComponent} from "./how-it-works/hiw.component";
 import {DashboardModule} from "../dashboard/dashboard.module";
+import {LtpComponent} from "./link-to-prime/ltp.component";
+import {HtsComponent} from "./how-to-subscribe/hts.component";
 
 @NgModule({
     imports: [
@@ -21,10 +23,14 @@ import {DashboardModule} from "../dashboard/dashboard.module";
         DashboardModule
     ],
     declarations: [
-        HiwComponent
+        HiwComponent,
+        LtpComponent,
+        HtsComponent
     ],
     entryComponents:[
-        HiwComponent
+        HiwComponent,
+        LtpComponent,
+        HtsComponent
     ],
     providers: [
     ]
