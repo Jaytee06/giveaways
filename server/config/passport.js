@@ -1,5 +1,5 @@
 const passport = require('passport');
-const TwitchStrategy = require('passport-twitch').Strategy;
+const TwitchStrategy = require('passport-twitch-new').Strategy;
 const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -22,7 +22,8 @@ const twitchLogin = new TwitchStrategy({
         scope:['user_read']
     },
     async function(accessToken, refreshToken, profile, done) {
-        const newUser = {twitch:{accessToken, refreshToken, provider: profile.provider, providerId: profile.id, imageUrl:profile._json.logo, username: profile.username, email:profile.email}, fullname: profile.username, email:profile.email};
+        console.log(accessToken, refreshToken, profile);
+        const newUser = {twitch:{accessToken, refreshToken, provider: profile.provider, providerId: profile.id, imageUrl:profile.profile_image_url, username: profile.username, email:profile.email}, fullname: profile.username, email:profile.email};
         const users = await userCtrl.get({"twitch.providerId": profile.id});
         let user = null;
         if( users && users.length ) {

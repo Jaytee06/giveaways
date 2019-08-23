@@ -116,3 +116,16 @@ text-white {
 .player-div {
 	min-height: 20rem;
 }
+
+.clickable {
+	cursor: pointer;
+}
+
+.spacer-container {
+	margin-top: -5rem
+}
+.spacer {
+	background-color: rgba(141, 165, 235, 0.05);
+	border-radius: 1rem;
+	padding: 2rem;
+}

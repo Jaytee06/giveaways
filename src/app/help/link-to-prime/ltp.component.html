@@ -10,6 +10,9 @@
 		<div>Click 'Login' or 'Confirm'</div>
 		<p><span class="mr-2"><b>4.</b></span> You're accounts are linked and you can now subscribe to <a href="https://www.twitch.tv/vintleytv" target="_blank">VintleyTv</a> on Twitch.</p>
 		<p> <a [routerLink]="['/', 'help', 'how-to-subscribe']">Click Here</a> to learn how to subscribe with your FREE Twitch Prime Subscription!</p>
+		<div class="player-div">
+			<iframe width="100%" height="600" [src]="safeURL" frameborder="0" allowfullscreen></iframe>
+		</div>
 	</mat-card-content>
 </mat-card>
 

@@ -19,7 +19,7 @@ export class FormPageComponent implements OnInit {
 	ngOnInit() {}
 
 	fieldValueChanged(e: any) {
-		console.log(e);
+
 		if( e.field && e.field.options && e.field.options.length && e.value ) {
 			const dependents = e.field.options.reduce((arr, cur) => {
 				arr = arr.concat(cur.dependents);
@@ -38,7 +38,6 @@ export class FormPageComponent implements OnInit {
 						showField.shouldShow = true;
 						if( showField.required) this.formGroup.controls[dep].setValidators(Validators.required);
 					}
-					console.log(showField);
 				});
 			}
 		}
