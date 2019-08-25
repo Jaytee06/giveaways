@@ -2,6 +2,30 @@
 	width: 60rem;
 }
 
+@media (max-width: 1650px) {
+	.left-div {
+		width: 50rem;
+	}
+}
+
+@media (max-width: 1500px) {
+	.left-div {
+		width: 40rem;
+	}
+}
+
+@media (max-width: 1330px) {
+	.left-div {
+		width: 25rem;
+	}
+}
+
+@media (max-width: 1100px) {
+	.left-div {
+		width: 100%;
+	}
+}
+
 @media (max-width: 767px) {
 	.left-div {
 		float: none;
