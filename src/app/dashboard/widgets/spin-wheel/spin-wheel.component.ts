@@ -29,7 +29,6 @@ export class SpinWheelComponent implements OnInit {
 	constructor(private service: UserService, private ticketService: TicketService) {}
 
 	ngOnInit() {
-		console.log('aaa');
 		this.service.getCurrentUser().subscribe((user) => {
 			this.user = user;
 			this.setUp();

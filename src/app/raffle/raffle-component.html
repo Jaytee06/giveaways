@@ -176,7 +176,7 @@
 				<ng-container *ngSwitchDefault>
 					<div class="d-flex flex-fill">
 						<div class="flex-grow-1"><p>You have {{raffleEntry.tickets}} <span class="fa fa-ticket text-success"></span> in this raffle. <button class="btn btn-outline-primary ml-2 p-1" (click)="changeTickets()" *ngIf="!raffle.didStart">Adjust <span class="fa fa-ticket text-success"></span></button></p></div>
-						<div class="d-none d-lg-block"><p>There are {{raffle.enteredTickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle. You have a {{user.winPercent}}% chance of winning.</p></div>
+						<div class="d-none d-lg-block"><p>There are a total of {{raffle.enteredTickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle by all users. You have a {{user.winPercent}}% chance of winning<span *ngIf="user.winPercent == 0"> (Because you haven't added any). Add tickets to get a piece of the action</span>.</p></div>
 					</div>
 					<div class="d-sm-none d-md-block d-lg-none"><p>There are {{raffle.enteredTickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle. You have a {{user.winPercent}}% chance of winning.</p></div>
 				</ng-container>

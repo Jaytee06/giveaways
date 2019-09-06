@@ -79,12 +79,12 @@ class EmailController {
             receiveEmails: true,
         };
 
-        let html = `<p><b>Did you know that you get a login ticket bonus for every day you log in to <a href="https://www.vintley.com">Vintley</a>?</b></p>`;
-
         const users = await UserCtrl.get(query);
 
         const emailer = nodemailer.createTransport(smtpTransport(config.contactEmail));
         const promises = users.map(async(user) => {
+
+            let html = `<p><b>Did you know that you get a login ticket bonus for every day you log in to <a href="https://www.vintley.com">Vintley</a>?</b></p>`;
 
             if( !user.loginLogs || !user.loginLogs.length )
                 html += `<p>${user.fullname} we have noticed you have not logged in at all!</p>`;

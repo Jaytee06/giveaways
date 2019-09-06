@@ -16,6 +16,13 @@
 			<ng-template #outOfSpins>
 				<span *ngIf="ticketCount > spinCost; else noTickets">
 					<h4 class="text-center">{{centerText}}</h4>
+					<div *ngIf="winMessage !== ''" class="text-center">
+							<span [innerHTML]="winMessage"></span>
+						</div>
+					<div class="text-center">
+						<p>Test your luck and spin the wheel. <span class="text-danger">Each spin cost {{spinCost}} <i class="fa fa-ticket text-success"></i>!</span></p>
+						<p>How many <i class="fa fa-ticket text-success"></i> can you win?</p>
+					</div>
 					<ngx-wheel
 							[spinOnce]="false"
 							[prizeToWin]="winText"
@@ -27,13 +34,7 @@
 							(afterSpin)="wheelSpun()"
 					>
 					</ngx-wheel>
-						<div *ngIf="winMessage !== ''" class="text-center">
-							<span [innerHTML]="winMessage"></span>
-						</div>
-					<div class="text-center">
-						<p>Test your luck and spin the wheel. Each spin cost {{spinCost}} <i class="fa fa-ticket text-success"></i>!</p>
-						<p>How many <i class="fa fa-ticket text-success"></i> can you win?</p>
-					</div>
+
 				</span>
 				<ng-template #noTickets>
 					<div class="text-center">
