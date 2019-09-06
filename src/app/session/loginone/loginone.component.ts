@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
 export class LoginoneComponent implements OnInit {
 
 	userCount = 0;
-	maxUserCount = 5;
+	maxUserCount = 10;
 
     email: string;
     password: string;
