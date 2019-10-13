@@ -10,14 +10,16 @@
                 <div class="mb-2">
                     <span class="square-100"><i class="fa fa-unlock-alt text-warning"></i></span>
                 </div>
-                <div class="mb-2 font-lg text-danger">
-                    <p>We are currently in beta phase.</p><p  *ngIf="userCount < maxUserCount"> We are looking for {{maxUserCount - userCount}} more users to test Vintley.</p>
-                </div>
+<!--                <div class="mb-2 font-lg text-danger">-->
+<!--                    <p>We are currently in beta phase.</p><p  *ngIf="userCount < maxUserCount"> We are looking for {{maxUserCount - userCount}} more users to test Vintley.</p>-->
+<!--                </div>-->
                 <div class="mb-3">
                     <p class="text-primary">Welcome To Vintley!</p>
-                    <h2 class="text-muted" *ngIf="userCount < maxUserCount">Sign in using your twitch account</h2>
+<!--                    <h2 class="text-muted" *ngIf="userCount < maxUserCount">Sign in using your twitch account</h2>-->
+                    <h2 class="text-muted" >Sign in using your twitch account</h2>
                 </div>
-                <form #loginForm="ngForm" class="login-form" action="javascript:void(0)" method="post" *ngIf="userCount < maxUserCount; else saveEmailT">
+<!--                <form #loginForm="ngForm" class="login-form" action="javascript:void(0)" method="post" *ngIf="userCount < maxUserCount; else saveEmailT">-->
+                <form #loginForm="ngForm" class="login-form" action="javascript:void(0)" method="post">
                     <!--<div class="form-group">-->
                         <!--<input name="fname" class="form-control form-control-lg input-square" type="text" placeholder="First Name" required>-->
                     <!--</div>-->
