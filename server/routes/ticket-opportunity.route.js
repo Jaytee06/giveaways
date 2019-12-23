@@ -42,7 +42,7 @@ async function preQuery(req, res, next) {
 
         if( req.query.liveDuringTime ) {
             req.query.startsAt = {$lt: new Date(req.query.liveDuringTime)};
-            orArray.push({expiresAt: {$lt: new Date(req.query.liveDuringTime)}});
+            orArray.push({expiresAt: {$gt: new Date(req.query.liveDuringTime)}});
             orArray.push({expiresAt: {$eq:null}});
             orArray.push({expiresAt: {$exists:false}});
 
@@ -65,7 +65,6 @@ async function preQuery(req, res, next) {
             req.query['$and'] = andArray;
         }
 
-        console.log(JSON.stringify(req.query));
         req.query = {
             query: req.query,
             skip,
