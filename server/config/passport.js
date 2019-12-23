@@ -34,6 +34,7 @@ const twitchLogin = new TwitchStrategy({
 
             if( !user.loginLogs ) user.loginLogs = [];
             // check for daily bonus
+            // ignore vintley
             if( user.loginLogs.find(x => moment().startOf('day').isBefore(moment(x)) && moment().add(1, 'day').startOf('day').isAfter(moment(x))) === undefined ) { // first time login in today
                 const ticketCtrl = new TicketCtrl();
                 const fsCtrl = new FireStoreCtrl();
