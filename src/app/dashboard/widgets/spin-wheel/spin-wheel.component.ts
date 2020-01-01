@@ -21,7 +21,7 @@ export class SpinWheelComponent implements OnInit {
 	winMessage = '';
 	centerText = 'Loading...';
 
-	allPrizes = ['5', 'Zero', '10', 'Nada', '100', 'Nothing', '50', '0'];
+	allPrizes = ['5', 'Zero', '10', 'Nada', '100', '75', '50', '25'];
 	winText = '';
 	private winProbability = [.13, .13, .2, .13, .05, .13, .1, .13];
 	messageTimeout;
@@ -58,13 +58,13 @@ export class SpinWheelComponent implements OnInit {
 		let message = '';
 		let tickets = 0;
 		switch (this.winText) {
-			case '0':
 			case '5':
 			case '10':
+			case '25':
 			case '50':
+			case '75':
 			case '100':
-				if( this.winText !== '0' )
-					cClass = 'text-success';
+				cClass = 'text-success';
 
 				tickets = Number(this.winText);
 				message = 'You won '+tickets+' <i class="fa fa-ticket text-success"></i>!';
