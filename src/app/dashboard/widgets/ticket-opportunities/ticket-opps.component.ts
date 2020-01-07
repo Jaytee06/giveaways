@@ -22,6 +22,7 @@ export class TicketOppsComponent implements OnInit {
 		this.ticketService.filters.liveDuringTime = moment().format();
 		this.ticketService.getOpportunities$().subscribe((ticketOpps:any[]) => {
 			this.ticketOpps = ticketOpps;
+			console.log(ticketOpps);
 		});
 	}
 }

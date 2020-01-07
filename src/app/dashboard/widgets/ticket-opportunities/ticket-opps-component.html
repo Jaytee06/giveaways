@@ -12,12 +12,14 @@
 						<i class="fa fa-facebook" *ngSwitchCase="'facebook'"></i>
 						<i class="fa fa-twitter" *ngSwitchCase="'twitter'"></i>
 						<i class="fa fa-twitch" *ngSwitchCase="'twitch'"></i>
+						<i class="fa fa-instagram" *ngSwitchCase="'instagram'"></i>
 					</ng-container>
 				</div>
 				<div class="ml-2">
-					<ng-container [ngSwitch]="opp.requiredAction">
-						<span *ngSwitchCase="'comment'">Leave a comment on our <a [href]="'https://'+opp.refLink" target="_blank">post</a></span>
-					</ng-container>
+<!--					<ng-container [ngSwitch]="opp.requiredAction">-->
+<!--						<span *ngSwitchCase="'comment'">Leave a comment on our <a [href]="'https://'+opp.refLink" target="_blank">post</a></span>-->
+<!--					</ng-container>-->
+					<span >{{opp.requiredAction}} <a [href]="opp.refLink" target="_blank">Link</a></span>
 				</div>
 			<div class="flex-grow-1"></div>
 				<div>

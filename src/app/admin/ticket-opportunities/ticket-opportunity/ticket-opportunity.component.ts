@@ -47,6 +47,7 @@ export class TicketOpportunityComponent implements OnInit {
 				{_id:'login', name:'Login'},
 				{_id:'twitter', name:'Twitter'},
 				{_id:'twitch', name:'Twitch'},
+				{_id:'instagram', name:'Instagram'},
 			]
 		}, {
 			name: 'Start Time',
