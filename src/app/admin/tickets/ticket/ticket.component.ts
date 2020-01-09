@@ -51,10 +51,10 @@ export class TicketComponent implements OnInit {
 			],
 		},
 		{
-			name: 'Reference Type',
+			name: 'Reference',
 			_id: 'ref',
 			type: FieldTypeEnum.ngSelect,
-			ngSelectBindLabel: '_id',
+			ngSelectBindLabel: 'name',
 			options: [],
 			originallyHidden: true,
 		},
@@ -85,7 +85,10 @@ export class TicketComponent implements OnInit {
 			[this.ticket, this.users, this.ticketOpps] = data;
 			this.pageTitleService.setTitle(this.ticket._id ? 'Edit Ticket' : 'New Ticket');
 			this.structure.find(i => i.name === 'User').options = this.users;
-			this.structure.find(i => i._id === 'ref').options = this.ticketOpps;
+			this.structure.find(i => i._id === 'ref').options = this.ticketOpps.map((x) => {
+				x.name = x.refType+' '+x.requiredAction;
+				return x;
+			});
 			this.loading = false;
 		});
 	}

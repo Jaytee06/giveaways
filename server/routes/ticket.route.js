@@ -45,7 +45,8 @@ async function preQuery(req, res, next) {
         delete req.query.getSpent;
 
         // ignore vintleytv
-        req.query.user = {$nin:[mongoose.Types.ObjectId('5d365cef8a881d40f16058b6')]};
+        if( !req.query.user )
+            req.query.user = {$nin:[mongoose.Types.ObjectId('5d365cef8a881d40f16058b6')]};
 
         let sortDir = 1;
         if( sortParam.substr(0, 1) === '-' ) {
