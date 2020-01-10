@@ -23,7 +23,7 @@ export class SpinWheelComponent implements OnInit {
 
 	allPrizes = ['5', 'Zero', '10', 'Nada', '100', '75', '50', '25'];
 	winText = '';
-	private winProbability = [.13, .13, .2, .13, .05, .13, .1, .13];
+	private winProbability = [.065, .315, .1, .315, .025, .065, .05, .065];
 	messageTimeout;
 
 	constructor(private service: UserService, private ticketService: TicketService) {}
@@ -32,6 +32,12 @@ export class SpinWheelComponent implements OnInit {
 		this.service.getCurrentUser().subscribe((user) => {
 			this.user = user;
 			this.setUp();
+
+			this.service.checkSubscription(this.user._id).subscribe((d) => {
+				this.user.isSubscribed = d;
+				this.winProbability = [.13, .13, .2, .13, .05, .13, .1, .13];
+			});
+
 		});
 	}
 

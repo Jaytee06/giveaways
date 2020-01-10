@@ -17,7 +17,7 @@
 							</div>
 						</div>
 					<div class="chk-block-content">
-						<img [src]="raffle.giveAwayImage" *ngIf="raffle.giveAwayImage"/>
+						<img [src]="raffle.giveAwayImage" *ngIf="raffle.giveAwayImage" class="image-el"/>
 						<app-tda-form
 								*ngIf="!loading; else loader"
 								[structure]="structure"

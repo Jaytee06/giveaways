@@ -36,17 +36,22 @@
                               [closeOnSelect]="false"
                               [hideSelected]="true"
                               bindLabel="name"
+                              bindValue="_id"
                               placeholder="Select roles"
                               [(ngModel)]="selectedRoles"
                               (change)="rolesChanged($event)">
                       </ng-select>
                   </div>
+<!--                  <div class="form-group">-->
+<!--                      <label for="partner">Partner</label>-->
+<!--                      <select class="form-control" id="partner" name="partner" [(ngModel)]="user.partner">-->
+<!--                          <option value="">Select One</option>-->
+<!--                          <option *ngFor="let partner of partners" [value]="partner._id" [selected]="user.partner == partner._id">{{partner.name}}</option>-->
+<!--                      </select>-->
+<!--                  </div>-->
                   <div class="form-group">
-                      <label for="partner">Partner</label>
-                      <select class="form-control" id="partner" name="partner" [(ngModel)]="user.partner">
-                          <option value="">Select One</option>
-                          <option *ngFor="let partner of partners" [value]="partner._id" [selected]="user.partner == partner._id">{{partner.name}}</option>
-                      </select>
+                      <label for="roles">Is Subscribed</label>
+                      <b><span class="ml-2">{{user.isSubscribed ? 'Yes' : 'No'}}</span></b>
                   </div>
                   <div class="form-check">
                       <label class="custom-control custom-checkbox">
