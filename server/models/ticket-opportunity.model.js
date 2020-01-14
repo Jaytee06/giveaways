@@ -19,7 +19,7 @@ const TicketOpportunitySchema = new mongoose.Schema({
         trim: true,
     },
     refType: {
-        enum: ['login', 'facebook', 'twitter', 'twitch'],
+        enum: ['login', 'facebook', 'twitter', 'twitch', 'instagram'],
         type: String,
         trim: true,
     },
