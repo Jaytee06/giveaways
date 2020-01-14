@@ -184,6 +184,11 @@ export class TriviaComponent implements OnInit {
 					if (d) {
 						this.trivia = {...this.trivia, ...d};
 
+						// fix timestamps
+						if( this.trivia.didStart && this.trivia.didStart.seconds ) {
+							this.trivia.didStart = moment(new Date(this.trivia.didStart.seconds*1000)).format();
+						}
+
 						if( !this.trivia.intermission && this.trivia.countDown == 0 ) {
 							const question = this.questionResults[this.trivia.currentQuestion-1];
 							this._calculateQuestionResults(question, this.trivia.currentQuestion-1);
