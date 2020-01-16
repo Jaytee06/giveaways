@@ -49,6 +49,34 @@ export class TicketOpportunityComponent implements OnInit {
 				{_id:'twitch', name:'Twitch'},
 				{_id:'instagram', name:'Instagram'},
 			]
+		},
+		{
+			name: 'How Often',
+			_id: 'howOften',
+			type: FieldTypeEnum.ngSelect,
+			ngSelectBindLabel: 'name',
+			options: [
+				{_id:'once', name:'Once'},
+				{_id:'day', name:'Daily'},
+				{_id:'week', name:'Weekly'},
+				{_id:'month', name:'Monthly'},
+			]
+		},
+		{
+			name: 'Sticky',
+			_id: 'sticky',
+			type: FieldTypeEnum.ngSelect,
+			ngSelectBindLabel: 'name',
+			options: [
+				{_id:true, name:'Yes'},
+				{_id:false, name:'No'},
+			]
+		},
+		{
+			name: 'Background Image',
+			_id: 'backgroundImage',
+			type: FieldTypeEnum.Input,
+			typeAttribute: TypeAttributeEnum.URL,
 		}, {
 			name: 'Start Time',
 			_id: 'startsAt',

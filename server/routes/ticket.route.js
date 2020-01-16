@@ -48,6 +48,16 @@ async function preQuery(req, res, next) {
         if( !req.query.user )
             req.query.user = {$nin:[mongoose.Types.ObjectId('5d365cef8a881d40f16058b6')]};
 
+        // filter ticket opps redeemed ticket opps
+        if( req.query.ticketOpps ) {
+            if( !Array.isArray(req.query.ticketOpps) ) req.query.ticketOpps = [req.query.ticketOpps];
+
+            req.query.refType = 'ticketOpp';
+            req.query.ref = {$in:req.query.ticketOpps};
+
+            delete req.query.ticketOpps;
+        }
+
         let sortDir = 1;
         if( sortParam.substr(0, 1) === '-' ) {
             sortDir = -1;

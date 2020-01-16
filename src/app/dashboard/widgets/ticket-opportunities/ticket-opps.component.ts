@@ -16,23 +16,60 @@ export class TicketOppsComponent implements OnInit {
 	@Output() didUpdateData:EventEmitter<any> = new EventEmitter<any>();
 
 	ticketOpps = [];
+	stickyTicketOpps = [];
 	user: any;
 
 	constructor(private service: UserService, private ticketService: TicketService) {}
 
 	ngOnInit() {
+
+		// clear below settings
+		delete this.ticketService.filters.user;
+		delete this.ticketService.filters.ticketOpps;
+
 		this.ticketService.filters.liveDuringTime = moment().format();
 		const ticketOpps$ = this.ticketService.getOpportunities$();
 		const user$ = this.service.getCurrentUser();
 
 		combineLatest(ticketOpps$, user$).subscribe((data) => {
-			[this.ticketOpps, this.user] = data;
+			let ticketOpps;
+			[ticketOpps, this.user] = data;
 
-			this.service.checkSubscription(this.user._id).subscribe((d) => {
-				this.user.isSubscribed = d;
+			// clear above filters
+			delete this.ticketService.filters.liveDuringTime;
+
+			this.ticketService.filters.user = this.user._id;
+			this.ticketService.filters.ticketOpps = this.ticketOpps.map(x => x._id);
+			const redeemed$ = this.ticketService.get$();
+			const subscribed$ = this.service.checkSubscription(this.user._id);
+
+			combineLatest(redeemed$, subscribed$).subscribe((d) => {
+				let redeemedTicketOpps;
+				[redeemedTicketOpps, this.user.isSubscribed] = d;
+
+				redeemedTicketOpps.forEach((rOpp) => {
+					let op = ticketOpps.find(x => x._id === rOpp.ref);
+					if( op ) {
+						if( !op.howOften || op.howOften === 'once' ) {
+							op.redeemed = true;
+						} else {
+							if( moment(rOpp.createdAt).isAfter(moment().subtract(1, op.howOften)) ) {
+								op.redeemed = true;
+							}
+						}
+					}
+				});
+
+				this.ticketOpps = ticketOpps.filter(x => !x.sticky);
+				this.stickyTicketOpps = ticketOpps.filter(x => x.sticky).sort((a, b) => a.amount - b.amount);
 			});
 
 		});
+	}
+
+	opSelected(op) {
+		if( op.refLink )
+			window.open(op.refLink, "_blank");
 	}
 }
 

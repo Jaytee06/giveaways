@@ -11,7 +11,9 @@ import {TicketService} from "../../services/ticket.service";
 })
 export class TicketsComponent implements OnInit {
 
-	tableData: any = {};
+	tableData: any = {
+		pageSize:100,
+	};
 
 	constructor(
 		private pageTitleService: PageTitleService,
@@ -40,7 +42,6 @@ export class TicketsComponent implements OnInit {
 					x.createdAt = this.service.formatDate(x.createdAt, true);
 					return x;
 				});
-				console.log(data);
 				this.tableData.dataSource.emit(data);
 			}
 		);

@@ -23,6 +23,19 @@ const TicketOpportunitySchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    sticky: {
+        type: Boolean,
+        default: false
+    },
+    backgroundImage: {
+        type: String,
+        trim: true,
+    },
+    howOften: {
+        type: String,
+        enum: ['once', 'day', 'week', 'month'],
+        default: 'once',
+    },
     createdAt: {
         type: Date,
         default: Date.now

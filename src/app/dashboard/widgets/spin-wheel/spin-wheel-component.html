@@ -2,12 +2,12 @@
 	<div class="chk-block">
 		<div class="chk-block-title">
 			<h4>Spin Wheel</h4>
-			<div>
+			<div class="font-sm">
 				Subscribers have a 2X chance bonus!
 			</div>
 			<div>
 				<small>
-					<span *ngIf="user.isSubscribed; else notSubbed" class="text-success">You are currently subscribed!</span>
+					<span *ngIf="user && user.isSubscribed; else notSubbed" class="text-success">You are currently subscribed!</span>
 					<ng-template #notSubbed>
 						<span class="text-danger">You are not currently subscribed. <a href="https://www.twitch.tv/vintleytv" target="_blank">Sub on Twitch</a></span>
 					</ng-template>

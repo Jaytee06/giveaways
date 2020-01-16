@@ -43,8 +43,8 @@ const twitchLogin = new TwitchStrategy({
                     amount:5,
                     user: user._id,
                     reason: 'Daily login bonus for '+moment().format('MM/DD/YYYY'),
-                    ref: user._id,
-                    refType: 'loginBonus'
+                    ref: '5e20ee6176255c15cc456eec',
+                    refType: 'ticketOpp'
                 };
                 ticketCtrl.insert(obj);
 
