@@ -1,6 +1,9 @@
 <div class="chk-block">
 	<div class="chk-block-title">
 		<h4>Daily Bonus</h4>
+<!--		<div>-->
+<!--			Subscribers get 2X ticket bonus.-->
+<!--		</div>-->
 	</div>
 	<div class="chk-block-content">
 		<small class="text-danger">Tickets may take up to 24 hrs to be awarded for the below items.</small>
@@ -23,6 +26,7 @@
 				</div>
 			<div class="flex-grow-1"></div>
 				<div>
+<!--					{{opp.amount * (user.isSubscribed ? 2 : 1)}} <i class="fa fa-ticket text-success"></i>-->
 					{{opp.amount}} <i class="fa fa-ticket text-success"></i>
 				</div>
 			</div>

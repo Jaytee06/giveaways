@@ -3,6 +3,7 @@ import {UserService} from "../../../services/user.service";
 import {TicketService} from "../../../services/ticket.service";
 
 import * as moment from 'moment';
+import {combineLatest} from "rxjs";
 
 @Component({
 	selector: 'ticket-opps-widget',
@@ -15,14 +16,22 @@ export class TicketOppsComponent implements OnInit {
 	@Output() didUpdateData:EventEmitter<any> = new EventEmitter<any>();
 
 	ticketOpps = [];
+	user: any;
 
 	constructor(private service: UserService, private ticketService: TicketService) {}
 
 	ngOnInit() {
 		this.ticketService.filters.liveDuringTime = moment().format();
-		this.ticketService.getOpportunities$().subscribe((ticketOpps:any[]) => {
-			this.ticketOpps = ticketOpps;
-			console.log(ticketOpps);
+		const ticketOpps$ = this.ticketService.getOpportunities$();
+		const user$ = this.service.getCurrentUser();
+
+		combineLatest(ticketOpps$, user$).subscribe((data) => {
+			[this.ticketOpps, this.user] = data;
+
+			this.service.checkSubscription(this.user._id).subscribe((d) => {
+				this.user.isSubscribed = d;
+			});
+
 		});
 	}
 }
