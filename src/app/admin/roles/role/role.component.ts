@@ -143,7 +143,6 @@ export class RoleComponent implements OnInit {
 			let checked = !!marked;
 			let indeterminate = checked && this.permissions.length > marked;
 
-			console.log(attr, checked, indeterminate);
 		this.permissionCheckboxes[attr].indeterminate = indeterminate;
 		this.permissionCheckboxes[attr].checked = checked;
 	}

@@ -30,7 +30,6 @@ export class RaffleService extends BaseService {
 	}
 
 	save$(raffle) {
-		console.log(raffle);
 		if (raffle) {
 			if (raffle._id) {
 				return this._update$(raffle);
@@ -90,7 +89,6 @@ export class RaffleService extends BaseService {
 	}
 
 	getRaffleEntries$(raffleId) {
-		console.log(this.getParams());
 		return this.http.get(`${this.getBaseUrl()}/raffle/${raffleId}/raffle-entry?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);

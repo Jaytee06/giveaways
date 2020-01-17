@@ -43,7 +43,7 @@ export class TriviasComponent implements OnInit {
 					x.createdAt = this.service.formatDate(x.createdAt, true);
 					return x;
 				});
-				console.log(data);
+				// console.log(data);
 				this.tableData.dataSource.emit(data);
 			}
 		);
@@ -55,6 +55,6 @@ export class TriviasComponent implements OnInit {
 	}
 
 	rowSelected(row) {
-		console.log(row);
+		// console.log(row);
 	}
 }

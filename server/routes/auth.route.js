@@ -37,7 +37,7 @@ function twitchLogin(req, res) {
 	if( config.env === 'production' )
 		baseUrl = config.serverURL;
 
-	console.log(baseUrl+'?user='+req.user._id+'&token='+authCtrl.generateToken(req.user), 'should redirect');
+	//console.log(baseUrl+'?user='+req.user._id+'&token='+authCtrl.generateToken(req.user), 'should redirect');
     res.redirect(baseUrl+'?user='+req.user._id+'&token='+authCtrl.generateToken(req.user));
     console.log('done redirect');
 }

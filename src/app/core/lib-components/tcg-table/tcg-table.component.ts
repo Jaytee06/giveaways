@@ -334,7 +334,6 @@ export class TcgTableComponent implements OnInit {
 	}
 
 	updateSale($event, sale, type) {
-		console.log($event, sale, type);
 		this.updateSale$.emit({
 			newValue: $event,
 			sale,

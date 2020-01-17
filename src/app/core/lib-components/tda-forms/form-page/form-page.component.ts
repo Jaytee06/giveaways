@@ -28,7 +28,6 @@ export class FormPageComponent implements OnInit {
 			dependents.forEach((dep) => {
 				const f = this.classFields.find(x => x._id === dep);
 				if( f ) f.shouldShow = false;
-				console.log(f);
 			});
 			const selectedOption = e.field.options.find(x => x._id === e.value);
 			if( selectedOption && selectedOption.dependents && selectedOption.dependents.length ) {

@@ -23,7 +23,6 @@ export class TdaArrayInputComponent implements OnInit {
   }
 
   delete(index) {
-    console.log(this.formGroup.at(index));
     const formControl = this.formGroup.at(index);
     if (formControl.value._id) {
       formControl.setValue({ ...formControl.value, active: false });

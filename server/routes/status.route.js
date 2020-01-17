@@ -65,7 +65,6 @@ async function get(req, res) {
 async function getCount(req, res) {
 	const statusCtrl = new StatusCtrl();
 	const count = await statusCtrl.getCount(req.query);
-	console.log(count);
 	res.json(count);
 }
 

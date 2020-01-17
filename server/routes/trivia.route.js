@@ -62,7 +62,6 @@ async function getById(req, res) {
     // don't allow answers to go to the front end
     delete trivia.questionAnswers;
 
-    console.log(trivia.questionAnswers);
     res.json(trivia);
 }
 
@@ -252,7 +251,6 @@ async function test(req, res) {
 		attachments: [],
 	};
 
-	console.log(mailOptions);
 	emailer.sendMail(mailOptions, async (err) => {
 		console.log('Email sent', err);
 	});

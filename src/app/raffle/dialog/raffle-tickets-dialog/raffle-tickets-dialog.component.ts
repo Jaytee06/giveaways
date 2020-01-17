@@ -10,7 +10,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
 export class RaffleTicketsDialogComponent {
 
 	constructor(public dialogRef: MatDialogRef<RaffleTicketsDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any){
-		console.log('xx', this.data);
+		// console.log('xx', this.data);
 	}
 
 	maxTickets() {
