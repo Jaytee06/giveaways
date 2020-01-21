@@ -19,7 +19,7 @@ class RaffleController {
     }
 
     async get(query) {
-        return await Model.find(query).populate('user').populate('ffStatus');
+        return await Model.find(query).populate('user').populate('ffStatus').sort({start:-1});
     }
 
     async getById(id) {

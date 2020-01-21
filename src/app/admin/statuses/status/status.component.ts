@@ -27,6 +27,7 @@ export class StatusComponent implements OnInit {
 
 	statusTypes = [
 		{ _id: 'Raffle' },
+		{ _id: 'Product' },
 	];
 	structure: IField[] = [
 		{

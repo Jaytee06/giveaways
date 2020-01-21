@@ -108,8 +108,8 @@ async function remove(req, res) {
 
 async function myTickets(req, res) {
     const crtl = new Ctrl();
-    const query = {user: mongoose.Types.ObjectId(req.params.userId)};
-    const tickets = await crtl.ticketCounts({query});
+    const tickets = await crtl.myTicketCount(req.params.userId);
+
     res.json(tickets);
 }
 

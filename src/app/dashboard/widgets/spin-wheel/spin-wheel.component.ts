@@ -31,12 +31,16 @@ export class SpinWheelComponent implements OnInit {
 	ngOnInit() {
 		this.service.getCurrentUser().subscribe((user) => {
 			this.user = user;
+
+			if( this.user.isSubscribed )
+				this.winProbability = [.13, .13, .2, .13, .05, .13, .1, .13];
+
 			this.setUp();
 
-			this.service.checkSubscription(this.user._id).subscribe((d) => {
-				this.user.isSubscribed = d;
-				this.winProbability = [.13, .13, .2, .13, .05, .13, .1, .13];
-			});
+			// this.service.checkSubscription(this.user._id).subscribe((d) => {
+			// 	this.user.isSubscribed = d;
+			// 	this.winProbability = [.13, .13, .2, .13, .05, .13, .1, .13];
+			// });
 
 		});
 	}
@@ -49,8 +53,8 @@ export class SpinWheelComponent implements OnInit {
 			this.user.spinWheel = [];
 		}
 		this.centerText = this.spinCount+' spins left';
-		this.ticketService.myTickets(this.user._id).subscribe((data) => {
-			this.ticketCount = data[0].count;
+		this.ticketService.myTickets(this.user._id).subscribe((data:any) => {
+			this.ticketCount = data.count;
 			this.getWin();
 		});
 	}

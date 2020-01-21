@@ -18,6 +18,10 @@ import {StatusesComponent} from "./statuses/statuses.component";
 import {StatusComponent} from "./statuses/status/status.component";
 import {TicketOpportunitiesComponent} from "./ticket-opportunities/ticket-opportunities.component";
 import {TicketOpportunityComponent} from "./ticket-opportunities/ticket-opportunity/ticket-opportunity.component";
+import {ProductsComponent} from "./products/products.component";
+import {ProductComponent} from "./products/product/product.component";
+import {OrderedProductsComponent} from "./ordered-products/ordered-products.component";
+import {OrderedProductComponent} from "./ordered-products/ordered-product/ordered-product.component";
 
 export const AdminRoutes: Routes = [{
   path: '',
@@ -40,6 +44,30 @@ export const AdminRoutes: Routes = [{
     }, {
         path: 'permissions/new',
         component: PermissionComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'products',
+        component: ProductsComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'products/:id',
+        component: ProductComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'products/new',
+        component: ProductComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'ordered-products',
+        component: OrderedProductsComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'ordered-products/:id',
+        component: OrderedProductComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'ordered-products/new',
+        component: OrderedProductComponent,
         canActivate: [AuthenticatedGuard],
     }, {
         path: 'raffles',

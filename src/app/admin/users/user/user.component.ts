@@ -45,9 +45,9 @@ export class UserComponent implements OnInit {
                             self.pageTitleService.setTitle(self.user.fullname);
                             this.populateRoles();
 
-                            this.service.checkSubscription(this.user._id).subscribe((d) => {
-                                this.user.isSubscribed = d;
-                            });
+                            // this.service.checkSubscription(this.user._id).subscribe((d) => {
+                            //     this.user.isSubscribed = d;
+                            // });
                         }
                     );
                 } else {

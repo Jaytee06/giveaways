@@ -100,6 +100,18 @@ export class MenuItems {
       icon: 'fa fa-lock',
       type: 'link',
     });
+    if (isSuperAdmin || hasPermissions.indexOf('product') > -1) this.add({
+      state: 'products',
+      name: 'Products',
+      icon: 'fa fa-shopping-cart',
+      type: 'link',
+    });
+    if (isSuperAdmin || hasPermissions.indexOf('ordered-product') > -1) this.add({
+      state: 'ordered-products',
+      name: 'Ordered Products',
+      icon: 'fa fa-credit-card',
+      type: 'link',
+    });
     if (isSuperAdmin || hasPermissions.indexOf('role') > -1) this.add({
       state: 'roles',
       name: 'Roles',

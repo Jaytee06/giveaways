@@ -47,9 +47,13 @@ async function insert(user) {
 	if (user.address) {
 		if (user.address.billing && user.address.billing.address) {
 			user.address.billing = await baseCtrl.castAddress(user.address.billing, false);
+		} else {
+			delete user.address.billing;
 		}
 		if (user.address.shipping && user.address.shipping.address) {
 			user.address.shipping = await baseCtrl.castAddress(user.address.shipping, false);
+		} else {
+			delete user.address.shipping;
 		}
 	}
 
@@ -82,7 +86,12 @@ async function get(query) {
 }
 
 async function getById(id) {
-	return await User.findById(id).populate('roles address.shipping');
+	let u = await User.findById(id).populate('roles address.shipping');
+
+	let user = JSON.parse(JSON.stringify(u)); // copy to modify
+	user.isSubscribed = await this.checkSubscription(id);
+
+	return user;
 }
 
 async function update(id, user) {
@@ -92,9 +101,13 @@ async function update(id, user) {
 	if (user.address) {
 		if (user.address.billing && user.address.billing.address) {
 			user.address.billing = await baseCtrl.castAddress(user.address.billing, false);
+		} else {
+			delete user.address.billing;
 		}
 		if (user.address.shipping && user.address.shipping.address) {
 			user.address.shipping = await baseCtrl.castAddress(user.address.shipping, false);
+		} else {
+			delete user.address.shipping;
 		}
 	}
 

@@ -21,6 +21,10 @@ import {StatusComponent} from "./statuses/status/status.component";
 import {StatusesComponent} from './statuses/statuses.component';
 import {TicketOpportunityComponent} from "./ticket-opportunities/ticket-opportunity/ticket-opportunity.component";
 import {TicketOpportunitiesComponent} from "./ticket-opportunities/ticket-opportunities.component";
+import {ProductsComponent} from "./products/products.component";
+import {ProductComponent} from "./products/product/product.component";
+import {OrderedProductsComponent} from "./ordered-products/ordered-products.component";
+import {OrderedProductComponent} from "./ordered-products/ordered-product/ordered-product.component";
 
 @NgModule({
   imports: [
@@ -45,7 +49,11 @@ import {TicketOpportunitiesComponent} from "./ticket-opportunities/ticket-opport
       StatusesComponent,
       StatusComponent,
       TicketOpportunityComponent,
-      TicketOpportunitiesComponent
+      TicketOpportunitiesComponent,
+      ProductsComponent,
+      ProductComponent,
+      OrderedProductsComponent,
+      OrderedProductComponent
   ]
 })
 

@@ -1,0 +1,80 @@
+<h1 mat-dialog-title>{{data.product.name}}</h1>
+<div mat-dialog-content>
+	<div class="d-flex flex-fill flex-column">
+		<div>
+			Are you sure you want to redeem {{data.product.discountTicketAmount}} <span class="fa fa-ticket text-success"></span> for:
+		</div>
+		<div>
+			<img class="product-image" width="100%" [src]="data.product.image" />
+		</div>
+		<div>
+			<small class="text-muted">Retail ${{data.product.retailPrice | number: '1.2' : 'en'}}</small>
+		</div>
+		<div>
+			<mat-horizontal-stepper class="full-width" #hStepper>
+				<mat-step [stepControl]="firstFormGroup">
+					<form [formGroup]="firstFormGroup">
+						<ng-template matStepLabel>Fill out your name</ng-template>
+						<div><label>Choose your delivery method:</label></div>
+						<div>
+							<mat-radio-group aria-label="Select delivery method" [(ngModel)]="orderedProduct.chosenDeliveryMethod" [formControlName]="'chosenDeliveryMethod'" required>
+								<mat-radio-button value="Digital" *ngIf="data.product.canDigitalDeliver">Digital delivery</mat-radio-button><br>
+								<mat-radio-button value="Shipped" *ngIf="data.product.canShip">Ship to address</mat-radio-button>
+							</mat-radio-group>
+						</div>
+						<div>
+							<button mat-button matStepperNext>Next</button>
+						</div>
+					</form>
+				</mat-step>
+				<mat-step [stepControl]="secondFormGroup">
+					<form [formGroup]="secondFormGroup">
+											<span *ngIf="orderedProduct.chosenDeliveryMethod === 'Digital'; else address">
+												<ng-template matStepLabel>Fill out your email address</ng-template>
+												<mat-form-field>
+													<input matInput placeholder="Email" formControlName="email" [(ngModel)]="data.user.email" required>
+												</mat-form-field>
+												<div>
+													<button mat-button matStepperPrevious>Back</button>
+													<button mat-button matStepperNext>Next</button>
+												</div>
+											</span>
+						<ng-template #address>
+							<ng-template matStepLabel>Fill out your address</ng-template>
+							<div><mat-form-field><input matInput placeholder="Address" name="user.address.shipping.address" formControlName="address" [(ngModel)]="data.user.address.shipping.address" required></mat-form-field></div>
+							<div><mat-form-field><input matInput placeholder="Address" name="user.address.shipping.address2" formControlName="address2" [(ngModel)]="data.user.address.shipping.address2"></mat-form-field></div>
+							<div><mat-form-field><input matInput placeholder="City" formControlName="city" name="user.address.shipping.city" [(ngModel)]="data.user.address.shipping.city" required></mat-form-field></div>
+							<div>
+								<mat-form-field>
+									<mat-select matInput placeholder="State" formControlName="state" name="user.address.shipping.state" [(ngModel)]="data.user.address.shipping.state" required>
+										<mat-option>Select State</mat-option>
+										<mat-option *ngFor="let state of states" [value]="state.abbreviation">{{state.name}}</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+							<div><mat-form-field><input matInput placeholder="Zip" formControlName="zip" [(ngModel)]="data.user.address.shipping.zip"  name="user.address.shipping.zip" required></mat-form-field></div>
+							<div>
+								<button mat-button matStepperPrevious>Back</button>
+								<button mat-button matStepperNext>Next</button>
+							</div>
+						</ng-template>
+					</form>
+				</mat-step>
+				<mat-step>
+					<ng-template matStepLabel>Done</ng-template>
+					<p>Thank you for your information. We are excited to send this out to you.</p>
+					<p>Please confirm your data is correct by selecting Redeem!</p>
+					<div>
+						<button mat-button matStepperPrevious>Back</button>
+						<button mat-button (click)="hStepper.reset()">Reset</button>
+						<button mat-button color="primary" (click)="redeem()">Redeem!</button>
+					</div>
+				</mat-step>
+			</mat-horizontal-stepper>
+		</div>
+	</div>
+</div>
+<div mat-dialog-actions>
+	<button mat-button (click)="cancel()">Cancel</button>
+<!--	<button mat-button class="btn btn-success Btn-success" (click)="redeem()" cdkFocusInitial>Redeem</button>-->
+</div>

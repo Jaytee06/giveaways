@@ -49,6 +49,14 @@ export const AppRoutes: Routes = [{
         path: '',
         component: MainComponent,
         children: [{
+            path: 'my-ordered-products',
+            loadChildren: './my-ordered-products/my-ordered-products.module#MyOrderedProductsModule'
+        }],
+        canActivate: [AuthenticatedGuard]
+    },{
+        path: '',
+        component: MainComponent,
+        children: [{
             path: 'my-giveaways',
             loadChildren: './my-raffles/my-raffles.module#MyRafflesModule'
         }],

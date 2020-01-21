@@ -17,7 +17,7 @@ const StatusSchema = new mongoose.Schema({
 	},
 	type: {
 		type: String,
-		enum: ['Raffle'],
+		enum: ['Raffle', 'Product'],
 		default: 'Raffle',
 	},
 	active: {

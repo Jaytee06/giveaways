@@ -67,7 +67,7 @@
 											<span *ngIf="raffle.chosenDeliveryMethod === 'Digital'; else address">
 												<ng-template matStepLabel>Fill out your email address</ng-template>
 												<mat-form-field>
-													<input matInput placeholder="Eamil" formControlName="email" [(ngModel)]="user.email" required>
+													<input matInput placeholder="Email" formControlName="email" [(ngModel)]="user.email" required>
 												</mat-form-field>
 												<div>
 													<button mat-button matStepperPrevious>Back</button>
@@ -129,7 +129,7 @@
 												<span *ngIf="raffle.chosenDeliveryMethod === 'Digital'; else address">
 													<ng-template matStepLabel>Fill out your email address</ng-template>
 													<mat-form-field>
-														<input matInput placeholder="Eamil" formControlName="email" [(ngModel)]="user.email" required>
+														<input matInput placeholder="Email" formControlName="email" [(ngModel)]="user.email" required>
 													</mat-form-field>
 													<div>
 														<button mat-button matStepperPrevious>Back</button>

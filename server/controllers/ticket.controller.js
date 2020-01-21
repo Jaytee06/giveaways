@@ -2,6 +2,10 @@
 const Model = require('../models/ticket.model');
 const OppModel = require('../models/ticket-opportunity.model');
 
+const mongoose = require('mongoose');
+
+const RaffleCtrl = require('../controllers/raffle.controller');
+
 class TicketController {
 
     constructor() {}
@@ -54,6 +58,30 @@ class TicketController {
 
         return await Model.aggregate(agg);
     }
+
+    async myTicketCount(userId) {
+
+		const rCtrl = new RaffleCtrl();
+
+		const query = {user:mongoose.Types.ObjectId(userId)};
+		const tickets = await this.ticketCounts({query});
+
+		let myTickets = {count:0};
+		if( tickets && tickets.length ) myTickets = tickets[0];
+
+		// subtract tickets submitted in future raffles
+		const raffles = await rCtrl.get({'$or':[{didEnd:{$exists:false}}, {didEnd:{$eq:null}}]});
+
+		if( raffles && raffles.length ) {
+			const entries = await rCtrl.getRaffleEntry({user:mongoose.Types.ObjectId(userId), raffle:{$in:raffles.map(x => mongoose.Types.ObjectId(x._id))}});
+			entries.forEach((entry) => {
+				myTickets.count -= entry.tickets;
+			});
+		}
+
+		return myTickets;
+
+	}
 
     async insertOpportunity(ticketOpportunity) {
         return await new OppModel(ticketOpportunity).save();

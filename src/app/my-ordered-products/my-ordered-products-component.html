@@ -1,0 +1,22 @@
+<div class="pad-wrap">
+	<div class="chk-block">
+		<div class="chk-block-title">
+			<h4>Ordered Product History</h4>
+		</div>
+		<div class="chk-block-content">
+			<div *ngFor="let op of orderedProducts" class="d-flex flex-fill ticket-item" [ngClass]="{'flex-column': windowWidth < 450}">
+				<div class="mr-2">You redeemed {{op.ticketAmount}} <span class="fa fa-ticket text-success"></span> for a {{op.product.name}}</div>
+				<div><small class="text-muted">Retail ${{op.product.retailPrice | number :'1.2': 'en'}}</small></div>
+				<div class="flex-grow-1">
+
+				</div>
+				<div class="mr-3">{{op.createdAt}}</div>
+				<div><b>{{op.status.name}}</b></div>
+			</div>
+
+			<div *ngIf="orderedProducts.length === querySkip + queryLimit" class="d-flex flex-fill ticket-item" (click)="getMoreOrderedProducts()">
+				<div class="flex-grow-1 text-center load-more">Load More</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -16,6 +16,8 @@ import {RafflesComponent} from "./widgets/raffles/raffles.component";
 import {RaffleService} from "../services/raffle.service";
 import {SpinWheelComponent} from "./widgets/spin-wheel/spin-wheel.component";
 import {TicketOppsComponent} from "./widgets/ticket-opportunities/ticket-opps.component";
+import {ProductsWidgetComponent} from "./widgets/products/products-widget.component";
+import {RedeemProductDialogComponent} from "./dialogs/redeem-product/redeem-product-dialog.component";
 
 @NgModule({
   imports: [
@@ -32,12 +34,17 @@ import {TicketOppsComponent} from "./widgets/ticket-opportunities/ticket-opps.co
     TriviaQuizzesComponent,
     RafflesComponent,
     SpinWheelComponent,
-    TicketOppsComponent
+    TicketOppsComponent,
+    ProductsWidgetComponent,
+    RedeemProductDialogComponent
+  ],
+  entryComponents:[
+    RedeemProductDialogComponent
   ],
 	exports: [
 		TwitchChannelComponent,
 		MyWidgetComponent,
-      SpinWheelComponent
+        SpinWheelComponent
 	],
   providers: [
     TicketService,

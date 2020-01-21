@@ -64,9 +64,9 @@ export class RaffleComponent implements OnInit {
 				this.getCounts();
 			});
 
-			this.ticketService.myTickets(this.user._id).subscribe((d:any[]) => {
-				if( d && d.length )
-					this.maxTickets = d[0].count;
+			this.ticketService.myTickets(this.user._id).subscribe((d:any) => {
+				if( d  )
+					this.maxTickets = d.count;
 			});
 
 			this.fs.collection('raffles').doc(this.raffle._id).valueChanges().subscribe((d:any) => {
@@ -152,6 +152,7 @@ export class RaffleComponent implements OnInit {
 	claimPrize() {
 		this.raffle.ffStatus = "5d3df5b6b71bc344fda79c16"; //claimed
 		this.service.save$(this.raffle).subscribe(() => {});
+		// update the shipping address
 		this.userService.updateUser(this.user).subscribe(() => {});
 	}
 }

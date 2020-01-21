@@ -26,8 +26,8 @@ export class MyWidgetComponent implements OnInit, OnChanges {
 	}
 
 	setUp() {
-		this.service.myTickets(this.user._id).subscribe((data) => {
-			this.ticketCount = data[0].count;
+		this.service.myTickets(this.user._id).subscribe((data:any) => {
+			this.ticketCount = data.count;
 		});
 	}
 

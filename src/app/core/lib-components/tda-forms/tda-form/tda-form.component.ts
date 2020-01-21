@@ -159,6 +159,14 @@ export class TdaFormComponent implements OnInit {
 	}
 
 	private _getFieldValue(_id, defaultValue: any = null) {
+		if( _id.indexOf('.') > -1 ) {
+			const _ids = _id.split('.');
+			let values = this.values;
+			for (let i = 0; i < _ids.length; i++) {
+				values = values && values[_ids.splice(0, 1)[0]];
+			}
+			return values && typeof values[_ids[0]] !== 'undefined' && values[_ids[0]] !== null ? values[_ids[0]] : defaultValue;
+		}
 		return this.values[_id] ? this.values[_id] : defaultValue;
 	}
 

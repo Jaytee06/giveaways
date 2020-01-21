@@ -73,6 +73,11 @@ body {
 //  width: 2rem;
 //}
 
+.btn-orange {
+	color: white;
+	background-color: #e47911 !important;
+}
+
 .full-width {
 	width: 100% !important;
 }
@@ -129,6 +134,7 @@ text-white {
 	background-color: rgba(141, 165, 235, 0.05);
 	border-radius: 1rem;
 	padding: 2rem;
+	border: 1px solid rgba(141, 165, 235, 0.5);
 }
 
 .mt-6, .my-6 {

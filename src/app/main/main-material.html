@@ -93,7 +93,7 @@
                   </div>
                   <div class="h-100 pl-2 search-bar w-100 h-100 search-w">
                      <span class="mr-3"><a [routerLink]="['/']">Vintley</a></span>
-                     <span matTooltip="Soon you will be able to purchase items on Amazon with your tickets.">Store (coming soon)</span>
+<!--                     <span matTooltip="Soon you will be able to purchase items on Amazon with your tickets.">Store (coming soon)</span>-->
 <!--                     <form class="h-100 search-form">-->
 <!--                        <div class="h-100 search-i">-->
 <!--                           <input class="form-control" type="text" placeholder="Search" data-toggle="modal" data-target="#search-modal" />-->
@@ -234,6 +234,13 @@
                                     <i class="fa fa-ticket text-success"></i>
                                  </div>
                                  <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Tickets</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-ordered-products/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-shopping-cart"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Ordered Products</span>
                                  </div>
                               </a>
                               <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-giveaways/list'">
