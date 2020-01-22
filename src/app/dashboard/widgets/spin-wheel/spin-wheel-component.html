@@ -1,5 +1,5 @@
 <div class="pad-wrap">
-	<div class="chk-block">
+	<div class="chk-block" *ngIf="!loading else isLoading">
 		<div class="chk-block-title">
 			<h4>Spin Wheel</h4>
 			<div class="d-flex flex-fill">
@@ -58,4 +58,7 @@
 			</ng-template>
 		</div>
 	</div>
+	<ng-template #isLoading>
+		<app-loader></app-loader>
+	</ng-template>
 </div>

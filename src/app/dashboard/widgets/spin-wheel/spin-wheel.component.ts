@@ -14,6 +14,7 @@ export class SpinWheelComponent implements OnInit {
 	@Input() signalUpdate:any;
 	@Output() didUpdateData:EventEmitter<any> = new EventEmitter<any>();
 
+	loading = true;
 	spinCost = 10;
 	spinCount = 5;
 	user:any;
@@ -36,6 +37,7 @@ export class SpinWheelComponent implements OnInit {
 				this.winProbability = [.13, .13, .2, .13, .05, .13, .1, .13];
 
 			this.setUp();
+			this.loading = false;
 
 			// this.service.checkSubscription(this.user._id).subscribe((d) => {
 			// 	this.user.isSubscribed = d;
@@ -90,11 +92,12 @@ export class SpinWheelComponent implements OnInit {
 			this.winMessage = '';
 		}, 3000);
 
+		console.log(this.user.isSubscribed, this.winProbability);
 		this.getWin();
 		tickets = tickets - this.spinCost;
 		this.user.spinWheel.push({wonTickets:tickets});
 		this.service.updateUser(this.user).subscribe((user) => {
-			this.user = user;
+			this.user = {...this.user, ...user};
 			this.didUpdateData.emit({'my-tickets-widget': true});
 			this.ticketService.save$({amount: tickets, user: this.user._id, refType: 'wheelSpin', reason:'You spun the wheel to test your luck.'}).subscribe((d) => {
 				this.setUp();
