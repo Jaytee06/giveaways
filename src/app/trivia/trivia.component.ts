@@ -34,6 +34,7 @@ export class TriviaComponent implements OnInit {
 		const { activatedRoute: { snapshot: { params: { id } } } } = this;
 		const trivia$ = id !== 'new' ? this.service.getById$(id) : of(this.trivia);
 		const user$ = this.userService.getCurrentUser();
+
 		combineLatest(trivia$, user$).subscribe((data) => {
 			[this.trivia, this.user] = data;
 			this.trivia.startDate = this.service.formatDate(this.trivia.start, true);

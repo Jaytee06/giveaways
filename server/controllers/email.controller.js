@@ -5,6 +5,7 @@ const UserCtrl= require('./user.controller');
 const smtpTransport = require('nodemailer-smtp-transport');
 const nodemailer = require('nodemailer');
 const moment = require('moment');
+const mongoose = require('mongoose');
 
 class EmailController {
 
@@ -15,11 +16,15 @@ class EmailController {
 
         // see if trivia games are starting
         const dateRange = {$gte:moment().add(25, 'minutes').utc().format(), $lt:moment().add(30, 'minutes').utc().format()};
-        const trivias = await triviaCtrl.get({start:dateRange});
+        const trivias = await triviaCtrl.get({start:dateRange}); //{_id:mongoose.Types.ObjectId('5e3074eccb561266201c1982')}
 
         const emailer = nodemailer.createTransport(smtpTransport(config.contactEmail));
         const promise = trivias.map(async(trivia) => {
-            let html = `<h2>Trivia Quiz Starting in ${moment(trivia.start).fromNow()}</h2>
+            let html = `<div style="width:100%; background-color: #efefef; padding: 1em">
+            <h4 style="text-align: center">Vintley | Trivia Quiz</h4>
+            <div style="width: 50%; min-width: 400px; margin:auto; background-color: white; padding: 2em;">
+            <img src="https://vintley.s3-us-west-2.amazonaws.com/public-images/logo.jpg" width="30px" height="30px"/>
+            <h2>Trivia Quiz Starting ${moment(trivia.start).fromNow()}</h2>
 			<p><a href="https://www.vintley.com/trivia-quiz/${trivia._id}">Come play the quiz and earn tickets!</a></p>
 			<h4>Trivia Quiz Rules:</h4>
 			<p>`;
@@ -43,26 +48,29 @@ class EmailController {
 			</p>
 			<p>
 				There are ${trivia.numOfQuestions} questions in this quiz.
-			</p>`;
+			</p>
+            </div><br><br><br>`;
 
             // see if if users are joined on this trivia.
             const users = await triviaCtrl.getUserTrivia({trivia:trivia._id, receiveNotifications:true});
-            users.forEach((user) => {
+            for( let user of users ) {
+                // users.forEach((user) => {
 
-                html += `<div style="text-align: center"><a href="https://www.vintley.com/session/unsubscribe/${user.emailToken}">Unsubscribe</a></div>`;
+                let endHtml = await this.getEndText(user.user);
 
                 const mailOptions = {
                     to: user.user.twitch.email,
                     from: 'contact@vintley.com',
-                    subject: 'Trivia quiz starting in '+moment(trivia.start).fromNow(),
-                    html: html,
+                    subject: 'Trivia quiz starting in ' + moment(trivia.start).fromNow(),
+                    html: html + endHtml + '</div>',
                     attachments: [],
                 };
 
                 emailer.sendMail(mailOptions, async (err) => {
                     console.log('Email sent', err);
                 });
-            });
+                //});
+            }
         });
         await Promise.all(promise);
     }
@@ -109,6 +117,14 @@ class EmailController {
             });
         });
         await Promise.all(promises);
+    }
+
+    async getEndText(user) {
+        return `<div style="text-align: center; width: 50%; min-width: 400px; margin:auto; color: #9f9f9f">
+                    <samll>
+                        This message was sent to ${user.twitch.email} and intended for ${user.twitch.username}. Vintley sends updates like this to help you keep up with the latest on Vintley.com. You can unsubscribe from these updates: <a href="https://www.vintley.com/session/unsubscribe/${user.emailToken}">Unsubscribe</a>
+                    </samll>
+                </div>`;
     }
 
 }

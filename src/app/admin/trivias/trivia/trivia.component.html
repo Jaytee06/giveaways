@@ -134,5 +134,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="row mt-2">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h4>Users Joined</h4>
+				<ul *ngIf="joinedUsers.length; else noUsers">
+					<li *ngFor="let user of joinedUsers">{{user.fullname}}</li>
+				</ul>
+				<ng-template #noUsers>
+					No one joined.
+				</ng-template>
+			</div>
+		</div>
 	</mat-tab>
 </mat-tab-group>

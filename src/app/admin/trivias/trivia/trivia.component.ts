@@ -73,6 +73,7 @@ export class TriviaComponent implements OnInit {
 	loading = false;
 	hasHappened = true;
 	questionResults = [];
+	joinedUsers = [];
 
 	structure: IField[] = [
 		{
@@ -195,6 +196,12 @@ export class TriviaComponent implements OnInit {
 						} else if( this.trivia.didEnd ) {
 							this.questionResults.forEach((question, i) => {
 								this._calculateQuestionResults(question, i);
+							});
+						}
+
+						if( this.trivia.users ) {
+							Object.keys(this.trivia.users).forEach((key) => {
+								this.joinedUsers.push(this.trivia.users[key]);
 							});
 						}
 					}

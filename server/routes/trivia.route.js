@@ -4,6 +4,7 @@ const asyncHandler = require('express-async-handler');
 const Ctrl = require('../controllers/trivia.controller');
 const TicketCtrl = require('../controllers/ticket.controller');
 const FireStoreCtrl = require('../controllers/fire-store.controller');
+const EmailCtrl = require('../controllers/email.controller');
 const requireRole = require('../middleware/require-role');
 const smtpTransport = require('nodemailer-smtp-transport');
 const nodemailer = require('nodemailer');
@@ -242,18 +243,22 @@ async function test(req, res) {
     // });
 
 
-	const emailer = nodemailer.createTransport(smtpTransport(config.contactEmail));
-	const mailOptions = {
-		to: 'timpsonjared@yahoo.com',
-		from: 'contact@vintley.com',
-		subject: 'Test email',
-		html: 'Testing email. smtp.dreamhost.com',
-		attachments: [],
-	};
+	// const emailer = nodemailer.createTransport(smtpTransport(config.contactEmail));
+	// const mailOptions = {
+	// 	to: 'jaredtimpson@hotmail.com',
+	// 	// to: 'timpsonjared@yahoo.com',
+	// 	from: 'contact@vintley.com',
+	// 	subject: 'Test email',
+	// 	html: 'Testing email. smtp.dreamhost.com',
+	// 	attachments: [],
+	// };
+    //
+	// emailer.sendMail(mailOptions, async (err) => {
+	// 	console.log('Email sent', err);
+	// });
 
-	emailer.sendMail(mailOptions, async (err) => {
-		console.log('Email sent', err);
-	});
+    const eCtrl = new EmailCtrl();
+    eCtrl.emailQuizStarting();
 
     res.json();
 }
