@@ -13,7 +13,7 @@ export class AuthenticatedGuard implements CanActivate {
             console.log('Set Tokens');
             localStorage.setItem('user', route.queryParams.user);
             localStorage.setItem('token', route.queryParams.token);
-            localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.
+            localStorage.setItem('tokenExpire', JSON.stringify(moment().add(14, 'hours'))); // TODO:: This is temp logic, come up with a better way.
             this.router.navigate(["/"]);
             return false;
         }
