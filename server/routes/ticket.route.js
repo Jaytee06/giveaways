@@ -49,6 +49,8 @@ async function preQuery(req, res, next) {
         // ignore vintleytv
         if( !req.query.user )
             req.query.user = {$nin:[mongoose.Types.ObjectId('5d365cef8a881d40f16058b6')]};
+        else
+            req.query.user = mongoose.Types.ObjectId(req.query.user);
 
         // filter ticket opps redeemed ticket opps
         if( req.query.ticketOpps ) {
@@ -59,9 +61,6 @@ async function preQuery(req, res, next) {
 
             delete req.query.ticketOpps;
         }
-
-        if( req.query.user )
-            req.query.user = mongoose.Types.ObjectId(req.query.user);
 
         let sortDir = 1;
         if( sortParam.substr(0, 1) === '-' ) {
