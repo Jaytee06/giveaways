@@ -40,6 +40,23 @@ class TicketController {
             count: '$count',
         };
 
+        if( query.groupBy ) {
+
+            if( query.groupBy.indexOf('ref') > -1 ) {
+                group._id.ref = '$ref';
+                project.ref = {$toObjectId: '$_id.ref'};
+            }
+
+            if (query.groupBy.indexOf('day') > -1) {
+                group._id.day = { $dayOfMonth: [{ $add: ['$createdAt', -420 * 60000] }] };
+                group._id.year = { $year: [{ $add: ['$createdAt', -420 * 60000] }] };
+                group._id.month = { $month: [{ $add: ['$createdAt', -420 * 60000] }] };
+                project.day = '$_id.day';
+                project.year = '$_id.year';
+                project.month = '$_id.month';
+            }
+        }
+
         const agg = [
             { $match: query.query },
             { $group: group },
@@ -56,15 +73,21 @@ class TicketController {
             { $sort: {count: -1} }
         ];
 
+        if( query.groupBy ) {
+            if( query.groupBy.indexOf('ref') > -1 ) {
+                agg.splice(5, 0, {$lookup: {from: 'users', localField: 'ref', foreignField: '_id', as: 'ref'}});
+                agg.splice(6, 0, {$unwind: "$ref"});
+            }
+        }
+
         return await Model.aggregate(agg);
     }
 
-    async myTicketCount(userId) {
+    async myTicketCount(query) {
 
 		const rCtrl = new RaffleCtrl();
 
-		const query = {user:mongoose.Types.ObjectId(userId)};
-		const tickets = await this.ticketCounts({query});
+		const tickets = await this.ticketCounts(query);
 
 		let myTickets = {count:0};
 		if( tickets && tickets.length ) myTickets = tickets[0];
@@ -73,7 +96,7 @@ class TicketController {
 		const raffles = await rCtrl.get({'$or':[{didEnd:{$exists:false}}, {didEnd:{$eq:null}}]});
 
 		if( raffles && raffles.length ) {
-			const entries = await rCtrl.getRaffleEntry({user:mongoose.Types.ObjectId(userId), raffle:{$in:raffles.map(x => mongoose.Types.ObjectId(x._id))}});
+			const entries = await rCtrl.getRaffleEntry({user:mongoose.Types.ObjectId(query.user), raffle:{$in:raffles.map(x => mongoose.Types.ObjectId(x._id))}});
 			entries.forEach((entry) => {
 				myTickets.count -= entry.tickets;
 			});

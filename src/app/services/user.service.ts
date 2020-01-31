@@ -1,6 +1,6 @@
 import {Injectable, NgZone} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import { BaseService } from './base.service';
 import {of} from 'rxjs';
 import {MatSnackBar} from "@angular/material";
@@ -63,6 +63,13 @@ export class UserService extends BaseService{
 
     updateUser(userData) {
         return this.http.put(`${this.baseService.getBaseUrl()}/user/${userData._id}`, userData, {headers: this.headers}).pipe(
+            catchError(this.handleError.bind(this)),
+        );
+    }
+
+    addReferrer(userId, referralToken) {
+        return this.http.post(`${this.baseService.getBaseUrl()}/user/${userId}/add-referrer`, {referralToken}, {headers: this.headers}).pipe(
+            tap(() => {this.success('You updated your referrer.');}),
             catchError(this.handleError.bind(this)),
         );
     }

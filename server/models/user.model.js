@@ -80,6 +80,14 @@ const UserSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    referralToken: {
+        type: String,
+        trim: true,
+    },
+    referrer: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+    },
     address: {
         shipping: {
             type: mongoose.Schema.ObjectId,

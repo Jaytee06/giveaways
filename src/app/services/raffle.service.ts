@@ -18,7 +18,7 @@ export class RaffleService extends BaseService {
 	}
 
 	get$() {
-		return this.http.get(`${this.getBaseUrl()}/raffle`, { headers: this.headers }).pipe(
+		return this.http.get(`${this.getBaseUrl()}/raffle?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}

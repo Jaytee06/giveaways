@@ -65,6 +65,14 @@ export const AppRoutes: Routes = [{
         path: '',
         component: MainComponent,
         children: [{
+            path: 'my-referrals',
+            loadChildren: './my-referrals/my-referrals.module#MyReferralsModule'
+        }],
+        canActivate: [AuthenticatedGuard]
+    },{
+        path: '',
+        component: MainComponent,
+        children: [{
             path: 'help',
             loadChildren: './help/help.module#HelpModule'
         }],

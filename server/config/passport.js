@@ -60,6 +60,8 @@ const twitchLogin = new TwitchStrategy({
                 user.emailToken = crypto.randomBytes(24).toString('hex');
             if( typeof user.receiveEmails === 'undefined' )
                 user.receiveEmails = true;
+            if(  typeof user.referralToken === 'undefined' )
+                user.referralToken = crypto.randomBytes(8).toString('hex');
 
             user = await userCtrl.update(user._id, user);
         } else {
@@ -68,6 +70,7 @@ const twitchLogin = new TwitchStrategy({
                 newUser.roles = [role._id];
 
             newUser.emailToken = crypto.randomBytes(24).toString('hex');
+            newUser.referralToken = crypto.randomBytes(8).toString('hex');
 
             user = await userCtrl.insert(newUser);
         }

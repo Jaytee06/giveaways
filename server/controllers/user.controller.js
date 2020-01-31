@@ -33,6 +33,7 @@ module.exports = {
 	getById,
 	update,
 	checkSubscription,
+	addReferrer,
 	getCounts,
 };
 
@@ -86,7 +87,7 @@ async function get(query) {
 }
 
 async function getById(id) {
-	let u = await User.findById(id).populate('roles address.shipping');
+	let u = await User.findById(id).populate('roles address.shipping referrer');
 
 	let user = JSON.parse(JSON.stringify(u)); // copy to modify
 	user.isSubscribed = await this.checkSubscription(id);
@@ -148,6 +149,17 @@ async function checkSubscription(id) {
 		});
 		req.end();
 	});
+}
+
+async function addReferrer(userId, referralToken) {
+
+	let user = await User.findOne({referralToken:{$exists:true}, referralToken, _id:{$ne:userId}});
+
+	if( user ) {
+		await User.findByIdAndUpdate(userId, {$set:{referrer:user._id}});
+	}
+
+	return user;
 }
 
 async function getCounts() {

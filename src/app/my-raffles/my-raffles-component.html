@@ -3,7 +3,7 @@
 		<div class="chk-block-title">
 			<h4>Your Giveaways</h4>
 		</div>
-		<div class="chk-block-content">
+		<div class="chk-block-content" *ngIf="raffles.length; else noGiveaways">
 			<div *ngFor="let raffle of raffles" class="d-flex flex-fill ticket-item clickable" [ngClass]="{'flex-column': smallScreen}" (click)="raffleClicked(raffle)">
 				<div class="mr-2" *ngIf="raffle.giveAwayImage">
 					<img [src]="raffle.giveAwayImage" height="20px" />
@@ -19,5 +19,10 @@
 				<div class="flex-grow-1 text-center load-more">Load More</div>
 			</div>
 		</div>
+		<ng-template #noGiveaways>
+			<div class="chk-block-content">
+				You have not won any... Yet.
+			</div>
+		</ng-template>
 	</div>
 </div>

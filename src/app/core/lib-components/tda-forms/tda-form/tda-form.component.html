@@ -2,6 +2,7 @@
 	<app-form-page
 			[classFields]="structure"
 			[formGroup]="form"
+			(fieldChanged)="innerFieldChanged($event)"
 	></app-form-page>
 
 	<div class="buttons-block" *ngIf="showButtons">

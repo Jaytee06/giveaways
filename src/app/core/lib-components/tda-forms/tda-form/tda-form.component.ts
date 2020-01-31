@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,6 +22,7 @@ export class TdaFormComponent implements OnInit {
 	@Input() cancelOverride;
 	@Output() delete$: Subject<null> = new Subject();
 	@Output() save$: Subject<any> = new Subject();
+	@Output() fieldChanged: EventEmitter<any> = new EventEmitter();
 	form: FormGroup;
 
 	constructor(
@@ -62,6 +63,11 @@ export class TdaFormComponent implements OnInit {
 		this.cancelOverride
 			? this.cancelOverride()
 			: this._router.navigate(['../'], { relativeTo: this._activatedRoute }).then();
+	}
+
+	innerFieldChanged(e) {
+		console.log('bb', e);
+		this.fieldChanged.emit(e);
 	}
 
 	private _createFormGroup() {

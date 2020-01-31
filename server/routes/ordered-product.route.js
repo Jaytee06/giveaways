@@ -61,7 +61,7 @@ async function insert(req, res) {
     const ticketCount = ticketCtrl.myTicketCount(req.user._id);
 
     if( ticketCount.count < req.body.ticketAmount )
-        return res.status(400).message("You do not have enough tickets for this item.");
+        return res.status(400).send("You do not have enough tickets for this item.");
 
     let orderedProduct = await ctlr.insert(req.body);
 

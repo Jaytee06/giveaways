@@ -9,6 +9,7 @@
             *ngIf="!loading; else loader"
             [structure]="structure"
             [values]="ticket"
+            (fieldChanged)="formFieldChanged($event)"
             (save$)="save($event)"
             (delete$)="delete()"
         ></app-tda-form>

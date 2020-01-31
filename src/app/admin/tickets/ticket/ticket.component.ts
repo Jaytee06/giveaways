@@ -47,7 +47,8 @@ export class TicketComponent implements OnInit {
 				{_id:'raffle', name:'Raffle'},
 				{_id:'signUp', name:'Sign Up'},
 				{_id:'loginBonus', name:'Login'},
-				{_id:'wheelSpin', name:'Wheel Spin'}
+				{_id:'wheelSpin', name:'Wheel Spin'},
+				{_id:'referral', name:'Referral', dependents:['ref']}
 			],
 		},
 		{
@@ -111,5 +112,21 @@ export class TicketComponent implements OnInit {
 
 	cancel() {
 		this.router.navigate(['../'], { relativeTo: this.activatedRoute }).then();
+	}
+
+	formFieldChanged(e) {
+		if( e && e.field && e.field._id == 'refType' ) {
+			if( e.value == 'ticketOpp' ) {
+				this.structure.find(i => i._id === 'ref').options = this.ticketOpps.map((x) => {
+					x.name = x.refType+' '+x.requiredAction;
+					return x;
+				});
+			} else if( e.value == 'referral' ) {
+				this.structure.find(i => i._id === 'ref').options = this.users.map((x) => {
+					x.name = x.fullname;
+					return x;
+				});
+			}
+		}
 	}
 }

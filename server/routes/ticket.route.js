@@ -17,7 +17,7 @@ router.route('/counts').get(asyncHandler(preQuery), asyncHandler(getCounts));
 router.route('/:id').get(asyncHandler(getById));
 router.route('/:id').put(asyncHandler(update));
 router.route('/:id').delete(asyncHandler(remove));
-router.route('/my-tickets/:userId').get(asyncHandler(myTickets));
+router.route('/my-tickets/:userId').get(asyncHandler(preQuery), asyncHandler(myTickets));
 
 async function preQuery(req, res, next) {
 
@@ -26,9 +26,11 @@ async function preQuery(req, res, next) {
         const skip = parseInt(req.query.skip) || 0;
         const limit = parseInt(req.query.limit) || 1000;
         let sortParam = req.query.sort || '-createdAt';
+        const groupBy = req.query.groupBy;
         delete req.query.skip;
         delete req.query.limit;
         delete req.query.sort;
+        delete req.query.groupBy;
 
         const dateRange = { $gte: new Date(req.query.startDateTime), $lt: new Date(req.query.endDateTime) };
 
@@ -58,6 +60,9 @@ async function preQuery(req, res, next) {
             delete req.query.ticketOpps;
         }
 
+        if( req.query.user )
+            req.query.user = mongoose.Types.ObjectId(req.query.user);
+
         let sortDir = 1;
         if( sortParam.substr(0, 1) === '-' ) {
             sortDir = -1;
@@ -70,7 +75,8 @@ async function preQuery(req, res, next) {
             query: req.query,
             skip,
             limit,
-            sort
+            sort,
+            groupBy
         };
     }
     next();
@@ -108,7 +114,9 @@ async function remove(req, res) {
 
 async function myTickets(req, res) {
     const crtl = new Ctrl();
-    const tickets = await crtl.myTicketCount(req.params.userId);
+
+    req.query.user = req.params.userId;
+    const tickets = await crtl.myTicketCount(req.query);
 
     res.json(tickets);
 }

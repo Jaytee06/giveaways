@@ -40,6 +40,7 @@ export class FormPageComponent implements OnInit {
 				});
 			}
 		}
+		this.fieldChanged.emit(e);
 	}
 
 	generateAndEmitFormEvent({type, field, action, payload}) {

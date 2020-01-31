@@ -19,7 +19,7 @@ const TicketSchema = new mongoose.Schema({
         trim: true,
     },
     refType: {
-        enum: ['triviaQuiz', 'ticketOpp', 'raffle', 'signUp', 'loginBonus', 'wheelSpin', 'orderedProduct'],
+        enum: ['triviaQuiz', 'ticketOpp', 'raffle', 'signUp', 'loginBonus', 'wheelSpin', 'orderedProduct', 'referral'],
         type: String,
         trim: true,
     },

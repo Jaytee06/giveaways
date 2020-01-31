@@ -13,6 +13,7 @@ router.route('/').post(asyncHandler(insert));
 router.route('/:id').get(asyncHandler(getById));
 router.route('/:id').put(asyncHandler(update));
 router.route('/:id/check-subscription').get(asyncHandler(checkSubscription));
+router.route('/:id/add-referrer').post(asyncHandler(addReferrer));
 
 
 async function insert(req, res) {
@@ -42,4 +43,12 @@ async function update(req, res) {
 async function checkSubscription(req, res) {
     const subscribed = await userCtrl.checkSubscription(req.params.id);
     res.json(subscribed);
+}
+async function addReferrer(req, res) {
+    const referrer = await userCtrl.addReferrer(req.params.id, req.body.referralToken);
+
+    if( !referrer )
+        return res.status(404).send("Invalid Referral Token");
+
+    res.json(referrer);
 }

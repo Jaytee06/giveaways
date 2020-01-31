@@ -1,0 +1,31 @@
+<div class="pad-wrap">
+	<div class="d-flex mb-2">
+		<div class="flex-grow-1">
+			<span *ngIf="user.referrer; else noReferrer">{{user.referrer.fullname}} referred you.</span>
+			<ng-template #noReferrer>
+				<div class="d-flex">
+					<div class="mr-1 mt-1">Enter referrers code:</div>
+					<div class="mr-1"><input type="text" class="form-control" [(ngModel)]="referrerCode" /></div>
+					<div><button class="btn btn-default" (click)="addReferrer()">Submit</button></div>
+				</div>
+			</ng-template>
+		</div>
+		<div>
+			Your referral code: <span class="text-success">{{user.referralToken}}</span>
+		</div>
+	</div>
+	<div class="chk-block">
+		<div class="chk-block-title">
+			<h4>Your Referral History</h4>
+		</div>
+		<div class="chk-block-content" *ngIf="!loading">
+			<highcharts-chart
+					style="width: 100%; height: 100%; display: block;"
+					[Highcharts]="highCharts"
+					[constructorType]="'chart'"
+					[options]="chartOptions"
+					class="chart"
+			></highcharts-chart>
+		</div>
+	</div>
+</div>

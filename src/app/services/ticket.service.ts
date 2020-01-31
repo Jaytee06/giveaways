@@ -45,7 +45,7 @@ export class TicketService extends BaseService {
 	}
 
 	myTickets(userId) {
-		return this.http.get(`${this.getBaseUrl()}/ticket/my-tickets/${userId}`, { headers: this.headers }).pipe(
+		return this.http.get(`${this.getBaseUrl()}/ticket/my-tickets/${userId}?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}
