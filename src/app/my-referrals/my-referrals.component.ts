@@ -20,8 +20,8 @@ export class MyReferralsComponent implements OnInit {
 
 	highCharts = Highcharts;
 	dates = {
-		startDateTime: moment().startOf('month'),
-		endDateTime: moment().endOf('month'),
+		startDateTime: moment().subtract(30, 'days').startOf('day'),
+		endDateTime: moment().add(1, 'day').startOf('day'),
 	};
 	chartOptions: any = {};
 

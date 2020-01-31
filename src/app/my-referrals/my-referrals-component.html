@@ -10,13 +10,16 @@
 				</div>
 			</ng-template>
 		</div>
-		<div>
-			Your referral code: <span class="text-success">{{user.referralToken}}</span>
+		<div class="referrer-box">
+			Share your referral code:
+			<input type="text" class="form-control" [value]="'https://www.vintley.com?r='+user.referralToken" /><br>
+			<small>Earn 10% of all tickets earned by people you refer.</small>
 		</div>
 	</div>
 	<div class="chk-block">
 		<div class="chk-block-title">
 			<h4>Your Referral History</h4>
+			<small>Last 30 days</small>
 		</div>
 		<div class="chk-block-content" *ngIf="!loading">
 			<highcharts-chart

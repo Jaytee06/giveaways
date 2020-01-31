@@ -153,7 +153,7 @@ async function checkSubscription(id) {
 
 async function addReferrer(userId, referralToken) {
 
-	let user = await User.findOne({referralToken:{$exists:true}, referralToken, _id:{$ne:userId}});
+	let user = await User.findOne({referralToken:{$exists:true}, referralToken});
 
 	if( user ) {
 		await User.findByIdAndUpdate(userId, {$set:{referrer:user._id}});

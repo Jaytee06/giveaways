@@ -31,7 +31,7 @@ async function get(req, res) {
 }
 
 async function getById(req, res) {
-    const user = await  userCtrl.getById(req.params.id);
+    const user = await userCtrl.getById(req.params.id);
     res.json(user);
 }
 

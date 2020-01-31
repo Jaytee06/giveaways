@@ -84,6 +84,13 @@ export class MainComponent implements OnInit, OnDestroy {
 
             this.setUp();
 
+            // check if the user was a referral
+            let referralToken = localStorage.getItem('referralToken');
+            console.log(referralToken, this.user.referrer);
+            if( referralToken && !this.user.referrer ) {
+                this.userService.addReferrer(this.user._id, referralToken).subscribe(()=>{});
+            }
+
             // setup the menu
             this.menuItems.setupMenu();
         });

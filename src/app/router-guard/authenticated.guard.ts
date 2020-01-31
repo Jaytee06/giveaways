@@ -8,7 +8,10 @@ export class AuthenticatedGuard implements CanActivate {
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-        console.log('canActivate', route.queryParams);
+        // check for referral code
+        if( route.queryParams && route.queryParams.r )
+            localStorage.setItem('referralToken', route.queryParams.r);
+
         if( route.queryParams.user && route.queryParams.token ) {
             console.log('Set Tokens');
             localStorage.setItem('user', route.queryParams.user);
@@ -20,7 +23,7 @@ export class AuthenticatedGuard implements CanActivate {
 
         const token = localStorage.getItem('token');
         const tokenExpire = JSON.parse(localStorage.getItem('tokenExpire'));
-        if (!token || token == 'undefined' || token.trim() == '' || moment().add(6, 'hours').isAfter(moment(tokenExpire))) {
+        if (!token || token == 'undefined' || token.trim() == '' || moment().isAfter(moment(tokenExpire))) {
             this.router.navigate(["/session/loginone"]);
             return false;
         } else {

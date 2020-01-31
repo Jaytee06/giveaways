@@ -1,5 +1,6 @@
 'use strict';
 const Model = require('../models/ticket.model');
+const User = require('../models/user.model');
 const OppModel = require('../models/ticket-opportunity.model');
 
 const mongoose = require('mongoose');
@@ -11,7 +12,28 @@ class TicketController {
     constructor() {}
 
     async insert(ticket) {
-        return await new Model(ticket).save();
+        let newTicket = await new Model(ticket).save();
+
+        // add tickets for referrer
+        if( newTicket.refType != 'referral' ) {
+            // get the referrer of the person who earned these tickets
+            const user = await User.findById(newTicket.user).populate('referrer');
+            if( user.referrer ) {
+                let amount = Math.floor(0.1*newTicket.amount);
+                if( amount > 0 ) {
+                    const obj = {
+                        amount,
+                        user: user.referrer._id,
+                        reason: user.fullname+' earned some tickets',
+                        ref: newTicket.user,
+                        refType: 'referral'
+                    };
+                    this.insert(obj);
+                }
+            }
+        }
+
+        return newTicket;
     }
 
     async get(query) {
