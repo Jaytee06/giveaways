@@ -8,6 +8,7 @@ import { Router} from "@angular/router";
 	selector: 'my-giveaways',
 	templateUrl: './my-raffles-component.html',
 	styleUrls: ['./my-raffles-component.scss'],
+	providers:[RaffleService]
 })
 export class MyRafflesComponent implements OnInit {
 

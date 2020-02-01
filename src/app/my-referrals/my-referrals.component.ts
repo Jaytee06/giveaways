@@ -10,6 +10,7 @@ import * as moment from 'moment';
 	selector: 'my-referrals',
 	templateUrl: './my-referrals-component.html',
 	styleUrls: ['./my-referrals-component.scss'],
+	providers:[TicketService]
 })
 export class MyReferralsComponent implements OnInit {
 

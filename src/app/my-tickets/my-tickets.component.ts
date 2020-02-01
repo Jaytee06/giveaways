@@ -7,6 +7,7 @@ import {TicketService} from "../services/ticket.service";
 	selector: 'my-tickets',
 	templateUrl: './my-tickets-component.html',
 	styleUrls: ['./my-tickets-component.scss'],
+	providers:[TicketService]
 })
 export class MyTicketsComponent implements OnInit {
 

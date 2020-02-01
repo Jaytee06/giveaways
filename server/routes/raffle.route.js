@@ -13,7 +13,7 @@ module.exports = router;
 router.use(passport.authenticate('jwt', { session: false }))
 router.use(requireRole);
 
-router.route('/').get(asyncHandler(get));
+router.route('/').get(asyncHandler(preQuery), asyncHandler(get));
 router.route('/').post(asyncHandler(insert));
 router.route('/current').get(asyncHandler(current));
 router.route('/counts').get(asyncHandler(getRaffleCounts));
@@ -46,6 +46,31 @@ async function preSaveRaffleEntry(req, res, next) {
     }
 
     next()
+}
+
+async function preQuery(req, res, next) {
+
+    const skip = parseInt(req.query.skip) || 0;
+    const limit = parseInt(req.query.limit) || 1000;
+    let sort = req.query.sort || '-start';
+    const groupBy = req.query.groupBy;
+    delete req.query.skip;
+    delete req.query.limit;
+    delete req.query.sort;
+    delete req.query.groupBy;
+
+    if( req.body.winner )
+        req.body.winner = mongoose.Types.ObjectId(req.body.winner);
+
+    req.query = {
+        query: req.query,
+        skip,
+        limit,
+        sort,
+        groupBy
+    };
+
+    next();
 }
 
 async function insert(req, res) {

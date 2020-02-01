@@ -19,7 +19,7 @@ class RaffleController {
     }
 
     async get(query) {
-        return await Model.find(query).populate('user').populate('ffStatus').sort({start:-1});
+        return await Model.find(query.query).populate('user').populate('ffStatus').sort(query.sort || {start:-1}).skip(query.skip || 0).limit(query.limit || 1000);
     }
 
     async getById(id) {
@@ -29,7 +29,6 @@ class RaffleController {
     async update(id, raffle) {
         return await Model.findByIdAndUpdate(id, raffle, {new: true});
     }
-
 
     async remove(id) {
         return await Model.findByIdAndRemove(id);

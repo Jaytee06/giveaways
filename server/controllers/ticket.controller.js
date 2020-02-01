@@ -115,7 +115,7 @@ class TicketController {
 		if( tickets && tickets.length ) myTickets = tickets[0];
 
 		// subtract tickets submitted in future raffles
-		const raffles = await rCtrl.get({'$or':[{didEnd:{$exists:false}}, {didEnd:{$eq:null}}]});
+		const raffles = await rCtrl.get({query:{'$or':[{didEnd:{$exists:false}}, {didEnd:{$eq:null}}]}});
 
 		if( raffles && raffles.length ) {
 			const entries = await rCtrl.getRaffleEntry({user:mongoose.Types.ObjectId(query.user), raffle:{$in:raffles.map(x => mongoose.Types.ObjectId(x._id))}});

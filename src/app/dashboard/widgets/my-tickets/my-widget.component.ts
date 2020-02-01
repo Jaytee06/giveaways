@@ -6,6 +6,7 @@ import {TicketService} from "../../../services/ticket.service";
 	selector: 'my-tickets-widget',
 	templateUrl: './my-tickets-component.html',
 	styleUrls: ['./my-tickets-component.scss'],
+	providers: [TicketService]
 })
 export class MyWidgetComponent implements OnInit, OnChanges {
 
@@ -27,6 +28,7 @@ export class MyWidgetComponent implements OnInit, OnChanges {
 
 	setUp() {
 		this.service.myTickets(this.user._id).subscribe((data:any) => {
+			console.log(this.user, data);
 			this.ticketCount = data.count;
 		});
 	}
