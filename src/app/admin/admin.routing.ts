@@ -22,6 +22,8 @@ import {ProductsComponent} from "./products/products.component";
 import {ProductComponent} from "./products/product/product.component";
 import {OrderedProductsComponent} from "./ordered-products/ordered-products.component";
 import {OrderedProductComponent} from "./ordered-products/ordered-product/ordered-product.component";
+import {GamesComponent} from "./games/games.component";
+import {GameComponent} from "./games/game/game.component";
 
 export const AdminRoutes: Routes = [{
   path: '',
@@ -40,6 +42,14 @@ export const AdminRoutes: Routes = [{
     }, {
         path: 'permissions/:id',
         component: PermissionComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'games',
+        component: GamesComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'games/:id',
+        component: GameComponent,
         canActivate: [AuthenticatedGuard],
     }, {
         path: 'permissions/new',

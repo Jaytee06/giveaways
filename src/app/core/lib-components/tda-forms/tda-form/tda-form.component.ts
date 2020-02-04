@@ -66,7 +66,6 @@ export class TdaFormComponent implements OnInit {
 	}
 
 	innerFieldChanged(e) {
-		console.log('bb', e);
 		this.fieldChanged.emit(e);
 	}
 

@@ -1,0 +1,19 @@
+<div class="pad-wrap">
+	<div class="chk-block">
+		<div class="chk-block-title">
+			<h4>Top Games</h4>
+		</div>
+		<div class="chk-block-content">
+			<div *ngFor="let game of games" class="d-flex flex-fill game-item" [ngClass]="{'flex-column': windowWidth < 450}">
+				<div class="mr-2">Game Title</div>
+				<div>Game Image</div>
+				<div class="mr-3">Game Reward</div>
+				<div><button class="btn btn-orange full-width font-weight-bold font-lg" (click)="goToGame(game)" ><span class="fa fa-play"></span> Play</button></div>
+			</div>
+
+			<div *ngIf="games.length === querySkip + queryLimit" class="d-flex flex-fill ticket-item" (click)="getMoreGames()">
+				<div class="flex-grow-1 text-center load-more">Load More</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -25,6 +25,14 @@ export const AppRoutes: Routes = [{
         path: '',
         component: MainComponent,
         children: [{
+            path: 'games',
+            loadChildren: './games/games.module#GamesModule'
+        }],
+        canActivate: [AuthenticatedGuard]
+    },{
+        path: '',
+        component: MainComponent,
+        children: [{
             path: 'raffle',
             loadChildren: './raffle/raffle.module#RaffleModule'
         }],

@@ -2,6 +2,7 @@ const express = require('express');
 const authRoutes = require('./auth.route');
 const callCenterRoutes = require('./call-center.route');
 const companyRoutes = require('./company.route');
+const gameRoutes = require('./game.route');
 const partnerRoutes = require('./partner.route');
 const permissionRoutes = require('./permission.route');
 const productRoutes = require('./product.route');
@@ -24,6 +25,7 @@ router.get('/health-check', (req, res) =>
 router.use('/auth', authRoutes);
 router.use('/call-center', callCenterRoutes);
 router.use('/company', companyRoutes);
+router.use('/game', gameRoutes);
 router.use('/partner', partnerRoutes);
 router.use('/permission', permissionRoutes);
 router.use('/product', productRoutes);

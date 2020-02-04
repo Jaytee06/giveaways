@@ -100,6 +100,12 @@ export class MenuItems {
       icon: 'fa fa-lock',
       type: 'link',
     });
+    if (isSuperAdmin || hasPermissions.indexOf('game') > -1) this.add({
+      state: 'games',
+      name: 'Games',
+      icon: 'fa fa-gamepad',
+      type: 'link',
+    });
     if (isSuperAdmin || hasPermissions.indexOf('product') > -1) this.add({
       state: 'products',
       name: 'Products',
