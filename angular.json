@@ -55,7 +55,6 @@
               "node_modules/jqvmap/dist/maps/jquery.vmap.world.js",
               "src/assets/summernote/summernote.js",
               "src/assets/foo-table/js/footable.js",
-              "//dop3jnx8my3ym.cloudfront.net/embedder.js"
             ]
           },
           "configurations": {
