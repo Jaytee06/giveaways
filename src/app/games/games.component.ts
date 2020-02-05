@@ -18,6 +18,8 @@ export class GamesComponent implements OnInit {
 	queryLimit = 10;
 	windowWidth = window.innerWidth;
 
+	cols = 8;
+
 	constructor(
 		private service: GameService,
 		private userService: UserService,
@@ -34,6 +36,18 @@ export class GamesComponent implements OnInit {
 			[this.user] = data;
 			this.getGames();
 		});
+
+		if( window.innerWidth < 500 ) {
+			this.cols = 1;
+		} else if( window.innerWidth < 700 ) {
+			this.cols = 2;
+		} else if( window.innerWidth < 1100 ) {
+			this.cols = 4;
+		} else if( window.innerWidth < 1300 ) {
+			this.cols = 6;
+		}
+
+		this.queryLimit = 4 * this.cols;
 	}
 
 	getMoreGames() {
@@ -42,7 +56,7 @@ export class GamesComponent implements OnInit {
 	}
 
 	getGames() {
-		this.service.filters.user = this.user._id;
+		this.service.filters.active = true;
 		this.service.filters.skip = this.querySkip;
 		this.service.filters.limit = this.queryLimit;
 		this.service.filters.active = true;
@@ -53,7 +67,7 @@ export class GamesComponent implements OnInit {
 	}
 
 	goToGame(game) {
-		this.router.navigate(['../', game._id], {relativeTo:this.activatedRoute});
+		this.router.navigate(['../', game._id, this.user.fullname], {relativeTo:this.activatedRoute});
 	}
 }
 

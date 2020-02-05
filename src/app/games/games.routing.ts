@@ -14,7 +14,7 @@ export const GamesRoutes: Routes = [{
           path: 'list',
           component: GamesComponent
       },{
-          path: ':id',
+          path: ':id/:username',
           component: GameComponent
       },
   ]

@@ -3,3 +3,4 @@
   [entity]="'Game'"
   (rowClicked)="gameSelected($event)"
 ></tcg-table>
+<button class="btn btn-primary" (click)="getGames()" [disabled]="importing"><i class="fa fa-upload"></i> Import Games <i class="fa fa-spinner fa-spin" *ngIf="importing"></i></button>

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
     <div class="chk-block">
       <div class="chk-block-title">
         <h3 class="text-capitalize">Details</h3>
@@ -15,6 +15,23 @@
         <ng-template #loader>
           <app-loader></app-loader>
         </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <div class="chk-block">
+      <div class="chk-block-title">
+        <h3 class="text-capitalize">Screen Shots</h3>
+      </div>
+      <div class="chk-block-content">
+        <ng-container *ngFor="let image of game.screenShots; index as i">
+          <img class="ml-2" [src]="image" width="300" /><br>
+          <div class="d-flex mt-1">
+            <div class="mr-2">Screen Shot {{i+1}}: </div>
+            <div class="flex-grow-1"><input type="text" class="form-control" [(ngModel)]="game.screenShots[i]" /></div>
+          </div>
+        </ng-container>
+        <button class="btn btn-success mt-2" (click)="addScreenShot()">Add Screen Shot</button>
       </div>
     </div>
   </div>

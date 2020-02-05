@@ -29,6 +29,13 @@ export class GameService extends BaseService {
 		);
 	}
 
+	importGames$(provider) {
+		return this.http.get(`${this.getBaseUrl()}/game/import/${provider}`, { headers: this.headers }).pipe(
+			tap(() => {this.success('Games Imported');}),
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
 	save$(game) {
 		if (game) {
 			if (game._id) {

@@ -38,11 +38,6 @@ export class GameComponent implements OnInit {
 				{_id: 'softGames', name: 'Soft Games'},
 			]
 		}, {
-			name: 'External ID',
-			_id: 'externalId',
-			type: FieldTypeEnum.Input,
-			required: true,
-		},{
 			name: 'External Game Tag',
 			_id: 'externalGameTag',
 			type: FieldTypeEnum.Input,
@@ -65,6 +60,11 @@ export class GameComponent implements OnInit {
 			name: 'Game Tags (comma seperated)',
 			_id: 'tags',
 			type: FieldTypeEnum.Input,
+		},{
+			name: 'Ticket Reward Amount',
+			_id: 'rewardAmount',
+			type: FieldTypeEnum.Input,
+			typeAttribute:TypeAttributeEnum.Number,
 		},
 		{
 			name: 'Active',
@@ -93,8 +93,20 @@ export class GameComponent implements OnInit {
 		});
 	}
 
+	addScreenShot() {
+		if( !this.game.screenShots )
+			this.game.screenShots = [];
+
+		this.game.screenShots.push('');
+	}
+
 	save(game) {
-		game = { ...game, _id: this.game._id };
+		game = { ...game, _id: this.game._id, screenShots: this.game.screenShots };
+
+		if( game.screenShots && game.screenShots.length ) {
+			game.screenShots = game.screenShots.filter(x => x != '');
+		}
+
 		this.service.save$(game).subscribe(
 			data => {
 				this.game = data;

@@ -14,11 +14,6 @@ const GameSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    externalId: {
-        type: String,
-        required: true,
-        trim: true
-    },
     externalGameTag: {
         type: String,
         required: true,
@@ -32,6 +27,10 @@ const GameSchema = new mongoose.Schema({
     thumb: image,
     thumbBig: image,
     screenShots: [image],
+    rewardAmount: {
+        type: Number,
+        default: 0
+    },
     tags:[{
         type: String,
         trim: true

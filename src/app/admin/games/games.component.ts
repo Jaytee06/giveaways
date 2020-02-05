@@ -11,6 +11,7 @@ import {GameService} from "../../services/games.service";
 })
 export class GamesComponent implements OnInit {
 
+	importing = false;
 	tableData: any = {
 		pageSize:100,
 	};
@@ -35,12 +36,16 @@ export class GamesComponent implements OnInit {
 		];
 		this.tableData.displayedColumns = ['thumb', 'name', 'externalSite', 'active', 'createdAt'];
 
-		this.tableData.isLoading = true;
 		this.tableData.dataSource = new EventEmitter();
+		this.loadGames();
+	}
+
+	loadGames() {
+		this.tableData.isLoading = true;
 		this.service.get$().subscribe(
 			(data: any[]) => {
 				data = data.map((x) => {
-					x.thumb = '<img class="ml-2" src="'+x.thumb+'" width="30" height="30">';
+					x.thumb = '<img class="ml-2" src="'+x.screenShots[0]+'" width="100">';
 					x.active = x.active ? 'Yes' : 'No';
 					x.createdAt = this.service.formatDate(x.createdAt, true);
 					return x;
@@ -48,7 +53,6 @@ export class GamesComponent implements OnInit {
 				this.tableData.dataSource.emit(data);
 			}
 		);
-
 	}
 
 	gameSelected(game) {
@@ -57,5 +61,14 @@ export class GamesComponent implements OnInit {
 
 	rowSelected(row) {
 		console.log(row);
+	}
+
+	getGames() {
+		this.importing = true;
+		let provider = 'sfGames';
+		this.service.importGames$(provider).subscribe((d) => {
+			this.importing = false;
+			this.loadGames();
+		});
 	}
 }
