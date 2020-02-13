@@ -1,0 +1,61 @@
+<div class="chk-block">
+	<div class="chk-block-title">
+		<h4>Ticket Opportunities</h4>
+		<div class="d-flex flex-fill">
+			<div class="font-sm mr-2">
+				Subscribers have a 2X chance bonus!
+			</div>
+			<div>
+				<small>
+					<span *ngIf="user && user.isSubscribed; else notSubbed" class="text-success">You are currently subscribed!</span>
+					<ng-template #notSubbed>
+						<span class="text-danger">You are not currently subscribed. <a href="https://www.twitch.tv/vintleytv" target="_blank">Sub on Twitch</a></span>
+					</ng-template>
+				</small>
+			</div>
+		</div>
+	</div>
+	<div class="chk-block-content">
+		<small class="text-danger">Tickets may take up to 24 hrs to be awarded for the below items.</small>
+<!--		<div class="ticket-item">Login daily to receive 5 <i class="fa fa-ticket text-success"></i>!</div>-->
+		<div class="ticket-item">Keep an eye on the twitch chat.</div>
+		<div class="ticket-item d-flex flex-fill" *ngFor="let opp of ticketOpps">
+				<div>
+					<ng-container [ngSwitch]="opp.refType">
+						<i class="fa fa-facebook" *ngSwitchCase="'facebook'"></i>
+						<i class="fa fa-twitter" *ngSwitchCase="'twitter'"></i>
+						<i class="fa fa-twitch" *ngSwitchCase="'twitch'"></i>
+						<i class="fa fa-instagram" *ngSwitchCase="'instagram'"></i>
+					</ng-container>
+				</div>
+				<div class="ml-2" [ngClass]="{'redeemed': opp.redeemed}">
+<!--					<ng-container [ngSwitch]="opp.requiredAction">-->
+<!--						<span *ngSwitchCase="'comment'">Leave a comment on our <a [href]="'https://'+opp.refLink" target="_blank">post</a></span>-->
+<!--					</ng-container>-->
+					<span >{{opp.requiredAction}} <a [href]="opp.refLink" target="_blank">Link</a></span>
+				</div>
+			<div class="flex-grow-1"></div>
+				<div [ngClass]="{'text-success': opp.redeemed}">
+					<span *ngIf="opp.redeemed">
+						Redeemed!
+					</span>
+					{{opp.amount * (user.isSubscribed ? 2 : 1) | number}} <i class="fa fa-ticket text-success"></i>
+				</div>
+			</div>
+
+		<div class="mt-8 mb-5" *ngIf="stickyTicketOpps && stickyTicketOpps.length">
+			<mat-grid-list rowHeight="1:1" [cols]="stickyTicketOpps.length" class="spacer-container" [gutterSize]="'3rem'" >
+				<mat-grid-tile class="spacer" *ngFor="let op of stickyTicketOpps" >
+					<div class="container-opp">
+						<img class="clickable" height="100%" width="100%" [src]="op.backgroundImage" (click)="opSelected(op)" [ngStyle]="{'opacity': op.redeemed ? '0.5' : '1'}" />
+						<div class="overlay" *ngIf="op.redeemed" [matTooltip]="'Redeemed!'">
+							<i class="fa fa-check text-success"></i>
+						</div>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+			<div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>

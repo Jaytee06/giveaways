@@ -1,3 +1,29 @@
+.main-img {
+	-webkit-clip-path: polygon(0 0, 50% 10%, 100% 0, 100% 100%, 50% 90%, 0 100%);
+	clip-path: polygon(0 0, 50% 10%, 100% 0, 100% 100%, 50% 90%, 0 100%);
+
+	background-image: url("/../../assets/img/vase.jpg");
+	//background-image: url("/../../assets/img/login-banner2.png");
+	//background-image: url("/../../assets/img/textiles.png");
+	//background-image: url("/../../assets/img/sunflower.jpg");
+	//background-image: url("/../../assets/img/bee.jpg");
+
+	background-attachment: fixed;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+	padding: 2rem;
+	right: 0;
+	top: 0;
+	height: 600px;
+
+	//color: #11dab1;
+	color: white;
+}
+
 .left-div {
 	width: 60rem;
 }
@@ -35,4 +61,17 @@
 		width: 100%;
 		clear: both;
 	}
+}
+
+.center-content {
+	max-width: 1100px;
+	margin: auto;
+}
+
+.raffle-img-text {
+	color: white;
+	margin-top: -2em;
+	font-size: x-large;
+	margin-right: 1em;
+	font-weight: bold;
 }

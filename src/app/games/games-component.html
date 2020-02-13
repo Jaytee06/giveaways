@@ -8,7 +8,7 @@
 				<mat-grid-tile *ngFor="let game of games">
 					<div class="d-flex flex-fill flex-column mb-1 full-width game-item">
 						<div><img [src]="game.screenShots[0]" width="100%" /></div>
-						<div class="mt-2 mb-2 flex-fill text-center">{{game.name}}</div>
+						<div class="mt-2 mb-2 flex-fill text-center flex-grow-1">{{game.name}}</div>
 						<div class="p-1"><button class="btn btn-orange full-width" (click)="goToGame(game)" ><span class="fa fa-play"></span> Play for {{game.rewardAmount}} <i class="fa fa-ticket text-success"></i></button></div>
 					</div>
 				</mat-grid-tile>

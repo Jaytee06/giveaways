@@ -1,0 +1,66 @@
+<div class="pad-wrap">
+	<div class="chk-block" *ngIf="!loading else isLoading">
+		<div class="chk-block-title">
+			<h4>Spin Wheel</h4>
+			<div class="d-flex flex-fill">
+				<div class="font-sm mr-2">
+					Subscribers have a 2X chance bonus!
+				</div>
+				<div>
+					<small>
+						<span *ngIf="user && user.isSubscribed; else notSubbed" class="text-success">You are currently subscribed!</span>
+						<ng-template #notSubbed>
+							<span class="text-danger">You are not currently subscribed. <a href="https://www.twitch.tv/vintleytv" target="_blank">Sub on Twitch</a></span>
+						</ng-template>
+					</small>
+				</div>
+			</div>
+		</div>
+		<div class="chk-block-content">
+			<span *ngIf="spinCount <= 0; else outOfSpins">
+				<div *ngIf="winMessage !== ''" class="text-center">
+					<span [innerHTML]="winMessage"></span>
+				</div>
+				<div class="text-center">
+					<p>Looks like you are out of spins.</p>
+					<p>Try again tomorrow!</p>
+					<br>
+					<h3>Play <a [routerLink]="['/games/list']">Games</a> and earn <i class="fa fa-ticket text-success"></i></h3>
+				</div>
+			</span>
+			<ng-template #outOfSpins>
+				<span *ngIf="ticketCount > spinCost; else noTickets">
+					<h4 class="text-center">{{centerText}}</h4>
+					<div *ngIf="winMessage !== ''" class="text-center">
+							<span [innerHTML]="winMessage"></span>
+						</div>
+					<div class="text-center">
+						<p>Test your luck and spin the wheel. <span class="text-danger">Each spin cost {{spinCost}} <i class="fa fa-ticket text-success"></i>!</span></p>
+						<p>How many <i class="fa fa-ticket text-success"></i> can you win?</p>
+					</div>
+					<ngx-wheel
+							[spinOnce]="false"
+							[prizeToWin]="winText"
+							[centerText]="'Click to Spin'"
+							[prize_descriptions]="allPrizes"
+							[spinRange]="[10,5]"
+							[fontColor]="'white'"
+							[colors]="['#0066EB', '#e83e8c', '#6610f2', '#F8C51C', '#00caac', '#ff5723', '#51CAE3', '#F54B5E', '#43AE3F']"
+							(afterSpin)="wheelSpun()"
+					>
+					</ngx-wheel>
+
+				</span>
+				<ng-template #noTickets>
+					<div class="text-center">
+						<p>Looks like you don't have enough <i class="fa fa-ticket text-success"></i> to play at this time.</p>
+						<p>It takes {{spinCost}} <i class="fa fa-ticket text-success"></i> to spin.</p>
+					</div>
+				</ng-template>
+			</ng-template>
+		</div>
+	</div>
+	<ng-template #isLoading>
+		<app-loader></app-loader>
+	</ng-template>
+</div>

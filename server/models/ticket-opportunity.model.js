@@ -14,6 +14,10 @@ const TicketOpportunitySchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    requiredActionDesc: {
+        type: String,
+        trim: true,
+    },
     refLink: {
         type: String,
         trim: true,

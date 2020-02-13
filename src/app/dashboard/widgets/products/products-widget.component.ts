@@ -18,8 +18,7 @@ export class ProductsWidgetComponent implements OnInit {
 	user: any;
 	maxTickets = 0;
 
-	cols = 6;
-	gutter = 3;
+	cols = 4;
 
 	constructor(
 		private service: ProductService,
@@ -58,10 +57,6 @@ export class ProductsWidgetComponent implements OnInit {
 			this.cols = 2;
 		} else if( window.innerWidth < 1100 ) {
 			this.cols = 3;
-		} else if( window.innerWidth < 1300 ) {
-			this.cols = 4;
-		} else if( window.innerWidth < 1700 ) {
-			this.cols = 5;
 		}
 	}
 

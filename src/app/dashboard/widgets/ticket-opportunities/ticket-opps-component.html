@@ -1,61 +1,68 @@
 <div class="chk-block">
-	<div class="chk-block-title">
-		<h4>Ticket Opportunities</h4>
-		<div class="d-flex flex-fill">
-			<div class="font-sm mr-2">
-				Subscribers have a 2X chance bonus!
-			</div>
-			<div>
-				<small>
-					<span *ngIf="user && user.isSubscribed; else notSubbed" class="text-success">You are currently subscribed!</span>
-					<ng-template #notSubbed>
-						<span class="text-danger">You are not currently subscribed. <a href="https://www.twitch.tv/vintleytv" target="_blank">Sub on Twitch</a></span>
-					</ng-template>
-				</small>
-			</div>
-		</div>
-	</div>
 	<div class="chk-block-content">
-		<small class="text-danger">Tickets may take up to 24 hrs to be awarded for the below items.</small>
-<!--		<div class="ticket-item">Login daily to receive 5 <i class="fa fa-ticket text-success"></i>!</div>-->
-		<div class="ticket-item">Keep an eye on the twitch chat.</div>
-		<div class="ticket-item d-flex flex-fill" *ngFor="let opp of ticketOpps">
-				<div>
-					<ng-container [ngSwitch]="opp.refType">
-						<i class="fa fa-facebook" *ngSwitchCase="'facebook'"></i>
-						<i class="fa fa-twitter" *ngSwitchCase="'twitter'"></i>
-						<i class="fa fa-twitch" *ngSwitchCase="'twitch'"></i>
-						<i class="fa fa-instagram" *ngSwitchCase="'instagram'"></i>
-					</ng-container>
-				</div>
-				<div class="ml-2" [ngClass]="{'redeemed': opp.redeemed}">
-<!--					<ng-container [ngSwitch]="opp.requiredAction">-->
-<!--						<span *ngSwitchCase="'comment'">Leave a comment on our <a [href]="'https://'+opp.refLink" target="_blank">post</a></span>-->
-<!--					</ng-container>-->
-					<span >{{opp.requiredAction}} <a [href]="opp.refLink" target="_blank">Link</a></span>
-				</div>
-			<div class="flex-grow-1"></div>
-				<div [ngClass]="{'text-success': opp.redeemed}">
-					<span *ngIf="opp.redeemed">
-						Redeemed!
-					</span>
-					{{opp.amount * (user.isSubscribed ? 2 : 1) | number}} <i class="fa fa-ticket text-success"></i>
-				</div>
-			</div>
-
-		<div class="mt-8 mb-5" *ngIf="stickyTicketOpps && stickyTicketOpps.length">
-			<mat-grid-list rowHeight="1:1" [cols]="stickyTicketOpps.length" class="spacer-container" [gutterSize]="'3rem'" >
-				<mat-grid-tile class="spacer" *ngFor="let op of stickyTicketOpps" >
-					<div class="container-opp">
-						<img class="clickable" height="100%" width="100%" [src]="op.backgroundImage" (click)="opSelected(op)" [ngStyle]="{'opacity': op.redeemed ? '0.5' : '1'}" />
-						<div class="overlay" *ngIf="op.redeemed" [matTooltip]="'Redeemed!'">
-							<i class="fa fa-check text-success"></i>
-						</div>
+		<div class="text-center"><h3>Earn Tickets</h3></div>
+		<mat-grid-list rowHeight="1:1.25" [cols]="cols" [gutterSize]="'2rem'" >
+			<mat-grid-tile class="ticket-opp"  *ngFor="let opp of ticketOpps">
+				<div class="d-flex flex-column flex-fill ticket-opp">
+					<div class="text-center font-weight-bold">{{opp.requiredAction}}</div>
+					<div class="ml-2 mr-2" *ngIf="opp.backgroundImage; else noImage">
+						<img width="100%" [src]="opp.backgroundImage" />
 					</div>
-				</mat-grid-tile>
-			</mat-grid-list>
-			<div class="clearfix"></div>
-		</div>
-		<div class="clearfix"></div>
+					<ng-template #noImage>
+						<div class="ml-2 mr-2">
+							<ng-container [ngSwitch]="opp.refType">
+								<img width="100%" src="https://vintley.s3-us-west-2.amazonaws.com/public-images/logo-facebook-facebook-logo-png-transparent-svg-vector-bie-supply-13.png" *ngSwitchCase="'facebook'" />
+								<img width="100%" src="https://vintley.s3-us-west-2.amazonaws.com/public-images/Twitter%2Blogo%2Bclassic.png" *ngSwitchCase="'twitter'" />
+								<img width="100%" src="https://vintley.s3-us-west-2.amazonaws.com/public-images/twitch-logo-png-3.png" *ngSwitchCase="'twitch'" />
+								<img width="100%" src="https://vintley.s3-us-west-2.amazonaws.com/public-images/instagram+logo.png" *ngSwitchCase="'intsagram'" />
+								<img width="100%" src="https://vintley.s3-us-west-2.amazonaws.com/public-images/Vintley_Logo1.png" *ngSwitchDefault />
+							</ng-container>
+						</div>
+					</ng-template>
+					<div class="text-center p-3">
+						<small>{{opp.requiredActionDesc}}</small>
+					</div>
+					<div class="mt-auto p-2">
+						<a class="btn btn-orange full-width" [href]="opp.refLink" target="_blank" [matTooltip]="opp.requiredActionDesc">
+							<span *ngIf="!opp.redeemed; else notRedeemed">Get </span>
+							<ng-template #notRedeemed class="text-success"><i class="fa fa-check"></i> Redeemed for </ng-template>
+							{{opp.amount | number}} <i class="fa fa-ticket text-success"></i>
+						</a>
+					</div>
+				</div>
+			</mat-grid-tile>
+			<mat-grid-tile class="ticket-opp"  *ngFor="let quiz of quizzes">
+				<div class="d-flex flex-column flex-fill ticket-opp quiz-opp">
+					<div class="text-center font-weight-bold">Trivia Game</div>
+					<div class="ml-2 mr-2 text-center">
+						<img width="80%" src="https://vintley.s3-us-west-2.amazonaws.com/public-images/Vintley_Logo1.png" />
+					</div>
+					<div class="text-center p-3">
+						<small>
+							<span *ngIf="quiz.payoutType == 'perQuestion'; else elseType">
+								<div class="text-center">{{quiz.ticketsPerQuestions}}<span class="fa fa-ticket text-success"></span> / Question</div>
+								<div class="text-center">Join for a chance to win up to {{quiz.ticketsPerQuestions * quiz.questions.length}}<span class="fa fa-ticket text-success"></span></div>
+							</span>
+							<ng-template #elseType>
+								<div class="text-center">{{quiz.tickets}}<span class="fa fa-ticket text-success"></span> Split Winners</div>
+								<div class="text-center">Join for a chance to win up to {{quiz.tickets}}<span class="fa fa-ticket text-success"></span></div>
+							</ng-template>
+							<div class="font-weight-bold">
+								<span [ngClass]="{'text-success': quiz.status == 'In Progress', 'text-info': quiz.status == 'Starting'}">{{quiz.status}} </span>
+								<span *ngIf="quiz.status != 'In Progress'">{{quiz.displayTime}}</span>
+							</div>
+						</small>
+					</div>
+					<div class="mt-auto p-2">
+						<button class="btn btn-orange full-width" (click)="quizClicked(quiz)">
+							<span *ngIf="quiz.status === 'Ended';">View Results </span>
+							<span *ngIf="quiz.status === 'In Progress';">View Progress</span>
+							<span *ngIf="quiz.status === 'Starting';">Join Now</span>
+						</button>
+					</div>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+		<div><small class="text-danger">Tickets may take up to 24 hrs to be awarded for the below items.</small></div>
 	</div>
 </div>

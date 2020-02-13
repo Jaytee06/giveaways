@@ -1,43 +1,48 @@
-<div class="d-flex flex-fill">
-	<div class="font-sm mr-2">
-		Subscribers receive 30% off our entire store!
-	</div>
-	<div>
-		<small>
-			<span *ngIf="user && user.isSubscribed; else notSubbed" class="text-success">You are currently subscribed!</span>
-			<ng-template #notSubbed>
-				<span class="text-danger">You are not currently subscribed. <a href="https://www.twitch.tv/vintleytv" target="_blank">Sub on Twitch</a></span>
-			</ng-template>
-		</small>
-	</div>
-</div>
-<div class="mt-8">
-	<mat-grid-list rowHeight="1:1" [cols]="cols" class="spacer-container" [gutterSize]="gutter+'rem'">
-		<mat-grid-tile class="spacer" *ngFor="let product of products">
-			<div class="d-flex flex-fill flex-column mb-1 full-width">
-				<div class="name-container">
-					{{product.name}}
-				</div>
-				<div class="img-container">
-					<a [href]="product.link" target="_blank">
-						<img height="100%" [src]="product.image" />
-					</a>
-				</div>
-				<div class="d-flex flex-fill pr-2 pl-2">
-					<div class="d-flex flex-grow-1 align-content-center flex-wrap"><small class="text-muted">Retail: ${{product.retailPrice | number:'1.2':'en'}}</small></div>
-					<div>
-						<div class="d-flex flex-fill flex-column" *ngIf="product.discountAmount">
-							<div class="discounted-container"><span class="discounted">{{product.ticketAmount | number}} </span> <span class="fa fa-ticket text-success"></span> <span class="text-success ml-2">{{product.discountAmount}}% off!</span></div>
+<div class="chk-block">
+	<div class="chk-block-content">
+		<div class="text-center"><h4>Redeem your <i class="fa fa-ticket text-success"></i> for Products!</h4></div>
+		<div class="d-flex flex-fill">
+			<div class="font-sm mr-2">
+				Subscribers receive 30% off our entire store!
+			</div>
+			<div>
+				<small>
+					<span *ngIf="user && user.isSubscribed; else notSubbed" class="text-success">You are currently subscribed!</span>
+					<ng-template #notSubbed>
+						<span class="text-danger">You are not currently subscribed. <a href="https://www.twitch.tv/vintleytv" target="_blank">Sub on Twitch</a></span>
+					</ng-template>
+				</small>
+			</div>
+		</div>
+		<div>
+			<mat-grid-list rowHeight="1:1.25" [cols]="cols" [gutterSize]="'2rem'">
+				<mat-grid-tile *ngFor="let product of products">
+					<div class="d-flex flex-fill flex-column mb-1 full-width product-item">
+						<div class="name-container font-weight-bold">
+							{{product.name}}
+						</div>
+						<div class="img-container p-2">
+							<a [href]="product.link" target="_blank">
+								<img height="100%" [src]="product.image" />
+							</a>
+						</div>
+						<div class="d-flex flex-fill pr-2 pl-2">
+							<div class="d-flex flex-grow-1 align-content-center flex-wrap"><small class="text-muted">Retail: ${{product.retailPrice | number:'1.2':'en'}}</small></div>
+							<div>
+								<div class="d-flex flex-fill flex-column" *ngIf="product.discountAmount">
+									<div class="discounted-container"><span class="discounted">{{product.ticketAmount | number}} </span> <span class="fa fa-ticket text-success"></span> <span class="text-success ml-1">{{product.discountAmount}}% off!</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-center p-2">
+							<button class="btn btn-orange full-width font-weight-bold font-lg" (click)="addToCart(product)" [disabled]="product.discountTicketAmount > maxTickets" [matTooltip]="product.discountTicketAmount > maxTickets ? 'You need more tickets for this' : 'Redeem!'">{{product.discountTicketAmount | number}} <span class="fa fa-ticket text-success"></span></button>
 						</div>
 					</div>
-				</div>
-				<div class="d-flex justify-content-center ml-2 mr-2">
-					<button class="btn btn-orange full-width font-weight-bold font-lg" (click)="addToCart(product)" [disabled]="product.discountTicketAmount > maxTickets" [matTooltip]="product.discountTicketAmount > maxTickets ? 'You need more tickets for this' : 'Redeem!'">{{product.discountTicketAmount | number}} <span class="fa fa-ticket text-success"></span></button>
-				</div>
-			</div>
-		</mat-grid-tile>
-	</mat-grid-list>
-</div>
-<div class="d-flex flex-fill justify-content-center mt-8">
-	<small>We are always adding items to our store! So remember to stay up to date.</small>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+		<div class="d-flex flex-fill justify-content-center">
+			<small>We are always adding items to our store! So remember to stay up to date.</small>
+		</div>
+	</div>
 </div>

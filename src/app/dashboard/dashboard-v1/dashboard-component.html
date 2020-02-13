@@ -1,45 +1,9 @@
 <div class="pad-wrap">
-	<div class="d-flex flex-fill d-lg-none">
-		<div class="flex-grow-1"><my-tickets-widget class="pb-md-1" [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></my-tickets-widget></div>
+	<raffles-widget></raffles-widget>
+	<ticket-opps-widget></ticket-opps-widget>
+	<div class="d-flex flex-fill mb-2 h-500">
+		<twitch-channel-widget class="full-width"></twitch-channel-widget>
 	</div>
-	<div class="d-flex flex-fill d-lg-none">
-		<div class="flex-grow-1 mr-1">
-			<raffles-widget></raffles-widget>
-		</div>
-		<div class="flex-grow-1 d-none d-sm-block ml-1">
-			<trivia-quizzes-widget></trivia-quizzes-widget>
-		</div>
-	</div>
-	<div class="d-flex flex-fill d-block d-sm-none">
-		<trivia-quizzes-widget></trivia-quizzes-widget>
-	</div>
-	<div class="d-flex flex-fill mb-2">
-		<div class="flex-grow-1 player-div mr-1">
-			<twitch-channel-widget class="full-width"></twitch-channel-widget>
-		</div>
-		<div class="d-none d-lg-block ml-1">
-			<my-tickets-widget class="pb-md-1" [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></my-tickets-widget>
-			<raffles-widget></raffles-widget>
-			<trivia-quizzes-widget></trivia-quizzes-widget>
-		</div>
-	</div>
-	<div>
-		<h4>How to Earn More Tickets</h4>
-		<div class="d-flex flex-fill">
-			<div class="flex-grow-1 mr-1">
-				<ticket-opps-widget></ticket-opps-widget>
-			</div>
-			<div class="flex-grow-1 ml-1 d-none d-lg-block" *ngIf="!isSmallScreen">
-				<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>
-			</div>
-		</div>
-		<div class="d-flex flex-fill">
-			<div class="flex-grow-1 ml-1 d-lg-none" *ngIf="isSmallScreen">
-				<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>
-			</div>
-		</div>
-	</div>
-	<div>
-		<widget-products></widget-products>
-	</div>
+	<spin-wheel-widget [signalUpdate]="signalToUpdateData" (didUpdateData)="shouldUpdateData($event)"></spin-wheel-widget>
+	<widget-products></widget-products>
 </div>

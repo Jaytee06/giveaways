@@ -3,11 +3,15 @@ import {UserService} from "../../../services/user.service";
 import {TicketService} from "../../../services/ticket.service";
 
 import * as moment from 'moment';
+import {ActivatedRoute, Router} from "@angular/router";
+import {GameService} from "../../../services/games.service";
+import {combineLatest} from "rxjs";
 
 @Component({
 	selector: 'spin-wheel-widget',
 	templateUrl: './spin-wheel-component.html',
 	styleUrls: ['./spin-wheel-component.scss'],
+	providers:[TicketService, GameService]
 })
 export class SpinWheelComponent implements OnInit {
 
@@ -26,12 +30,34 @@ export class SpinWheelComponent implements OnInit {
 	winText = '';
 	private winProbability = [.065, .315, .1, .315, .025, .065, .05, .065];
 	messageTimeout;
+	spinning = false;
 
-	constructor(private service: UserService, private ticketService: TicketService) {}
+	cols = 3;
+	games:any[] = [];
+
+	windowWidth = window.innerWidth;
+
+	constructor(
+		private service: UserService,
+		private ticketService: TicketService,
+		private gameService: GameService,
+		private router: Router,
+		private activatedRoute: ActivatedRoute
+	) {}
 
 	ngOnInit() {
-		this.service.getCurrentUser().subscribe((user) => {
-			this.user = user;
+
+		if( window.innerWidth < 500 ) {
+			this.cols = 1;
+		} else if( window.innerWidth < 700 ) {
+			this.cols = 2;
+		}
+
+		const user$ = this.service.getCurrentUser();
+		this.gameService.filters.limit = 6;
+		const games$ = this.gameService.get$();
+		combineLatest([user$, games$]).subscribe((data) => {
+			[this.user, this.games] = data;
 
 			if( this.user.isSubscribed )
 				this.winProbability = [.13, .13, .2, .13, .05, .13, .1, .13];
@@ -58,6 +84,7 @@ export class SpinWheelComponent implements OnInit {
 		this.ticketService.myTickets(this.user._id).subscribe((data:any) => {
 			this.ticketCount = data.count;
 			this.getWin();
+			this.spinning = false;
 		});
 	}
 
@@ -66,6 +93,9 @@ export class SpinWheelComponent implements OnInit {
 	}
 
 	wheelSpun() {
+		if( this.spinning ) return;
+		this.spinning = true;
+
 		let cClass = 'text-danger';
 		let message = '';
 		let tickets = 0;
@@ -92,7 +122,6 @@ export class SpinWheelComponent implements OnInit {
 			this.winMessage = '';
 		}, 3000);
 
-		console.log(this.user.isSubscribed, this.winProbability);
 		this.getWin();
 		tickets = tickets - this.spinCost;
 		this.user.spinWheel.push({wonTickets:tickets});
@@ -103,6 +132,10 @@ export class SpinWheelComponent implements OnInit {
 				this.setUp();
 			});
 		});
+	}
+
+	goToGame(game) {
+		this.router.navigate(['../../games', game._id, this.user.fullname], {relativeTo:this.activatedRoute});
 	}
 
 	private _getRandomIndexByProbability(probabilities) {

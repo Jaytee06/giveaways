@@ -12,3 +12,16 @@ h4 {
 .hand:hover {
 	cursor: pointer;
 }
+
+.image-text {
+	color: white;
+	text-shadow: 0px 0px 3px black;
+}
+
+.back-img {
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: center top;
+	position: relative;
+	z-index: 1;
+}

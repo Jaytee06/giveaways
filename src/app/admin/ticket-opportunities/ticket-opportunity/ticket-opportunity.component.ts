@@ -38,6 +38,11 @@ export class TicketOpportunityComponent implements OnInit {
 			type: FieldTypeEnum.Input,
 		},
 		{
+			name: 'Required Action Description',
+			_id: 'requiredActionDesc',
+			type: FieldTypeEnum.Input,
+		},
+		{
 			name: 'ref',
 			_id: 'refType',
 			type: FieldTypeEnum.ngSelect,

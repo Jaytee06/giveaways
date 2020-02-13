@@ -46,8 +46,10 @@ export class RaffleService extends BaseService {
 		);
 	}
 
-	currentRaffles() {
-		return this.http.get(`${this.getBaseUrl()}/raffle/current`, { headers: this.headers }).pipe(
+	currentRaffles(isPublic=false) {
+		let url = this.getBaseUrl();
+		if( isPublic ) url += '/public';
+		return this.http.get(`${url}/raffle/current`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}

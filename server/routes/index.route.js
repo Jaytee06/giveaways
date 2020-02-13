@@ -15,6 +15,8 @@ const ticketOppRoutes = require('./ticket-opportunity.route');
 const triviaRoutes = require('./trivia.route');
 const userRoutes = require('./user.route');
 
+const publicRoutes = require('./public-routes/index.route');
+
 const router = express.Router(); // eslint-disable-line new-cap
 
 /** GET /health-check - Check service health */
@@ -37,5 +39,8 @@ router.use('/ticket', ticketRoutes);
 router.use('/ticket-opportunity', ticketOppRoutes);
 router.use('/trivia', triviaRoutes);
 router.use('/user', userRoutes);
+
+// Public route access
+router.use('/public', publicRoutes);
 
 module.exports = router;

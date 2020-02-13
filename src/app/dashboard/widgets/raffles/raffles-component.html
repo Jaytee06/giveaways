@@ -1,27 +1,29 @@
-<div class="pad-wrap">
-	<div class="chk-block">
-		<div class="chk-block-title">
-			<h4>Giveaways</h4>
+<div class="mb-3 back-img" [ngStyle]="{'background-image':'url(\''+raffle.giveAwayImage+'\')', 'fh-500': windowWidth > 1000, 'fh-300': windowWidth < 1000}" *ngIf="raffle">
+	<div class="d-flex full-width align-items-center" [ngClass]="{'flex-column':windowWidth < 600}">
+		<div class="d-flex flex-grow-1 flex-column" [ngClass]="{'h-300':windowWidth < 600, 'h-500':windowWidth > 600}">
+			<div class="ml-3 mt-2 image-text">
+				<div *ngIf="raffle.status != 'In Progress' && raffle.status === 'Ended'">Our last giveaway</div>
+				<div *ngIf="raffle.status != 'In Progress' && raffle.status !== 'Ended'">Our next giveaway</div>
+				<div class="font-2x">{{raffle.giveAwayName}}</div>
+				<div>Worth {{raffle.monetaryValue | currency}}</div>
+			</div>
+			<div class="flex-grow-1" *ngIf="windowWidth > 600"></div>
 		</div>
-		<div class="chk-block-content">
-			<table class="table table-borderless table-middle mb-0">
-				<tbody>
-					<tr *ngFor="let raffle of raffles" [ngClass]="{'text-muted': raffle.status == 'Ended'}" (click)="raffleClicked(raffle)" class="hand">
-						<td>
-							<img [src]="raffle.giveAwayImage" *ngIf="raffle.giveAwayImage" height="20px"/>
-							<div>{{raffle.giveAwayName}}</div>
-							<small>Worth {{raffle.monetaryValue | currency}}</small>
-						</td>
-						<td>
-
-						</td>
-						<td>
-							<span [ngClass]="{'text-success': raffle.status == 'In Progress', 'text-info': raffle.status == 'Starting'}">{{raffle.status}} </span>
-							<span *ngIf="raffle.status != 'In Progress'">{{raffle.displayTime}}</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="d-flex flex-column" [ngClass]="{'h-500': windowWidth > 600}">
+			<div class="flex-grow-1" *ngIf="windowWidth > 600"></div>
+			<div class="mr-3 mb-2 image-text font-2x">
+				<span [ngClass]="{'text-success': raffle.status == 'In Progress', 'text-info': raffle.status == 'Starting'}">{{raffle.status}} </span>
+				<span *ngIf="raffle.status != 'In Progress'">{{raffle.displayTime}}</span>
+			</div>
+			<div class="mr-3 mb-2">
+				<button class="btn btn-orange full-width font-weight-bold font-lg" (click)="raffleClicked(raffle)">
+					<ng-container [ngSwitch]="raffle.status">
+						<div *ngSwitchCase="'Ended'">View Results</div>
+						<div *ngSwitchCase="'In Progress'">In Progress, Come Watch</div>
+						<div *ngSwitchDefault>Enter your <i class="fa fa-ticket text-success"></i></div>
+					</ng-container>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

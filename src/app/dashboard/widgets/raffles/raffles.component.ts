@@ -7,17 +7,29 @@ import {RaffleService} from "../../../services/raffle.service";
 	selector: 'raffles-widget',
 	templateUrl: './raffles-component.html',
 	styleUrls: ['./raffles-component.scss'],
+	providers:[RaffleService]
 })
 export class RafflesComponent implements OnInit {
 
 	raffles = [];
+	raffle: any; // last raffle
+
+	windowWidth = window.innerWidth;
 
 	constructor(private service: RaffleService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
 
 	}
 
 	ngOnInit() {
-		this.service.currentRaffles().subscribe((data) => {
+		this.service.currentRaffles().subscribe((data:any[]) => {
+			this.raffle = data[data.length-1];
+
+			if( this.windowWidth < 1000 ) {
+				let i = this.raffle.giveAwayImage.lastIndexOf('.');
+				this.raffle.giveAwayImage = this.raffle.giveAwayImage.substr(0, i) + '_short' + this.raffle.giveAwayImage.substr(i);
+			}
+
+			console.log(this.raffle.giveAwayImage);
 			this.updateTimes(data);
 		});
 	}
@@ -32,7 +44,7 @@ export class RafflesComponent implements OnInit {
 			q.status = "Starting";
 			if( q.didStart ) {
 				q.status = "In Progress";
-				showTime = q.didStart
+				showTime = q.didStart;
 				if( q.didEnd ) {
 					q.status = "Ended";
 					showTime = q.didEnd;

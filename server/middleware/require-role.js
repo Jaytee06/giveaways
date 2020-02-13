@@ -6,6 +6,10 @@ const requireRole = function (req, res, next) {
     if (req.user && req.user.roles.find(x => x.slug === 'super_admin') !== undefined)
         return next();
 
+    // current raffle public
+    if ( req.baseUrl.indexOf('/raffle/current') > -1 )
+        return next();
+
     // // check to see if the user has permission to this url via their roles
     if( req.user && req.user.roles && req.user.roles.length > 0) {
         let found = false;

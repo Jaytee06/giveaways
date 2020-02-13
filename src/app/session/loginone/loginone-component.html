@@ -1,99 +1,108 @@
-<div class="loginone-wrapper">
-    <div class="login-form-wrapper-2">
-        <div class="login-banner pos-relative">
-            <div class="float-left left-div">
-                <how-it-works></how-it-works>
-            </div>
+<div>
+    <div class="d-flex justify-content-end full-width mt-5 mr-5">
+        <div class="pr-5">
+            <button class="btn btn-outline-danger" (click)="loginone()">Login</button>
         </div>
-        <div class="login-content text-center">
-            <div class="login-inner-wrapper-2">
-                <div class="mb-2">
-                    <span class="square-100"><i class="fa fa-unlock-alt text-warning"></i></span>
-                </div>
-<!--                <div class="mb-2 font-lg text-danger">-->
-<!--                    <p>We are currently in beta phase.</p><p  *ngIf="userCount < maxUserCount"> We are looking for {{maxUserCount - userCount}} more users to test Vintley.</p>-->
-<!--                </div>-->
-                <div class="mb-3">
-                    <p class="text-primary">Welcome To Vintley!</p>
-<!--                    <h2 class="text-muted" *ngIf="userCount < maxUserCount">Sign in using your twitch account</h2>-->
-                    <h2 class="text-muted" >Sign in using your twitch account</h2>
-                </div>
-<!--                <form #loginForm="ngForm" class="login-form" action="javascript:void(0)" method="post" *ngIf="userCount < maxUserCount; else saveEmailT">-->
-                <form #loginForm="ngForm" class="login-form" action="javascript:void(0)" method="post">
-                    <!--<div class="form-group">-->
-                        <!--<input name="fname" class="form-control form-control-lg input-square" type="text" placeholder="First Name" required>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<input name="lname" class="form-control form-control-lg input-square" type="text" placeholder="Last Name" required>-->
-                    <!--</div>-->
-<!--                    <div class="form-group">-->
-<!--                        <input type="email" name="emailA" [(ngModel)]="email" class="form-control form-control-lg input-square" placeholder="Email Address" required>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <input type="password" name="passwordA" [(ngModel)]="password" class="form-control form-control-lg input-square" placeholder="Password" required>-->
-<!--                    </div>-->
-<!--                    <div class="login-meta mb-3">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-xs-6 col-sm-6 col-md-6">-->
-<!--                                <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0 d-flex">-->
-<!--                                    <input class="custom-control-input" type="checkbox">-->
-<!--                                    <span class="custom-control-indicator"></span>-->
-<!--                                    <span class="custom-control-description">Remember Me</span>-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--                            <div class="col-xs-6 col-sm-6 col-md-6 text-right"> -->
-<!--                                <a routerLink="/session/forgot-password" class="text-muted">Forgot Password?</a> -->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="mb-3">
-                        <button type="submit" (click)="loginone()" class="btn btn-primary btn-block btn-lg btn-square">Sign In/Sign Up with Twitch</button>
-                    </div>
-<!--                    <div class="mb-3">-->
-<!--                        <a routerLink="/session/register" class="text-muted">Still no account? Please go to Register</a>-->
-<!--                    </div>-->
-<!--                    <div class="login-social-icon">-->
-<!--                        <ul class="list-inline">-->
-<!--                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-google-plus fa-lg text-warning"></i></a></li>-->
-<!--                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-twitter fa-lg text-info"></i></a></li>-->
-<!--                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-facebook-official fa-lg text-primary"></i></a></li>-->
-<!--                            <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-instagram fa-lg text-danger"></i></a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-                </form>
-                <ng-template #saveEmailT>
-                    <form #emailForm="ngForm" class="email-form" action="javascript:void(0)" method="post" *ngIf="!lead._id; else gotLead" >
-                        <h2 class="text-muted">We are not accepting more users at this time.</h2>
-                        <p>Enter your email to be notified for when we are.</p>
-                        <div class="form-group">
-                            <input type="email" name="email" [(ngModel)]="email" class="form-control form-control-lg input-square" placeholder="Email Address" required [email]="true">
-                        </div>
-                        <div class="mb-3">
-                            <button type="submit" (click)="saveEmail()" class="btn btn-primary btn-block btn-lg btn-square" [disabled]="emailForm.form.invalid">Notify Me</button>
-                        </div>
-                    </form>
-                    <ng-template #gotLead >
-                        <p class="font-lg text-success">We saved your email and you will be notified!</p>
-                    </ng-template>
-                </ng-template>
-                <!-- login form closed -->
-            </div>
-            <!-- login inner wrapper closed -->
-        </div>
-        <!-- login content closed -->
     </div>
-    <!-- login form wrapper closed -->
-
-    <div class="clearfix"></div>
-    <div class="d-flex justify-content-center">
-        <div class="chk-block">
-            <div class="m-3">
-                <iframe width="711" height="400" src="https://www.youtube.com/embed/ZHFNbsK6WkU?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="d-flex full-width justify-content-center">
+        <div><img height="150em" src="https://vintley.s3-us-west-2.amazonaws.com/public-images/Vintley_Logo1.png"/></div>
+    </div>
+    <div class="main-img text-center d-flex flex-column flex-fill justify-content-around">
+        <div class="font-md font-weight-bold">Earn Rewards for Free</div>
+        <div class="d-flex justify-content-center">
+            <div class="btn btn-warning btn-lg font-lg font-weight-bold pr-5 pl-5" (click)="loginone()">Join for FREE</div>
+        </div>
+        <div class="font-md font-weight-bold">Cash in Rewards for Money</div>
+    </div>
+    <div class="d-flex center-content">
+        <div class="row d-flex align-items-center">
+            <div class="col col-xs-12 col-md-6 text-right">
+                <h1 class="pr-2">Join our Bi-Monthly Raffles</h1>
+                <p class="p-3 font-lg text-muted">
+                    Every other week we plan on doing a raffle. Enter our raffles for a chance to win great prizes!
+                </p>
+            </div>
+            <div class="col col-xs-12 col-md-6" *ngIf="raffle">
+                <div class="d-flex flex-fill pr-3">
+                    <div><h3>Our last Raffle</h3></div>
+                    <div class="ml-auto">{{raffle.giveAwayName}}</div>
+                </div>
+                <img [src]="raffle.giveAwayImage" width="100%" class="float-left" />
+                <span class="float-right raffle-img-text">{{raffle.status}} {{raffle.displayTime}}</span>
+                <div class="text-muted">Worth {{raffle.monetaryValue | currency}}</div>
             </div>
         </div>
+    </div>
+    <div class="center-content">
+        <hr>
+    </div>
+    <div class="d-flex center-content">
+        <div class="row d-flex align-items-center">
+            <div class="col col-xs-12 col-md-6 text-right">
+                <img src="https://vintley.s3-us-west-2.amazonaws.com/public-images/jvpostmaster-main.jpg" width="100%" />
+            </div>
+            <div class="col col-xs-12 col-md-6">
+                <h1 class="pl-2">Easy Rewards</h1>
+                <p class="p-3 font-lg text-muted mb-0">
+                    One way to be rewarded on Vintley is to interact with social media. You're doing it already, why not be rewarded?
+                </p>
+                <p class="p-3 font-lg text-muted">
+                    We have many ways of being rewarded all of them FREE to do!
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="center-content">
+        <hr>
+    </div>
+    <div class="d-flex center-content">
+        <div class="row d-flex align-items-center">
+            <div class="col col-xs-12 col-md-6 text-right">
+                <h1 class="pr-2">Redeem Rewards for Cash</h1>
+                <p class="p-3 font-lg text-muted">
+                    Use the rewards you earn on Vintley in our products store. Our store includes gift cards so you can redeem what you earn directly into cash!
+                </p>
+            </div>
+            <div class="col col-xs-12 col-md-6">
+                <img src="https://vintley.s3-us-west-2.amazonaws.com/public-images/kisspng-finance-investment-fund-business-money-5b3bc8283290a9.5125806315306445202071.png" width="80%" />
+            </div>
+        </div>
+    </div>
+    <div class="center-content">
+        <hr>
+    </div>
+    <div class="d-flex center-content">
+        <div class="row d-flex align-items-center">
+            <div class="col col-xs-12 col-md-6 text-right">
+                <img src="https://vintley.s3-us-west-2.amazonaws.com/public-images/free-referral-network-vector.jpg" width="100%" />
+            </div>
+            <div class="col col-xs-12 col-md-6">
+                <h1 class="pl-2">Referral Program</h1>
+                <p class="p-3 font-lg text-muted mb-0">
+                    Vintley has a referral program. Earn rewards off of what your friends do on Vintley. Per friend you refer you will receive 10% of all their rewards. Forever!
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="center-content">
+        <hr>
+    </div>
+    <div class="text-center d-flex flex-column flex-fill justify-content-around">
+        <br>
+        <div class="font-2x font-weight-bold">What are you waiting for?</div>
+        <br>
+        <br>
+        <div class="d-flex justify-content-center">
+            <div class="btn btn-warning btn-lg font-lg font-weight-bold pr-5 pl-5" (click)="loginone()">Join for FREE</div>
+        </div>
+        <br>
+        <br>
+        <div class="font-2x font-weight-bold">Start Earning Today!</div>
+    </div>
+    <div class="center-content">
+        <hr>
     </div>
 </div>
-<!-- login-one- wrapper closed -->
 
 
 

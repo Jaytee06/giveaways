@@ -1,4 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewChild, HostListener, ViewEncapsulation } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    ViewChild,
+    HostListener,
+    ViewEncapsulation,
+    OnChanges,
+    SimpleChange
+} from '@angular/core';
 import { MenuItems } from '../core/menu/menu-items/menu-items';
 import { BreadcrumbService} from 'ng5-breadcrumb';
 import { PageTitleService } from '../core/page-title/page-title.service';
@@ -9,6 +18,7 @@ import {MediaChange, ObservableMedia} from "@angular/flex-layout";
 import PerfectScrollbar from 'perfect-scrollbar';
 import { filter } from 'rxjs/operators';
 import {UserService} from "../services/user.service";
+import {TicketService} from "../services/ticket.service";
 declare var $ : any;
 
 const screenfull = require('screenfull');
@@ -17,10 +27,10 @@ const screenfull = require('screenfull');
     selector: 'chankya-layout',
   	templateUrl:'./main-material.html',
   	styleUrls: ['./main-material.scss'],
-    providers: [UserService],
+    providers: [UserService, TicketService],
     encapsulation: ViewEncapsulation.None
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit, OnDestroy, OnChanges {
 
     _router: Subscription;
     user: any;
@@ -50,6 +60,9 @@ export class MainComponent implements OnInit, OnDestroy {
     private _routerEventsSubscription: Subscription;
     public innerWidth: any;
 
+    ticketCount = 0;
+
+    isAdminRoute = false;
 
     @ViewChild('sidenav') sidenav;
 
@@ -62,7 +75,16 @@ export class MainComponent implements OnInit, OnDestroy {
         this._opened = !this._opened;
     }
 
-    constructor(public menuItems: MenuItems, private breadcrumbService: BreadcrumbService, private pageTitleService: PageTitleService, public translate: TranslateService, private userService: UserService, private router: Router, private media: ObservableMedia) {
+    constructor(
+        public menuItems: MenuItems,
+        private breadcrumbService: BreadcrumbService,
+        private pageTitleService: PageTitleService,
+        public translate: TranslateService,
+        private userService: UserService,
+        private ticketService: TicketService,
+        private router: Router,
+        private media: ObservableMedia
+    ) {
         const browserLang: string = translate.getBrowserLang();
         translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
 
@@ -76,7 +98,9 @@ export class MainComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        console.log('Main Component');
+
+        if( this.router.url.indexOf('/admin/') > -1 ) this.isAdminRoute = true;
+
         this.userService.getCurrentUser().subscribe((user) => {
             this.user = user;
             if( this.user.roles.find(x => x.slug === 'super_admin') !== undefined )
@@ -86,13 +110,13 @@ export class MainComponent implements OnInit, OnDestroy {
 
             // check if the user was a referral
             let referralToken = localStorage.getItem('referralToken');
-            console.log(referralToken, this.user.referrer);
             if( referralToken && !this.user.referrer ) {
                 this.userService.addReferrer(this.user._id, referralToken).subscribe(()=>{});
             }
 
             // setup the menu
             this.menuItems.setupMenu();
+            this.getTickets();
         });
     }
 
@@ -175,6 +199,19 @@ export class MainComponent implements OnInit, OnDestroy {
         });
     }
 
+    getTickets() {
+        this.ticketService.filters.getSpent = true;
+        this.ticketService.myTickets(this.user._id).subscribe((data:any) => {
+            this.ticketCount = data.count;
+            console.log(this.ticketCount);
+        });
+    }
+
+    ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+        if( changes.signalUpdate && changes.signalUpdate.currentValue && changes.signalUpdate.currentValue['my-tickets-widget'] === true ) {
+            this.getTickets();
+        }
+    }
 
     ngOnDestroy() {
         this._router.unsubscribe();
