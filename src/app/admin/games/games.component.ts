@@ -65,7 +65,8 @@ export class GamesComponent implements OnInit {
 
 	getGames() {
 		this.importing = true;
-		let provider = 'sfGames';
+		// let provider = 'sfGames';
+		let provider = 'famobiGames';
 		this.service.importGames$(provider).subscribe((d) => {
 			this.importing = false;
 			this.loadGames();

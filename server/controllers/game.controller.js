@@ -71,6 +71,52 @@ class GameController {
                 });
                 req.end();
             });
+        } else if( provider === 'famobiGames' ) {
+            return new Promise((resolve, reject) => {
+
+                let url = 'https://api.famobi.com/feed'
+
+                const req = request(url, {json: true}, async (err, res, body) => {
+                    if (err) {
+                        console.log(err);
+                        return reject(new Error(err));
+                    }
+
+                    body.games = [body.games[0]];
+                    console.log(body.games);
+
+                    let promise = body.games.map(async(famobiGame) => {
+                        // fix game structure
+                        let game = {
+                            name: famobiGame.name,
+                            description: famobiGame.description,
+                            thumb: famobiGame.thumb,
+                            thumbBig: famobiGame.thumb_60,
+                            tags:famobiGame.categories,
+                            screenShots: [],
+                            active: true,
+                            externalSite: 'famobiGames',
+                            rewardAmount: 1,
+                            externalGameTag: famobiGame.package_id,
+                            aspectRatio: famobiGame.aspect_ratio
+                        };
+
+                        game.screenShots.push(famobiGame.thumb_120);
+                        game.screenShots.push(famobiGame.thumb_180);
+
+                        let g = await this.get({query:{externalSite:game.externalSite, externalGameTag: game.externalGameTag}, sort:"-createdAt", skip:0, limit:1000});
+                        if( !g.length ) await this.insert(game);
+                    });
+
+                    await Promise.all(promise);
+
+                    resolve(true);
+                });
+                req.on('error', function (err) {
+                    reject(err);
+                });
+                req.end();
+            });
         }
 
     }

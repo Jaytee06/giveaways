@@ -41,7 +41,6 @@ async function preQuery(req, res, next) {
             delete req.query.endDateTime;
         }
 
-        console.log('aa', req.query.getSpent);
         if( req.query.getSpent !== 'true' ) {
             req.query.amount = { $gt: 0 };
         }
@@ -116,9 +115,7 @@ async function myTickets(req, res) {
     const crtl = new Ctrl();
 
     req.query.query.user = mongoose.Types.ObjectId(req.params.userId);
-    console.log(JSON.stringify(req.query));
     const tickets = await crtl.myTicketCount(req.query);
-    console.log(tickets.count);
 
     res.json(tickets);
 }

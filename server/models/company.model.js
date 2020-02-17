@@ -6,6 +6,10 @@ const CompanySchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    url: {
+        type:String,
+        required: true,
+    },
     logoUrl: {
         type: String,
     },

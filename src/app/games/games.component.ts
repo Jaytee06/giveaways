@@ -18,7 +18,7 @@ export class GamesComponent implements OnInit {
 	queryLimit = 10;
 	windowWidth = window.innerWidth;
 
-	cols = 8;
+	cols = 6;
 
 	constructor(
 		private service: GameService,
@@ -29,7 +29,7 @@ export class GamesComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.pageService.setTitle("Games");
+		// this.pageService.setTitle("Games");
 
 		const user$ = this.userService.getCurrentUser();
 		combineLatest(user$).subscribe((data) => {
@@ -43,8 +43,6 @@ export class GamesComponent implements OnInit {
 			this.cols = 2;
 		} else if( window.innerWidth < 1100 ) {
 			this.cols = 4;
-		} else if( window.innerWidth < 1300 ) {
-			this.cols = 6;
 		}
 
 		this.queryLimit = 4 * this.cols;

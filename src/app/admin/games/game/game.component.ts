@@ -36,6 +36,7 @@ export class GameComponent implements OnInit {
 			ngSelectBindLabel:'name',
 			options: [
 				{_id: 'softGames', name: 'Soft Games'},
+				{_id: 'famobiGames', name: 'famobi Games'},
 			]
 		}, {
 			name: 'External Game Tag',

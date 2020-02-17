@@ -35,6 +35,10 @@ const GameSchema = new mongoose.Schema({
         type: String,
         trim: true
     }],
+    aspectRatio: {
+        type: Number,
+        default: 1,
+    },
     active: {
         type: Boolean,
         default: true

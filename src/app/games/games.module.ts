@@ -12,6 +12,7 @@ import {NgPipesModule} from "angular-pipes";
 import {DashboardModule} from "../dashboard/dashboard.module";
 import {GameComponent} from "./game/game.component";
 import {SfGameComponent} from './game/externalGame/sf-game.component';
+import {FamobiGameComponent} from "./game/famobiGame/famobi-game.component";
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import {SfGameComponent} from './game/externalGame/sf-game.component';
         GamesComponent,
         GameComponent,
         SfGameComponent,
+        FamobiGameComponent,
     ],
     providers: [
         GameService,
