@@ -3,6 +3,8 @@ import {UserService} from "../../../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RaffleService} from "../../../services/raffle.service";
 
+import * as moment from "moment-timezone";
+
 @Component({
 	selector: 'raffles-widget',
 	templateUrl: './raffles-component.html',
@@ -13,6 +15,7 @@ export class RafflesComponent implements OnInit {
 
 	raffles = [];
 	raffle: any; // last raffle
+	raffleCountDown = '00 d 00 h 00 m 00 s';
 
 	windowWidth = window.innerWidth;
 
@@ -29,7 +32,6 @@ export class RafflesComponent implements OnInit {
 				this.raffle.giveAwayImage = this.raffle.giveAwayImage.substr(0, i) + '_short' + this.raffle.giveAwayImage.substr(i);
 			}
 
-			console.log(this.raffle.giveAwayImage);
 			this.updateTimes(data);
 		});
 	}
@@ -53,9 +55,23 @@ export class RafflesComponent implements OnInit {
 			q.displayTime = this.service.formatDate(showTime, false, true);
 			return q;
 		});
-		setTimeout(() => {
-			this.updateTimes(this.raffles);
-		}, 60000);
+
+		if( this.raffle.status === 'Starting' ) {
+			this.runCountDown();
+		} else {
+			setTimeout(() => {
+				this.updateTimes(this.raffles);
+			}, 60000);
+		}
+	}
+
+	runCountDown() {
+		if( this.raffle )
+			this.raffleCountDown = moment(moment.utc(this.raffle.start).diff(moment.utc())).utc().subtract(1, 'day').format('D:HH:mm:ss');
+
+		setTimeout(() =>{
+			this.runCountDown();
+		}, 1000);
 	}
 }
 

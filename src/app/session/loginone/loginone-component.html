@@ -29,11 +29,19 @@
             </div>
             <div class="col col-xs-12 col-md-6" *ngIf="raffle">
                 <div class="d-flex flex-fill pr-3">
-                    <div><h3>Our last Raffle</h3></div>
+                    <div>
+                        <h3 *ngIf="raffle.status !== 'Starting' else showCountDown">Our last Raffle</h3>
+                        <ng-template #showCountDown>
+                            <h3>Our Next Raffle</h3>
+                        </ng-template>
+                    </div>
                     <div class="ml-auto">{{raffle.giveAwayName}}</div>
                 </div>
                 <img [src]="raffle.giveAwayImage" width="100%" class="float-left" />
-                <span class="float-right raffle-img-text">{{raffle.status}} {{raffle.displayTime}}</span>
+                <span class="float-right raffle-img-text" *ngIf="raffle.status !== 'Starting' else showCountDownTime">{{raffle.status}} {{raffle.displayTime}}</span>
+                <ng-template #showCountDownTime>
+                    <span class="float-right raffle-img-text starting-text" >{{raffleCountDown}}</span>
+                </ng-template>
                 <div class="text-muted">Worth {{raffle.monetaryValue | currency}}</div>
             </div>
         </div>

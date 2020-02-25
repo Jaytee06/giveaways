@@ -11,16 +11,22 @@
 		</div>
 		<div class="d-flex flex-column" [ngClass]="{'h-500': windowWidth > 600}">
 			<div class="flex-grow-1" *ngIf="windowWidth > 600"></div>
-			<div class="mr-3 mb-2 image-text font-2x">
-				<span [ngClass]="{'text-success': raffle.status == 'In Progress', 'text-info': raffle.status == 'Starting'}">{{raffle.status}} </span>
-				<span *ngIf="raffle.status != 'In Progress'">{{raffle.displayTime}}</span>
+			<div class="mr-3 mb-2 image-text font-2x" >
+				<span *ngIf="raffle.status != 'Starting' else showCountDown">
+					<span [ngClass]="{'text-success': raffle.status == 'In Progress', 'text-info': raffle.status == 'Starting'}">{{raffle.status}} </span>
+					<span *ngIf="raffle.status != 'In Progress'">{{raffle.displayTime}}</span>
+				</span>
+				<ng-template #showCountDown>
+					<b>Happening in</b><br>
+					<span><b>{{raffleCountDown}}</b></span>
+				</ng-template>
 			</div>
 			<div class="mr-3 mb-2">
 				<button class="btn btn-orange full-width font-weight-bold font-lg" (click)="raffleClicked(raffle)">
 					<ng-container [ngSwitch]="raffle.status">
 						<div *ngSwitchCase="'Ended'">View Results</div>
 						<div *ngSwitchCase="'In Progress'">In Progress, Come Watch</div>
-						<div *ngSwitchDefault>Enter your <i class="fa fa-ticket text-success"></i></div>
+						<div *ngSwitchDefault>Get your <i class="fa fa-ticket text-success"></i> Entered</div>
 					</ng-container>
 				</button>
 			</div>

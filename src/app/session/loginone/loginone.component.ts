@@ -4,6 +4,9 @@ import {UserService} from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 import {RaffleService} from "../../services/raffle.service";
 
+
+import * as moment from "moment-timezone";
+
 @Component({
    selector: 'ms-loginone-session',
    templateUrl:'./loginone-component.html',
@@ -22,6 +25,7 @@ export class LoginoneComponent implements OnInit {
     lead: any = {};
 
     raffle;
+	raffleCountDown = 'd:H:mm:ss'
 
     constructor(
         private service: UserService,
@@ -55,7 +59,20 @@ export class LoginoneComponent implements OnInit {
 				showTime = this.raffle.didEnd;
 			}
 		}
-		this.raffle.displayTime = this.service.formatDate(showTime, false, true);
+		if( this.raffle.status === 'Starting' ) {
+			this.runCountDown();
+		} else {
+			this.raffle.displayTime = this.service.formatDate(showTime, false, true);
+		}
+	}
+
+	runCountDown() {
+		if( this.raffle )
+			this.raffleCountDown = moment(moment.utc(this.raffle.start).diff(moment.utc())).utc().subtract(1, 'day').format('D:HH:mm:ss');
+
+		setTimeout(() =>{
+			this.runCountDown();
+		}, 1000);
 	}
 
     loginone() {
