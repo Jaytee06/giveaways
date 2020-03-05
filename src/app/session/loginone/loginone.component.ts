@@ -67,8 +67,13 @@ export class LoginoneComponent implements OnInit {
 	}
 
 	runCountDown() {
-		if( this.raffle )
-			this.raffleCountDown = moment(moment.utc(this.raffle.start).diff(moment.utc())).utc().subtract(1, 'day').format('D:HH:mm:ss');
+		if( this.raffle ) {
+			let diff = moment(moment.utc(this.raffle.start).diff(moment.utc())).utc().subtract(1, 'day');
+			if( diff < 86400000 )
+				this.raffleCountDown = diff.format('HH:mm:ss');
+			else
+				this.raffleCountDown = diff.format('D:HH:mm:ss');
+		}
 
 		setTimeout(() =>{
 			this.runCountDown();
