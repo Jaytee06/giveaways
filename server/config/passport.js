@@ -63,6 +63,9 @@ const twitchLogin = new TwitchStrategy({
             if(  typeof user.referralToken === 'undefined' )
                 user.referralToken = crypto.randomBytes(8).toString('hex');
 
+            // dont overwrite their email
+            delete user.email;
+
             user = await userCtrl.update(user._id, user);
         } else {
             let role = await Role.findOne({slug: 'user'}); // default their role

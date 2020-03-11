@@ -17,12 +17,15 @@ export class UserService extends BaseService{
     }
 
     loginUser(userData) {
+        return this.http.post(`${this.baseService.getBaseUrl()}/auth/login`, userData, {headers: this.headers}).pipe(
+            catchError(this.handleError.bind(this))
+        );
+    }
+
+    loginUserTwitch(userData) {
         return this.http.get(`${this.baseService.getBaseUrl()}/auth/twitch`).pipe(
             catchError(this.handleError.bind(this)),
         );
-        // return this.http.post(`${this.baseService.getBaseUrl()}/auth/login`, userData, {headers: this.headers}).pipe(
-        //     catchError(this.handleError('loginUser', []))
-        // );
     }
 
     registerUser(userData) {

@@ -1,7 +1,7 @@
 <div>
     <div class="d-flex justify-content-end full-width mt-5 mr-5">
         <div class="pr-5">
-            <button class="btn btn-outline-danger" (click)="loginone()">Login</button>
+            <button class="btn btn-outline-danger" (click)="open(loginModal)">Login</button>
         </div>
     </div>
     <div class="d-flex full-width justify-content-center">
@@ -121,6 +121,56 @@
     <div class="center-content">
         <hr>
     </div>
+
+    <ng-template #loginModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{modalRegister ? 'Register' : 'Login'}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <p class="text-warning">
+                    IF you have already registered with Twitch and you want to be able to login via email then you need to login using Twitch and go to your account page and add your username and password.
+                </p>
+                <div class="form-group">
+                    <input type="email" name="email" [(ngModel)]="email" class="form-control form-control-lg input-square" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" [(ngModel)]="password" class="form-control form-control-lg input-square" placeholder="Password" required>
+                </div>
+                <div class="login-meta mb-3">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0 d-flex">
+                                <input class="custom-control-input" type="checkbox">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Remember Me</span>
+                            </label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                            <a routerLink="/session/forgot-password" class="text-muted">Forgot Password?</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" (click)="loginone()" class="btn btn-primary btn-block btn-lg btn-square">Sign In</button>
+                </div>
+                <div class="mb-3">
+                    <a href="javascript:void(0)" (click)="modalRegister = true;" class="text-muted">Still no account? Please go to Register</a>
+                </div>
+                <hr>
+                <p class="text-center">- Or Login With -</p>
+                <div>
+                    <button class="btn btn-twitch" (click)="loginTwitch()"><i class="fa fa-twitch mr-2"></i> Twitch</button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        </div>
+    </ng-template>
 </div>
 
 

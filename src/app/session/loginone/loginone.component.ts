@@ -6,12 +6,13 @@ import {RaffleService} from "../../services/raffle.service";
 
 
 import * as moment from "moment-timezone";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
    selector: 'ms-loginone-session',
    templateUrl:'./loginone-component.html',
    styleUrls: ['./loginone-component.scss'],
-    providers:[UserService, RaffleService],
+    providers:[UserService, RaffleService, NgbModal],
    // encapsulation: ViewEncapsulation.None,
 })
 export class LoginoneComponent implements OnInit {
@@ -19,6 +20,7 @@ export class LoginoneComponent implements OnInit {
 	userCount = 0;
 	maxUserCount = 10;
 
+    modalRegister = false;
     email: string;
     password: string;
 
@@ -30,7 +32,8 @@ export class LoginoneComponent implements OnInit {
     constructor(
         private service: UserService,
         private raffleService: RaffleService,
-        private router: Router
+        private router: Router,
+        private modalService: NgbModal
     ) {
     }
 
@@ -80,23 +83,27 @@ export class LoginoneComponent implements OnInit {
 		}, 1000);
 	}
 
+    loginTwitch() {
+        window.location.href = environment.apiBaseUrl + '/api/auth/twitch';
+    }
+
     loginone() {
 
-        window.location.href = environment.apiBaseUrl + '/api/auth/twitch';
 
-        // const user = {
-        //     email: this.email,
-        //     password: this.password
-        // }
-        //
-        // this.service.loginUser(user).subscribe((data: any) => {
-        //     console.log(data);
-        //     localStorage.setItem('user', data.user);
-        //     localStorage.setItem('token', data.token);
-        //     localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.
-        //     this.router.navigate(['/']);
-        // }, error => {
-        // });
+        const user = {
+            email: this.email,
+            password: this.password
+        };
+
+        this.service.loginUser(user).subscribe((data: any) => {
+            console.log(data);
+            localStorage.setItem('user', data.user);
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.
+            this.router.navigate(['/']);
+        }, error => {
+        	console.log('login error', error);
+        });
     }
 
 	saveEmail() {
@@ -104,6 +111,14 @@ export class LoginoneComponent implements OnInit {
     		this.lead = lead;
 		});
 	}
+
+    open(content) {
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+            console.log(`Closed with: ${result}`);
+        }, (reason) => {
+            console.log(`Dismissed ${reason}`);
+        });
+    }
 
 }
 

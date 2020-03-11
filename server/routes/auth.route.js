@@ -11,9 +11,9 @@ module.exports = router;
 
 router.get('/twitch', passport.authenticate("twitch"));
 router.get('/twitch/callback', passport.authenticate("twitch", {failureRedirect:"/"}), twitchLogin);
-//router.post('/register', asyncHandler(register), login);
-//router.post('/login', passport.authenticate('local', { session: false }), login);
-//router.get('/me', passport.authenticate('jwt', { session: false }), login);
+router.post('/register', asyncHandler(register), login);
+router.post('/login', passport.authenticate('local', { session: false }), login);
+router.get('/me', passport.authenticate('jwt', { session: false }), login);
 router.get('/user-counts', asyncHandler(getUserCounts));
 router.post('/user-lead', asyncHandler(insertUserLead));
 

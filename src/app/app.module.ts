@@ -32,6 +32,7 @@ import {SharedModule} from './core/shared.module';
 import {AngularFireModule} from "@angular/fire";
 import { environment } from '../environments/environment';
 import {AngularFireStorageModule} from "@angular/fire/storage";
+import {NgbModal, NgbModule} from '../../node_modules/@ng-bootstrap/ng-bootstrap';
 
 /********** Custom option for ngx-translate ******/
 export function createTranslateLoader(http: HttpClient) {
@@ -65,6 +66,7 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 	      }),
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireStorageModule,
+        NgbModule.forRoot()
 	],
 	declarations: [
 		ChankyaAppComponent, 
@@ -79,7 +81,7 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 		BreadcrumbService,
 		PageTitleService,
 		BaseService,
-		AuthenticatedGuard
+		AuthenticatedGuard,
 	]
 })
 export class TCGAppModule { }
