@@ -51,7 +51,7 @@
 		"body-parser": "^1.18.2",
 		"buffer": "^5.2.1",
 		"chart.js": "2.7.2",
-		"ckeditor": "4.10.0",
+		"ckeditor": "4.12.1",
 		"classlist.js": "^1.1.20150312",
 		"compression": "^1.7.2",
 		"cookie-parser": "^1.4.3",
