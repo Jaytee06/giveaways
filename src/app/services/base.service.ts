@@ -15,8 +15,8 @@ export class BaseService {
 
     constructor(public snackBar: MatSnackBar, private zone: NgZone) {}
 
-    public getHeaders() {
-        const token = localStorage.getItem('token');
+    public getHeaders(customToken?) {
+        const token = customToken ? customToken : localStorage.getItem('token');
         return {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+token

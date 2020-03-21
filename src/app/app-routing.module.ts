@@ -49,6 +49,14 @@ export const AppRoutes: Routes = [{
         path: '',
         component: MainComponent,
         children: [{
+            path: 'my-account',
+            loadChildren: './my-account/my-account.module#MyAccountModule'
+        }],
+        canActivate: [AuthenticatedGuard]
+    },{
+        path: '',
+        component: MainComponent,
+        children: [{
             path: 'my-tickets',
             loadChildren: './my-tickets/my-tickets.module#MyTicketsModule'
         }],

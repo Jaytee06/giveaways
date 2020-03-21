@@ -1,11 +1,13 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 import {RaffleService} from "../../services/raffle.service";
 
 
 import * as moment from "moment-timezone";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
    selector: 'ms-loginone-session',
@@ -19,18 +21,30 @@ export class LoginoneComponent implements OnInit {
 	userCount = 0;
 	maxUserCount = 10;
 
-    email: string;
-    password: string;
+    modalRegister = false;
+	fname: string;
+	lname: string;
+	email: string;
+	password: string;
+	passwordConfirm: string;
 
     lead: any = {};
+	form: FormGroup;
+	token: string;
+	loginError = '';
+	resetError = '';
 
     raffle;
-	raffleCountDown = 'd:H:mm:ss'
+	raffleCountDown = 'd:H:mm:ss';
+	modalRef;
 
     constructor(
         private service: UserService,
         private raffleService: RaffleService,
-        private router: Router
+		private fb: FormBuilder,
+		private route: ActivatedRoute,
+		private router: Router,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -45,6 +59,15 @@ export class LoginoneComponent implements OnInit {
 				this.raffle = raffles[raffles.length - 1];
 				this.updateRaffleTime();
 			}
+		});
+
+		this.token = this.route.snapshot.queryParams.token;
+
+		this.form = this.fb.group({
+			// email: ['', [Validators.required, Validators.email]],
+			// password: ['', [Validators.required]],
+			email: [''],
+			password: [''],
 		});
 	}
 
@@ -80,29 +103,87 @@ export class LoginoneComponent implements OnInit {
 		}, 1000);
 	}
 
+    loginTwitch() {
+        window.location.href = environment.apiBaseUrl + '/api/auth/twitch';
+    }
+
     loginone() {
 
-        window.location.href = environment.apiBaseUrl + '/api/auth/twitch';
+        const user = {
+            email: this.email,
+            password: this.password
+        };
 
-        // const user = {
-        //     email: this.email,
-        //     password: this.password
-        // }
-        //
-        // this.service.loginUser(user).subscribe((data: any) => {
-        //     console.log(data);
-        //     localStorage.setItem('user', data.user);
-        //     localStorage.setItem('token', data.token);
-        //     localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.
-        //     this.router.navigate(['/']);
-        // }, error => {
-        // });
+        this.service.loginUser(user).subscribe((data: any) => {
+            localStorage.setItem('user', data.user);
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.
+			this.close();
+            this.router.navigate(['/']);
+        }, error => {
+			this.loginError = 'Invalid Username or Password.';
+        });
     }
+
+	register() {
+		const user = {
+			fullname: this.fname+' '+this.lname,
+			email: this.email,
+			password: this.password,
+			repeatPassword: this.passwordConfirm
+		};
+
+		this.service.registerUser(user).subscribe((data: any) => {
+			localStorage.setItem('user', data.user);
+			localStorage.setItem('token', data.token);
+			localStorage.setItem('tokenExpire', JSON.stringify(moment().add(8, 'hours'))); // TODO:: This is temp logic, come up with a better way.
+			this.close();
+			this.router.navigate(['/']);
+		}, error => {
+			this.loginError = error.error.message;
+			console.log('register error', error);
+		});
+	}
 
 	saveEmail() {
     	this.service.createUserLead({email:this.email}).subscribe((lead) => {
     		this.lead = lead;
 		});
+	}
+
+    open(content) {
+        this.modalRef = this.modalService.open(content);
+		this.modalRef.result.then((result) => {
+            console.log(`Closed with: ${result}`);
+        }, (reason) => {
+            console.log(`Dismissed ${reason}`);
+        });
+    }
+
+    close() {
+    	this.modalRef.close();
+	}
+
+	send() {
+		// todo: need a popup showing the error to the user
+		if (!this.form.valid) {
+			this.resetError = 'Form has errors';
+			return;
+		}
+
+		if (this.token) {
+			this.service.setNewPassword$(this.form.value.password, this.token).subscribe( result => {
+				if (result) {
+					this.router.navigate(['/session/loginone']).then();
+				}
+			});
+
+		} else {
+			this.service.recoverPassword$(this.form.value.email).subscribe(
+				result => console.log(result),
+			);
+		}
+		// this.router.navigate(['/']);
 	}
 
 }

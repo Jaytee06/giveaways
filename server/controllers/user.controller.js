@@ -4,16 +4,22 @@ const Joi = require('joi');
 const Role = require('../models/role.model'); // needed for populate in crons
 const Address = require('../models/address.model'); // needed for populate in crons
 const User = require('../models/user.model');
-const TicketCtlr = require('../controllers/ticket.controller');
+const TicketCtrl = require('../controllers/ticket.controller');
 const FireStoreCtrl = require('../controllers/fire-store.controller');
 const BaseCtrl = require('../controllers/base.controller');
 const config = require('../config/config');
+const { Email } = require('../services');
+
+const crypto = require('crypto');
+const moment = require('moment');
+const { recoveryPassword, passwordRecovered } = require('../email-templates');
 
 const userSchema = Joi.object({
 	fullname: Joi.string().required(),
 	email: Joi.string().email(),
 	mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/),
-	// password: Joi.string().required(),
+	password: Joi.string(),
+	requesting: Joi.string(),
 	roles: Joi.array(),
 	provider: Joi.string(),
 	providerId: Joi.string(),
@@ -23,7 +29,7 @@ const userSchema = Joi.object({
 	twitch: Joi.object(),
 	address: Joi.object(),
 	emailToken: Joi.string(),
-	//repeatPassword: Joi.string().required().valid(Joi.ref('password'))
+	repeatPassword: Joi.string().valid(Joi.ref('password'))
 });
 
 
@@ -35,10 +41,11 @@ module.exports = {
 	checkSubscription,
 	addReferrer,
 	getCounts,
+	checksLogin,
 };
 
 async function insert(user) {
-	const ticketCtrl = new TicketCtlr();
+	const ticketCtrl = new TicketCtrl();
 	const fsCtrl = new FireStoreCtrl();
 	const baseCtrl = new BaseCtrl();
 
@@ -58,8 +65,14 @@ async function insert(user) {
 		}
 	}
 
-	//user.hashedPassword = bcrypt.hashSync(user.password, 10);
-	delete user.password;
+	if( user.password ) {
+		user.hashedPassword = bcrypt.hashSync(user.password, 10);
+		delete user.password;
+	}
+
+	user.emailToken = crypto.randomBytes(24).toString('hex');
+	user.referralToken = crypto.randomBytes(8).toString('hex');
+
 	const newUser = await new User(user).save();
 
 	// give the user a signup bonus of tickets
@@ -83,13 +96,15 @@ async function insert(user) {
 }
 
 async function get(query) {
-	return await User.find(query).populate('roles address.shipping');
+	console.log(JSON.stringify(query));
+	return await User.find(query).populate('address.shipping');
 }
 
 async function getById(id) {
-	let u = await User.findById(id).populate('roles address.shipping referrer');
+	let u = await User.findById(id).populate('address.shipping referrer').populate({path: 'roles', populate: {path: 'permissions.permission'}});
 
 	let user = JSON.parse(JSON.stringify(u)); // copy to modify
+	user.isSubscribed = false;
 	user.isSubscribed = await this.checkSubscription(id);
 
 	return user;
@@ -97,6 +112,14 @@ async function getById(id) {
 
 async function update(id, user) {
 	const baseCtrl = new BaseCtrl();
+
+	if( user.phone )
+		user.phone = user.phone.replace(/\D+/g, '');
+
+	if( user.password ) {
+		user.hashedPassword = bcrypt.hashSync(user.password, 10);
+		delete user.password;
+	}
 
 	// if address attribute is an object
 	if (user.address) {
@@ -112,7 +135,7 @@ async function update(id, user) {
 		}
 	}
 
-	return await User.findByIdAndUpdate(id, user, {new: true}).populate('roles address.shipping');
+	return await User.findByIdAndUpdate(id, user, {new: true}).populate('address.shipping').populate({path: 'roles', populate: {path: 'permissions.permission'}});
 }
 
 async function checkSubscription(id) {
@@ -121,6 +144,9 @@ async function checkSubscription(id) {
 	const token = await _getBroadcasterAuthToken();
 
 	return new Promise((resolve, reject) => {
+
+		if( !user.twitch )
+			resolve(false);
 
 		const bypassTwitchIds = ['101440545'];
 		if( bypassTwitchIds.indexOf(user.twitch.providerId) > -1 ) {
@@ -225,4 +251,73 @@ async function _getBroadcasterAuthToken() {
 		req.end();
 	});
 
+}
+
+async function recoverPassword(url, query) {
+	const user = (await this.get({ query, paginationQuery:{} }))[0];
+	const result = { status: 200, payload: { message: 'success' } };
+
+	if (!user) {
+		result.status = 404;
+		result.payload = { message: 'User not found' };
+	} else {
+		const recoveryToken = auth.generateToken({ _id: user._id, recoveryPassword: true }, '3m');
+		Email.send('noreply@vintley.com', query.email, 'Password recovery', recoveryPassword({
+			url,
+			recoveryToken,
+		}));
+	}
+	return result;
+}
+
+async function setNewPassword(user, password, email) {
+	const result = { status: 200, payload: { message: 'success' } };
+	try {
+		await this.updatePassword(user, password);
+		Email.send('noreply@vintley.com', email, 'Password Changed', passwordRecovered());
+
+	} catch (e) {
+		result.status = 400;
+		result.payload.message = e.error;
+	}
+	return result;
+}
+
+async function checksLogin(user) {
+	if( !user.loginLogs ) user.loginLogs = [];
+	// check for daily bonus
+	// ignore vintley
+	if( user.loginLogs.find(x => moment().startOf('day').isBefore(moment(x)) && moment().add(1, 'day').startOf('day').isAfter(moment(x))) === undefined ) { // first time login in today
+		const ticketCtrl = new TicketCtrl();
+		const fsCtrl = new FireStoreCtrl();
+
+		const obj = {
+			amount:5,
+			user: user._id,
+			reason: 'Daily login bonus for '+moment().format('MM/DD/YYYY'),
+			ref: '5e20ee6176255c15cc456eec',
+			refType: 'ticketOpp'
+		};
+		ticketCtrl.insert(obj);
+
+		fsCtrl.instertNotification( obj.user,{
+			message:'You received '+obj.amount+' for daily login!',
+			ref: obj.ref+'',
+			refType: obj.refType,
+			type: 'tickets',
+		});
+	}
+	user.loginLogs.push(new Date);
+
+	if(  typeof user.emailToken === 'undefined' )
+		user.emailToken = crypto.randomBytes(24).toString('hex');
+	if( typeof user.receiveEmails === 'undefined' )
+		user.receiveEmails = true;
+	if(  typeof user.referralToken === 'undefined' )
+		user.referralToken = crypto.randomBytes(8).toString('hex');
+
+	// dont overwrite their email
+	delete user.email;
+
+	return await this.update(user._id, user);
 }

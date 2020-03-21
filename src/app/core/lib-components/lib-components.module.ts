@@ -15,6 +15,7 @@ import {HowItWorksComponent} from "./how-it-works/how-it-works.component";
 import {NotificationsComponent} from "./notifications/notifications.component";
 import {RouterModule} from "@angular/router";
 import {NgxWheelModule} from "ngx-wheel";
+import {NgxMaskModule} from "ngx-mask";
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import {NgxWheelModule} from "ngx-wheel";
             animationDuration: 0,
             animation: false
         }),
-        NgxWheelModule
+        NgxWheelModule,
+        NgxMaskModule.forRoot(),
     ],
     exports: [
         TcgTableComponent,
@@ -58,7 +60,8 @@ import {NgxWheelModule} from "ngx-wheel";
         CountDownTimerComponent,
         HowItWorksComponent,
         NotificationsComponent,
-        NgxWheelModule
+        NgxWheelModule,
+        NgxMaskModule
     ],
     entryComponents: [
         TcgDeleteDialogComponent

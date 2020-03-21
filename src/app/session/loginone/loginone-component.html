@@ -1,7 +1,7 @@
 <div>
     <div class="d-flex justify-content-end full-width mt-5 mr-5">
         <div class="pr-5">
-            <button class="btn btn-outline-danger" (click)="loginone()">Login</button>
+            <button class="btn btn-outline-danger" (click)="modalRegister = false; open(loginModal)">Login</button>
         </div>
     </div>
     <div class="d-flex full-width justify-content-center">
@@ -10,7 +10,7 @@
     <div class="main-img text-center d-flex flex-column flex-fill justify-content-around">
         <div class="font-md font-weight-bold">Earn Rewards for Free</div>
         <div class="d-flex justify-content-center">
-            <div class="btn btn-warning btn-lg font-lg font-weight-bold pr-5 pl-5" (click)="loginone()">Join for FREE and get 1,000<i class="fa fa-ticket text-success"></i></div>
+            <div class="btn btn-warning btn-lg font-lg font-weight-bold pr-5 pl-5" (click)="modalRegister = true; open(loginModal);">Join for FREE and get 1,000<i class="fa fa-ticket text-success"></i></div>
         </div>
         <div class="font-md font-weight-bold">Cash in Rewards for Money</div>
     </div>
@@ -112,7 +112,7 @@
         <br>
         <br>
         <div class="d-flex justify-content-center">
-            <div class="btn btn-warning btn-lg font-lg font-weight-bold pr-5 pl-5" (click)="loginone()">Join for FREE and get 1,000<i class="fa fa-ticket text-success"></i></div>
+            <div class="btn btn-warning btn-lg font-lg font-weight-bold pr-5 pl-5" (click)="modalRegister = true; open(loginModal);">Join for FREE and get 1,000<i class="fa fa-ticket text-success"></i></div>
         </div>
         <br>
         <br>
@@ -121,6 +121,117 @@
     <div class="center-content">
         <hr>
     </div>
+
+    <ng-template #loginModal let-modal>
+        <div class="modal-header">
+            <div class="d-flex">
+                <h4 class="modal-title" id="modal-basic-title">{{modalRegister ? 'Register' : 'Login'}}</h4>
+                <div *ngIf="modalRegister" class="pt-1 pl-2"> for 1,000 <i class="fa fa-ticket text-success"></i></div>
+            </div>
+            <button type="button" class="close" aria-label="Close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <p class="text-warning" *ngIf="!modalRegister && loginError">
+                    If you have already registered with Twitch, and you want to be able to sign in via email, then you need to sign in using Twitch and go to your account's page and set up your email and a password.
+                </p>
+                <div class="form-group" *ngIf="modalRegister">
+                    <input name="fname" [(ngModel)]="fname" class="form-control form-control-lg input-square" type="text" placeholder="First Name" required>
+                </div>
+                <div class="form-group" *ngIf="modalRegister">
+                    <input name="lname" [(ngModel)]="lname" class="form-control form-control-lg input-square" type="text" placeholder="Last Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" [(ngModel)]="email" class="form-control form-control-lg input-square" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" [(ngModel)]="password" class="form-control form-control-lg input-square" placeholder="Password" required>
+                </div>
+                <div class="form-group" *ngIf="modalRegister">
+                    <input type="password" [(ngModel)]="passwordConfirm" name="passwordConfirm" class="form-control form-control-lg input-square" placeholder="Confirm Password" required>
+                </div>
+                <div class="login-meta mb-3">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0 d-flex">
+                                <input class="custom-control-input" type="checkbox">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Remember Me</span>
+                            </label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                            <a href="javascript:void(0)" (click)="close(); open(resetPasswordModal)">Forgot Password?</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    {{loginError}}
+                </div>
+                <div class="mb-3">
+                    <button type="submit" *ngIf="!modalRegister" (click)="loginone()" class="btn btn-primary btn-block btn-lg btn-square">Sign In</button>
+                    <button type="submit" *ngIf="modalRegister" (click)="register()" class="btn btn-primary btn-block btn-lg btn-square">Register</button>
+                </div>
+                <div class="mb-3 text-centered w-100">
+                    <a href="javascript:void(0)" (click)="modalRegister = true;" *ngIf="!modalRegister">No account? Please go to Register</a>
+                    <a href="javascript:void(0)" (click)="modalRegister = false;" *ngIf="modalRegister">Have an account? Please go to Sign In</a>
+                </div>
+                <hr>
+                <p *ngIf="!modalRegister" class="text-center">- Or  -</p>
+                <p *ngIf="modalRegister" class="text-center">For an additional 1,000 <i class="fa fa-ticket text-success"></i></p>
+                <div class="text-center w-100 text-danger"><b><i class="fa fa-arrow-down mr-2"></i>This is how you have been signing in<i class="fa fa-arrow-down ml-2"></i></b></div>
+                <div>
+                    <button class="btn btn-twitch w-100" (click)="loginTwitch()"><i class="fa fa-twitch mr-2"></i> {{modalRegister ? 'Register' : 'Sign in'}} with Twitch</button>
+                </div>
+            </form>
+        </div>
+<!--        <div class="modal-footer">-->
+<!--            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
+<!--        </div>-->
+    </ng-template>
+    <ng-template #resetPasswordModal let-modal2>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title-1">Forgot Password</h4>
+            <button type="button" class="close" aria-label="Close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="login-block text-center">
+                <div class="login-icon mb-5">
+                    <span class="square-100"><i class="fa fa-unlock-alt"></i></span>
+                </div>
+                <div class="mb-5">
+                    <h2 class="text-capitalize font-2x mb-3">Recover Password</h2>
+                    <p>Enter your email and we'll send you instructions on how to reset your password.</p>
+                </div>
+                <div>
+                    <form class="login-form" [formGroup]="form" (ngSubmit)="send()">
+                        <mat-form-field *ngIf="!token">
+                            <label class="full-width">
+                                <input matInput formControlName="email" name="email" placeholder="Your email">
+                            </label>
+                        </mat-form-field>
+                        <mat-form-field *ngIf="token">
+                            <label class="full-width">
+                                <input type="password" matInput formControlName="password" name="password" placeholder="New password">
+                            </label>
+                        </mat-form-field>
+                        <div class="text-danger">
+                            {{resetError}}
+                        </div>
+                        <div class="mb-4">
+                            <button mat-raised-button type="submit" color="primary" class="full-width">
+                                {{token ? 'Set new' : 'Recovery' }} password
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- login form closed -->
+            </div>
+        </div>
+    </ng-template>
 </div>
 
 

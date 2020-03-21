@@ -6,7 +6,7 @@ const userCtrl = require('../controllers/user.controller');
 const router = express.Router();
 module.exports = router;
 
-router.use(passport.authenticate('jwt', { session: false }))
+router.use(passport.authenticate('jwt', { session: false }));
 
 router.route('/').get(asyncHandler(get));
 router.route('/').post(asyncHandler(insert));
@@ -26,6 +26,7 @@ async function insert(req, res) {
 }
 
 async function get(req, res) {
+    console.log('xxx');
     const users = await userCtrl.get(req.query);
     res.json(users);
 }

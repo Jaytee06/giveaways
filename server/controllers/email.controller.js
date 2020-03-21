@@ -59,7 +59,7 @@ class EmailController {
                 let endHtml = await this.getEndText(user.user);
 
                 const mailOptions = {
-                    to: user.user.twitch.email,
+                    to: user.user.email,
                     from: 'contact@vintley.com',
                     subject: 'Trivia quiz starting in ' + moment(trivia.start).fromNow(),
                     html: html + endHtml + '</div>',
@@ -105,7 +105,7 @@ class EmailController {
             html += `<div style="text-align: center"><a href="https://www.vintley.com/session/unsubscribe/${user.emailToken}">Unsubscribe</a></div>`;
 
             const mailOptions = {
-                to: user.twitch.email,
+                to: user.email,
                 from: 'contact@vintley.com',
                 subject: 'Claim your daily login bonus',
                 html: html,
@@ -122,7 +122,7 @@ class EmailController {
     async getEndText(user) {
         return `<div style="text-align: center; width: 50%; min-width: 400px; margin:auto; color: #9f9f9f">
                     <samll>
-                        This message was sent to ${user.twitch.email} and intended for ${user.twitch.username}. Vintley sends updates like this to help you keep up with the latest on Vintley.com. You can unsubscribe from these updates: <a href="https://www.vintley.com/session/unsubscribe/${user.emailToken}">Unsubscribe</a>
+                        This message was sent to ${user.email} and intended for ${user.fullname}. Vintley sends updates like this to help you keep up with the latest on Vintley.com. You can unsubscribe from these updates: <a href="https://www.vintley.com/session/unsubscribe/${user.emailToken}">Unsubscribe</a>
                     </samll>
                 </div>`;
     }
