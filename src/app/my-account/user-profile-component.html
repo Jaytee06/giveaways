@@ -1,0 +1,253 @@
+<div class="chk-content-wrapper" *ngIf="user">
+	<img src="assets/img/timeline-banner.jpg" class="img-fluid pos-relative img-pro-head" alt="timeline banner" width="2560" height="500"/>
+	<div class="chk-content">
+		<div class="user-profile-wrapper">
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                    <div class="profile-left-panel">
+                        <div class="account-setting mb-3">
+                            <div class="top-block">
+                                <div class="admin-setting">
+                                    <i class="fa fa-ellipsis-h fa-lg fa-inverse"></i>
+                                </div>
+                            </div>
+                            <div class="bottom-block">
+                                <div class="profile-thumb text-center mb-3">
+                                    <a href="javascript:void(0)">
+                                        <img [src]="user.profileImage" alt="profile thumb" class="img-fluid rounded-circle d-inline-block" width="160" height="160">
+                                    </a>
+                                </div>
+                                <div class="thumb-content text-center mb-3">
+                                    <h2 class="text-capitalize">{{user.fullname}}</h2>
+                                    <a class="small" href="user-profile.php">{{user.email}}</a>
+                                </div>
+<!--                                <div class="account-btn text-center mb-4">-->
+<!--                                    <ul class="list-inline">-->
+<!--                                        <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-primary btn-lg mb-2">Follow US</a></li>-->
+<!--                                        <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-danger btn-lg mb-2">Message</a></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                                <div class="user-account-list">-->
+<!--                                    <ul class="list-unstyled mb-0">-->
+<!--                                        <li>-->
+<!--                                            <a href="javascript:void(0)"><i class="fa fa-user mr-2"></i> Profile</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <a href="javascript:void(0)"><i class="fa fa-users mr-2"></i> Account</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <a href="javascript:void(0)"><i class="fa fa-life-bouy mr-2"></i> Help</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <a href="javascript:void(0)"><i class="fa fa-gear mr-2"></i> Setting</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+                                <div class="social-widget">
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-facebook fa-lg"></i></a></li>
+                                        <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-twitter fa-lg"></i></a></li>
+                                        <li class="list-inline-item"><a href="javascript:void(0)"><i class="fa fa-linkedin-square fa-lg"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+                	<div class="row mb-3">
+                		<div class="col-sm-12 col-lg-12 col-xl-6 col-full-lg-down">
+                			<div class="chk-block">
+					            <div class="chk-block-title">
+					                <div class="d-flex justify-content-between">
+										<div class="flex-grow-1"><h3 class="text-capitalize">Details</h3></div>
+										<div *ngIf="!editing"><button class="btn btn-outline-primary" (click)="editing = true"><i class="fa fa-pencil-square"></i></button></div>
+					                </div>
+					            </div>
+					            <div class="chk-block-content">  
+                                    <ul class="pl-0 list-unstyled list-item-space ripple-list" *ngIf="!editing">
+                                        <li>
+											<h4>{{user.fullname}}</h4>
+                                        </li>
+                                        <li>
+                                            <div class="profile-icon-head"><i class="fa fa-user mr-1" aria-hidden="true"></i> <strong>Name</strong></div>
+                                            <div class="profile-icon-desp">  {{user.fullname}}</div>
+                                        </li>
+                                        <li>
+                                            <div class="profile-icon-head"><i class="fa fa-envelope mr-1" aria-hidden="true"></i> <strong>E-mail</strong></div>
+                                            <div class="profile-icon-desp">  <a href="mailto:{{user.email}}">{{user.email}}</a></div>
+                                        </li>
+                                        <li>
+                                            <div class="profile-icon-head"><i class="fa fa-phone mr-1" aria-hidden="true"></i> <strong>Phone</strong></div>
+                                            <div class="profile-icon-desp">  {{user.phone | mask: '(000) 000-0000'}}</div>
+                                        </li>
+										<li>
+											<div class="profile-icon-head"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i> <strong> Address</strong></div>
+											<div class="profile-icon-desp">  <span>{{user.address.shipping.address}}</span></div>
+										</li>
+                                        <li>
+                                            <div class="profile-icon-head"> <strong>City</strong></div>
+                                            <div class="profile-icon-desp">   <span>{{user.address.shipping.city}}</span></div>
+                                        </li>
+                                        <li>
+                                            <div class="profile-icon-head"> <strong>State</strong></div>
+                                            <div class="profile-icon-desp">   <span>{{user.address.shipping.state}}</span></div>
+                                        </li>
+                                        <li>
+                                            <div class="profile-icon-head"> <strong>Zip</strong></div>
+                                            <div class="profile-icon-desp">   <span>{{user.address.shipping.zip}}</span></div>
+                                        </li>
+                                    </ul>
+
+									<div>
+										<form *ngIf="editing">
+											<div class="form-group">
+												<label for="firstName">First Name</label>
+												<input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="user.firstName" placeholder="First Name">
+											</div>
+											<div class="form-group">
+												<label for="lastName">Last Name</label>
+												<input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="user.lastName" placeholder="Last Name">
+											</div>
+											<div class="form-group">
+												<label for="formInputEmail1">Email address</label>
+												<input type="email" class="form-control" id="formInputEmail1" name="email" [(ngModel)]="user.email" aria-describedby="emailHelp" placeholder="Enter email">
+											</div>
+											<div class="form-group">
+												<label for="formInputPhone">Phone</label>
+												<input matInput	type="text" class="form-control" autocomplete="off" mask="(000) 000-0000"  id="formInputPhone" name="phone" [(ngModel)]="user.phone" placeholder="Enter phone">
+											</div>
+											<div class="form-group">
+												<label for="password">Password</label>
+												<input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" placeholder="Password">
+											</div>
+											<div class="form-group">
+												<label for="repeatPassword">Confirm Password</label>
+												<input type="password" class="form-control" id="repeatPassword" name="confirmPassword" [(ngModel)]="user.repeatPassword" placeholder="Password">
+											</div>
+											<div class="form-group">
+												<label for="address">Address</label>
+												<input type="text" class="form-control" id="address" name="address" [(ngModel)]="user.address.shipping.address" placeholder="Street Address">
+											</div>
+											<div class="form-group">
+												<label for="address2">Address</label>
+												<input type="text" class="form-control" id="address2" name="address2" [(ngModel)]="user.address.shipping.address2" placeholder="Address">
+											</div>
+											<div class="form-group">
+												<label for="city">City</label>
+												<input type="text" class="form-control" id="city" name="city" [(ngModel)]="user.address.shipping.city" placeholder="City">
+											</div>
+											<div class="form-group">
+												<label for="state">State</label>
+												<select class="form-control" id="state" name="state" [(ngModel)]="user.address.shipping.state">
+													<option [value]="'undefined'">- Select One -</option>
+													<option *ngFor="let state of states" [value]="state.abbreviation">{{state.name}}</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label for="zip">Zip</label>
+												<input type="text" class="form-control" id="zip" name="zip" [(ngModel)]="user.address.shipping.zip" placeholder="Zip">
+											</div>
+											<div>
+												<button class="btn btn-success" (click)="saveDetails()">Save</button>
+												<button class="btn btn-default" (click)="cancel()">Cancel</button>
+											</div>
+										</form>
+									</div>
+					            </div>
+					        </div>
+                		</div>
+                		<div class="col-sm-12 col-lg-12 col-xl-6 col-full-lg-down">
+                			<div class="chk-block">
+                				<div class="chk-block-title">
+					                <div class="d-flex justify-content-between">
+					                    <div class="d-flex align-self-center">
+					                        <h3 class="text-capitalize">Life Time Earnings</h3>
+					                    </div>
+					                </div>
+					            </div>
+					            <div class="chk-block-content">
+                                    <div class="notification-list">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <span class="square-50 circle bg-success mr-3">
+                                                    <i class="fa fa-ticket"></i>
+                                                </span>
+                                                <span>
+													<b>{{earnedTickets}}</b> Earned
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="square-50 circle bg-warning mr-3">
+                                                    <i class="fa fa-ticket"></i>
+                                                </span>
+                                                <span>
+													<b>{{earnedTickets - tickets}}</b> Spent
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="square-50 circle bg-primary mr-3">
+                                                    <i class="fa fa-dollar"></i>
+                                                </span>
+                                                <span>
+													<b>${{rewarded}}</b> won
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                			</div>
+							<div class="chk-block">
+								<div class="chk-block-title">
+									<div class="d-flex justify-content-between">
+										<div class="d-flex align-self-center">
+											<div>
+												<h3 class="text-capitalize">Linked Accounts</h3>
+											</div>
+											<div class="ml-1">for 1,000 <i class="fa fa-ticket text-success"></i> each</div>
+										</div>
+									</div>
+								</div>
+								<div class="chk-block-content">
+									<div class="notification-list">
+										<ul class="list-unstyled">
+											<li>
+                                                <span class="square-50 circle bg-twitch mr-3">
+                                                    <i class="fa fa-twitch"></i>
+                                                </span>
+												<span>
+													Twitch
+													<span *ngIf="user.twitch"><i class="fa fa-check text-success"></i> 1,000 <i class="fa fa-ticket text-success"></i></span>
+													<span class="btn btn-primary ml-2" *ngIf="!user.twitch" (click)="link('twitch')">Link <i class="fa fa-external-link ml-1"></i></span>
+                                                </span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+                		</div>
+                		
+<!--                		<div class="col-sm-12 col-lg-12 col-xl-12">-->
+<!--                			<div class="chk-block">-->
+<!--                				<div class="chk-block-title">-->
+<!--					                <div class="d-flex justify-content-between">-->
+<!--					                    <div class="d-flex align-self-center">-->
+<!--					                        <h3 class="text-capitalize">About User</h3>-->
+<!--					                    </div>-->
+<!--					                </div>-->
+<!--					            </div>-->
+<!--                               <div class="chk-block-content">-->
+<!--                                   <p>Hi, This is Lisa arnold. I am feeling glad for what I have achieved here. But I think life is more about helping people rather than commanding them. I feel life is also full of variations in designs. In terms of design, nature creates beautiful graphs and sets lot of colors in our personal life. </p>-->
+<!--                                   <p>-->
+<!--                                       So yes I get ideas from nature. The way it designs hills, oceans and fills colors into them. I feel lucky for having this life and capable of identifying hidden treasures beneath a wonderful design. -->
+<!--                                   </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                		
+                	</div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>

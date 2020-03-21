@@ -211,7 +211,7 @@
                                     <div class="ml-2 mt-1"><i class="fa fa-ticket text-success"></i></div>
                                  </div>
                               </div>
-                              <img class="rounded-circle ml-2" src="{{user.twitch.imageUrl}}" alt="User-image" width="43" height="43">
+                              <img class="rounded-circle ml-2" src="{{user.profileImage}}" alt="User-image" width="43" height="43">
                               <div class="online-caret bg-success circle"><i class="fa fa-caret-down"></i></div>
                            </a>
                            <div class="dropdown-menu rounded-0 dropdown-menu-right p-0" aria-labelledby="navbarDropdownMenuLin">
@@ -236,6 +236,13 @@
 <!--                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">User List</span>-->
 <!--                                 </div>-->
 <!--                              </a>-->
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-account/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-user"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Account</span>
+                                 </div>
+                              </a>
                               <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-tickets/list'">
                                  <div class="icon-area align-self-start">
                                     <i class="fa fa-ticket text-success"></i>

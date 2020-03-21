@@ -11,15 +11,15 @@ export class UserService extends BaseService{
     private headers = {};
     private currentUser: any;
 
+    userId = localStorage.getItem('user');
+
     constructor(private http: HttpClient, private baseService: BaseService, private sb: MatSnackBar, private z: NgZone) {
         super(sb, z);
         this.headers = new HttpHeaders(this.baseService.getHeaders());
     }
 
     loginUser(userData) {
-        return this.http.post(`${this.baseService.getBaseUrl()}/auth/login`, userData, {headers: this.headers}).pipe(
-            catchError(this.handleError.bind(this))
-        );
+        return this.http.post(`${this.baseService.getBaseUrl()}/auth/login`, userData, {headers: this.headers});
     }
 
     loginUserTwitch(userData) {
@@ -29,9 +29,7 @@ export class UserService extends BaseService{
     }
 
     registerUser(userData) {
-        return this.http.post(`${this.baseService.getBaseUrl()}/auth/register`, userData, {headers: this.headers}).pipe(
-            catchError(this.handleError.bind(this)),
-        );
+        return this.http.post(`${this.baseService.getBaseUrl()}/auth/register`, userData, {headers: this.headers});
     }
 
     createUser(userData) {
@@ -90,6 +88,18 @@ export class UserService extends BaseService{
 
     checkSubscription(userId) {
         return this.http.get(`${this.baseService.getBaseUrl()}/user/${userId}/check-subscription`, {headers: this.headers}).pipe(
+            catchError(this.handleError.bind(this)),
+        );
+    }
+
+    recoverPassword$(email) {
+        return this.http.get( `${this.baseService.getBaseUrl()}/auth/recover-password?email${email}`).pipe(
+            catchError(this.handleError.bind(this)),
+        );
+    }
+
+    setNewPassword$(password, token) {
+        return this.http.post(`${this.baseService.getBaseUrl()}/auth/set-new-password`, { password }, {headers: new HttpHeaders(this.baseService.getHeaders(token))}).pipe(
             catchError(this.handleError.bind(this)),
         );
     }

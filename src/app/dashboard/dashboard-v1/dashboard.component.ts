@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.pageTitleService.setTitle("Home");
+    this.pageTitleService.setTitle("");
   }
 
   shouldUpdateData(ev) {

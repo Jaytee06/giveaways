@@ -20,6 +20,7 @@ const requireRole = function (req, res, next) {
                 const permission = role.permissions.find(x => {
                     if (x.permission.subject == url) return x
                 });
+
                 if (permission !== undefined && (
                     (permission.canRead == true && req.method == 'GET') ||
                     (permission.canCreate == true && req.method == 'POST') ||

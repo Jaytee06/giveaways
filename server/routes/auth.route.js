@@ -5,6 +5,7 @@ const userCtrl = require('../controllers/user.controller');
 const authCtrl = require('../controllers/auth.controller');
 const LeadCtrl = require('../controllers/lead.controller');
 const config = require('../config/config');
+const Role = require('../models/role.model');
 
 const router = express.Router();
 module.exports = router;
@@ -16,8 +17,18 @@ router.post('/login', passport.authenticate('local', { session: false }), login)
 router.get('/me', passport.authenticate('jwt', { session: false }), login);
 router.get('/user-counts', asyncHandler(getUserCounts));
 router.post('/user-lead', asyncHandler(insertUserLead));
+router.route('/recover-password').get(asyncHandler(recoverPassword));
+router.route('/set-new-password').post(
+	passport.authenticate('jwt', { session: false }),
+	asyncHandler(setNewPassword),
+);
 
 async function register(req, res, next) {
+
+	let role = await Role.findOne({slug: 'user'}); // default their role
+	if( role )
+		req.body.roles = [role._id];
+
     let user = await userCtrl.insert(req.body);
     user = user.toObject();
     delete user.hashedPassword;
@@ -28,7 +39,7 @@ async function register(req, res, next) {
 function login(req, res) {
     let user = req.user;
     const token = authCtrl.generateToken(user);
-    res.json({user, token});
+    res.json({user:user._id, token});
 }
 
 function twitchLogin(req, res) {
@@ -51,4 +62,18 @@ async function insertUserLead(req, res) {
 	const leadCtrl = new LeadCtrl();
 	const lead = await leadCtrl.insert(req.body);
 	res.json(lead);
+}
+
+async function recoverPassword(req, res) {
+	let result = await UserCtrl.recoverPassword(req.get('referer'), req.query);
+	res.status(result.status).json(result.payload);
+}
+
+async function setNewPassword(req, res) {
+	if (req.user.recoveryPassword) {
+		let result = await UserCtrl.setNewPassword(req.user._id, req.body.password, req.user.email);
+		res.status(result.status).json(result.payload);
+	} else {
+		res.status(401).json({ message: 'Unauthorized' });
+	}
 }

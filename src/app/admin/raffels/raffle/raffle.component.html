@@ -40,12 +40,12 @@
 							<div>{{raffleCounts.ticketCounts ? raffleCounts.ticketCounts : 0}} <span class="fa fa-ticket text-success"></span></div>
 						</div>
 						<div class="d-flex flex-fill ticket-item ticket-item-winner" *ngIf="raffle.winner">
-							<div><img class="rounded-circle mr-2" src="{{raffle.winner.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+							<div><img class="rounded-circle mr-2" *ngIf="raffle.winner.twitch" src="{{raffle.winner.profileImage}}" alt="User-image" width="20" height="20"></div>
 							<div class="flex-grow-1">{{raffle.winner.fullname}}</div>
 							<div>{{raffle.winner.tickets}} <span class="fa fa-ticket text-white"></span></div>
 						</div>
 						<div *ngFor="let entry of raffleEntries" class="d-flex flex-fill ticket-item">
-							<div><img class="rounded-circle mr-2" src="{{entry.user.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+							<div><img class="rounded-circle mr-2"  *ngIf="entry.user.twitch" src="{{entry.user.profileImage}}" alt="User-image" width="20" height="20"></div>
 							<div class="flex-grow-1">{{entry.user.fullname}}</div>
 							<div>{{entry.tickets}} <span class="fa fa-ticket text-success"></span></div>
 						</div>
@@ -67,12 +67,12 @@
 							<div class="col"></div>
 							<div class="col col-xs-10 col-md-8 col-lg-8">
 								<div class="d-flex flex-fill ticket-item ticket-item-winner" *ngIf="raffle.winner">
-									<div><img class="rounded-circle mr-2" src="{{raffle.winner.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+									<div><img class="rounded-circle mr-2" *ngIf="raffle.winner.twitch" src="{{raffle.winner.profileImage}}" alt="User-image" width="20" height="20"></div>
 									<div class="flex-grow-1">{{raffle.winner.fullname}}</div>
 									<div>{{raffle.winner.tickets}} <span class="fa fa-ticket text-white"></span></div>
 								</div>
 								<div class="d-flex flex-fill ticket-item" *ngIf="tempWinner && !raffle.winner">
-									<div><img class="rounded-circle mr-2" src="{{tempWinner.twitch.imageUrl}}" alt="User-image" width="20" height="20"></div>
+									<div><img class="rounded-circle mr-2" *ngIf="tempWinner.twitch" src="{{tempWinner.profileImage}}" alt="User-image" width="20" height="20"></div>
 									<div class="flex-grow-1">{{tempWinner.fullname}}</div>
 									<div>{{tempWinner.tickets}} <span class="fa fa-ticket text-success"></span></div>
 								</div>

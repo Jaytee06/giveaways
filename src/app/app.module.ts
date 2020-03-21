@@ -33,6 +33,7 @@ import {AngularFireModule} from "@angular/fire";
 import { environment } from '../environments/environment';
 import {AngularFireStorageModule} from "@angular/fire/storage";
 import {NgbModal, NgbModule} from '../../node_modules/@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 /********** Custom option for ngx-translate ******/
 export function createTranslateLoader(http: HttpClient) {
@@ -82,6 +83,8 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 		PageTitleService,
 		BaseService,
 		AuthenticatedGuard,
+		NgbModal,
+		NgbActiveModal
 	]
 })
 export class TCGAppModule { }

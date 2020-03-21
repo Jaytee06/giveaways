@@ -41,7 +41,7 @@
 						<p>You had {{raffleEntry.tickets}} <span class="fa fa-ticket text-success"></span> entered in this raffle.</p>
 					</div>
 					<div class="text-center" *ngIf="raffle.winner">
-						<img class="rounded-circle mr-2" src="{{raffle.winner.twitch.imageUrl}}" alt="User-image" width="25" height="25">
+						<img class="rounded-circle mr-2" *ngIf="raffle.winner.twitch" src="{{raffle.winner.profileImage}}" alt="User-image" width="25" height="25">
 						<span *ngIf="raffle.winner._id === user._id; else otherWinner">YOU ARE THE WINNER!</span>
 						<ng-template #otherWinner>{{raffle.winner.fullname}} has won!</ng-template>
 						<div *ngIf="raffle.winner._id === user._id && raffle.ffStatus === '5d3df5acb71bc344fda79c11'">
