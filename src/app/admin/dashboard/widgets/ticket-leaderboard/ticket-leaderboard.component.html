@@ -32,7 +32,7 @@
 		</div>
 		<div *ngFor="let entry of leaders; let i = index" class="d-flex flex-fill ticket-item">
 			<div><span class="pr-2">{{i+1}}.</span></div>
-			<div><img class="rounded-circle mr-2" src="entry.user.profileImage" alt="User-image" width="20" height="20"></div>
+			<div><img class="rounded-circle mr-2" [src]="entry.user.profileImage" width="20" height="20"></div>
 			<div class="flex-grow-1">{{entry.user.fullname}}</div>
 			<div>{{entry.count | number}} <span class="fa fa-ticket text-success"></span></div>
 		</div>

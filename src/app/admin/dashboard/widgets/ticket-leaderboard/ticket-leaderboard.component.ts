@@ -33,6 +33,7 @@ export class TicketLeaderboardComponent implements OnInit {
 
     this.service.getCounts$().subscribe((d:any[]) => {
       this.leaders = d;
+      console.log(this.leaders);
 
       clearTimeout(this.leaderTimeout);
       // this could be triggered many times at once. throttle
