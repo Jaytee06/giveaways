@@ -70,7 +70,7 @@ export class UserProfileComponent implements OnInit {
           delete this.user.repeatPassword;
       }
 
-      this.user.fullname = this.user.firstName+' '+this.user.lastName;
+      this.user.fullname = (this.user.firstName || '')+' '+(this.user.lastName || '');
       delete this.user.firstName;
       delete this.user.lastName;
       this.service.updateUser(this.user).subscribe((data) => {
