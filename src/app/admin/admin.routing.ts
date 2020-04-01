@@ -24,6 +24,8 @@ import {OrderedProductsComponent} from "./ordered-products/ordered-products.comp
 import {OrderedProductComponent} from "./ordered-products/ordered-product/ordered-product.component";
 import {GamesComponent} from "./games/games.component";
 import {GameComponent} from "./games/game/game.component";
+import {PostsComponent} from "./posts/posts.component";
+import {PostComponent} from "./posts/status/post.component";
 
 export const AdminRoutes: Routes = [{
   path: '',
@@ -54,6 +56,18 @@ export const AdminRoutes: Routes = [{
     }, {
         path: 'permissions/new',
         component: PermissionComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'posts',
+        component: PostsComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'posts/:id',
+        component: PostComponent,
+        canActivate: [AuthenticatedGuard],
+    }, {
+        path: 'posts/new',
+        component: PostComponent,
         canActivate: [AuthenticatedGuard],
     }, {
         path: 'products',

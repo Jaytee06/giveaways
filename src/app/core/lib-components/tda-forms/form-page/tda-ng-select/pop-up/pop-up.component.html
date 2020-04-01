@@ -1,0 +1,15 @@
+<h1 *ngIf="data.headerText; else standardHeader">{{data.headerText}}</h1>
+<ng-template #standardHeader>
+	<h1 *ngIf="data.value._id; else elseTitle" mat-dialog-title>Edit {{data.value.name}}</h1>
+</ng-template>
+<div mat-dialog-content>
+	<app-tda-form
+			[structure]="data.structure"
+			[values]="data.value"
+			[cancelOverride]="cancel.bind(this)"
+			(save$)="save($event)"
+			(delete$)="delete()"
+			[deleteIsForbidden]="data.deleteIsForbidden"
+	></app-tda-form>
+</div>
+<ng-template #elseTitle>Add New</ng-template>

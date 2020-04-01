@@ -1,10 +1,12 @@
 const express = require('express');
 const authRoutes = require('./auth.route');
 const callCenterRoutes = require('./call-center.route');
+const categoryRoutes = require('./category.route');
 const companyRoutes = require('./company.route');
 const gameRoutes = require('./game.route');
 const partnerRoutes = require('./partner.route');
 const permissionRoutes = require('./permission.route');
+const postRoutes = require('./post.route');
 const productRoutes = require('./product.route');
 const orderedProductRoutes = require('./ordered-product.route');
 const raffleRoutes = require('./raffle.route');
@@ -26,10 +28,12 @@ router.get('/health-check', (req, res) =>
 
 router.use('/auth', authRoutes);
 router.use('/call-center', callCenterRoutes);
+router.use('/category', categoryRoutes);
 router.use('/company', companyRoutes);
 router.use('/game', gameRoutes);
 router.use('/partner', partnerRoutes);
 router.use('/permission', permissionRoutes);
+router.use('/post', postRoutes);
 router.use('/product', productRoutes);
 router.use('/ordered-product', orderedProductRoutes);
 router.use('/raffle', raffleRoutes);

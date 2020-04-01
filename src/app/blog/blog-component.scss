@@ -1,0 +1,23 @@
+.hand:hover {
+	cursor: pointer;
+}
+
+.radio-group {
+	display: flex;
+	flex-direction: column;
+	margin: 15px 0;
+}
+
+.radio-button {
+	margin: 5px;
+}
+
+.load-more {
+	cursor: pointer;
+	font-weight: bolder;
+}
+
+.game-item {
+	background-color: #fafbfe;
+	border: 1px solid #DEE4E8;
+}
