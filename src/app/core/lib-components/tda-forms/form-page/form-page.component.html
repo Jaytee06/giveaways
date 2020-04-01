@@ -200,6 +200,7 @@
 					[bindValue]="'_id'"
 					[editable]="field.ngEditable"
 					[ngPopUpComponent]="field.ngPopUpComponent"
+					[ngPopUpTitle]="field.ngPopUpTitle"
 					[service]="field.ngPopUpService"
 					[structure]="field.ngPopUpStructure"
 					[defaultValue]="field.ngPopUpDefaultValue"
@@ -312,6 +313,14 @@
 					</mat-option>
 				</mat-select>
 			</mat-form-field>
+			<ckeditor *ngSwitchCase="'Wysiwyg'"
+					  class="mb-2"
+					  [formControlName]="getFormControlName(field)"
+					  [config]="{height:'700',removeButtons:'Save,NewPage,Flash,IFrame,Form,Checkbox,RadioButton,TextField,Textarea,SelectionField,Button,ImageButton,HiddenField'}"
+					  [readonly]="field.disabled"
+					  (change)="fieldValueChanged({field: field, value: formGroup.get(field._id).value})"
+					  debounce="500">
+			</ckeditor>
 			<mat-checkbox *ngSwitchCase="'SimpleCheckBox'" [formControlName]="getFormControlName(field)">{{field.name}}</mat-checkbox>
 			<br *ngIf="field.type == 'EmptyLine'">
 			<mat-divider *ngIf="field.type == 'Separator'"></mat-divider>

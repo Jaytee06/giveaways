@@ -22,6 +22,7 @@ export enum FieldTypeEnum {
   Select = 'Select',
   MultiSelect = 'MultiSelect',
   SimpleCheckBox = 'SimpleCheckBox',
+  WYSIWYG = 'Wysiwyg',
 // ngInputGroup = 'ng-input-group',
 }
 
@@ -65,7 +66,8 @@ export interface IField {
 	ngPopUpComponent?: any;
 	ngPopUpService?: any;
 	ngPopUpStructure?: IField[];
-	ngPopUpDefaultValue?: { [key: string]: any };
+  ngPopUpDefaultValue?: { [key: string]: any };
+  ngPopUpTitle?: any;
   clearable?: boolean;
 }
 

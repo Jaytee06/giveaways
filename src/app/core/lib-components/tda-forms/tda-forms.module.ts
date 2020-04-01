@@ -13,6 +13,8 @@ import { TdaFormComponent } from './tda-form/tda-form.component';
 import { TdaArrayInputComponent } from './form-page/tda-array-input/tda-array-input.component';
 import { SingleSelectComponent } from './form-page/single-select/single-select.component';
 import { NgSelectComponent } from './form-page/tda-ng-select/ng-select.component';
+import {CKEditorModule} from "ng2-ckeditor";
+import { PopUpComponent } from './form-page/tda-ng-select/pop-up/pop-up.component';
 
 @NgModule({
 	imports: [
@@ -24,6 +26,7 @@ import { NgSelectComponent } from './form-page/tda-ng-select/ng-select.component
 		NgSelectModule,
 		NgxCurrencyModule,
 		ReactiveFormsModule,
+		CKEditorModule,
 	],
 	declarations: [
 		FormPageComponent,
@@ -33,9 +36,10 @@ import { NgSelectComponent } from './form-page/tda-ng-select/ng-select.component
 		TdaArrayInputComponent,
 		TdaCheckBoxesComponent,
 		TdaFormComponent,
-
+		PopUpComponent
 	],
 	entryComponents: [
+		PopUpComponent
 	],
 	exports: [
 		FormPageComponent,
@@ -43,6 +47,7 @@ import { NgSelectComponent } from './form-page/tda-ng-select/ng-select.component
 		ReactiveFormsModule,
 		TdaCheckBoxesComponent,
 		TdaFormComponent,
+		CKEditorModule,
 	],
 })
 export class TdaFormsModule {

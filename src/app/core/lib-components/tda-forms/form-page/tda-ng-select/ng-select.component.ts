@@ -3,6 +3,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { IproductGroup, IService } from '../../../../interfaces';
+import {PopUpComponent} from "./pop-up/pop-up.component";
 
 @Component({
 	selector: 'app-ng-select',
@@ -27,6 +28,7 @@ export class NgSelectComponent implements OnInit, ControlValueAccessor {
 	@Input() bindValue;
 	@Input() editable;
 	@Input() ngPopUpComponent;
+	@Input() ngPopUpTitle;
 	@Input() service: IService<IproductGroup>;
 	@Input() structure;
 	@Input() defaultValue;
@@ -57,16 +59,30 @@ export class NgSelectComponent implements OnInit, ControlValueAccessor {
 	}
 
 	ngOnInit() {
+		this.ngPopUpComponent = this.ngPopUpComponent ? this.ngPopUpComponent : PopUpComponent;
 		this.items$ = new BehaviorSubject(this.items);
 		if (this.service) {
 			this.service.get$().subscribe(data => this.items$.next(data));
 		}
+
+		// give the UI time to load and build this.value
+		setTimeout(() => {
+			// trigger on change at the start in case the ngSelect needs to add products to the sale.
+			this.onChange(this.control.value);
+
+			// if (this.items.length === 1) {
+			// 	this.control.setValue(this.items[0][this.bindValue]);
+			// } else if (this.defaultValue && !this.control.value) {
+			// 	this.control.setValue(this.defaultValue);
+			// }
+			// this.setDisabledState(this.items.length < 2);
+		}, 250);
 	}
 
 	openProductGroup(isNew = false) {
 		if (!this.ngPopUpComponent) return;
 		let value: IproductGroup = isNew ? { ...this.defaultValue } : this.items$.getValue().find(i => i._id === this.control.value);
-		const dialogRef = this.dialog.open(this.ngPopUpComponent, { data: { value, structure: this.structure } });
+		const dialogRef = this.dialog.open(this.ngPopUpComponent, { data: { value, structure: this.structure, headerText:this.ngPopUpTitle } });
 		dialogRef.afterClosed().subscribe(action => {
 			if (!action) return;
 			switch (action.action_type) {

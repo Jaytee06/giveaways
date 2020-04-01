@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 
 import { MainComponent } from './main/main.component';
 import { AuthComponent } from './auth/auth.component';
+import { PublicComponent } from './public/public.component';
 import {AuthenticatedGuard} from './router-guard/authenticated.guard';
 
 export const AppRoutes: Routes = [{
@@ -101,13 +102,12 @@ export const AppRoutes: Routes = [{
             path: 'session',
             loadChildren: './session/session.module#SessionDemoModule'
         }]
-    },
-    {
+    },{
         path: '',
-        component: AuthComponent,
+        component: PublicComponent,
         children: [{
-            path: 'session',
-            loadChildren: './session/session.module#SessionDemoModule'
+            path: 'blog',
+            loadChildren: './blog/blog.module#BlogModule'
         }]
     },
     {

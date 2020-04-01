@@ -106,6 +106,12 @@ export class MenuItems {
       icon: 'fa fa-gamepad',
       type: 'link',
     });
+    if (isSuperAdmin || hasPermissions.indexOf('post') > -1) this.add({
+      state: 'posts',
+      name: 'Posts',
+      icon: 'fa fa-th-large',
+      type: 'link',
+    });
     if (isSuperAdmin || hasPermissions.indexOf('product') > -1) this.add({
       state: 'products',
       name: 'Products',

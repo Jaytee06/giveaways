@@ -27,6 +27,8 @@ import {OrderedProductsComponent} from "./ordered-products/ordered-products.comp
 import {OrderedProductComponent} from "./ordered-products/ordered-product/ordered-product.component";
 import {GamesComponent} from "./games/games.component";
 import {GameComponent} from "./games/game/game.component";
+import {PostsComponent} from "./posts/posts.component";
+import {PostComponent} from "./posts/status/post.component";
 
 @NgModule({
   imports: [
@@ -57,7 +59,9 @@ import {GameComponent} from "./games/game/game.component";
       OrderedProductsComponent,
       OrderedProductComponent,
       GamesComponent,
-      GameComponent
+      GameComponent,
+      PostsComponent,
+      PostComponent
   ]
 })
 

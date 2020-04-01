@@ -83,6 +83,7 @@ export class TdaFormComponent implements OnInit {
 					case FieldTypeEnum.ngSelect:
 					case FieldTypeEnum.MultiSelect:
 					case FieldTypeEnum.SimpleCheckBox:
+					case FieldTypeEnum.WYSIWYG:
 						// case 'Select':
 						// case 'Radio':
 						// case 'Physician':

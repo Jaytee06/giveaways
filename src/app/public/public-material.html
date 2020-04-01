@@ -1,0 +1,104 @@
+<ng-sidebar-container>
+   <div ng-sidebar-content>
+      <section class="main-contents">
+         <header class="main-header">
+            <div class="d-flex justify-content-between align-items-center chankya-header-toolbar w-100">
+               <div class="h-100 d-flex align-items-center col-sm-6 col-md-6 col-lg-6 pl-0 pr-0">
+                  <div class="h-100 pl-2 search-bar w-100 h-100 search-w">
+                     <span class="mr-3"><a [routerLink]="['/']"><img height="50px" src="https://vintley.s3-us-west-2.amazonaws.com/public-images/Vintley_Logo1.png" /></a></span>
+                     <span matTooltip="Vintley Blog"><a [routerLink]="['/blog/list']">Blog</a></span>
+                  </div>
+               </div>
+               <div class="align-items-end pr-0 col-sm-6 col-md-6 col-lg-6" *ngIf="user; else notLoggedIn">
+                  <div class="d-flex secondary-menu justify-content-end align-items-center push-for-beta-banner">
+                     <ul class="nav secondary-menu-list d-flex justify-content-end align-items-center mw-175" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <li class="dropdown">
+                           <notifications></notifications>
+                        </li>
+                        <li class="dropdown">
+                           <a href="javascript:void(0)" id="navbarHelpMenu" class="faa-parent animated-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question material-icons faa-slow faa-ring"></i></a>
+                           <div class="dropdown-menu rounded-0 dropdown-menu-right dropdown-menu-lg p-0" aria-labelledby="navbarHelpMenu">
+                              <a class="dropdown-item  d-flex pt-3" [routerLink]="['/','help', 'how-it-works']" >How it Works</a>
+                              <a class="dropdown-item  d-flex pt-3" [routerLink]="['/', 'help', 'link-to-prime']" >Link to Prime</a>
+                              <a class="dropdown-item  d-flex pt-3" [routerLink]="['/', 'help', 'how-to-subscribe']" >How To Subscribe</a>
+                           </div>
+                        </li>
+                        <li class="dropdown" *ngIf="user">
+                           <a class="relative rounded-bg" href="javascript:void(0)" id="navbarDropdownMenuLin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <div class="d-flex flex-column">
+                                 <div class="d-none-sm">{{user.fullname}}</div>
+                              </div>
+                              <img class="rounded-circle ml-2" src="{{user.profileImage}}" alt="User-image" width="43" height="43">
+                              <div class="online-caret bg-success circle"><i class="fa fa-caret-down"></i></div>
+                           </a>
+                           <div class="dropdown-menu rounded-0 dropdown-menu-right p-0" aria-labelledby="navbarDropdownMenuLin">
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-account/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-user"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Account</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-tickets/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-ticket text-success"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Tickets</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-ordered-products/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-shopping-cart"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">My Ordered Products</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-giveaways/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-trophy"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Won Giveaways</span>
+                                 </div>
+                              </a>
+                              <a class="dropdown-item  d-flex pb-2" [routerLink]="'/my-referrals/list'">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-bar-chart"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Referrals</span>
+                                 </div>
+                              </a>
+
+                              <a class="dropdown-item  d-flex pb-2" (click)="logout()">
+                                 <div class="icon-area align-self-start">
+                                    <i class="fa fa-power-off"></i>
+                                 </div>
+                                 <div class="icon-msg ml-2 mr-2"> <span class="align-self-start d-block ">Logout</span>
+                                 </div>
+                              </a>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <ng-template #notLoggedIn>
+                  <button class="btn btn-outline-danger login-btn" [routerLink]="['/']">Login</button>
+               </ng-template>
+            </div>
+         </header>
+         <!-- main header closed -->
+         <div class="chankya-base-container" #scrollContainer>
+            <div class="d-flex justify-content-between align-items-center page-info w-100 d-none-sm">
+               <a class="navbar-brand" href="javascript:void(0)">{{header}}</a>
+               <!--<breadcrumb class="chankya-breadcrumbs"></breadcrumb>-->
+            </div>
+            <div class="inner-container" [ngClass]="{'center-content': true}">
+               <router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
+            </div>
+         </div>
+         <!-- chankya base container closed -->
+      </section>
+      <!-- main content closed -->
+   </div>
+   <!-- Sidebar Closed -->
+</ng-sidebar-container>
+<!-- app closed -->

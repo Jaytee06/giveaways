@@ -1,0 +1,11 @@
+<!--<tcg-filters-->
+<!--		(filterChanged)="filterChanged($event)"-->
+<!--		[filterOptions]="filterData"-->
+<!--&gt;</tcg-filters>-->
+<tcg-table
+  [tableSettings]="tableSettings"
+  [totalItems]="totalPosts"
+  [entity]="'Post'"
+  [resetSkip$]="resetSkip$"
+  (rowClicked)="postSelected($event)"
+></tcg-table>
