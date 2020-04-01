@@ -1,6 +1,8 @@
 // config should be imported before importing any other file
 const config = require('./config/config');
 const cluster = require('cluster');
+const imagemin = require('imagemin');
+const imageminMozjpeg = require('imagemin-mozjpeg');
 const numCPUs = process.env.NODE_ENV === 'development' ? 1 : require('os').cpus().length;
 
 if(cluster.isMaster ) {
@@ -14,6 +16,16 @@ if(cluster.isMaster ) {
     /* require cron jobs */
     /* put cron jobs here so they run only once and they are not clustered */
     require('./jobs');
+
+    // server compress images
+    (async() => {
+        const files = await imagemin(
+            ['assets/img/*.jpg'],
+            'assets/img',
+            {plugins: [imageminMozjpeg({quality: 50})]}
+        );
+        console.log('files', files);
+    })();
 
     // exit worker
     cluster.on('exit', (worker, code, signal) => {

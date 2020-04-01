@@ -15,6 +15,12 @@ export class BaseService {
 
     constructor(public snackBar: MatSnackBar, private zone: NgZone) {}
 
+    public checkToken() {
+        const token = localStorage.getItem('token');
+        const tokenExpire = localStorage.getItem('tokenExpire');
+        return token && moment().isBefore(moment(tokenExpire));
+    }
+
     public getHeaders(customToken?) {
         const token = customToken ? customToken : localStorage.getItem('token');
         return {
@@ -22,7 +28,6 @@ export class BaseService {
             'Authorization': 'Bearer '+token
         };
     }
-
 
     public getBaseUrl() {
         return ( environment.apiBaseUrl && environment.apiBaseUrl != '' ? environment.apiBaseUrl+'/api' : 'localhost:4300/api' );

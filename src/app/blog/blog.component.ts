@@ -38,8 +38,7 @@ export class BlogComponent implements OnInit {
 		this.pageService.setTitle("Blog");
 
 		const categories$ = this.categoryService.get$();
-		const token = localStorage.getItem('token');
-		if( token ) {
+		if( this.userService.checkToken() ) {
 			const user$ = this.userService.getCurrentUser();
 			combineLatest(user$, categories$).subscribe((data) => {
 				[this.user, this.categories] = data;

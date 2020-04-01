@@ -16,7 +16,7 @@ export class CategoryService extends BaseService {
 	}
 
 	get$() {
-		return this.http.get(`${this.getBaseUrl()}/category?${this.getParams()}`, { headers: this.headers }).pipe(
+		return this.http.get(`${this.getBaseUrl()}/public/category?${this.getParams()}`, { headers: this.headers }).pipe(
 			catchError(this.handleError.bind(this)),
 		);
 	}
