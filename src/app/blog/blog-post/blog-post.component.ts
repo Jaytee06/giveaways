@@ -40,8 +40,7 @@ export class BlogPostComponent implements OnInit {
 			this.getComments();
 		});
 
-		const token = localStorage.getItem('token');
-		if( token ) {
+		if( this.userService.checkToken() ) {
 			const user$ = this.userService.getCurrentUser();
 			combineLatest(user$).subscribe((data) => {
 				[this.user] = data;

@@ -53,8 +53,7 @@ export class PublicComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        const token = localStorage.getItem('token');
-        if( token ) {
+        if( this.userService.checkToken() ) {
             this.userService.getCurrentUser().subscribe((user) => {
                 this.user = user;
                 if (this.user.roles.find(x => x.slug === 'super_admin') !== undefined)
