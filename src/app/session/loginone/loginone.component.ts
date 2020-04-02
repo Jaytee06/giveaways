@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from '../../services/user.service';
 import { environment } from '../../../environments/environment';
@@ -8,15 +8,22 @@ import {RaffleService} from "../../services/raffle.service";
 import * as moment from "moment-timezone";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {Observable} from "rxjs";
+import {VisibilityService} from "../../services/visibility.service";
+import {filter, take} from "rxjs/operators";
+
 
 @Component({
    selector: 'ms-loginone-session',
    templateUrl:'./loginone-component.html',
    styleUrls: ['./loginone-component.scss'],
-    providers:[UserService, RaffleService],
+    providers:[UserService, RaffleService, VisibilityService],
    // encapsulation: ViewEncapsulation.None,
 })
 export class LoginoneComponent implements OnInit {
+
+	@ViewChild("referralProgram") referralProgram:ElementRef;
+	addYoutube: Observable<boolean>;
 
 	userCount = 0;
 	maxUserCount = 10;
@@ -45,6 +52,7 @@ export class LoginoneComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
         private modalService: NgbModal,
+		public visibilityService: VisibilityService
     ) {
     }
 
@@ -69,6 +77,10 @@ export class LoginoneComponent implements OnInit {
 			email: [''],
 			password: [''],
 		});
+
+		this.addYoutube = this.visibilityService
+			.elementInSight(this.referralProgram)
+			.pipe(filter(visible => visible), take(1));
 	}
 
 	updateRaffleTime() {
@@ -185,7 +197,6 @@ export class LoginoneComponent implements OnInit {
 		}
 		// this.router.navigate(['/']);
 	}
-
 }
 
 
