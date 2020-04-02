@@ -31,12 +31,12 @@ export class VisibilityService {
 
         })
             .pipe (
-                flatMap(entries => entries),
-                switchMap(entry => of(entry.isIntersecting)),
+                flatMap((entries:any) => entries),
+                switchMap((entry:any) => of(entry.isIntersecting)),
                 distinctUntilChanged()
             );
 
-        const elementInSight$ = combineLatest(
+        const elementInSight$:any = combineLatest(
             this.pageVisible$,
             elementVisible$,
             (pageVisible, elementVisible) => pageVisible && elementVisible
