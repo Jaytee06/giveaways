@@ -31,8 +31,8 @@ export class VisibilityService {
 
         })
             .pipe (
-                flatMap(entries => entries),
-                switchMap(entry => of(entry.isIntersecting)),
+                flatMap((entries:any) => entries),
+                switchMap((entry:any) => of(entry.isIntersecting)),
                 distinctUntilChanged()
             );
 
