@@ -88,20 +88,20 @@ export class BlogPostComponent implements OnInit {
 		s.text = `{
 				"@context": "http://schema.org",
 				"@type": "Article",
-				"name": ${this.post.title},
+				"name": "${this.post.title}",
 				"author": {
 					"@type": "Person",
-					"name": ${this.post.author.fullname},
+					"name": "${this.post.author.fullname}",
 				},
-				"datePublished": '${this.post.createdAt}',
-				"image": ${this.post.imageUrl},
-				"articleBody": ${this.post.content+''},
+				"datePublished": "${this.post.createdAt}",
+				"image": "${this.post.imageUrl}",
+				"articleBody": "${this.post.content}",
 				"publisher" : {
 					"@type" : "Organization",
-					"name" : ${this.post.author.fullname}
+					"name" : "${this.post.author.fullname}"
 				},
-				"dateModified": '${this.post.updatedAt}',
-				"headline": ${this.post.title},
+				"dateModified": "${this.post.updatedAt}",
+				"headline": "${this.post.title}",
 		}`;
 		this.renderer.appendChild(this.el.nativeElement, s);
 	}
