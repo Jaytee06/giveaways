@@ -36,7 +36,7 @@ export class VisibilityService {
                 distinctUntilChanged()
             );
 
-        const elementInSight$ = combineLatest(
+        const elementInSight$:any = combineLatest(
             this.pageVisible$,
             elementVisible$,
             (pageVisible, elementVisible) => pageVisible && elementVisible
