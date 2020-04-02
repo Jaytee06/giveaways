@@ -17,16 +17,6 @@ if(cluster.isMaster ) {
     /* put cron jobs here so they run only once and they are not clustered */
     require('./jobs');
 
-    // server compress images
-    (async() => {
-        const files = await imagemin(
-            ['assets/img/*.jpg'],
-            'assets/img',
-            {plugins: [imageminMozjpeg({quality: 50})]}
-        );
-        console.log('files', files);
-    })();
-
     // exit worker
     cluster.on('exit', (worker, code, signal) => {
         console.log(`worker ${worker.process.pid} died`);

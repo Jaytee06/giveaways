@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {combineLatest, of} from "rxjs";
 import {UserService} from "../../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -25,6 +25,8 @@ export class BlogPostComponent implements OnInit {
 		private userService: UserService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
+		private el: ElementRef,
+		private renderer: Renderer2,
 	) {}
 
 	ngOnInit() {
@@ -38,6 +40,7 @@ export class BlogPostComponent implements OnInit {
 		combineLatest(post$).subscribe((data) => {
 			[this.post] = data;
 			this.getComments();
+			this.injectGoogleSnippet();
 		});
 
 		if( this.userService.checkToken() ) {
@@ -77,6 +80,26 @@ export class BlogPostComponent implements OnInit {
 	goToCategory(category) {
 		console.log('going');
 		this.router.navigate(['/', 'blog', 'list', category.name.toLowerCase().replace(/ /g, '-')], {relativeTo:this.activatedRoute});
+	}
+
+	injectGoogleSnippet() {
+		const s = this.renderer.createElement('script');
+		s.type = 'application/ld+json';
+		s.onload = () => {
+			return {
+				"@context": "http://schema.org",
+				"@type": "Article",
+				"name": this.post.title,
+				"author": {
+					"@type": "Person",
+					"name": this.post.author.fullname,
+				},
+				"datePublished": this.post.createdAt,
+				"image": this.post.imageUrl,
+				"articleBody": this.post.conent
+			};
+		};
+		this.renderer.appendChild(this.el.nativeElement, s);
 	}
 }
 
