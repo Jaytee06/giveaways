@@ -85,8 +85,7 @@ export class BlogPostComponent implements OnInit {
 	injectGoogleSnippet() {
 		const s = this.renderer.createElement('script');
 		s.type = 'application/ld+json';
-		s.onload = () => {
-			return {
+		s.text = {
 				"@context": "http://schema.org",
 				"@type": "Article",
 				"name": this.post.title,
@@ -96,8 +95,13 @@ export class BlogPostComponent implements OnInit {
 				},
 				"datePublished": this.post.createdAt,
 				"image": this.post.imageUrl,
-				"articleBody": this.post.conent
-			};
+				"articleBody": this.post.conent,
+				"publisher" : {
+					"@type" : "Organization",
+					"name" : this.post.author.fullname
+				},
+				"dateModified": this.post.updatedAt,
+				"headline": this.post.title,
 		};
 		this.renderer.appendChild(this.el.nativeElement, s);
 	}
