@@ -307,7 +307,12 @@ async function checksLogin(user) {
 			type: 'tickets',
 		});
 	}
-	user.loginLogs.push(new Date);
+	let f = user.loginLogs.filter((x) => moment(x).isAfter(moment().subtract(8, 'hour')));
+	if( !f || !f.length )
+		user.loginLogs.push(new Date);
+
+	if( user.loginLogs.length > 300 )
+		user.loginLogs = user.loginLogs.slice(-200);
 
 	if(  typeof user.emailToken === 'undefined' )
 		user.emailToken = crypto.randomBytes(24).toString('hex');

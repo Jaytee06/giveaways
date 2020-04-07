@@ -91,11 +91,11 @@ export class BlogPostComponent implements OnInit {
 				"name": "${this.post.title}",
 				"author": {
 					"@type": "Person",
-					"name": "${this.post.author.fullname}",
+					"name": "${this.post.author.fullname}"
 				},
 				"datePublished": "${this.post.createdAt}",
 				"image": "${this.post.imageUrl}",
-				"articleBody": "${this.post.content}",
+				"articleBody": '${this.post.content}',
 				"publisher" : {
 					"@type" : "Organization",
 					"name" : "${this.post.author.fullname}"
