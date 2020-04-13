@@ -1,6 +1,7 @@
 import {enableProdMode} from '@angular/core';
 import {environment} from './environments/environment';
 
+console.log('xxxxxxxxxxxxxxxxxx', environment.production);
 if (environment.production) {
   enableProdMode();
 } else {
