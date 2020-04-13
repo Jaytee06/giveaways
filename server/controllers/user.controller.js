@@ -77,16 +77,16 @@ async function insert(user) {
 
 	// give the user a signup bonus of tickets
 	const obj = {
-		amount: 1000,
+		amount: 100,
 		user: newUser._id,
-		reason: 'Vintley sign up with 10X bonus!',
+		reason: 'Vintley sign up!',
 		ref: newUser._id,
 		refType: 'signUp'
 	};
 	await ticketCtrl.insert(obj);
 
 	await fsCtrl.instertNotification( obj.user,{
-		message:'You received '+obj.amount+' for a signing up. With a 10X bonus!',
+		message:'You received '+obj.amount+' for a signing up.',
 		ref: obj.ref+'',
 		refType: obj.refType,
 		type: 'tickets',

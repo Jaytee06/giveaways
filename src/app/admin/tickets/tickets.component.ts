@@ -11,9 +11,14 @@ import {TicketService} from "../../services/ticket.service";
 })
 export class TicketsComponent implements OnInit {
 
+	resetSkip$: EventEmitter<any> = new EventEmitter(true);
 	tableData: any = {
 		pageSize:100,
+		ajaxPagination: true,
 	};
+	filterTimeout;
+	query: any = {};
+	totalTickets: number;
 
 	constructor(
 		private pageTitleService: PageTitleService,
@@ -34,8 +39,43 @@ export class TicketsComponent implements OnInit {
 		];
 		this.tableData.displayedColumns = ['user.fullname', 'amount', 'reason', 'createdAt'];
 
-		this.tableData.isLoading = true;
 		this.tableData.dataSource = new EventEmitter();
+
+		this.filterChanged();
+
+	}
+
+	filterChanged(filters: any = {}) {
+		if (filters && filters.resetSkip) {
+			this.query.skip = 0;
+			delete filters.resetSkip;
+			this.resetSkip$.emit(true);
+		}
+
+		if (!filters.limit) {
+			filters.limit = this.tableData.pageSize;
+		}
+
+		this.query = {
+			...this.query,
+			...filters,
+		};
+		this.query = _.pickBy(this.query, (i) => i !== 'null' && i !== null);
+		this.applyFilters();
+	}
+
+	applyFilters() {
+		this.service.filters = this.query;
+
+		clearTimeout(this.filterTimeout);
+		// this could be triggered many times at once. throttle
+		this.filterTimeout = setTimeout(() => {
+			this.display();
+		}, 250);
+	}
+
+	display() {
+		this.tableData.isLoading = true;
 		this.service.get$().subscribe(
 			(data: any[]) => {
 				data = data.map((x) => {
@@ -46,6 +86,9 @@ export class TicketsComponent implements OnInit {
 			}
 		);
 
+		this.service.getCount().subscribe((data: number) => {
+			this.totalTickets = data;
+		});
 	}
 
 	ticketSelected(ticket) {

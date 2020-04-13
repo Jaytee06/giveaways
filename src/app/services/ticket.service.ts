@@ -27,6 +27,12 @@ export class TicketService extends BaseService {
 		);
 	}
 
+	getCount() {
+		return this.http.get(`${this.getBaseUrl()}/ticket/count?` + this.getParams(), { headers: this.headers }).pipe(
+			catchError(this.handleError.bind(this)),
+		);
+	}
+
 	save$(ticket) {
 		if (ticket) {
 			if (ticket._id) {
