@@ -314,6 +314,9 @@ async function checksLogin(user) {
 	if( user.loginLogs.length > 300 )
 		user.loginLogs = user.loginLogs.slice(-200);
 
+	if( user.spinWheel && user.spinWheel.length > 300 )
+		user.spinWheel = user.spinWheel.slice(-200);
+
 	if(  typeof user.emailToken === 'undefined' )
 		user.emailToken = crypto.randomBytes(24).toString('hex');
 	if( typeof user.receiveEmails === 'undefined' )
