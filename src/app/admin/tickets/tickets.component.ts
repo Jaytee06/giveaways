@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit} from '@angular/core';
 import {PageTitleService} from "../../core/page-title/page-title.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TicketService} from "../../services/ticket.service";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-tickets',
