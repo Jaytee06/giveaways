@@ -6,7 +6,7 @@ import {UserService} from '../../services/user.service';
     selector: 'ms-register-session',
     templateUrl: './register-component.html',
     styleUrls: ['./register-component.scss'],
-    providers: [ UserService ],
+    providers: [ ],
     encapsulation: ViewEncapsulation.None,
 })
 export class RegisterComponent {

@@ -27,7 +27,7 @@ const screenfull = require('screenfull');
     selector: 'chankya-layout',
   	templateUrl:'./main-material.html',
   	styleUrls: ['./main-material.scss'],
-    providers: [UserService, TicketService],
+    providers: [TicketService],
     encapsulation: ViewEncapsulation.None
 })
 export class MainComponent implements OnInit, OnDestroy, OnChanges {

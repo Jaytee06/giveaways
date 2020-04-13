@@ -26,7 +26,6 @@ import {OrderedProductService} from "../services/ordered-product.service";
         MyOrderedProductsComponent
     ],
     providers: [
-        UserService,
         OrderedProductService,
     ]
 })

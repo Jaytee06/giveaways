@@ -1,6 +1,14 @@
 <div class="chk-block">
 	<div class="chk-block-content">
 		<div class="text-center"><h3>Earn Tickets</h3></div>
+		<div class="ticket-opp mb-4 p-3 text-center">
+			<p class="font-15x mb-0">Earn <b>1,000</b> <i class="fa fa-ticket text-success"></i> monthly by Subscribing to our Twitch Channel.</p>
+			<p class="font-15x">Subscribe for <b>FREE</b> with your <u>Amazon Prime</u> membership.</p>
+			<div>
+				<a class="mr-2" href="" [routerLink]="'/help/link-to-prime'"><button class="btn btn-info btn-sm pl-4 pr-4 font-weight-bold">Learn More</button></a>
+				<a href="https://www.twitch.tv/vintleytv" target="_blank"><button class="btn btn-twitch btn-sm pl-4 pr-4 font-weight-bold"><i class="fa fa-twitch mr-1"></i>Sub Now</button></a>
+			</div>
+		</div>
 		<mat-grid-list rowHeight="1:1.25" [cols]="cols" [gutterSize]="'2rem'" >
 			<mat-grid-tile class="ticket-opp"  *ngFor="let opp of ticketOpps">
 				<div class="d-flex flex-column flex-fill ticket-opp">

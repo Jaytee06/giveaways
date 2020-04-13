@@ -7,7 +7,7 @@ import {UserService} from "../../services/user.service";
     selector: 'unsubscribers',
     templateUrl: './unsubscribe.component.html',
     styleUrls: ['./unsubscribe.component.scss'],
-    providers:[UserService]
+    providers:[]
 })
 export class UnsubscribeComponent implements OnInit {
 

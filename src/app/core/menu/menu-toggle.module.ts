@@ -14,6 +14,6 @@ import {UserService} from "../../services/user.service";
     MenuToggleLinkDirective,
     MenuToggleDirective,
    ],
-  providers:[UserService]
+  providers:[]
 })
 export class MenuToggleModule { }
