@@ -171,3 +171,41 @@ text-white {
 	max-width: 1100px;
 	margin: auto;
 }
+
+.footer {
+	color: white;
+	background-color: #2f3242;
+
+	a {
+		color: white;
+	}
+	hr {
+		border-color: white;
+	}
+}
+
+.font-15x {
+	font-size: 1.5rem;
+}
+
+.btn-twitch {
+	color: #FFFFFF;
+	background-color: #6441A5;
+	border-color: #2F1F4E;
+}
+
+.btn-twitch:hover,
+.btn-twitch:focus,
+.btn-twitch:active,
+.btn-twitch.active,
+.open .dropdown-toggle.btn-twitch {
+	color: #FFFFFF;
+	background-color: #472e75;
+	border-color: #2F1F4E;
+}
+
+.btn-twitch:active,
+.btn-twitch.active,
+.open .dropdown-toggle.btn-twitch {
+	background-image: none;
+}

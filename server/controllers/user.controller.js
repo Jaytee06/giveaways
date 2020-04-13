@@ -77,16 +77,16 @@ async function insert(user) {
 
 	// give the user a signup bonus of tickets
 	const obj = {
-		amount: 1000,
+		amount: 100,
 		user: newUser._id,
-		reason: 'Vintley sign up with 10X bonus!',
+		reason: 'Vintley sign up!',
 		ref: newUser._id,
 		refType: 'signUp'
 	};
 	await ticketCtrl.insert(obj);
 
 	await fsCtrl.instertNotification( obj.user,{
-		message:'You received '+obj.amount+' for a signing up. With a 10X bonus!',
+		message:'You received '+obj.amount+' for a signing up.',
 		ref: obj.ref+'',
 		refType: obj.refType,
 		type: 'tickets',
@@ -307,7 +307,15 @@ async function checksLogin(user) {
 			type: 'tickets',
 		});
 	}
-	user.loginLogs.push(new Date);
+	let f = user.loginLogs.filter((x) => moment(x).isAfter(moment().subtract(8, 'hour')));
+	if( !f || !f.length )
+		user.loginLogs.push(new Date);
+
+	if( user.loginLogs.length > 300 )
+		user.loginLogs = user.loginLogs.slice(-200);
+
+	if( user.spinWheel && user.spinWheel.length > 300 )
+		user.spinWheel = user.spinWheel.slice(-200);
 
 	if(  typeof user.emailToken === 'undefined' )
 		user.emailToken = crypto.randomBytes(24).toString('hex');

@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   selector: 'notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
-  providers: [UserService]
+  providers: []
 })
 export class NotificationsComponent implements OnInit {
 

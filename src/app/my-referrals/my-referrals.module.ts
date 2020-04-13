@@ -28,8 +28,7 @@ import {RaffleService} from "../services/raffle.service";
         MyReferralsComponent
     ],
     providers: [
-        RaffleService,
-        UserService
+        RaffleService
     ]
 })
 

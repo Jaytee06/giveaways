@@ -9,7 +9,7 @@ import {RoleService} from '../../../services/role.service';
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-    providers:[UserService, PartnerService, RoleService]
+    providers:[PartnerService, RoleService]
 })
 export class UserComponent implements OnInit {
 

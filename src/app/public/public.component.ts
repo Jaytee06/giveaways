@@ -27,7 +27,7 @@ const screenfull = require('screenfull');
     selector: 'public-layout',
   	templateUrl:'./public-material.html',
   	styleUrls: ['./public-material.scss'],
-    providers: [UserService],
+    providers: [],
     encapsulation: ViewEncapsulation.None
 })
 export class PublicComponent implements OnInit, OnDestroy {

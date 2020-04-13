@@ -26,8 +26,7 @@ import {RaffleService} from "../services/raffle.service";
         MyRafflesComponent
     ],
     providers: [
-        RaffleService,
-        UserService
+        RaffleService
     ]
 })
 

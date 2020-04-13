@@ -13,6 +13,7 @@ router.use(requireRole);
 
 router.route('/').get(asyncHandler(preQuery), asyncHandler(get));
 router.route('/').post(asyncHandler(insert));
+router.route('/count').get(asyncHandler(preQuery), asyncHandler(getCount));
 router.route('/counts').get(asyncHandler(preQuery), asyncHandler(getCounts));
 router.route('/:id').get(asyncHandler(getById));
 router.route('/:id').put(asyncHandler(update));
@@ -118,6 +119,12 @@ async function myTickets(req, res) {
     const tickets = await crtl.myTicketCount(req.query);
 
     res.json(tickets);
+}
+
+async function getCount(req, res) {
+    const crtl = new Ctrl();
+    const count = await crtl.getCount(req.query);
+    res.json(count);
 }
 
 async function getCounts(req, res) {

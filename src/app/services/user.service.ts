@@ -52,6 +52,7 @@ export class UserService extends BaseService{
 
     getUser(userId) {
         return this.http.get(`${this.baseService.getBaseUrl()}/user/${userId}`, {headers: this.headers}).pipe(
+            tap((user) => this.currentUser = user),
             catchError(this.handleError.bind(this)),
         );
     }
@@ -76,6 +77,7 @@ export class UserService extends BaseService{
     }
 
     getCurrentUser() {
+        console.log('getCurrentUser', this.currentUser);
         const userId = localStorage.getItem('user');
         if (userId && userId != '' && this.currentUser == null) {
             return this.getUser(userId);

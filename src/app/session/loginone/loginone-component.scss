@@ -92,28 +92,6 @@
  * Special thanks to: http://blog.koalite.com/bbg/
  */
 
-.btn-twitch {
-	color: #FFFFFF;
-	background-color: #6441A5;
-	border-color: #2F1F4E;
-}
-
-.btn-twitch:hover,
-.btn-twitch:focus,
-.btn-twitch:active,
-.btn-twitch.active,
-.open .dropdown-toggle.btn-twitch {
-	color: #FFFFFF;
-	background-color: #472e75;
-	border-color: #2F1F4E;
-}
-
-.btn-twitch:active,
-.btn-twitch.active,
-.open .dropdown-toggle.btn-twitch {
-	background-image: none;
-}
-
 .btn-twitch.disabled,
 .btn-twitch[disabled],
 fieldset[disabled] .btn-twitch,
@@ -136,4 +114,26 @@ fieldset[disabled] .btn-twitch.active {
 .btn-twitch .badge {
 	color: #6441A5;
 	background-color: #FFFFFF;
+}
+
+.btn-twitch {
+	color: #FFFFFF;
+	background-color: #6441A5;
+	border-color: #2F1F4E;
+}
+
+.btn-twitch:hover,
+.btn-twitch:focus,
+.btn-twitch:active,
+.btn-twitch.active,
+.open .dropdown-toggle.btn-twitch {
+	color: #FFFFFF;
+	background-color: #472e75;
+	border-color: #2F1F4E;
+}
+
+.btn-twitch:active,
+.btn-twitch.active,
+.open .dropdown-toggle.btn-twitch {
+	background-image: none;
 }

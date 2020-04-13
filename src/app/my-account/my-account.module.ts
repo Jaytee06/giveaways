@@ -25,7 +25,6 @@ import {MyAccountRoutes} from "./my-account.routing";
         UserProfileComponent
     ],
     providers: [
-        UserService
     ]
 })
 

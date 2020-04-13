@@ -17,7 +17,7 @@ import {filter, take} from "rxjs/operators";
    selector: 'ms-loginone-session',
    templateUrl:'./loginone-component.html',
    styleUrls: ['./loginone-component.scss'],
-    providers:[UserService, RaffleService, VisibilityService],
+    providers:[RaffleService, VisibilityService],
    // encapsulation: ViewEncapsulation.None,
 })
 export class LoginoneComponent implements OnInit {

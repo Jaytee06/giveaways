@@ -33,7 +33,6 @@ import {DashboardModule} from "../dashboard/dashboard.module";
     ],
     providers: [
         RaffleService,
-        UserService,
         TicketService
     ]
 })

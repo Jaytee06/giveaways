@@ -75,7 +75,6 @@ const localLogin = new LocalStrategy({
   usernameField: 'email'
 }, async (email, password, done) => {
     let user = await User.findOne({ email }).populate({path:'roles', populate:{path:'permissions.permission'}});
-    console.log('bb');
     if (!user || !bcrypt.compareSync(password, user.hashedPassword)) {
         return done(null, false, {error: 'Your login details could not be verified. Please try again.'});
     }

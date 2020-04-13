@@ -52,6 +52,10 @@ class TicketController {
         return await Model.findByIdAndRemove(id);
     }
 
+    async getCount(query) {
+        return await Model.countDocuments(query.query);
+    }
+
     async ticketCounts(query) {
         const group = {
             _id: { user: '$user' },

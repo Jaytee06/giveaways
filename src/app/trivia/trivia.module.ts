@@ -29,7 +29,6 @@ import {DashboardModule} from "../dashboard/dashboard.module";
     providers: [
         TicketService,
         TriviaService,
-        UserService
     ]
 })
 

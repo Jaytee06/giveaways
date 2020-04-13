@@ -26,8 +26,7 @@ import {DashboardModule} from "../dashboard/dashboard.module";
         MyTicketsComponent
     ],
     providers: [
-        TicketService,
-        UserService
+        TicketService
     ]
 })
 
