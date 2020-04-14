@@ -29,7 +29,7 @@ async function preQuery(req, res, next) {
 
     const skip = parseInt(req.query.skip) || 0;
     const limit = parseInt(req.query.limit) || 10;
-    let sort = req.query.sort || '-start';
+    let sort = req.query.sort || '-createdAt';
     const groupBy = req.query.groupBy;
     delete req.query.skip;
     delete req.query.limit;

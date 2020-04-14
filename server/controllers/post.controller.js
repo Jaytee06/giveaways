@@ -20,7 +20,7 @@ class PostController {
 
     async getByTitle(title) {
         // fix title
-        title = title.replace(/-/g, ' ');
+        title = title.replace(/-/g, ' ').replace(/\$/g, '\\$');
         return await Post.findOne({title: {$regex: title, $options: 'i'}}).populate('author', 'fullname profileImage').populate('categories');
     }
 
