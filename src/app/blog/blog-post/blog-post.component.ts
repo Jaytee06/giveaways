@@ -101,7 +101,7 @@ export class BlogPostComponent implements OnInit {
 					"name" : "${this.post.author.fullname}"
 				},
 				"dateModified": "${this.post.updatedAt}",
-				"headline": "${this.post.title}",
+				"headline": "${this.post.title}"
 		}`;
 		this.renderer.appendChild(this.el.nativeElement, s);
 	}
