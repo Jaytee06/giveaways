@@ -37,6 +37,7 @@ export class BlogComponent implements OnInit {
 	ngOnInit() {
 		this.pageService.setTitle("Blog");
 
+		this.categoryService.filters.getCount = true;
 		const categories$ = this.categoryService.get$();
 		if( this.userService.checkToken() ) {
 			const user$ = this.userService.getCurrentUser();

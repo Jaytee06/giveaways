@@ -18,6 +18,10 @@ const PostSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Category'
     }],
+    views: {
+        type: Number,
+        default: 0
+    },
     content: {
         type:String,
     },

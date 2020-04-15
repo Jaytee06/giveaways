@@ -59,6 +59,9 @@ async function getByTitle(req, res) {
     const post = await ctlr.getByTitle(req.params.title);
 
     if( post ) {
+        // no need to wait
+        ctlr.update(post.id, {$inc:{views:1}});
+
         res.json(post);
     } else {
         res.status(400).send('Could not find post.');

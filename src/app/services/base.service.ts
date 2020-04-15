@@ -17,7 +17,7 @@ export class BaseService {
 
     public checkToken() {
         const token = localStorage.getItem('token');
-        const tokenExpire = localStorage.getItem('tokenExpire');
+        const tokenExpire = localStorage.getItem('tokenExpire').replace(/\"/g, '');
         return token && moment().isBefore(moment(tokenExpire));
     }
 

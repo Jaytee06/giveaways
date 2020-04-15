@@ -95,7 +95,7 @@ export class BlogPostComponent implements OnInit {
 				},
 				"datePublished": "${this.post.createdAt}",
 				"image": "${this.post.imageUrl}",
-				"articleBody": '${this.post.content}',
+				"articleBody": "${this.post.content.replace(/\"/g, '\'').replace(/&#39;/g, '\'').replace(/&nbsp;/g, '').replace(/(<([^>]+)>)/ig,"")}",
 				"publisher" : {
 					"@type" : "Organization",
 					"name" : "${this.post.author.fullname}"

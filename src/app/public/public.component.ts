@@ -53,6 +53,7 @@ export class PublicComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
+        console.log(this.userService.checkToken());
         if( this.userService.checkToken() ) {
             this.userService.getCurrentUser().subscribe((user) => {
                 this.user = user;
