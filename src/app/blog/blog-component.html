@@ -1,25 +1,75 @@
 <div class="pad-wrap d-flex" *ngIf="!isLoading; else loading">
 	<div class="flex-grow-1 mr-3">
-		<div class="chk-block hand" *ngFor="let post of posts" (click)="goToPost(post)">
-			<div class="chk-block-content">
 
-				<div class="d-flex flex-fill blog-item blog-post">
-					<div class="mr-2" *ngIf="post.imageUrl">
-						<img [ngStyle]="{'max-width': imageMaxWidth}" [src]="post.imageUrl"/>
-					</div>
-					<div class="d-flex flex-fill flex-column flex-grow-1">
-						<h2>{{post.title}}</h2>
-						<div class="flex-grow-1"><p>{{post.description}}</p></div>
-						<div class="d-flex flex-fill text-muted font-sm">
-							<div><i class="fa fa-user"></i> {{post.author.fullname}}</div>
-							<div class="ml-2"><i class="fa fa-clock-o"></i> {{post.createdAt | date: 'short'}}</div>
-							<div class="ml-2"><i class="fa fa-comments-o"></i> {{post.comments.length | number}}</div>
+<!--		<div class="chk-block hand" *ngFor="let post of posts" (click)="goToPost(post)">-->
+<!--			<div class="chk-block-content">-->
+
+<!--				<div class="d-flex flex-fill blog-item blog-post">-->
+<!--					<div class="mr-2" *ngIf="post.imageUrl">-->
+<!--						<img [ngStyle]="{'max-width': imageMaxWidth}" [src]="post.imageUrl"/>-->
+<!--					</div>-->
+<!--					<div class="d-flex flex-fill flex-column flex-grow-1">-->
+<!--						<h2>{{post.title}}</h2>-->
+<!--						<div class="flex-grow-1"><p>{{post.description}}</p></div>-->
+<!--						<div class="d-flex flex-fill text-muted font-sm">-->
+<!--							<div><i class="fa fa-user"></i> {{post.author.fullname}}</div>-->
+<!--							<div class="ml-2"><i class="fa fa-clock-o"></i> {{post.createdAt | date: 'short'}}</div>-->
+<!--							<div class="ml-2"><i class="fa fa-comments-o"></i> {{post.comments.length | number}}</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="d-flex flex-fill text-muted font-2x">-->
+<!--						<div class="align-self-center"><i class="fa fa-angle-double-right"></i></div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+
+
+		<div class="row">
+			<div class="col-md-12 col-lg-6 col-xl-4" *ngFor="let post of posts">
+				<div class="card mb-3">
+					<div class="card-body">
+						<div class="blog-heading">
+							<h2>{{post.title}}</h2>
+						</div>
+						<div class="blog-meta mb-3">
+							<span class="text-muted small mr-1">By {{post.author.fullname}} {{post.createdAt | date: 'short'}}</span>
+							<br>
+							<span class="small mr-1"><i class="fa fa-comments"></i> &nbsp;{{post.comments.length | number}} Comments</span>
+							<span class="small"><i class="fa fa-eye"></i> &nbsp;{{post.views | number}} View</span>
+						</div>
+						<div class="overlay-wrap mb-3">
+							<img [src]="post.imageUrl" alt="blog thumb" class="img-fluid w-100" width="940" height="700" />
+							<div class="card-img-overlay primary-tp-layer pos-center text-center">
+								<div class="center-holder">
+									<a href="javascript:void(0)" (click)="goToPost(post)" class="ih-fade-right"><i class="fa fa-arrow-right fa-3x fa-inverse"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="card-content mb-3">
+							<p class="text-justify">{{post.description}}</p>
+						</div>
+						<div class="mb-2">
+							<span class="badge badge-secondary" *ngFor="let cat of post.categories" (click)="toggleCat(cat._id)">{{cat.name}}</span>
+						</div>
+						<div class="read-link">
+							<a href="javascript:void(0)" class="btn btn-outline-primary" (click)="goToPost(post)">Read More <i class="fa fa-long-arrow-right"></i></a>
 						</div>
 					</div>
-					<div class="d-flex flex-fill text-muted font-2x">
-						<div class="align-self-center"><i class="fa fa-angle-double-right"></i></div>
-					</div>
-				</div>
+<!--					<div class="blog-action-link">-->
+<!--						<div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">-->
+<!--							<a href="javascript:void(0)" class="btn btn-secondary btn-lg btn-square" role="button">-->
+<!--								<i class="fa fa-pencil-square-o"></i> Edit-->
+<!--							</a>-->
+<!--							<a href="javascript:void(0)" class="btn btn-secondary btn-lg btn-square" role="button">-->
+<!--								<i class="fa fa-eye-slash"></i> Disable-->
+<!--							</a>-->
+<!--							<a href="javascript:void(0)" class="btn btn-secondary btn-lg btn-square" role="button">-->
+<!--								<i class="fa fa-trash"></i> Delete-->
+<!--							</a>-->
+<!--						</div>-->
+<!--					</div>-->
+				</div><!-- Card Closed -->
 			</div>
 		</div>
 
@@ -27,16 +77,37 @@
 			<div class="chk-block-content flex-grow-1 text-center load-more">Load More</div>
 		</div>
 	</div>
-	<div>
-		<div class="chk-block">
-			<div class="chk-block-title">Blog Categories</div>
-			<div class="chk-block-content">
-				<div *ngFor="let cat of categories">
-					<span class="badge mb-2 hand" [ngClass]="{'badge-secondary': catSelected(cat._id), 'badge-outline-inverse': !catSelected(cat._id)}" (click)="toggleCat(cat._id)"><i class="fa fa-times mr-1" *ngIf="catSelected(cat._id)"></i>{{cat.name}}</span>
-				</div>
-			</div>
-		</div>
-	</div>
+<!--	<div class="category-block">-->
+<!--&lt;!&ndash;		<div class="chk-block">&ndash;&gt;-->
+<!--&lt;!&ndash;			<div class="chk-block-title">Blog Categories</div>&ndash;&gt;-->
+<!--&lt;!&ndash;			<div class="chk-block-content">&ndash;&gt;-->
+<!--&lt;!&ndash;				<div *ngFor="let cat of categories">&ndash;&gt;-->
+<!--&lt;!&ndash;					<span class="badge mb-2 hand" [ngClass]="{'badge-secondary': catSelected(cat._id), 'badge-outline-inverse': !catSelected(cat._id)}" (click)="toggleCat(cat._id)"><i class="fa fa-times mr-1" *ngIf="catSelected(cat._id)"></i>{{cat.name}}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;				</div>&ndash;&gt;-->
+<!--&lt;!&ndash;			</div>&ndash;&gt;-->
+<!--&lt;!&ndash;		</div>&ndash;&gt;-->
+<!--		<div class="chk-block">-->
+<!--			<div class="chk-block-title">-->
+<!--				<h3 class="text-capitalize"><i class="fa fa-cubes mr-1 fa-lg"></i> Categories</h3>-->
+<!--			</div>-->
+<!--			<div class="chk-block-content">-->
+<!--				<div class="categories-list">-->
+<!--					<ul class="list list-unstyled m-0">-->
+<!--						<li *ngFor="let cat of categories">-->
+<!--							<span class="d-flex justify-content-between" [ngClass]="{'text-success': catSelected(cat._id)}" (click)="toggleCat(cat._id)">-->
+<!--								<span class="d-flex align-items-start">-->
+<!--									<span><i class="fa fa-arrow-circle-o-right mr-1"></i> {{cat.name}}</span>-->
+<!--								</span>-->
+<!--								<span class="d-flex align-items-end">-->
+<!--									<span>{{cat.postCount | number}}</span>-->
+<!--								</span>-->
+<!--							</span>-->
+<!--						</li>-->
+<!--					</ul>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>&lt;!&ndash; Chk Block Closed &ndash;&gt;-->
+<!--	</div>-->
 </div>
 <ng-template #loading>
 	<app-loader></app-loader>

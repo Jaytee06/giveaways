@@ -10,11 +10,28 @@ module.exports = router;
 router.use(passport.authenticate('jwt', { session: false }));
 router.use(requireRole);
 
-router.route('/').get(asyncHandler(get));
+router.route('/').get(asyncHandler(preQuery), asyncHandler(get));
 router.route('/').post(asyncHandler(insert));
 router.route('/:id').get(asyncHandler(getById));
 router.route('/:id').put(asyncHandler(update));
 router.route('/:id').delete(asyncHandler(remove));
+
+async function preQuery(req, res) {
+    const aggData = {};
+    if( req.query ) {
+
+        if( req.query.getCount && req.query.getCount === 'true' ) {
+            aggData.getPostCount = true;
+            delete req.query.getCount;
+        }
+
+    }
+
+    req.query = {
+        query: req.query,
+        aggData,
+    };
+}
 
 async function insert(req, res) {
     const categoryCtrl = new CategoryCtrl();
