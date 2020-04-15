@@ -38,6 +38,7 @@
 		"@e-cloud/ngx-tree": "^0.8.0",
 		"@ng-bootstrap/ng-bootstrap": "^2.2.0",
 		"@ng-select/ng-select": "^2.10.2",
+		"@ng-toolkit/universal": "^1.1.40",
 		"@ngx-translate/core": "^10.0.2",
 		"@ngx-translate/http-loader": "^3.0.1",
 		"@swimlane/ngx-charts": "^8.1.0",
