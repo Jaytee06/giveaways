@@ -6,7 +6,6 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
-
 const TicketCtrl = require('../controllers/ticket.controller');
 const userCtrl = require('../controllers/user.controller');
 const User = require('../models/user.model');
@@ -96,6 +95,9 @@ const jwtLogin = new JwtStrategy({
     user = await userCtrl.checksLogin(user);
     user = user.toObject();
     delete user.hashedPassword;
+
+    if( payload.recoveryPassword ) user.recoveryPassword = true;
+
     done(null, user);
 });
 

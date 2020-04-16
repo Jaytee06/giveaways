@@ -65,6 +65,7 @@ export class UserService extends BaseService{
 
     updateUser(userData) {
         return this.http.put(`${this.baseService.getBaseUrl()}/user/${userData._id}`, userData, {headers: this.headers}).pipe(
+            tap(() => {this.success('User updated.');}),
             catchError(this.handleError.bind(this)),
         );
     }
@@ -77,7 +78,6 @@ export class UserService extends BaseService{
     }
 
     getCurrentUser() {
-        console.log('getCurrentUser', this.currentUser);
         const userId = localStorage.getItem('user');
         if (userId && userId != '' && this.currentUser == null) {
             return this.getUser(userId);
@@ -95,13 +95,14 @@ export class UserService extends BaseService{
     }
 
     recoverPassword$(email) {
-        return this.http.get( `${this.baseService.getBaseUrl()}/auth/recover-password?email${email}`).pipe(
+        return this.http.get( `${this.baseService.getBaseUrl()}/auth/recover-password?email=${email}`).pipe(
             catchError(this.handleError.bind(this)),
         );
     }
 
     setNewPassword$(password, token) {
         return this.http.post(`${this.baseService.getBaseUrl()}/auth/set-new-password`, { password }, {headers: new HttpHeaders(this.baseService.getHeaders(token))}).pipe(
+            tap(() =>{this.success('Password has been reset')}),
             catchError(this.handleError.bind(this)),
         );
     }

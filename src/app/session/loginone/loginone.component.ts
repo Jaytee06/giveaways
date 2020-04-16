@@ -23,6 +23,7 @@ import {filter, take} from "rxjs/operators";
 export class LoginoneComponent implements OnInit {
 
 	@ViewChild("referralProgram") referralProgram:ElementRef;
+	@ViewChild("resetPasswordModal") resetPasswordModal:ElementRef;
 	addYoutube: Observable<boolean>;
 
 	userCount = 0;
@@ -69,8 +70,6 @@ export class LoginoneComponent implements OnInit {
 			}
 		});
 
-		this.token = this.route.snapshot.queryParams.token;
-
 		this.form = this.fb.group({
 			// email: ['', [Validators.required, Validators.email]],
 			// password: ['', [Validators.required]],
@@ -81,6 +80,11 @@ export class LoginoneComponent implements OnInit {
 		this.addYoutube = this.visibilityService
 			.elementInSight(this.referralProgram)
 			.pipe(filter(visible => visible), take(1));
+
+		this.token = this.route.snapshot.queryParams.token;
+		if( this.token ) {
+			this.open(this.resetPasswordModal);
+		}
 	}
 
 	updateRaffleTime() {
@@ -192,7 +196,7 @@ export class LoginoneComponent implements OnInit {
 
 		} else {
 			this.service.recoverPassword$(this.form.value.email).subscribe(
-				result => console.log(result),
+				result => this.router.navigate(['/session/loginone']).then(),
 			);
 		}
 		// this.router.navigate(['/']);
