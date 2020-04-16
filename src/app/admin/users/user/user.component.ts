@@ -93,7 +93,10 @@ export class UserComponent implements OnInit {
     }
 
     updateUser() {
+        this.user.fullname = this.firstName+' '+this.lastName;
+        this.service.updateUser(this.user).subscribe(() => {
 
+        });
     }
 
     cancel() {

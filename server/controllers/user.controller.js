@@ -3,6 +3,7 @@ const request = require('request');
 const Joi = require('joi');
 const Role = require('../models/role.model'); // needed for populate in crons
 const Address = require('../models/address.model'); // needed for populate in crons
+const auth = require('./auth.controller');
 const User = require('../models/user.model');
 const TicketCtrl = require('../controllers/ticket.controller');
 const FireStoreCtrl = require('../controllers/fire-store.controller');
@@ -42,6 +43,8 @@ module.exports = {
 	addReferrer,
 	getCounts,
 	checksLogin,
+	recoverPassword,
+	setNewPassword
 };
 
 async function insert(user) {
@@ -96,7 +99,6 @@ async function insert(user) {
 }
 
 async function get(query) {
-	console.log(JSON.stringify(query));
 	return await User.find(query).populate('address.shipping');
 }
 
@@ -254,14 +256,15 @@ async function _getBroadcasterAuthToken() {
 }
 
 async function recoverPassword(url, query) {
-	const user = (await this.get({ query, paginationQuery:{} }))[0];
+	const user = (await this.get(query))[0];
 	const result = { status: 200, payload: { message: 'success' } };
 
 	if (!user) {
 		result.status = 404;
 		result.payload = { message: 'User not found' };
 	} else {
-		const recoveryToken = auth.generateToken({ _id: user._id, recoveryPassword: true }, '3m');
+		user.recoveryPassword = true;
+		const recoveryToken = auth.generateToken(user, '3h');
 		Email.send('noreply@vintley.com', query.email, 'Password recovery', recoveryPassword({
 			url,
 			recoveryToken,
@@ -273,10 +276,10 @@ async function recoverPassword(url, query) {
 async function setNewPassword(user, password, email) {
 	const result = { status: 200, payload: { message: 'success' } };
 	try {
-		await this.updatePassword(user, password);
+		await updatePassword(user, password);
 		Email.send('noreply@vintley.com', email, 'Password Changed', passwordRecovered());
-
 	} catch (e) {
+		console.log('eeee', e);
 		result.status = 400;
 		result.payload.message = e.error;
 	}
@@ -328,4 +331,13 @@ async function checksLogin(user) {
 	delete user.email;
 
 	return await this.update(user._id, user);
+}
+
+async function updatePassword(id, password) {
+	const hashedPassword = bcrypt.hashSync(password, 10);
+	try {
+		return await update(id, { $set: { hashedPassword } });
+	} catch (e) {
+		console.log(e);
+	}
 }

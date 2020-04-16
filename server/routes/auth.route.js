@@ -65,13 +65,13 @@ async function insertUserLead(req, res) {
 }
 
 async function recoverPassword(req, res) {
-	let result = await UserCtrl.recoverPassword(req.get('referer'), req.query);
+	let result = await userCtrl.recoverPassword(req.get('referer'), req.query);
 	res.status(result.status).json(result.payload);
 }
 
 async function setNewPassword(req, res) {
 	if (req.user.recoveryPassword) {
-		let result = await UserCtrl.setNewPassword(req.user._id, req.body.password, req.user.email);
+		let result = await userCtrl.setNewPassword(req.user._id, req.body.password, req.user.email);
 		res.status(result.status).json(result.payload);
 	} else {
 		res.status(401).json({ message: 'Unauthorized' });
