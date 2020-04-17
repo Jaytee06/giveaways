@@ -290,14 +290,16 @@ async function checksLogin(user) {
 	if( !user.loginLogs ) user.loginLogs = [];
 	// check for daily bonus
 	// ignore vintley
-	if( user.loginLogs.find(x => moment().startOf('day').isBefore(moment(x)) && moment().add(1, 'day').startOf('day').isAfter(moment(x))) === undefined ) { // first time login in today
+	let today = moment().format('MM/DD/YYYY');
+	// if( user.loginLogs.find(x => moment().startOf('day').isBefore(moment(x)) && moment().add(1, 'day').startOf('day').isAfter(moment(x))) === undefined ) { // first time login in today
+	if( user.loginLogs.find(x => moment(x).format('MM/DD/YYYY') === today) === undefined ) { // first time login in today
 		const ticketCtrl = new TicketCtrl();
 		const fsCtrl = new FireStoreCtrl();
 
 		const obj = {
 			amount:5,
 			user: user._id,
-			reason: 'Daily login bonus for '+moment().format('MM/DD/YYYY'),
+			reason: 'Daily login bonus for '+today,
 			ref: '5e20ee6176255c15cc456eec',
 			refType: 'ticketOpp'
 		};
