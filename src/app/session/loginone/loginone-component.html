@@ -22,17 +22,17 @@
     <div class="d-flex center-content">
         <div class="row d-flex align-items-center">
             <div class="col col-xs-12 col-md-6 text-right">
-                <h1 class="pr-2">Join our Bi-Monthly Raffles</h1>
+                <h1 class="pr-2">Join our Bi-Monthly Giveaways</h1>
                 <p class="p-3 font-lg text-muted">
-                    Every other week we plan on doing a raffle. Enter our raffles for a chance to win great prizes!
+                    Every other week we plan on doing a giveaway. Enter our giveaways for a chance to win great prizes!
                 </p>
             </div>
             <div class="col col-xs-12 col-md-6" *ngIf="raffle">
                 <div class="d-flex flex-fill pr-3">
                     <div>
-                        <h3 *ngIf="raffle.status !== 'Starting' else showCountDown">Our last Raffle</h3>
+                        <h3 *ngIf="raffle.status !== 'Starting' else showCountDown">Our last Giveaway</h3>
                         <ng-template #showCountDown>
-                            <h3>Our Next Raffle</h3>
+                            <h3>Our Next Giveaway</h3>
                         </ng-template>
                     </div>
                     <div class="ml-auto">{{raffle.giveAwayName}}</div>
