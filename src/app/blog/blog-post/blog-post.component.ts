@@ -3,6 +3,7 @@ import {combineLatest, of} from "rxjs";
 import {UserService} from "../../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PostService} from "../../services/post.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
 	selector: 'blog-post',
@@ -27,6 +28,7 @@ export class BlogPostComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private el: ElementRef,
 		private renderer: Renderer2,
+		private sanitizer: DomSanitizer
 	) {}
 
 	ngOnInit() {
@@ -39,6 +41,9 @@ export class BlogPostComponent implements OnInit {
 		// 	[this.game, this.user] = data;
 		combineLatest(post$).subscribe((data) => {
 			[this.post] = data;
+
+			this.post.content = this.sanitizer.bypassSecurityTrustHtml(this.post.content);
+
 			this.getComments();
 			this.injectGoogleSnippet();
 		});
