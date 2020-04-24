@@ -52,6 +52,10 @@ class TicketController {
         return await Model.findByIdAndRemove(id);
     }
 
+    async delete(query) {
+        return await Model.deleteMany(query);
+    }
+
     async getCount(query) {
         return await Model.countDocuments(query.query);
     }

@@ -52,7 +52,10 @@ export class UserService extends BaseService{
 
     getUser(userId) {
         return this.http.get(`${this.baseService.getBaseUrl()}/user/${userId}`, {headers: this.headers}).pipe(
-            tap((user) => this.currentUser = user),
+            tap((user: any) => {
+                if( user._id === this.userId )
+                    this.currentUser = user;
+            }),
             catchError(this.handleError.bind(this)),
         );
     }

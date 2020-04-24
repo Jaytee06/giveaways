@@ -4,6 +4,7 @@ const asyncHandler = require('express-async-handler');
 const Ctrl = require('../controllers/ticket.controller');
 const requireRole = require('../middleware/require-role');
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const router = express.Router();
 module.exports = router;
@@ -15,6 +16,7 @@ router.route('/').get(asyncHandler(preQuery), asyncHandler(get));
 router.route('/').post(asyncHandler(insert));
 router.route('/count').get(asyncHandler(preQuery), asyncHandler(getCount));
 router.route('/counts').get(asyncHandler(preQuery), asyncHandler(getCounts));
+router.route('/clean-up').get(asyncHandler(cleanUp)); // temp function
 router.route('/:id').get(asyncHandler(getById));
 router.route('/:id').put(asyncHandler(update));
 router.route('/:id').delete(asyncHandler(remove));
@@ -131,4 +133,34 @@ async function getCounts(req, res) {
     const crtl = new Ctrl();
     const tickets = await crtl.ticketCounts(req.query);
     res.json(tickets);
+}
+
+async function cleanUp(req, res) {
+    const crtl = new Ctrl();
+    const tickets = await crtl.get({query:{ref:mongoose.Types.ObjectId('5e20ee6176255c15cc456eec')}});
+
+    const usersTickets = [];
+    tickets.forEach((ticket)=> {
+        const date = moment(ticket.createdAt).format('MM/DD/YYYY');
+        if( !usersTickets[ticket.user._id] ) usersTickets[ticket.user._id] = [];
+        if( !usersTickets[ticket.user._id][date] ) usersTickets[ticket.user._id][date] = [];
+
+        usersTickets[ticket.user._id][date].push(mongoose.Types.ObjectId(ticket._id));
+    });
+
+    // console.log(usersTickets);
+    let ids = [];
+    Object.keys(usersTickets).forEach((i) => {
+        const user = usersTickets[i];
+        Object.keys(user).forEach((j) => {
+            Object.keys(user[j]).forEach((k) => {
+                if( k  > 0 )
+                    ids.push(mongoose.Types.ObjectId(user[j][k]));
+            });
+        });
+    });
+
+    await crtl.delete({_id:{$in:ids}});
+
+    res.json("Done");
 }
