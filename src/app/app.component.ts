@@ -30,7 +30,7 @@ import { TranslateService} from '@ngx-translate/core';
 			<div>
 				<h2>Information</h2>
 				<hr>
-				<div><a [routerLink]="'/blig/list/'">Blog</a></div>
+				<div><a [routerLink]="'/blog/list/'">Blog</a></div>
 			</div>
 			<div></div>
 		</div>
