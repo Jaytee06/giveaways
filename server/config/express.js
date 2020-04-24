@@ -16,6 +16,8 @@ const passport = require('./passport');
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { createGzip } = require('zlib');
 
+const PostCtrl = require('../controllers/post.controller');
+
 const app = express();
 
 if (config.env === 'development') {
@@ -31,35 +33,40 @@ if (config.frontend == 'react'){
  }
 
 let sitemap;
-app.get('/sitemap.xml', function(req, res) {
-    // res.header('Content-Type', 'application/xml');
-    // res.header('Content-Encoding', 'gzip');
-    // // if we have a cached entry send it
-    // if (sitemap) {
-    //     res.send(sitemap)
-    //     return
-    // }
-    //
-    // try {
-    //     const smStream = new SitemapStream({ hostname: config.serverURL });
-    //     const pipeline = smStream.pipe(createGzip());
-    //
-    //     // pipe your entries or directly write them.
-    //     smStream.write({ url: '/page-1/',  changefreq: 'daily', priority: 0.3 })
-    //     smStream.write({ url: '/page-2/',  changefreq: 'monthly',  priority: 0.7 })
-    //     smStream.write({ url: '/page-3/'})    // changefreq: 'weekly',  priority: 0.5
-    //     smStream.write({ url: '/page-4/',   img: "http://urlTest.com" })
-    //     smStream.end()
-    //
-    //     // cache the response
-    //     streamToPromise(pipeline).then(sm => sitemap = sm)
-    //     // stream write the response
-    //     pipeline.pipe(res).on('error', (e) => {throw e})
-    // } catch (e) {
-    //     console.error(e)
-    //     res.status(500).end()
-    // }
-    res.sendFile('../../sitemap.xml');
+app.get('/sitemap.xml', async function(req, res) {
+    res.header('Content-Type', 'application/xml');
+    res.header('Content-Encoding', 'gzip');
+    // if we have a cached entry send it
+    if (sitemap) {
+        res.send(sitemap);
+        return
+    }
+
+    try {
+        const smStream = new SitemapStream({ hostname: config.serverURL });
+        const pipeline = smStream.pipe(createGzip());
+        const postCtrl = new PostCtrl();
+
+        // pipe your entries or directly write them.
+        smStream.write({ url: '/',  changefreq: 'daily', priority: 0.3 });
+        smStream.write({ url: '/blog/list',  changefreq: 'daily', priority: 0.3 });
+
+        const posts = await postCtrl.get({query:{}, limit:1000});
+        posts.forEach((post) => {
+           const title = post.title.toLowerCase().replace(/ /g, '-'); // match blog.component
+            smStream.write({ url: '/blog/'+title,  changefreq: 'daily', priority: 0.3 });
+        });
+        smStream.end();
+
+        // cache the response
+        streamToPromise(pipeline).then(sm => sitemap = sm);
+        // stream write the response
+        pipeline.pipe(res).on('error', (e) => {throw e});
+    } catch (e) {
+        console.error(e);
+        res.status(500).end();
+    }
+    // res.sendFile('../../sitemap.xml');
 });
 
 //
