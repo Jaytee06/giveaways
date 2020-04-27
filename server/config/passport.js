@@ -34,7 +34,7 @@ const twitchLogin = new TwitchStrategy({
 
                 // give the user a bonus of tickets for linking twitch
                 const obj = {
-                    amount: 1000,
+                    amount: 100,
                     user: user._id,
                     reason: 'Linked Twitch',
                     ref: "5e76815c1dac0e4739c37062",
