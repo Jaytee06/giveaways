@@ -101,7 +101,7 @@ export class LoginoneComponent implements OnInit {
 		if( this.raffle.status === 'Starting' ) {
 			this.runCountDown();
 		} else {
-			this.raffle.displayTime = this.service.formatDate(showTime, false, true);
+			this.raffle.displayTime = this.service.formatDate(showTime, false, false, true);
 		}
 	}
 

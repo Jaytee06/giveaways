@@ -1,0 +1,21 @@
+.more-menu {
+	padding: 1em;
+}
+
+.more-btn {
+	width: 100%;
+	margin-bottom: 1.25em;
+}
+
+.more-item {
+	margin: 0 1em;
+	display: block;
+}
+
+.filter-wrapper > * {
+	min-width: 200px;
+}
+
+::ng-deep .ng-dropdown-panel {
+	font-size: small !important;
+}

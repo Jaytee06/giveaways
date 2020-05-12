@@ -1,0 +1,12 @@
+<ng-select
+    bindLabel="name"
+    bindValue="_id"
+    [disabled]="disabled"
+    [items]="statusOptions"
+    [multiple]="true"
+    [closeOnSelect]="false"
+    [hideSelected]="true"
+    [placeholder]="title"
+    [(ngModel)]="filters[key]"
+    (change)="filterChanged.emit(filters)"
+></ng-select>

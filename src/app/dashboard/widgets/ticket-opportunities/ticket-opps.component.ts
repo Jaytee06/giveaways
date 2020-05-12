@@ -103,7 +103,7 @@ export class TicketOppsComponent implements OnInit {
 				q.status = "In Progress";
 				if( q.didEnd ) q.status = "Ended";
 			}
-			q.displayTime = this.service.formatDate(q.start, false, true); return q;
+			q.displayTime = this.service.formatDate(q.start, false, false,true); return q;
 		});
 		setTimeout(() => {
 			this.updateTimes(this.quizzes);

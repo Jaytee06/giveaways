@@ -3,6 +3,8 @@ import {PageTitleService} from "../../core/page-title/page-title.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TicketService} from "../../services/ticket.service";
 import * as _ from 'lodash';
+import {TimezonesService} from "../../services/timezones.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-tickets',
@@ -20,10 +22,32 @@ export class TicketsComponent implements OnInit {
 	filterTimeout;
 	query: any = {};
 	totalTickets: number;
+	ticketSummations: any = {
+		loading:true,
+		total: { name: 'Active Tickets', majorStat: 0, customClass: 'btn-success' },
+		subSummations: [],
+		rowHeight:'105px',
+	};
+	filterData: any = {
+		availableFilters: {
+			main: ['users'],
+		},
+		more: {
+			sortBy: {
+				options: ['createdAt'],
+			},
+		},
+		'users': { title: 'User', name: 'user' },
+		dateRange: {
+			startDate: TimezonesService.getRelativeDateRange('allTime')[0],
+			endDate: TimezonesService.getRelativeDateRange('allTime')[1],
+		},
+	};
 
 	constructor(
 		private pageTitleService: PageTitleService,
 		private service: TicketService,
+		private userService: UserService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute
 	) {
@@ -41,6 +65,8 @@ export class TicketsComponent implements OnInit {
 		this.tableData.displayedColumns = ['user.fullname', 'amount', 'reason', 'createdAt'];
 
 		this.tableData.dataSource = new EventEmitter();
+
+		this.filterData['users'].items$ = this.userService.getUsers();
 
 		this.filterChanged();
 
@@ -76,6 +102,7 @@ export class TicketsComponent implements OnInit {
 	}
 
 	display() {
+		console.log(this.service.filters);
 		this.tableData.isLoading = true;
 		this.service.get$().subscribe(
 			(data: any[]) => {
@@ -90,6 +117,31 @@ export class TicketsComponent implements OnInit {
 		this.service.getCount().subscribe((data: number) => {
 			this.totalTickets = data;
 		});
+
+		this.updateSummations();
+	}
+
+	updateSummations() {
+		this.ticketSummations.loading = true;
+		this.ticketSummations.total.majorStat = 0;
+
+		this.service.filters.getSpent = true;
+		this.service.getCounts$().subscribe((data:any) => {
+
+			this.ticketSummations.total.majorStat = data.reduce((c, t) => {
+				return c += t.count;
+			}, 0);
+
+			this.service.filters.getSpent = false;
+			this.service.getCounts$().subscribe((data1:any) => {
+				const count = data1.reduce((c, t) => {
+					return c += t.count;
+				}, 0);
+				this.ticketSummations.subSummations = [{name: 'Earned Tickets', majorStat:count}];
+				this.ticketSummations.loading = false;
+			});
+		});
+
 	}
 
 	ticketSelected(ticket) {

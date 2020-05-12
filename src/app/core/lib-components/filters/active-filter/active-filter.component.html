@@ -1,0 +1,9 @@
+<ng-select
+    bindLabel="name"
+    bindValue="value"
+    [items]="activeOptions"
+    [disabled]="disabled"
+    [placeholder]="title"
+    [(ngModel)]="filters.active"
+    (change)="filterChanged.emit(filters)"
+></ng-select>

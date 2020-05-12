@@ -1,0 +1,11 @@
+<ng-select
+		[placeholder]="title"
+		[items]="items"
+		[(ngModel)]="filters.sortBy"
+		(ngModelChange)="filterChanged.emit(filters)"
+		bindValue="id"
+		bindLabel="label"
+		appendTo="body"
+		appStopPropagation
+>
+</ng-select>

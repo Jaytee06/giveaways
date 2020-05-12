@@ -1,0 +1,10 @@
+<ng-select
+		[placeholder]="title"
+		[items]="items"
+		[(ngModel)]="filters.exportItem"
+		(ngModelChange)="filterChanged.emit(filters)"
+		bindLabel="name"
+		appendTo="body"
+		appStopPropagation
+>
+</ng-select>

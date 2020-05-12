@@ -98,15 +98,15 @@ export class TriviaComponent implements OnInit {
 		this.trivia.status = "Starting";
 		if( this.trivia.didStart ) {
 			this.trivia.status = "In Progress";
-			this.trivia.displayTime = this.service.formatDate(this.trivia.didStart, false, true);
+			this.trivia.displayTime = this.service.formatDate(this.trivia.didStart, false, false,true);
 			if( this.trivia.didEnd || (!this.trivia.intermission && this.trivia.countDown === 0 && this.trivia.currentQuestion === this.trivia.numOfQuestions) ) {
 				this.trivia.status = "Ended";
-				this.trivia.displayTime = this.service.formatDate(this.trivia.didEnd, false, true);
+				this.trivia.displayTime = this.service.formatDate(this.trivia.didEnd, false, false, true);
 			}
 		} else if( moment().isAfter(trivia.start) ) {
 			this.trivia.status = "Waiting";
 		} else {
-			this.trivia.displayTime = this.service.formatDate(this.trivia.start, false, true);
+			this.trivia.displayTime = this.service.formatDate(this.trivia.start, false, false, true);
 		}
 
 		if( doTimeout ) {

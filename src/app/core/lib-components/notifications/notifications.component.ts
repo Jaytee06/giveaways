@@ -39,7 +39,7 @@ export class NotificationsComponent implements OnInit {
           this.notSeenIds = userNotis.notSeen;
 
           this.notifications = userNotis.notis.map((noti) => {
-            noti.createdDisplay = this.userService.formatDate(noti.created, true, true);
+            noti.createdDisplay = this.userService.formatDate(noti.created, true, false, true);
             return noti;
           }).sort((a, b) => {
             if( moment(a).isBefore(moment(b)) )

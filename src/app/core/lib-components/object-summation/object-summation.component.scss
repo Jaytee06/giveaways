@@ -1,0 +1,146 @@
+@import "../../../main/variables.scss";
+
+mat-grid-list {
+	margin: 0.5em 0;
+	font-size: small;
+}
+mat-grid-tile {
+	border: 1px solid #DEE4E8;
+	text-align: center;
+}
+mat-grid-tile.default {
+	background-color: white;
+}
+
+::ng-deep .font-xs {
+	font-size: x-small !important;
+}
+
+.title {
+	font-weight: bold;
+}
+
+.minor-stat {
+	font-size: smaller;
+}
+.btn-gray {
+	color: white;
+	background-color: #bfbfbf;
+}
+
+.sub-data {
+	border-top: 1px solid #DEE4E8;
+	font-size: smaller;
+}
+full-height {
+	height: 100% !important;
+}
+
+.sub-stat-data-top {
+	padding: .15em;
+}
+.sub-stat-data {
+	padding: 0 .15em .15em .15em;
+}
+
+.cell-header {
+	color: white;
+	border-radius: 3px;
+}
+
+.cell-header-canceled {
+	background-color: $danger;
+}
+.cell-canceled {
+	border: 2px solid $danger;
+}
+
+.cell-header-0, .cell-header-10 {
+	background-color: $success;
+}
+.cell-0, .cell-10 {
+	border: 2px solid $success;
+}
+
+.cell-header-1, .cell-header-11 {
+	background-color: $info;
+}
+.cell-1, .cell-11 {
+	border: 2px solid $info;
+}
+
+.cell-header-2, .cell-header-12 {
+	background-color: $secondary;
+}
+.cell-2, .cell-12 {
+	border: 2px solid $secondary;
+}
+
+.cell-header-3, .cell-header-13 {
+	background-color: $warning;
+}
+.cell-3, .cell-13 {
+	border: 2px solid $warning;
+}
+
+.cell-header-4, .cell-header-14 {
+	background-color: $primary;
+}
+.cell-4, .cell-14 {
+	border: 2px solid $primary;
+}
+
+.cell-header-5, .cell-header-15 {
+	background-color: $indigo;
+}
+.cell-5, .cell-15 {
+	border: 2px solid $indigo;
+}
+
+.cell-header-6, .cell-header-16 {
+	background-color: $pink;
+}
+.cell-6, .cell-16 {
+	border: 2px solid $pink;
+}
+
+.cell-header-7, .cell-header-17 {
+	background-color: $orange;
+}
+.cell-7, .cell-17 {
+	border: 2px solid $orange;
+}
+
+.cell-header-8, .cell-header-18 {
+	background-color: $danger;
+}
+.cell-8, .cell-18 {
+	border: 2px solid $danger;
+}
+
+.cell-header-9, .cell-header-19 {
+	background-color: $dark;
+}
+.cell-9, .cell-19 {
+	border: 2px solid $dark;
+}
+
+.summation-block {
+	border: 1px solid #DEE4E8;
+	border-radius: 5px;
+	margin-bottom: 0.5em;
+	background-color: white;
+}
+
+.summation-item {
+	border-top: 1px solid #DEE4E8;
+}
+
+.sub-summation-item {
+	font-size: 14px;
+	border-top: 1px solid #DEE4E8;;
+}
+
+.summation-percent {
+	font-size: 11px;
+}

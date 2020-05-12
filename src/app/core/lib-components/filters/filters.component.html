@@ -1,0 +1,127 @@
+<div class="row"
+     *ngIf="filterOptions.availableFilters && filterOptions.availableFilters.main && filterOptions.availableFilters.main.length">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-around end" class="filter-wrapper">
+
+      <ng-container *ngFor="let filter of filterOptions.availableFilters.main; trackBy: trackByFn">
+        <ng-container [ngSwitch]="filter">
+
+          <select-filter
+              fxFlex="1 1 auto"
+              *ngSwitchCase="'users'"
+              [disabled]="disableFilters || indivDisabledFilters.users"
+              (filterChanged)="subFilterChanged($event)"
+              [filterSettings]="filterOptions[filter]"
+			  [multiple]="filter.multiple"
+          ></select-filter>
+
+
+          <role-filter
+              fxFlex="1 1 auto"
+              *ngSwitchCase="'roles'"
+              [disabled]="disableFilters || indivDisabledFilters.roles"
+              [title]="customNames.roles"
+              (filterChanged)="subFilterChanged($event)"
+          ></role-filter>
+
+          <active-filter
+              fxFlex="1 1 auto"
+              *ngSwitchCase="'active'"
+              [disabled]="disableFilters || indivDisabledFilters.active"
+              [title]="customNames.active"
+              (filterChanged)="subFilterChanged($event)"
+          ></active-filter>
+
+          <ng-container *ngSwitchCase="'statuses'">
+            <statuses-filter
+                fxFlex="1 1 auto"
+                *ngIf="filterOptions.statuses"
+                [disabled]="disableFilters || indivDisabledFilters.statuses"
+                [filterSettings]="filterOptions.statuses"
+                [title]="customNames.statuses"
+                [statusType]="filterOptions.statuses.query && filterOptions.statuses.query.type || 'Sale'"
+                [labelName]="'Sales Status'"
+                (filterChanged)="subFilterChanged($event)"
+            ></statuses-filter>
+          </ng-container>
+
+
+          <date-range-filter
+              fxFlex="1 1 auto"
+              *ngSwitchCase="'dateRange'"
+              [disabled]="disableFilters || indivDisabledFilters.dateRange"
+              [title]="customNames.dateRange"
+              (filterChanged)="subFilterChanged($event)"
+              [filterDateRange]="filterOptions.dateRange"
+          ></date-range-filter>
+
+          <search-text-filter
+              *ngSwitchCase="'searchText'"
+              [disabled]="disableFilters || indivDisabledFilters.searchText"
+              [title]="customNames.searchText"
+              fxFlex="1 1 auto"
+              (filterChanged)="subFilterChanged($event)"
+          ></search-text-filter>
+
+        </ng-container>
+      </ng-container>
+
+      <div fxFlex="1 1 150px"
+           *ngIf="filterOptions.more && filterOptions.availableFilters && filterOptions.availableFilters.more && filterOptions.availableFilters.more.length"
+      >
+        <button
+            fxLayoutAlign="center"
+            type="button"
+            mat-raised-button
+            class="more-btn"
+            [disabled]="disableFilters"
+            [matMenuTriggerFor]="moreMenu"
+        >
+          More
+          <ng-container *ngIf="moreFiltersLength > 0">({{moreFiltersLength}})</ng-container>
+          <i class="material-icons">keyboard_arrow_down</i>
+        </button>
+        <mat-menu #moreMenu="matMenu" class="more-menu" [overlapTrigger]="false" fxLayout="column">
+          <ng-container *ngFor="let filter of filterOptions.availableFilters.more; trackBy: trackByFn">
+            <ng-container [ngSwitch]="filter">
+
+
+              <sort-filter
+                  *ngSwitchCase="'sortBy'"
+                  class="more-item"
+                  [title]="customNames.sortBy"
+                  [customNames]="customNames"
+                  (filterChanged)="moreFilterChanged($event)"
+                  [resetMoreFilters$]="resetMoreFilters$"
+                  [filterSettings]="filterOptions.more.sortBy"
+              ></sort-filter>
+
+              <export-filter
+                  *ngSwitchCase="'exports'"
+                  class="more-item"
+                  [title]="customNames.exports"
+                  (filterChanged)="moreFilterChanged($event)"
+                  [resetMoreFilters$]="resetMoreFilters$"
+                  [filterSettings]="filterOptions.more.exports"
+              ></export-filter>
+
+            </ng-container>
+          </ng-container>
+          <div class="mt-2">
+            <mat-grid-list [cols]="filterOptions.more.exports ? 3 : 2" rowHeight="2.5em">
+              <mat-grid-tile>
+                <button type="button" class="btn btn-primary Btn-primary" (click)="applyMoreFilters()">Apply</button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button type="button" class="btn btn-default Btn-default" (click)="resetMoreFilters()">Reset</button>
+              </mat-grid-tile>
+              <mat-grid-tile *ngIf="filterOptions.more.exports">
+                <button type="button" class="btn btn-info Btn-info" (click)="export()">Export</button>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>
