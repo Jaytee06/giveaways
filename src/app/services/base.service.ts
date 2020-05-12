@@ -5,12 +5,14 @@ import {MatSnackBar} from "@angular/material";
 import * as moment from "moment";
 
 import * as _$ from 'jquery';
+import {TimezonesService} from "./timezones.service";
 const $ = _$;
 
 @Injectable()
 export class BaseService {
 
     filters: any = {};
+    storedFilters: any = {};
     customErrorMessage = '';
 
     constructor(public snackBar: MatSnackBar, private zone: NgZone) {}
@@ -27,6 +29,10 @@ export class BaseService {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+token
         };
+    }
+
+    changeStoredFilters(filters) {
+        this.storedFilters = { ...this.storedFilters, ...filters };
     }
 
     public getBaseUrl() {
@@ -323,12 +329,14 @@ export class BaseService {
         ];
     }
 
-    formatDate(date, addTime = false, timeAgo = false) {
-        if (addTime)
-            return moment(date).format('MM/DD/YYYY h:mm a');
-        else if( timeAgo )
-            return moment(date).fromNow();
-        else
-            return moment(date).format('MM/DD/YYYY');
+    formatDate(date, addTime = false, shortDate = false, timeAgo = false, timezone = 'America/Denver') {
+        const format = `${shortDate ? 'M/D/YY' : 'MM/DD/YYYY'}${addTime ? ' h:mm a' : ''}`;
+
+        return timeAgo ? TimezonesService.applyTimezoneOffset(moment(date), timezone).fromNow() : TimezonesService.applyTimezoneOffset(moment(date), timezone).format(format);
+    }
+
+    get timeZoneOffset(): number {
+        const userSettings = JSON.parse(localStorage.getItem('userSettings'));
+        return userSettings && userSettings.timeZoneOffset || -360; // MST default by request
     }
 }

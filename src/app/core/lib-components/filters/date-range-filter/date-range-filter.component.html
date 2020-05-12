@@ -1,0 +1,30 @@
+<div fxLayout="col" fxLayoutAlign="space-around end" fxLayoutGap="10px">
+	<mat-form-field>
+		<input
+				type="text"
+				id="date-range"
+				autocomplete="off"
+				matInput
+				ngxDaterangepickerMd
+				[placeholder]="title"
+				[disabled]="disabled"
+				[ngModel]="filterDateRange"
+				[ranges]="ranges"
+				[showCustomRangeLabel]="true"
+				[alwaysShowCalendars]="true"
+				(ngModelChange)="ngModelChange($event)"
+		/>
+	</mat-form-field>
+	<div class="d-flex align-self-center">PST</div>
+	<!-- TODO: don't delete the selectbox, it will be used eventually -->
+<!--	<ng-select-->
+<!--			bindLabel="name"-->
+<!--			bindValue="offset"-->
+<!--			[disabled]="disabled"-->
+<!--			[items]="timezones"-->
+<!--			[clearable]="false"-->
+<!--			[(ngModel)]="filterDateRange.offset"-->
+<!--			(ngModelChange)="changeOffset()"-->
+<!--	>-->
+<!--	</ng-select>-->
+</div>

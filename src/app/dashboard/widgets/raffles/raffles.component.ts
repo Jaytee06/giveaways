@@ -52,7 +52,7 @@ export class RafflesComponent implements OnInit {
 					showTime = q.didEnd;
 				}
 			}
-			q.displayTime = this.service.formatDate(showTime, false, true);
+			q.displayTime = this.service.formatDate(showTime, false, false, true);
 			return q;
 		});
 

@@ -137,15 +137,15 @@ export class RaffleComponent implements OnInit {
 		this.raffle.status = "Starting";
 		if( this.raffle.didStart ) {
 			this.raffle.status = "In Progress";
-			this.raffle.displayTime = this.service.formatDate(this.raffle.didStart, false, true);
+			this.raffle.displayTime = this.service.formatDate(this.raffle.didStart, false, false, true);
 			if( this.raffle.didEnd ) {
 				this.raffle.status = "Ended";
-				this.raffle.displayTime = this.service.formatDate(this.raffle.didEnd, false, true);
+				this.raffle.displayTime = this.service.formatDate(this.raffle.didEnd, false, false,true);
 			}
 		} else if( moment().isAfter(this.raffle.start) ) {
 			this.raffle.status = "Waiting";
 		} else {
-			this.raffle.displayTime = this.service.formatDate(this.raffle.start, false, true);
+			this.raffle.displayTime = this.service.formatDate(this.raffle.start, false, false, true);
 		}
 	}
 

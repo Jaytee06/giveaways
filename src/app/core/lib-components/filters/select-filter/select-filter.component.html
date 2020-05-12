@@ -1,0 +1,10 @@
+<ng-select
+    [disabled]="disabled"
+    [placeholder]="filterSettings.title"
+    [items]="filterSettings.items$ | async"
+    [bindValue]="filterSettings.bindValue || '_id'"
+    [bindLabel]="filterSettings.bindLabel || 'fullname'"
+    [(ngModel)]="selected"
+	[multiple]="multiple"
+    (change)="emit()"
+></ng-select>

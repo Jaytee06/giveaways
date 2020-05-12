@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {MaterialModule} from "./material.module";
 import {CustomTypeaheadSearchComponent} from "./tda-forms/form-page/custom-typeahead-search/custom-typeahead-search.component";
 import {TdaFormsModule} from "./tda-forms/tda-forms.module";
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {TcgDeleteDialogComponent} from "./dialogs/tcg-delete-dialog/tcg-delete-dialog.component";
 import {TcgConfirmDialogComponent} from "./dialogs/tcg-confirm-dialog/tcg-confirm-dialog.component";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -16,6 +17,16 @@ import {NotificationsComponent} from "./notifications/notifications.component";
 import {RouterModule} from "@angular/router";
 import {NgxWheelModule} from "ngx-wheel";
 import {NgxMaskModule} from "ngx-mask";
+import {ObjectSummationComponent} from "./object-summation/object-summation.component";
+import {FiltersComponent} from "./filters/filters.component";
+import { ActiveFilterComponent } from "./filters/active-filter/active-filter.component";
+import {DateRangeFilterComponent} from "./filters/date-range-filter/date-range-filter.component";
+import {ExportFilterComponent} from "./filters/export-filter/export-filter.component";
+import { RolesFilterComponent } from "./filters/role-filter/role-filter.component";
+import { SearchTextFilterComponent } from "./filters/search-text-filter/search-text-filter.component";
+import { SelectFilterComponent } from "./filters/select-filter/select-filter.component";
+import { SortFilterComponent } from "./filters/sort-filter/sort-filter.component";
+import { StatusesFilterComponent } from "./filters/statuses-filter/statuses-filter.component";
 
 
 @NgModule({
@@ -27,7 +38,17 @@ import {NgxMaskModule} from "ngx-mask";
         LoaderComponent,
         CountDownTimerComponent,
         HowItWorksComponent,
-        NotificationsComponent
+        NotificationsComponent,
+        ObjectSummationComponent,
+        FiltersComponent,
+        ActiveFilterComponent,
+        DateRangeFilterComponent,
+        ExportFilterComponent,
+        RolesFilterComponent,
+        SearchTextFilterComponent,
+        SelectFilterComponent,
+        SortFilterComponent,
+        StatusesFilterComponent,
     ],
     imports: [
         RouterModule,
@@ -36,6 +57,7 @@ import {NgxMaskModule} from "ngx-mask";
         MaterialModule,
         TdaFormsModule,
         NgSelectModule,
+        NgxDaterangepickerMd.forRoot(),
         NgCircleProgressModule.forRoot({
             radius: 100,
             outerStrokeWidth: 16,
@@ -57,11 +79,22 @@ import {NgxMaskModule} from "ngx-mask";
         TdaFormsModule,
         NgSelectModule,
         LoaderComponent,
+        NgxDaterangepickerMd,
         CountDownTimerComponent,
         HowItWorksComponent,
         NotificationsComponent,
         NgxWheelModule,
-        NgxMaskModule
+        NgxMaskModule,
+        ObjectSummationComponent,
+        FiltersComponent,
+        ActiveFilterComponent,
+        DateRangeFilterComponent,
+        ExportFilterComponent,
+        RolesFilterComponent,
+        SearchTextFilterComponent,
+        SelectFilterComponent,
+        SortFilterComponent,
+        StatusesFilterComponent,
     ],
     entryComponents: [
         TcgDeleteDialogComponent

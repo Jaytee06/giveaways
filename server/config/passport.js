@@ -1,5 +1,6 @@
 const passport = require('passport');
-const TwitchStrategy = require('passport-twitch-new').Strategy;
+// const TwitchStrategy = require('passport-twitch-new').Strategy;
+const TwitchStrategy = require("@d-fischer/passport-twitch").Strategy;
 const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;

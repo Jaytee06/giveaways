@@ -1,0 +1,27 @@
+<mat-grid-list [cols]="structure.limitCols || structure.subSummations.length + colsCount" [rowHeight]="rowHeight" *ngIf="structure.subSummations" >
+	<mat-grid-tile *ngIf="structure.total && structure.total.name" [ngClass]="structure.total.customClass" [colspan]="structure.total.colSpan || 1" [rowspan]="structure.total.rowSpan || 1" (click)="totalClicked()">
+		<div [class]="'p-1 '+structure.total.textClass">
+			<div class="title" [matTooltip]="structure.total.toolTip || ''">{{structure.total.name}}</div>
+			<div class="major-stat" *ngIf="structure.total.majorStat !== undefined">{{structure.total.majorStat | number:'1.0-0':'en'}}<span *ngIf="structure.total.percent && structure.total.percent != 100" > ({{structure.total.percent | number:'1.0-0':'en'}}%)</span></div>
+			<div class="minor-stat" *ngIf="structure.total.minorStat !== undefined"><small>{{structure.total.minorStat | number:'1.0-0':'en'}}</small></div>
+		</div>
+	</mat-grid-tile>
+	<ng-container *ngIf="structure.subSummations.length">
+		<mat-grid-tile class="{{sub.customClass}}" *ngFor="let sub of structure.subSummations" [ngClass]="{'default':!sub.customClass}" [colspan]="sub.colSpan || 1" [rowspan]="sub.rowSpan || 1" (click)="statusClicked(sub._id, structure._id)">
+			<div class="d-flex flex-column flex-fill" [ngClass]="{'full-height': sub.subStats && sub.subStats.length}">
+					<div class="flex-fill" [class]="'p-1 '+sub.textClass">
+						<div class="title" [matTooltip]="sub.toolTip || ''">{{sub.name}}</div>
+						<div class="major-stat" *ngIf="sub.majorStat !== undefined">{{sub.majorStat | number:'1.0-0':'en'}}<span *ngIf="sub.percent && sub.percent != 100"  [ngClass]="{'text-muted':!sub.customClass}"> ({{sub.percent | number:'1.0-0':'en'}}%)</span></div>
+						<div class="minor-stat" *ngIf="sub.minorStat !== undefined"><small>{{sub.minorStat | number:'1.0-0':'en'}}</small></div>
+					</div>
+					<div class="d-flex flex-column justify-content-around sub-data" *ngIf="sub.subStats && sub.subStats.length">
+						<div class="flex-fill text-center" *ngFor="let subStat of sub.subStats; let i = index" [ngClass]="{'sub-stat-data': i > 0, 'sub-stat-data-top': i == 0}" [class]="subStat.textClass" (click)="subStatusClicked(sub._id, subStat.key, $event)" [matTooltip]="subStat.toolTip || ''">
+							<span>{{subStat.prefix}}{{subStat.stat | number:subStat.format:'en'}}</span>
+							<span *ngIf="subStat.percent && subStat.percent != 100" class="text-muted"> ({{subStat.percent | number:'1.0-0':'en'}}%)</span>
+							{{subStat.desc}}
+						</div>
+					</div>
+			</div>
+		</mat-grid-tile>
+	</ng-container>
+</mat-grid-list>

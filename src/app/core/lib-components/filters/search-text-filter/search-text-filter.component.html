@@ -1,0 +1,10 @@
+<mat-form-field>
+	<input
+			matInput
+			appStopPropagation
+			[placeholder]="title"
+			[disabled]="disabled"
+			[(ngModel)]="filters.searchText"
+			(change)="filterChanged.emit(filters)"
+	>
+</mat-form-field>

@@ -1,7 +1,20 @@
+<filters
+		(filterChanged$)="filterChanged($event)"
+		[filterOptions]="filterData"
+		[filterCustomNames]="{}"
+></filters>
+<div class="row">
+	<div class="col"></div>
+	<div class="col col-xs-12 col-md-8 col-lg-4">
+		<object-summation *ngIf="!ticketSummations.loading" [structure]="ticketSummations"></object-summation>
+	</div>
+	<div class="col"></div>
+</div>
 <tcg-table
   [tableSettings]="tableData"
   [entity]="'Ticket'"
   [totalItems]="totalTickets"
   [resetSkip$]="resetSkip$"
   (rowClicked)="ticketSelected($event)"
+  (filterChanged)="filterChanged($event)"
 ></tcg-table>
