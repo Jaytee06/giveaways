@@ -141,9 +141,11 @@ async function update(id, user) {
 }
 
 async function checkSubscription(id) {
+	console.log('checkSubscription');
 	const user = await User.findById(id);
 
 	const token = await _getBroadcasterAuthToken();
+	const clientId = await _validateClient(token);
 
 	return new Promise((resolve, reject) => {
 
@@ -158,10 +160,11 @@ async function checkSubscription(id) {
 
 		const url = `https://api.twitch.tv/helix/subscriptions?broadcaster_id=${config.twitchBroadcasterId}&user_id=${user.twitch.providerId}`;
 		const headers = {
+			'client-id': clientId,
 			'Authorization': 'Bearer ' + token,
 		};
 		const req = request(url, {headers, json: true}, (err, res, body) => {
-			//console.log(err, body);
+			// console.log(err, body, token);
 			if (err) {
 				console.log(err);
 				return reject(new Error(err));
@@ -253,6 +256,36 @@ async function _getBroadcasterAuthToken() {
 		req.end();
 	});
 
+}
+
+async function _validateClient(token) {
+
+	return new Promise((resolve, reject) => {
+
+		// check if token is valid
+		const url = `https://id.twitch.tv/oauth2/validate`;
+		const headers = {
+			'client-id': config.twitchClientId,
+			'Authorization': 'OAuth ' + token,
+		};
+		const req = request(url, {headers, json: true}, (err, res, body) => {
+			//console.log(err, body);
+			if (err) {
+				console.log(err);
+				return reject(new Error(err));
+			}
+
+			if (body && body.client_id) {
+				resolve(body.client_id);
+			} else {
+				reject('Could Not Validate');
+			}
+		});
+		req.on('error', function (err) {
+			reject(err);
+		});
+		req.end();
+	});
 }
 
 async function recoverPassword(url, query) {
