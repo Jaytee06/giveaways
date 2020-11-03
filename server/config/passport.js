@@ -17,7 +17,7 @@ const twitchLogin = new TwitchStrategy({
         clientID: config.twitchClientId,
         clientSecret: config.twitchClientSecret,
         callbackURL: config.serverURL+"/api/auth/twitch/callback",
-        scope:config.twitchScope || ['user_read', 'user:read:email']
+        scope: config.twitchScope || ['user_read', 'user:read:email']
     },
     async function(accessToken, refreshToken, profile, done) {
         const ticketCtrl = new TicketCtrl();

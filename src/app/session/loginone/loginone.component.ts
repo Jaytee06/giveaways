@@ -122,7 +122,7 @@ export class LoginoneComponent implements OnInit {
     loginTwitch() {
     	let url = environment.apiBaseUrl + '/api/auth/twitch';
     	if( window.location.search.indexOf('isAdmin=true') > -1 )
-    		url += '?moreScope=true';
+    		url += '-admin';
 
         window.location.href = url;
     }

@@ -10,7 +10,8 @@ const Role = require('../models/role.model');
 const router = express.Router();
 module.exports = router;
 
-router.get('/twitch', asyncHandler(checkUser), passport.authenticate("twitch"));
+router.get('/twitch', passport.authenticate("twitch", ));
+router.get('/twitch-admin', passport.authenticate("twitch", {scope:['user_read', 'user:read:email', 'channel:read:subscriptions']}));
 router.get('/twitch/callback', passport.authenticate("twitch", {failureRedirect:"/"}), twitchLogin);
 router.post('/register', asyncHandler(register), login);
 router.post('/login', passport.authenticate('local', { session: false }), login);
@@ -22,15 +23,6 @@ router.route('/set-new-password').post(
 	passport.authenticate('jwt', { session: false }),
 	asyncHandler(setNewPassword),
 );
-
-async function checkUser(req, res, next) {
-	if( req.query ) {
-		if( req.query.moreScope ) {
-			config.twitchScope = ['user_read', 'user:read:email', 'channel:read:subscriptions'];
-		}
-	}
-	next();
-}
 
 async function register(req, res, next) {
 
