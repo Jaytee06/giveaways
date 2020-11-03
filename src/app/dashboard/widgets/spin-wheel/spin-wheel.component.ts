@@ -90,8 +90,8 @@ export class SpinWheelComponent implements OnInit {
 	}
 
 	getWin() {
-		// this.winText = this.allPrizes[this._getRandomIndexByProbability(this.winProbability)];
-		this.winId = this._getRandomIndexByProbability(this.winProbability);
+		this.winText = this.allPrizes[this._getRandomIndexByProbability(this.winProbability)];
+		// this.winId = this._getRandomIndexByProbability(this.winProbability);
 	}
 
 	wheelSpun() {
