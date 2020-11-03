@@ -41,6 +41,7 @@ const config = {
   twitchClientId: envVars.TWITCH_CLIENT_ID || '',
   twitchClientSecret: envVars.TWITCH_CLIENT_SECRET || '',
   twitchBroadcasterId: envVars.BROADCASTER_ID || '',
+  twitchScope: envVars.TWITCH_SCOPE ? envVars.TWITCH_SCOPE.split(" ") : ['user_read', 'user:read:email'],
   frontend: envVars.MEAN_FRONTEND || 'angular',
   mongo: {
     host: envVars.MONGO_HOST,

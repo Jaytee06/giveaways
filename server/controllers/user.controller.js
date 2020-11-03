@@ -164,7 +164,7 @@ async function checkSubscription(id) {
 			'Authorization': 'Bearer ' + token,
 		};
 		const req = request(url, {headers, json: true}, (err, res, body) => {
-			// console.log(err, body, token);
+			console.log(err, body, token);
 			if (err) {
 				console.log(err);
 				return reject(new Error(err));

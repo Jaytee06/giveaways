@@ -19,7 +19,7 @@ export class SpinWheelComponent implements OnInit {
 	@Output() didUpdateData:EventEmitter<any> = new EventEmitter<any>();
 
 	loading = true;
-	spinCost = 10;
+	spinCost = 0;
 	spinCount = 5;
 	user:any;
 	ticketCount = 0;
@@ -28,7 +28,8 @@ export class SpinWheelComponent implements OnInit {
 
 	allPrizes = ['5', 'Zero', '10', 'Nada', '100', '75', '50', '25'];
 	winText = '';
-	private winProbability = [.065, .315, .1, .315, .025, .065, .05, .065];
+	winId = -1;
+	private winProbability = [.13, .25, .2, .25, .05, .095, .1, .12];
 	messageTimeout;
 	spinning = false;
 
@@ -89,7 +90,8 @@ export class SpinWheelComponent implements OnInit {
 	}
 
 	getWin() {
-		this.winText = this.allPrizes[this._getRandomIndexByProbability(this.winProbability)];
+		// this.winText = this.allPrizes[this._getRandomIndexByProbability(this.winProbability)];
+		this.winId = this._getRandomIndexByProbability(this.winProbability);
 	}
 
 	wheelSpun() {
