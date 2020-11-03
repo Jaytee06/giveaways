@@ -120,7 +120,11 @@ export class LoginoneComponent implements OnInit {
 	}
 
     loginTwitch() {
-        window.location.href = environment.apiBaseUrl + '/api/auth/twitch';
+    	let url = environment.apiBaseUrl + '/api/auth/twitch';
+    	if( window.location.search.indexOf('isAdmin=true') > -1 )
+    		url += '?moreScope=true';
+
+        window.location.href = url;
     }
 
     loginone() {

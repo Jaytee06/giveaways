@@ -36,7 +36,7 @@
 									<span [innerHTML]="winMessage"></span>
 								</div>
 							<div class="text-center">
-								<p>Test your luck and spin the wheel. <span class="text-danger">Each spin cost {{spinCost}} <i class="fa fa-ticket text-success"></i>!</span></p>
+								<p>Test your luck and spin the wheel. <span class="text-danger" *ngIf="spinCost > 0">Each spin cost {{spinCost}} <i class="fa fa-ticket text-success"></i>!</span></p>
 								<p>How many <i class="fa fa-ticket text-success"></i> can you win?</p>
 							</div>
 							<ngx-wheel
